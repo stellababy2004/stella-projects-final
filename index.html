@@ -119,7 +119,9 @@
         <li><a href="#projects" class="button">Projects</a></li>
         <li><a href="#chart" class="button">Charts</a></li>
         <li><a href="attack-sim.html" class="button">AttackSim</a></li>
-        <li><a href="https://huggingface.co/spaces/stellababy2004/cyber-chat" target="_blank" rel="noopener" class="button">🤖 AI Chatbot</a></li>
+        <li><a href="https://huggingface.co/spaces/stellababy2004/cyber-chat" target="_blank" class="button">
+  🤖 Отвори AI чатбота в нов прозорец
+</a></li>
         <li><a href="#map-section" class="button">Live Map</a></li>
         <li><a href="#testimonials" class="button">Testimonials</a></li>
         <li><a href="#contact" class="button">Contact</a></li>
@@ -187,12 +189,11 @@
 
 <section class="section" id="cybersec-chatbot">
   <h2>CyberSec AI Chat 🤖</h2>
-  <iframe
-    src="https://hf.space/embed/stellababy2004/cyber-chat"
-    class="chatbot-iframe"
-    allow="clipboard-write; clipboard-read"
-    title="CyberSec AI Chat"
-  ></iframe>
+  <script
+    type="module"
+    src="https://gradio.s3-us-west-2.amazonaws.com/5.0.1/gradio.js"
+  ></script>
+  <gradio-app src="https://stellababy2004-stellababy2004cyber-chatbot.hf.space"></gradio-app>
 </section>
 
 <section class="section" id="attack-sim">
