@@ -6,9 +6,7 @@
   <title>Stella Barbarella SOC Analyst & Cybersecurity Portfolio</title>
   <meta name="description" content="Cybersecurity Portfolio of Stella Barbarella – SOC Analyst, Threat Hunter & Cybersecurity Enthusiast." />
   <meta name="keywords" content="SOC Analyst, Cybersecurity, Threat Hunting, Phishing Detector, Cyber Threat Map, Charts" />
-  <link rel="stylesheet" href="styles.css" />
-
- 
+  <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css" />
@@ -16,511 +14,870 @@
   <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-
+  
   <style>
-    .button {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 18px 24px;
-      font-size: 1.3em;
-      min-width: 220px;
-      min-height: 60px;
-      box-sizing: border-box;
-      line-height: 1.2;
-      white-space: normal; 
-      word-break: break-word; 
+    .cyber-gradient {
+      background: linear-gradient(135deg, #101820 0%, #0a1220 50%, #0a0a2a 100%);
     }
-    .button span, .button strong {
-      display: block;
-      width: 100%;
-      text-align: center;
+    .cyber-border {
+      border-color: #00ffee;
     }
-    .button:hover {
+    .cyber-shadow {
+      box-shadow: 0 0 15px rgba(0, 255, 238, 0.3);
+    }
+    .cyber-text {
+      color: #00ffee;
+    }
+    .cyber-bg {
+      background-color: rgba(10, 20, 30, 0.92);
+    }
+    .cyber-button {
+      transition: all 0.3s ease;
+    }
+    .cyber-button:hover {
       background: rgba(0, 255, 255, 0.1);
       color: #00ffee;
       box-shadow: 0 0 10px #00ffee;
-      transition: all 0.3s ease;
-    }
-
-    .logo {
-      text-align: center;
-      margin: 20px 0;
-    }
-    .qr-code {
-      display: block;
-      margin: 20px auto;
-      max-width: 180px;
-      height: auto;
-    }
-    .section {
-      margin: 40px auto;
-      max-width: 900px;
-      padding: 32px 24px;
-      background: rgba(10, 20, 30, 0.92);
-      border-radius: 16px;
-      box-shadow: 0 0 24px #00ffee33;
-    }
-    header {
-      background: rgba(0, 0, 0, 0.85);
-      padding-bottom: 0;
-      border-bottom: 2px solid #00ffee;
-    }
-    nav ul {
-      list-style: none;
-      padding: 0;
-      margin: 0 0 10px 0;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-    }
-    nav ul.project-links {
-      margin-top: 10px;
-      margin-bottom: 0;
-      gap: 10px;
-    }
-    nav ul.project-links li {
-      display: inline-block;
-    }
-    @media (max-width: 700px) {
-      .section { padding: 18px 4px; }
-      .button { min-width: 120px; font-size: 1em; padding: 10px 8px; }
-      nav ul { flex-direction: column; gap: 4px; }
-    }
-
-    #map {
-      width: 100%;
-      height: 400px;
-      min-height: 300px;
-      border: 1px solid #0ff;
-      border-radius: 8px;
-      margin: 0 auto;
-      box-sizing: border-box;
     }
     .leaflet-container {
       background: #101820 !important;
-      border-radius: 8px;
     }
-
-    body {
-      border: 10px solid red !important;
+    .log-output {
+      font-family: 'Courier New', monospace;
+    }
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      top: 0;
+      left: 0;
+    }
+    .language-selector {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+    }
+    .threat-map-iframe {
+      border: 1px solid #00ffee;
+      border-radius: 8px;
     }
   </style>
 </head>
-<body id="top">
+<body class="cyber-gradient text-gray-100 min-h-screen">
   <div id="particles-js"></div>
-  <header>
-    <nav>
-      <ul>
-        <li><a href="#about" class="button">About Me</a></li>
-        <li><a href="#projects" class="button">Projects</a></li>
-        <li><a href="#chart" class="button">Charts</a></li>
-        <li><a href="attack-sim.html" class="button">AttackSim</a></li>
-        <li><a href="https://huggingface.co/spaces/stellababy2004/cyber-chat" target="_blank" rel="noopener" class="button">
-  🤖 Отвори AI чатбота в нов прозорец
-</a></li>
-        <li><a href="#map-section" class="button">Live Map</a></li>
-        <li><a href="#testimonials" class="button">Testimonials</a></li>
-        <li><a href="#contact" class="button">Contact</a></li>
+  
+  <!-- Language Selector -->
+  <div class="language-selector">
+    <div class="flex space-x-2">
+      <button onclick="changeLanguage('en')" class="px-3 py-1 bg-gray-800 hover:bg-gray-700 rounded-md cyber-button">EN</button>
+      <button onclick="changeLanguage('bg')" class="px-3 py-1 bg-gray-800 hover:bg-gray-700 rounded-md cyber-button">BG</button>
+      <button onclick="changeLanguage('fr')" class="px-3 py-1 bg-gray-800 hover:bg-gray-700 rounded-md cyber-button">FR</button>
+    </div>
+  </div>
+
+  <header class="bg-black bg-opacity-85 pb-0 border-b-2 cyber-border">
+    <nav class="container mx-auto px-4 py-4">
+      <ul class="flex flex-wrap justify-center gap-2 mb-2">
+        <li><a href="#about" class="px-6 py-3 cyber-bg rounded-lg cyber-button inline-block" data-i18n="nav.about">About Me</a></li>
+        <li><a href="#projects" class="px-6 py-3 cyber-bg rounded-lg cyber-button inline-block" data-i18n="nav.projects">Projects</a></li>
+        <li><a href="#chart" class="px-6 py-3 cyber-bg rounded-lg cyber-button inline-block" data-i18n="nav.charts">Charts</a></li>
+        <li><a href="#attack-sim" class="px-6 py-3 cyber-bg rounded-lg cyber-button inline-block" data-i18n="nav.attackSim">AttackSim</a></li>
+        <li><a href="https://huggingface.co/spaces/stellababy2004/cyber-chat" target="_blank" rel="noopener" class="px-6 py-3 cyber-bg rounded-lg cyber-button inline-block" data-i18n="nav.chatbot">🤖 Open AI Chatbot</a></li>
+        <li><a href="#map-section" class="px-6 py-3 cyber-bg rounded-lg cyber-button inline-block" data-i18n="nav.liveMap">Live Map</a></li>
+        <li><a href="#testimonials" class="px-6 py-3 cyber-bg rounded-lg cyber-button inline-block" data-i18n="nav.testimonials">Testimonials</a></li>
+        <li><a href="#contact" class="px-6 py-3 cyber-bg rounded-lg cyber-button inline-block" data-i18n="nav.contact">Contact</a></li>
       </ul>
-      <ul class="project-links">
+      
+      <ul class="flex flex-wrap justify-center gap-2 mt-2">
         <li>
-          <a class="button" href="penetration_test_report_acme_en.pdf" target="_blank" rel="noopener" download>
-            <span>📄 Report (EN – PDF)</span>
+          <a class="px-6 py-3 cyber-bg rounded-lg cyber-button inline-block" href="penetration_test_report_acme_en.pdf" target="_blank" rel="noopener" download>
+            <span data-i18n="nav.report">📄 Report (PDF)</span>
           </a>
         </li>
         <li>
-          <a href="presentation.html" target="_blank" rel="noopener" class="button">
-            <span>📊 View Pentest Presentation</span>
+          <a href="presentation.html" target="_blank" rel="noopener" class="px-6 py-3 cyber-bg rounded-lg cyber-button inline-block" data-i18n="nav.presentation">
+            📊 View Pentest Presentation
           </a>
         </li>
       </ul>
-      <div class="logo">
-        <img src="images/logo.png" alt="Stella Barbarella Logo" class="logo-img" />
+      
+      <div class="text-center my-6">
+        <img src="images/logo.png" alt="Stella Barbarella Logo" class="mx-auto h-24" />
       </div>
     </nav>
   </header>
 
-  <main>
-    <section class="section" id="about">
-      <h1>Stella Barbarella</h1>
-      <p>SOC Analyst | Cybersecurity Enthusiast | Threat Hunter</p>
+  <main class="container mx-auto px-4 py-8">
+    <!-- About Section -->
+    <section class="cyber-bg rounded-xl cyber-shadow p-8 mb-8" id="about">
+      <h1 class="text-3xl font-bold cyber-text mb-2">Stella Barbarella</h1>
+      <p class="text-xl" data-i18n="about.subtitle">SOC Analyst | Cybersecurity Enthusiast | Threat Hunter</p>
+      <div class="mt-4" data-i18n="about.description">
+        <p>Cybersecurity professional with expertise in threat detection, incident response, and security operations.</p>
+        <p class="mt-2">Specialized in analyzing security events, identifying vulnerabilities, and implementing protective measures.</p>
+      </div>
     </section>
 
-    <section class="section" id="projects">
-      <h2>Projects</h2>
-      <ul class="project-list">
-              <li><a href="cyber-threat-map.html" class="button">🔍 Cyber Threat Map</a></li>
-              <li><a href="threat-hunting.html" class="button">🧠 Threat Hunting</a></li>
-              <li><a href="#checkpoint-map" class="button">🌐 Threat Live</a></li>
-              <li><a href="Stella_Barbarella_CV.odt" download class="button">📄 My CV</a></li>
-            </ul>
-    </section>
-
-<section class="section" id="phishing-checker">
-  <h2>Phishing URL Checker</h2>
-  <form id="phishing-form">
-    <label for="url">Enter URL to check:</label>
-    <input type="text" id="url" placeholder="https://example.com" required />
-    <button type="submit">Check</button>
-  </form>
-  <div id="phishing-result" class="phishing-result"></div>
-</section>
-
-
-    <section class="section" id="pentest-reports">
-      <h2>Pentest Reports</h2>
-      <p class="pentest-intro">
-        Explore real-world pentest deliverables from <strong>Stella Barbarella</strong>.
-      </p>
-      <ul>
-    
+    <!-- Projects Section -->
+    <section class="cyber-bg rounded-xl cyber-shadow p-8 mb-8" id="projects">
+      <h2 class="text-2xl font-bold cyber-text mb-4" data-i18n="projects.title">Projects</h2>
+      <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <li><a href="cyber-threat-map.html" class="block px-6 py-4 cyber-bg rounded-lg cyber-button text-center" data-i18n="projects.threatMap">🔍 Cyber Threat Map</a></li>
+        <li><a href="threat-hunting.html" class="block px-6 py-4 cyber-bg rounded-lg cyber-button text-center" data-i18n="projects.threatHunting">🧠 Threat Hunting</a></li>
+        <li><a href="#checkpoint-map" class="block px-6 py-4 cyber-bg rounded-lg cyber-button text-center" data-i18n="projects.threatLive">🌐 Threat Live</a></li>
+        <li><a href="Stella_Barbarella_CV.odt" download class="block px-6 py-4 cyber-bg rounded-lg cyber-button text-center" data-i18n="projects.myCV">📄 My CV</a></li>
       </ul>
     </section>
 
-    <section class="section" id="log-analyzer">
-      <h2>Live Log Analyzer</h2>
-      <button id="toggle-logs">⏸ Pause Logs</button>
-      <pre id="log-output" class="log-output"></pre>
+    <!-- Phishing Checker -->
+    <section class="cyber-bg rounded-xl cyber-shadow p-8 mb-8" id="phishing-checker">
+      <h2 class="text-2xl font-bold cyber-text mb-4" data-i18n="phishing.title">Phishing URL Checker</h2>
+      <form id="phishing-form" class="space-y-4">
+        <label for="url" class="block" data-i18n="phishing.label">Enter URL to check:</label>
+        <div class="flex flex-col md:flex-row gap-2">
+          <input type="text" id="url" placeholder="https://example.com" required 
+                 class="flex-grow px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500" />
+          <button type="submit" class="px-6 py-2 bg-cyan-600 hover:bg-cyan-700 rounded-lg cyber-button" data-i18n="phishing.button">
+            Check
+          </button>
+        </div>
+      </form>
+      <div id="phishing-result" class="mt-4 p-4 rounded-lg hidden"></div>
     </section>
 
-<section class="section" id="cybersec-chatbot">
-  <h2>CyberSec AI Chat 🤖</h2>
-  <script
-    type="module"
-    src="https://gradio.s3-us-west-2.amazonaws.com/5.0.1/gradio.js"
-  ></script>
-  <gradio-app src="https://stellababy2004-stellababy2004cyber-chatbot.hf.space"></gradio-app>
-</section>
-
-<section class="section" id="attack-sim">
-      <h2>Attack Simulation Lab</h2>
-      <p>Select an attack type to simulate:</p>
-      <div id="attack-buttons">
-        <button type="button" class="button" data-attack="phishing">Phishing</button>
-        <button type="button" class="button" data-attack="brute-force">Brute Force</button>
-        <button type="button" class="button" data-attack="malware">Malware</button>
-        <button type="button" class="button" data-attack="ddos">DDoS</button>
+    <!-- Pentest Reports -->
+    <section class="cyber-bg rounded-xl cyber-shadow p-8 mb-8" id="pentest-reports">
+      <h2 class="text-2xl font-bold cyber-text mb-4" data-i18n="pentest.title">Pentest Reports</h2>
+      <p class="mb-4" data-i18n="pentest.intro">
+        Explore real-world pentest deliverables from <strong>Stella Barbarella</strong>.
+      </p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="p-4 bg-gray-800 rounded-lg">
+          <h3 class="text-lg font-semibold cyber-text" data-i18n="pentest.report1.title">ACME Corporation Security Assessment</h3>
+          <p class="mt-2 text-sm" data-i18n="pentest.report1.description">Comprehensive penetration test report covering web application and network security.</p>
+          <a href="#" class="inline-block mt-3 px-4 py-2 bg-cyan-600 hover:bg-cyan-700 rounded cyber-button text-sm" data-i18n="pentest.download">
+            Download Report
+          </a>
+        </div>
+        <div class="p-4 bg-gray-800 rounded-lg">
+          <h3 class="text-lg font-semibold cyber-text" data-i18n="pentest.report2.title">Financial Institution Red Team Exercise</h3>
+          <p class="mt-2 text-sm" data-i18n="pentest.report2.description">Simulated attack scenario with detailed findings and remediation recommendations.</p>
+          <a href="#" class="inline-block mt-3 px-4 py-2 bg-cyan-600 hover:bg-cyan-700 rounded cyber-button text-sm" data-i18n="pentest.download">
+            Download Report
+          </a>
+        </div>
       </div>
-      <div id="attack-result" class="attack-result"></div>
     </section>
 
-    <section class="section" id="testimonials">
-      <h2>Testimonials</h2>
-      <p>"Stella's attention to detail and analytical skills are unmatched!" - <strong>John Doe, Cybersecurity Expert</strong></p>
-      <p>"Her passion for cybersecurity is evident in her work." - <strong>Jane Smith, SOC Manager</strong></p>
+    <!-- Log Analyzer -->
+    <section class="cyber-bg rounded-xl cyber-shadow p-8 mb-8" id="log-analyzer">
+      <h2 class="text-2xl font-bold cyber-text mb-4" data-i18n="logs.title">Live Log Analyzer</h2>
+      <button id="toggle-logs" class="mb-4 px-4 py-2 bg-gray-800 hover:bg-gray-700 rounded-lg cyber-button" data-i18n="logs.toggle">
+        ⏸ Pause Logs
+      </button>
+      <pre id="log-output" class="log-output p-4 bg-black rounded-lg overflow-auto h-64"></pre>
     </section>
 
-    <section class="section" id="checkpoint-map">
-      <h2>Live Threat Map (Check Point)</h2>
-      <iframe src="https://threatmap.checkpoint.com/" title="Live Threat Map" class="threat-map-iframe"></iframe>
+    <!-- Chatbot -->
+    <section class="cyber-bg rounded-xl cyber-shadow p-8 mb-8" id="cybersec-chatbot">
+      <h2 class="text-2xl font-bold cyber-text mb-4" data-i18n="chatbot.title">CyberSec AI Chat 🤖</h2>
+      <div class="bg-gray-800 p-4 rounded-lg">
+        <p class="mb-4" data-i18n="chatbot.description">Ask our AI assistant about cybersecurity topics, threats, and best practices.</p>
+        <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/5.0.1/gradio.js"></script>
+        <gradio-app src="https://stellababy2004-stellababy2004cyber-chatbot.hf.space"></gradio-app>
+      </div>
     </section>
 
-    <section class="section" id="chart">
-      <h2>Cyber Threat Analysis</h2>
+    <!-- Attack Simulation -->
+    <section class="cyber-bg rounded-xl cyber-shadow p-8 mb-8" id="attack-sim">
+      <h2 class="text-2xl font-bold cyber-text mb-4" data-i18n="attack.title">Attack Simulation Lab</h2>
+      <p class="mb-4" data-i18n="attack.description">Select an attack type to simulate:</p>
+      <div id="attack-buttons" class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+        <button type="button" class="px-4 py-3 cyber-bg rounded-lg cyber-button" data-attack="phishing" data-i18n="attack.phishing">Phishing</button>
+        <button type="button" class="px-4 py-3 cyber-bg rounded-lg cyber-button" data-attack="brute-force" data-i18n="attack.bruteForce">Brute Force</button>
+        <button type="button" class="px-4 py-3 cyber-bg rounded-lg cyber-button" data-attack="malware" data-i18n="attack.malware">Malware</button>
+        <button type="button" class="px-4 py-3 cyber-bg rounded-lg cyber-button" data-attack="ddos" data-i18n="attack.ddos">DDoS</button>
+      </div>
+      <div id="attack-result" class="p-4 bg-gray-800 rounded-lg hidden"></div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="cyber-bg rounded-xl cyber-shadow p-8 mb-8" id="testimonials">
+      <h2 class="text-2xl font-bold cyber-text mb-4" data-i18n="testimonials.title">Testimonials</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="p-6 bg-gray-800 rounded-lg">
+          <blockquote>
+            <p class="italic" data-i18n="testimonials.quote1">"Stella's attention to detail and analytical skills are unmatched!"</p>
+            <footer class="mt-4 font-semibold cyber-text">- <span data-i18n="testimonials.author1">John Doe, Cybersecurity Expert</span></footer>
+          </blockquote>
+        </div>
+        <div class="p-6 bg-gray-800 rounded-lg">
+          <blockquote>
+            <p class="italic" data-i18n="testimonials.quote2">"Her passion for cybersecurity is evident in her work."</p>
+            <footer class="mt-4 font-semibold cyber-text">- <span data-i18n="testimonials.author2">Jane Smith, SOC Manager</span></footer>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <!-- Checkpoint Map -->
+    <section class="cyber-bg rounded-xl cyber-shadow p-8 mb-8" id="checkpoint-map">
+      <h2 class="text-2xl font-bold cyber-text mb-4" data-i18n="checkpoint.title">Live Threat Map (Check Point)</h2>
+      <div class="aspect-w-16 aspect-h-9">
+        <iframe src="https://threatmap.checkpoint.com/" title="Live Threat Map" class="threat-map-iframe w-full h-96"></iframe>
+      </div>
+    </section>
+
+    <!-- Chart Section -->
+    <section class="cyber-bg rounded-xl cyber-shadow p-8 mb-8" id="chart">
+      <h2 class="text-2xl font-bold cyber-text mb-4" data-i18n="chart.title">Cyber Threat Analysis</h2>
       <div class="chart-container">
         <canvas id="threatChart" height="200"></canvas>
       </div>
     </section>
 
-    <section class="section" id="map-section">
-      <h2>Global Threat Locations</h2>
-      <div id="map" class="map-container"></div>
-      <button id="clear-map">🧹 Clear Map</button>
+    <!-- Map Section -->
+    <section class="cyber-bg rounded-xl cyber-shadow p-8 mb-8" id="map-section">
+      <h2 class="text-2xl font-bold cyber-text mb-4" data-i18n="map.title">Global Threat Locations</h2>
+      <div id="map" class="w-full h-96 rounded-lg border border-cyan-500"></div>
+      <button id="clear-map" class="mt-4 px-4 py-2 bg-gray-800 hover:bg-gray-700 rounded-lg cyber-button" data-i18n="map.clear">
+        🧹 Clear Map
+      </button>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="cyber-bg rounded-xl cyber-shadow p-8" id="contact">
+      <h2 class="text-2xl font-bold cyber-text mb-4" data-i18n="contact.title">Contact Me</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <p data-i18n="contact.email">Email: <a href="mailto:stiliana.stoyanova@orange.fr" class="text-cyan-400 hover:text-cyan-300">stiliana.stoyanova@orange.fr</a></p>
+          <p class="mt-2" data-i18n="contact.linkedin">LinkedIn: <a href="#" class="text-cyan-400 hover:text-cyan-300" target="_blank">linkedin.com/in/stella-barbarella</a></p>
+        </div>
+        <div>
+          <p data-i18n="contact.availability">Available for consulting and freelance projects.</p>
+          <p class="mt-2" data-i18n="contact.response">Response time: typically within 24 hours.</p>
+        </div>
+      </div>
     </section>
   </main>
- <section class="section" id="contact">
-   <h2>Contact Me</h2>
-   <p>Email: <a href="mailto:stiliana.stoyanova@orange.fr">stiliana.stoyanova@orange.fr</a></p>
- </section>
 
-<script>
+  <footer class="bg-black bg-opacity-70 py-6 mt-12">
+    <div class="container mx-auto px-4 text-center">
+      <p data-i18n="footer.copyright">© 2023 Stella Barbarella. All rights reserved.</p>
+      <div class="flex justify-center space-x-4 mt-4">
+        <a href="#" class="text-gray-400 hover:text-cyan-400"><i class="fab fa-github fa-lg"></i></a>
+        <a href="#" class="text-gray-400 hover:text-cyan-400"><i class="fab fa-linkedin fa-lg"></i></a>
+        <a href="#" class="text-gray-400 hover:text-cyan-400"><i class="fab fa-twitter fa-lg"></i></a>
+      </div>
+    </div>
+  </footer>
 
-document.addEventListener("DOMContentLoaded", function () {
-  if (typeof L === "undefined") return;
-  const map = L.map('map').setView([20, 0], 2);
-  window.attackSimMap = map;
-  window.globalMapMarkers = [];
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap contributors'
-  }).addTo(map);
+  <script>
+    // Language support
+    const translations = {
+      en: {
+        "nav.about": "About Me",
+        "nav.projects": "Projects",
+        "nav.charts": "Charts",
+        "nav.attackSim": "AttackSim",
+        "nav.chatbot": "🤖 Open AI Chatbot",
+        "nav.liveMap": "Live Map",
+        "nav.testimonials": "Testimonials",
+        "nav.contact": "Contact",
+        "nav.report": "📄 Report (PDF)",
+        "nav.presentation": "📊 View Pentest Presentation",
+        "about.subtitle": "SOC Analyst | Cybersecurity Enthusiast | Threat Hunter",
+        "about.description": "<p>Cybersecurity professional with expertise in threat detection, incident response, and security operations.</p><p class='mt-2'>Specialized in analyzing security events, identifying vulnerabilities, and implementing protective measures.</p>",
+        "projects.title": "Projects",
+        "projects.threatMap": "🔍 Cyber Threat Map",
+        "projects.threatHunting": "🧠 Threat Hunting",
+        "projects.threatLive": "🌐 Threat Live",
+        "projects.myCV": "📄 My CV",
+        "phishing.title": "Phishing URL Checker",
+        "phishing.label": "Enter URL to check:",
+        "phishing.button": "Check",
+        "pentest.title": "Pentest Reports",
+        "pentest.intro": "Explore real-world pentest deliverables from <strong>Stella Barbarella</strong>.",
+        "pentest.report1.title": "ACME Corporation Security Assessment",
+        "pentest.report1.description": "Comprehensive penetration test report covering web application and network security.",
+        "pentest.report2.title": "Financial Institution Red Team Exercise",
+        "pentest.report2.description": "Simulated attack scenario with detailed findings and remediation recommendations.",
+        "pentest.download": "Download Report",
+        "logs.title": "Live Log Analyzer",
+        "logs.toggle": "⏸ Pause Logs",
+        "chatbot.title": "CyberSec AI Chat 🤖",
+        "chatbot.description": "Ask our AI assistant about cybersecurity topics, threats, and best practices.",
+        "attack.title": "Attack Simulation Lab",
+        "attack.description": "Select an attack type to simulate:",
+        "attack.phishing": "Phishing",
+        "attack.bruteForce": "Brute Force",
+        "attack.malware": "Malware",
+        "attack.ddos": "DDoS",
+        "testimonials.title": "Testimonials",
+        "testimonials.quote1": "\"Stella's attention to detail and analytical skills are unmatched!\"",
+        "testimonials.author1": "John Doe, Cybersecurity Expert",
+        "testimonials.quote2": "\"Her passion for cybersecurity is evident in her work.\"",
+        "testimonials.author2": "Jane Smith, SOC Manager",
+        "checkpoint.title": "Live Threat Map (Check Point)",
+        "chart.title": "Cyber Threat Analysis",
+        "map.title": "Global Threat Locations",
+        "map.clear": "🧹 Clear Map",
+        "contact.title": "Contact Me",
+        "contact.email": "Email:",
+        "contact.linkedin": "LinkedIn:",
+        "contact.availability": "Available for consulting and freelance projects.",
+        "contact.response": "Response time: typically within 24 hours.",
+        "footer.copyright": "© 2023 Stella Barbarella. All rights reserved."
+      },
+      bg: {
+        "nav.about": "За Мен",
+        "nav.projects": "Проекти",
+        "nav.charts": "Графики",
+        "nav.attackSim": "Атака Симулатор",
+        "nav.chatbot": "🤖 Отвори AI Чатбот",
+        "nav.liveMap": "Жива Карта",
+        "nav.testimonials": "Препоръки",
+        "nav.contact": "Контакт",
+        "nav.report": "📄 Доклад (PDF)",
+        "nav.presentation": "📊 Виж Презентация",
+        "about.subtitle": "SOC Аналитик | Киберсигурност Ентусиаст | Ловец на Заплахи",
+        "about.description": "<p>Професионалист в киберсигурността с опит в откриване на заплахи, реагиране на инциденти и сигурностни операции.</p><p class='mt-2'>Специализирана в анализ на сигурностни събития, идентифициране на уязвимости и прилагане на защитни мерки.</p>",
+        "projects.title": "Проекти",
+        "projects.threatMap": "🔍 Карта на Киберзаплахи",
+        "projects.threatHunting": "🧠 Търсене на Заплахи",
+        "projects.threatLive": "🌐 Живи Заплахи",
+        "projects.myCV": "📄 Моето CV",
+        "phishing.title": "Проверка на URL за Фишинг",
+        "phishing.label": "Въведете URL за проверка:",
+        "phishing.button": "Провери",
+        "pentest.title": "Доклади за Пенетрационни Тестове",
+        "pentest.intro": "Разгледайте реални доклади от пенетрационни тестове на <strong>Stella Barbarella</strong>.",
+        "pentest.report1.title": "Оценка на Сигурността на ACME Corporation",
+        "pentest.report1.description": "Изчерпателен доклад за пенетрационен тест, обхващащ уеб приложение и мрежова сигурност.",
+        "pentest.report2.title": "Упражнение на Червен Екип за Финансова Институция",
+        "pentest.report2.description": "Симулиран сценарий на атака с подробни намерения и препоръки за подобрение.",
+        "pentest.download": "Изтегли Доклад",
+        "logs.title": "Анализатор на Логове в Реално Време",
+        "logs.toggle": "⏸ Спри Логовете",
+        "chatbot.title": "Киберсигурностен AI Чат 🤖",
+        "chatbot.description": "Питайте нашия AI асистент за теми, свързани с киберсигурност, заплахи и най-добри практики.",
+        "attack.title": "Лаборатория за Симулация на Атаки",
+        "attack.description": "Изберете тип атака за симулиране:",
+        "attack.phishing": "Фишинг",
+        "attack.bruteForce": "Груба Сила",
+        "attack.malware": "Зловреден Софтуер",
+        "attack.ddos": "DDoS",
+        "testimonials.title": "Препоръки",
+        "testimonials.quote1": "\"Вниманието към детайлите и аналитичните умения на Стела са безпрецедентни!\"",
+        "testimonials.author1": "Джон Доу, Експерт по Киберсигурност",
+        "testimonials.quote2": "\"Страстта й към киберсигурността се вижда в работата й.\"",
+        "testimonials.author2": "Джейн Смит, Мениджър SOC",
+        "checkpoint.title": "Жива Карта на Заплахи (Check Point)",
+        "chart.title": "Анализ на Киберзаплахи",
+        "map.title": "Глобални Локации на Заплахи",
+        "map.clear": "🧹 Изчисти Картата",
+        "contact.title": "Връзка с Мен",
+        "contact.email": "Имейл:",
+        "contact.linkedin": "LinkedIn:",
+        "contact.availability": "Налична съм за консултации и фрийланс проекти.",
+        "contact.response": "Време за отговор: обикновено в рамките на 24 часа.",
+        "footer.copyright": "© 2023 Stella Barbarella. Всички права запазени."
+      },
+      fr: {
+        "nav.about": "À Propos",
+        "nav.projects": "Projets",
+        "nav.charts": "Graphiques",
+        "nav.attackSim": "Simulation d'Attaque",
+        "nav.chatbot": "🤖 Ouvrir le Chatbot IA",
+        "nav.liveMap": "Carte en Direct",
+        "nav.testimonials": "Témoignages",
+        "nav.contact": "Contact",
+        "nav.report": "📄 Rapport (PDF)",
+        "nav.presentation": "📊 Voir la Présentation",
+        "about.subtitle": "Analyste SOC | Passionnée de Cybersécurité | Chasseuse de Menaces",
+        "about.description": "<p>Professionnelle en cybersécurité avec une expertise en détection de menaces, réponse aux incidents et opérations de sécurité.</p><p class='mt-2'>Spécialisée dans l'analyse des événements de sécurité, l'identification des vulnérabilités et la mise en œuvre de mesures de protection.</p>",
+        "projects.title": "Projets",
+        "projects.threatMap": "🔍 Carte des Cybermenaces",
+        "projects.threatHunting": "🧠 Chasse aux Menaces",
+        "projects.threatLive": "🌐 Menaces en Direct",
+        "projects.myCV": "📄 Mon CV",
+        "phishing.title": "Vérificateur d'URL de Hameçonnage",
+        "phishing.label": "Entrez l'URL à vérifier:",
+        "phishing.button": "Vérifier",
+        "pentest.title": "Rapports de Tests d'Intrusion",
+        "pentest.intro": "Découvrez des livrables réels de tests d'intrusion par <strong>Stella Barbarella</strong>.",
+        "pentest.report1.title": "Évaluation de Sécurité d'ACME Corporation",
+        "pentest.report1.description": "Rapport complet de test d'intrusion couvrant la sécurité des applications web et du réseau.",
+        "pentest.report2.title": "Exercice d'Équipe Rouge pour une Institution Financière",
+        "pentest.report2.description": "Scénario d'attaque simulé avec des conclusions détaillées et des recommandations de remédiation.",
+        "pentest.download": "Télécharger le Rapport",
+        "logs.title": "Analyseur de Journaux en Direct",
+        "logs.toggle": "⏸ Pause Journaux",
+        "chatbot.title": "Chat IA de Cybersécurité 🤖",
+        "chatbot.description": "Posez des questions à notre assistant IA sur des sujets de cybersécurité, des menaces et des bonnes pratiques.",
+        "attack.title": "Laboratoire de Simulation d'Attaque",
+        "attack.description": "Sélectionnez un type d'attaque à simuler:",
+        "attack.phishing": "Hameçonnage",
+        "attack.bruteForce": "Force Brute",
+        "attack.malware": "Logiciel Malveillant",
+        "attack.ddos": "DDoS",
+        "testimonials.title": "Témoignages",
+        "testimonials.quote1": "\"L'attention aux détails et les compétences analytiques de Stella sont incomparables !\"",
+        "testimonials.author1": "John Doe, Expert en Cybersécurité",
+        "testimonials.quote2": "\"Sa passion pour la cybersécurité est évidente dans son travail.\"",
+        "testimonials.author2": "Jane Smith, Responsable SOC",
+        "checkpoint.title": "Carte des Menaces en Direct (Check Point)",
+        "chart.title": "Analyse des Cybermenaces",
+        "map.title": "Localisations Mondiales des Menaces",
+        "map.clear": "🧹 Effacer la Carte",
+        "contact.title": "Contactez-moi",
+        "contact.email": "Email:",
+        "contact.linkedin": "LinkedIn:",
+        "contact.availability": "Disponible pour des projets de conseil et freelance.",
+        "contact.response": "Temps de réponse: généralement sous 24 heures.",
+        "footer.copyright": "© 2023 Stella Barbarella. Tous droits réservés."
+      }
+    };
 
-  // Добави маркери за градове/заплахи тук:
-  const threatCities = [
-    { name: "London", coords: [51.5074, -0.1278], type: "Phishing" },
-    { name: "New York", coords: [40.7128, -74.0060], type: "DDoS" },
-    { name: "Paris", coords: [48.8566, 2.3522], type: "Malware" },
-    { name: "Tokyo", coords: [35.6895, 139.6917], type: "Ransomware" },
-    { name: "Sofia", coords: [42.6977, 23.3219], type: "Brute Force" }
-  ];
-  threatCities.forEach(city => {
-    const marker = L.marker(city.coords)
-      .addTo(map)
-      .bindPopup(
-        `<b>Threat detected in ${city.name}</b><br>Type: <span style="color:#00ffee">${city.type}</span>`
-      );
-    window.globalMapMarkers.push(marker);
-  });
+    let currentLanguage = 'en';
 
-  document.getElementById('clear-map').addEventListener('click', function () {
-    if (window.globalMapMarkers && Array.isArray(window.globalMapMarkers)) {
-      window.globalMapMarkers.forEach(marker => {
-        if (map.hasLayer(marker)) {
-          map.removeLayer(marker);
+    function changeLanguage(lang) {
+      currentLanguage = lang;
+      document.querySelectorAll('[data-i18n]').forEach(element => {
+        const key = element.getAttribute('data-i18n');
+        if (translations[lang][key]) {
+          if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+            element.placeholder = translations[lang][key];
+          } else {
+            element.innerHTML = translations[lang][key];
+          }
         }
       });
+    }
+
+    // Initialize with English
+    changeLanguage('en');
+
+    // Map functionality
+    document.addEventListener("DOMContentLoaded", function () {
+      if (typeof L === "undefined") return;
+      const map = L.map('map').setView([20, 0], 2);
+      window.attackSimMap = map;
       window.globalMapMarkers = [];
-    }
-  });
-});
-</script>
-  <script>
-    (function () {
-  const logOutput = document.getElementById('log-output');
-  const toggleBtn = document.getElementById('toggle-logs');
-  let paused = false;
-  let logInterval;
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors'
+      }).addTo(map);
 
-  const logs = [
-    "[INFO]  Connection from 192.168.1.10 accepted.",
-    "[ALERT]  Suspicious login attempt detected from 203.0.113.5.",
-    "[WARNING]  Multiple failed logins for user 'admin'.",
-    "[INFO]  Malware signature updated successfully.",
-    "[CRITICAL]  Ransomware activity detected on host 10.0.0.23.",
-    "[INFO]  Outbound traffic to 8.8.8.8 allowed.",
-    "[ALERT]  Phishing email detected and quarantined.",
-    "[INFO]  User 'stella' changed password.",
-    "[WARNING]  Unusual data transfer detected.",
-    "[INFO]  System scan completed. No threats found.",
-    "[NOTICE]  New device registered: 10.1.1.5.",
-    "[DEBUG]  Packet dropped due to invalid checksum.",
-    "[ERROR]  Failed to update antivirus definitions.",
-    "[SUCCESS]  Backup completed successfully.",
-    "[FAIL]  Backup failed: disk full.",
-    "[INFO]  User 'admin' logged out.",
-    "[ALERT]  Port scan detected from 185.23.44.12.",
-    "[CRITICAL]  Data exfiltration attempt blocked.",
-    "[WARNING]  High CPU usage detected on server01.",
-    "[NOTICE]  Scheduled maintenance started.",
-    "[SUCCESS]  Patch applied to all endpoints."
-  ];
+      // Add threat markers
+      const threatCities = [
+        { name: "London", coords: [51.5074, -0.1278], type: "Phishing" },
+        { name: "New York", coords: [40.7128, -74.0060], type: "DDoS" },
+        { name: "Paris", coords: [48.8566, 2.3522], type: "Malware" },
+        { name: "Tokyo", coords: [35.6895, 139.6917], type: "Ransomware" },
+        { name: "Sofia", coords: [42.6977, 23.3219], type: "Brute Force" }
+      ];
+      
+      threatCities.forEach(city => {
+        const marker = L.marker(city.coords)
+          .addTo(map)
+          .bindPopup(
+            `<b>Threat detected in ${city.name}</b><br>Type: <span style="color:#00ffee">${city.type}</span>`
+          );
+        window.globalMapMarkers.push(marker);
+      });
 
-  function addLog() {
-    if (!paused) {
-      const log = logs[Math.floor(Math.random() * logs.length)];
-      const now = new Date().toLocaleTimeString();
-
-    
-      let color = "#00ffee";
-      if (log.includes("CRITICAL")) color = "#ff1744";
-      else if (log.includes("ALERT")) color = "#ffea00";
-      else if (log.includes("WARNING")) color = "#ff9100";
-      else if (log.includes("ERROR") || log.includes("FAIL")) color = "#ff1744";
-      else if (log.includes("SUCCESS")) color = "#00e676";
-      else if (log.includes("NOTICE")) color = "#00b0ff";
-      else if (log.includes("DEBUG")) color = "#bdbdbd";
-      else if (log.includes("INFO")) color = "#00ffee";
-
-     
-      const span = document.createElement('span');
-      span.textContent = `[${now}] ${log}\n`;
-      span.style.color = color;
-      logOutput.appendChild(span);
-      logOutput.scrollTop = logOutput.scrollHeight;
-    }
-  }
-
-  function startLogs() {
-    logInterval = setInterval(addLog, 1200);
-  }
-
-  function stopLogs() {
-    clearInterval(logInterval);
-  }
-
-  if (logOutput && toggleBtn) {
-    startLogs();
-    toggleBtn.addEventListener('click', function () {
-      paused = !paused;
-      if (paused) {
-        stopLogs();
-        toggleBtn.textContent = "▶ Resume Logs";
-      } else {
-        startLogs();
-        toggleBtn.textContent = "⏸ Pause Logs";
-      }
+      document.getElementById('clear-map').addEventListener('click', function () {
+        if (window.globalMapMarkers && Array.isArray(window.globalMapMarkers)) {
+          window.globalMapMarkers.forEach(marker => {
+            if (map.hasLayer(marker)) {
+              map.removeLayer(marker);
+            }
+          });
+          window.globalMapMarkers = [];
+        }
+      });
     });
-  }
-})();
 
-  </script>
+    // Log analyzer
+    document.addEventListener("DOMContentLoaded", function () {
+      const logOutput = document.getElementById('log-output');
+      const toggleBtn = document.getElementById('toggle-logs');
+      let paused = false;
+      let logInterval;
 
-  <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const buttons   = document.querySelectorAll('#attack-buttons .button');
-    const result    = document.getElementById('attack-result');
-    const logOutput = document.getElementById('log-output');
-    const attackMap = window.attackSimMap;
-    const attackMarkers = window.globalMapMarkers || [];
+      const logs = [
+        "[INFO] Connection from 192.168.1.10 accepted.",
+        "[ALERT] Suspicious login attempt detected from 203.0.113.5.",
+        "[WARNING] Multiple failed logins for user 'admin'.",
+        "[INFO] Malware signature updated successfully.",
+        "[CRITICAL] Ransomware activity detected on host 10.0.0.23.",
+        "[INFO] Outbound traffic to 8.8.8.8 allowed.",
+        "[ALERT] Phishing email detected and quarantined.",
+        "[INFO] User 'stella' changed password.",
+        "[WARNING] Unusual data transfer detected.",
+        "[INFO] System scan completed. No threats found.",
+        "[NOTICE] New device registered: 10.1.1.5.",
+        "[DEBUG] Packet dropped due to invalid checksum.",
+        "[ERROR] Failed to update antivirus definitions.",
+        "[SUCCESS] Backup completed successfully.",
+        "[FAIL] Backup failed: disk full.",
+        "[INFO] User 'admin' logged out.",
+        "[ALERT] Port scan detected from 185.23.44.12.",
+        "[CRITICAL] Data exfiltration attempt blocked.",
+        "[WARNING] High CPU usage detected on server01.",
+        "[NOTICE] Scheduled maintenance started.",
+        "[SUCCESS] Patch applied to all endpoints."
+      ];
 
-    const attackDescriptions = {
-      phishing:   "Simulation: A phishing email was sent to an employee. The SOC detects a suspicious link and blocks access.",
-      "brute-force": "Simulation: Multiple failed login attempts detected. The system temporarily blocks the IP address.",
-      malware:    "Simulation: A malicious file was uploaded. The antivirus system isolates it and alerts the SOC team.",
-      ddos:       "Simulation: High traffic volume detected towards the server. DDoS protection limits attacking IPs."
-    };
-
-    const attackLogs = {
-      phishing:   "[ALERT]  Phishing email detected and quarantined.",
-      "brute-force": "[WARNING]  Multiple failed logins for user 'admin'.",
-      malware:    "[CRITICAL]  Malware detected and isolated.",
-      ddos:       "[ALERT]  DDoS attack detected. Traffic filtered."
-    };
-
-    const attackLocations = {
-      phishing:      [51.5, -0.09],
-      "brute-force": [40.7, -74.0],
-      malware:       [48.85, 2.35],
-      ddos:          [35.68, 139.76]
-    };
-
-    const chartIndex = {
-      phishing:      0,
-      malware:       1,
-      ddos:          3,
-      "brute-force": 4
-    };
-
-    buttons.forEach(btn => {
-      btn.addEventListener('click', function () {
-        const type = btn.getAttribute('data-attack');
-         result.style.display = "block";
-        result.textContent = attackDescriptions[type] || "No information for this attack type.";
-
-
-        if (attackLogs[type]) {
+      function addLog() {
+        if (!paused) {
+          const log = logs[Math.floor(Math.random() * logs.length)];
           const now = new Date().toLocaleTimeString();
+          let color = "#00ffee";
+          if (log.includes("CRITICAL")) color = "#ff1744";
+          else if (log.includes("ALERT")) color = "#ffea00";
+          else if (log.includes("WARNING")) color = "#ff9100";
+          else if (log.includes("ERROR") || log.includes("FAIL")) color = "#ff1744";
+          else if (log.includes("SUCCESS")) color = "#00e676";
+          else if (log.includes("NOTICE")) color = "#00b0ff";
+          else if (log.includes("DEBUG")) color = "#bdbdbd";
+          else if (log.includes("INFO")) color = "#00ffee";
+
           const span = document.createElement('span');
-          span.textContent = `[${now}] ${attackLogs[type]}\n`;
-          span.style.color = "#ffea00";
+          span.textContent = `[${now}] ${log}\n`;
+          span.style.color = color;
           logOutput.appendChild(span);
           logOutput.scrollTop = logOutput.scrollHeight;
         }
+      }
 
-        if (attackMap && attackLocations[type]) {
-          const marker = L.marker(attackLocations[type])
-            .addTo(attackMap)
-            .bindPopup(`${type.charAt(0).toUpperCase()}${type.slice(1)} attack`)
-            .openPopup();
-          attackMarkers.push(marker);
-          window.globalMapMarkers = attackMarkers;
-        }
+      function startLogs() {
+        logInterval = setInterval(addLog, 1200);
+      }
 
-        if (window.threatChartInstance && chartIndex[type] !== undefined) {
-          window.threatChartInstance.data.datasets[0].data[chartIndex[type]] += 1;
-          window.threatChartInstance.update();
-        }
-      });
-    });
-  });
-  </script>
-  <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const ctx = document.getElementById('threatChart').getContext('2d');
-    window.threatChartInstance = new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: ['Phishing', 'Malware', 'Ransomware', 'DDoS', 'Brute Force'],
-        datasets: [{
-          label: 'Detected Threats',
-          data: [12, 8, 4, 10, 6],
-          backgroundColor: [
-            '#00ffeecc','#ff00ccbb','#ffaa00bb','#00ff88bb','#ffea00bb'
-          ],
-          borderColor: '#00ffee',
-          borderWidth: 2
-        }]
-      },
-      options: {
-        plugins: { legend: { display: false } },
-        scales: {
-          y: { beginAtZero: true, ticks: { color: '#00ffee' }, grid: { color: '#222' } },
-          x: { ticks: { color: '#00ffee' }, grid: { color: '#222' } }
-        }
+      function stopLogs() {
+        clearInterval(logInterval);
+      }
+
+      if (logOutput && toggleBtn) {
+        startLogs();
+        toggleBtn.addEventListener('click', function () {
+          paused = !paused;
+          if (paused) {
+            stopLogs();
+            toggleBtn.innerHTML = currentLanguage === 'en' ? "▶ Resume Logs" : 
+                                 currentLanguage === 'bg' ? "▶ Продължи Логовете" : 
+                                 "▶ Reprendre les Journaux";
+          } else {
+            startLogs();
+            toggleBtn.innerHTML = currentLanguage === 'en' ? "⏸ Pause Logs" : 
+                                 currentLanguage === 'bg' ? "⏸ Спри Логовете" : 
+                                 "⏸ Pause Journaux";
+          }
+        });
       }
     });
-  });
-  </script>
 
- <script>
-let openPhishList = [];
-let phishingListLoaded = false;
+    // Attack simulation
+    document.addEventListener("DOMContentLoaded", function () {
+      const buttons = document.querySelectorAll('#attack-buttons .button');
+      const result = document.getElementById('attack-result');
+      const logOutput = document.getElementById('log-output');
+      const attackMap = window.attackSimMap;
+      const attackMarkers = window.globalMapMarkers || [];
 
-fetch('openphish.txt')
-  .then(res => {
-    if (!res.ok) throw new Error('List not found');
-    return res.text();
-  })
-  .then(text => {
-    openPhishList = text.split('\n').map(u => u.trim()).filter(Boolean);
-    phishingListLoaded = true;
-  })
-  .catch(() => {
-    phishingListLoaded = false;
-    const r = document.getElementById('phishing-result');
-    r.textContent = '⚠️ Unable to load phishing list. Please try again later.';
-    r.style.color = 'orange';
-    document.getElementById('url').disabled = true;
-    document.querySelector('#phishing-form button').disabled = true;
-  });
+      const attackDescriptions = {
+        en: {
+          phishing: "Simulation: A phishing email was sent to an employee. The SOC detects a suspicious link and blocks access.",
+          "brute-force": "Simulation: Multiple failed login attempts detected. The system temporarily blocks the IP address.",
+          malware: "Simulation: A malicious file was uploaded. The antivirus system isolates it and alerts the SOC team.",
+          ddos: "Simulation: High traffic volume detected towards the server. DDoS protection limits attacking IPs."
+        },
+        bg: {
+          phishing: "Симулация: Изпратен е фишинг имейл до служител. SOC открива подозрителна връзка и блокира достъпа.",
+          "brute-force": "Симулация: Открити са множество неуспешни опити за влизане. Системата временно блокира IP адреса.",
+          malware: "Симулация: Качен е зловреден файл. Антивирусната система го изолира и сигнализира екипа на SOC.",
+          ddos: "Симулация: Открит е голям обем трафик към сървъра. DDoS защитата ограничава атакуващите IP адреси."
+        },
+        fr: {
+          phishing: "Simulation: Un e-mail de phishing a été envoyé à un employé. Le SOC détecte un lien suspect et bloque l'accès.",
+          "brute-force": "Simulation: Plusieurs tentatives de connexion infructueuses détectées. Le système bloque temporairement l'adresse IP.",
+          malware: "Simulation: Un fichier malveillant a été téléchargé. Le système antivirus l'isole et alerte l'équipe SOC.",
+          ddos: "Simulation: Volume de trafic élevé détecté vers le serveur. La protection DDoS limite les adresses IP attaquantes."
+        }
+      };
 
-function normalizeUrl(url) {
-  return url.trim()
-            .replace(/^https?:\/\//i, '')
-            .replace(/\/$/, '')
-            .toLowerCase();
-}
+      const attackLogs = {
+        en: {
+          phishing: "[ALERT] Phishing email detected and quarantined.",
+          "brute-force": "[WARNING] Multiple failed logins for user 'admin'.",
+          malware: "[CRITICAL] Malware detected and isolated.",
+          ddos: "[ALERT] DDoS attack detected. Traffic filtered."
+        },
+        bg: {
+          phishing: "[ALERT] Фишинг имейл открит и изолиран.",
+          "brute-force": "[WARNING] Множество неуспешни влизания за потребител 'admin'.",
+          malware: "[CRITICAL] Зловреден софтуер открит и изолиран.",
+          ddos: "[ALERT] DDoS атака открита. Трафикът е филтриран."
+        },
+        fr: {
+          phishing: "[ALERT] E-mail de phishing détecté et mis en quarantaine.",
+          "brute-force": "[WARNING] Plusieurs échecs de connexion pour l'utilisateur 'admin'.",
+          malware: "[CRITICAL] Logiciel malveillant détecté et isolé.",
+          ddos: "[ALERT] Attaque DDoS détectée. Trafic filtré."
+        }
+      };
 
-async function checkPhishing(url) {
-  const testUrl = normalizeUrl(url);
-  return openPhishList.some(ph => normalizeUrl(ph) === testUrl);
-}
+      const attackLocations = {
+        phishing: [51.5, -0.09],
+        "brute-force": [40.7, -74.0],
+        malware: [48.85, 2.35],
+        ddos: [35.68, 139.76]
+      };
 
-document.getElementById('phishing-form').addEventListener('submit', async function(e) {
-  e.preventDefault();
-  if (!phishingListLoaded) return;
-  const url = document.getElementById('url').value;
-  const resultDiv = document.getElementById('phishing-result');
-  resultDiv.textContent = 'Checking…';
-  const isPhish = await checkPhishing(url);
-  if (isPhish) {
-    resultDiv.textContent = '⚠️ Dangerous/phishing site!';
-    resultDiv.style.color = 'red';
-  } else {
-    resultDiv.textContent = '✅ The site appears safe.';
-    resultDiv.style.color = 'lime';
-  }
-});
-</script>
+      const chartIndex = {
+        phishing: 0,
+        malware: 1,
+        ddos: 3,
+        "brute-force": 4
+      };
 
-  <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        if (typeof particlesJS !== "undefined") {
-          particlesJS.load('particles-js', 'particles.json', function() {
-            console.log('Particles.js loaded');
-          }, function() {
-            console.error('Failed to load particles.json');
-            const particlesDiv = document.getElementById('particles-js');
-            if (particlesDiv) {
-              particlesDiv.style.display = 'none';
-            }
-          });
+      buttons.forEach(btn => {
+        btn.addEventListener('click', function () {
+          const type = btn.getAttribute('data-attack');
+          
+          result.style.display = "block";
+          result.textContent = attackDescriptions[currentLanguage][type] || "No information for this attack type.";
+          result.className = "p-4 bg-gray-800 rounded-lg";
+
+          if (attackLogs[currentLanguage][type]) {
+            const now = new Date().toLocaleTimeString();
+            const span = document.createElement('span');
+            span.textContent = `[${now}] ${attackLogs[currentLanguage][type]}\n`;
+            span.style.color = "#ffea00";
+            logOutput.appendChild(span);
+            logOutput.scrollTop = logOutput.scrollHeight;
+          }
+
+          if (attackMap && attackLocations[type]) {
+            const marker = L.marker(attackLocations[type])
+              .addTo(attackMap)
+              .bindPopup(`${type.charAt(0).toUpperCase()}${type.slice(1)} attack`)
+              .openPopup();
+            attackMarkers.push(marker);
+            window.globalMapMarkers = attackMarkers;
+          }
+
+          if (window.threatChartInstance && chartIndex[type] !== undefined) {
+            window.threatChartInstance.data.datasets[0].data[chartIndex[type]] += 1;
+            window.threatChartInstance.update();
+          }
+        });
+      });
+    });
+
+    // Chart initialization
+    document.addEventListener("DOMContentLoaded", function () {
+      const ctx = document.getElementById('threatChart').getContext('2d');
+      window.threatChartInstance = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['Phishing', 'Malware', 'Ransomware', 'DDoS', 'Brute Force'],
+          datasets: [{
+            label: 'Detected Threats',
+            data: [12, 8, 4, 10, 6],
+            backgroundColor: [
+              '#00ffeecc','#ff00ccbb','#ffaa00bb','#00ff88bb','#ffea00bb'
+            ],
+            borderColor: '#00ffee',
+            borderWidth: 2
+          }]
+        },
+        options: {
+          plugins: { legend: { display: false } },
+          scales: {
+            y: { beginAtZero: true, ticks: { color: '#00ffee' }, grid: { color: '#222' } },
+            x: { ticks: { color: '#00ffee' }, grid: { color: '#222' } }
+          }
         }
       });
-    </script>
-    
-  </body>
+    });
+
+    // Phishing checker
+    let openPhishList = [];
+    let phishingListLoaded = false;
+
+    fetch('openphish.txt')
+      .then(res => {
+        if (!res.ok) throw new Error('List not found');
+        return res.text();
+      })
+      .then(text => {
+        openPhishList = text.split('\n').map(u => u.trim()).filter(Boolean);
+        phishingListLoaded = true;
+      })
+      .catch(() => {
+        phishingListLoaded = false;
+        const r = document.getElementById('phishing-result');
+        r.textContent = currentLanguage === 'en' ? '⚠️ Unable to load phishing list. Please try again later.' :
+                          currentLanguage === 'bg' ? '⚠️ Неуспешно зареждане на списъка с фишинг. Моля, опитайте по-късно.' :
+                          '⚠️ Impossible de charger la liste de phishing. Veuillez réessayer plus tard.';
+        r.style.color = 'orange';
+        document.getElementById('url').disabled = true;
+        document.querySelector('#phishing-form button').disabled = true;
+      });
+
+    function normalizeUrl(url) {
+      return url.trim()
+                .replace(/^https?:\/\//i, '')
+                .replace(/\/$/, '')
+                .toLowerCase();
+    }
+
+    async function checkPhishing(url) {
+      const testUrl = normalizeUrl(url);
+      return openPhishList.some(ph => normalizeUrl(ph) === testUrl);
+    }
+
+    document.getElementById('phishing-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      if (!phishingListLoaded) return;
+      const url = document.getElementById('url').value;
+      const resultDiv = document.getElementById('phishing-result');
+      resultDiv.className = "p-4 rounded-lg";
+      resultDiv.textContent = currentLanguage === 'en' ? 'Checking…' :
+                              currentLanguage === 'bg' ? 'Проверка…' :
+                              'Vérification…';
+      
+      const isPhish = await checkPhishing(url);
+      if (isPhish) {
+        resultDiv.textContent = currentLanguage === 'en' ? '⚠️ Dangerous/phishing site!' :
+                                currentLanguage === 'bg' ? '⚠️ Опасен/фишинг сайт!' :
+                                '⚠️ Site de phishing dangereux !';
+        resultDiv.className = "p-4 bg-red-900 rounded-lg";
+      } else {
+        resultDiv.textContent = currentLanguage === 'en' ? '✅ The site appears safe.' :
+                                currentLanguage === 'bg' ? '✅ Сайтът изглежда безопасен.' :
+                                '✅ Le site semble sûr.';
+        resultDiv.className = "p-4 bg-green-900 rounded-lg";
+      }
+      resultDiv.style.display = "block";
+    });
+
+    // Particles.js
+    document.addEventListener("DOMContentLoaded", function () {
+      if (typeof particlesJS !== "undefined") {
+        particlesJS('particles-js', {
+          "particles": {
+            "number": {
+              "value": 80,
+              "density": {
+                "enable": true,
+                "value_area": 800
+              }
+            },
+            "color": {
+              "value": "#00ffee"
+            },
+            "shape": {
+              "type": "circle",
+              "stroke": {
+                "width": 0,
+                "color": "#000000"
+              },
+              "polygon": {
+                "nb_sides": 5
+              }
+            },
+            "opacity": {
+              "value": 0.5,
+              "random": false,
+              "anim": {
+                "enable": false,
+                "speed": 1,
+                "opacity_min": 0.1,
+                "sync": false
+              }
+            },
+            "size": {
+              "value": 3,
+              "random": true,
+              "anim": {
+                "enable": false,
+                "speed": 40,
+                "size_min": 0.1,
+                "sync": false
+              }
+            },
+            "line_linked": {
+              "enable": true,
+              "distance": 150,
+              "color": "#00ffee",
+              "opacity": 0.4,
+              "width": 1
+            },
+            "move": {
+              "enable": true,
+              "speed": 2,
+              "direction": "none",
+              "random": false,
+              "straight": false,
+              "out_mode": "out",
+              "bounce": false,
+              "attract": {
+                "enable": false,
+                "rotateX": 600,
+                "rotateY": 1200
+              }
+            }
+          },
+          "interactivity": {
+            "detect_on": "canvas",
+            "events": {
+              "onhover": {
+                "enable": true,
+                "mode": "grab"
+              },
+              "onclick": {
+                "enable": true,
+                "mode": "push"
+              },
+              "resize": true
+            },
+            "modes": {
+              "grab": {
+                "distance": 140,
+                "line_linked": {
+                  "opacity": 1
+                }
+              },
+              "bubble": {
+                "distance": 400,
+                "size": 40,
+                "duration": 2,
+                "opacity": 8,
+                "speed": 3
+              },
+              "repulse": {
+                "distance": 200,
+                "duration": 0.4
+              },
+              "push": {
+                "particles_nb": 4
+              },
+              "remove": {
+                "particles_nb": 2
+              }
+            }
+          },
+          "retina_detect": true
+        }, function() {
+          console.log('Particles.js initialized');
+        });
+      }
+    });
+  </script>
+</body>
 </html>
