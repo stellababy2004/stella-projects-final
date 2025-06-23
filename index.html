@@ -14,56 +14,7 @@
   <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-  
-  <style>
-    .cyber-gradient {
-      background: linear-gradient(135deg, #101820 0%, #0a1220 50%, #0a0a2a 100%);
-    }
-    .cyber-border {
-      border-color: #00ffee;
-    }
-    .cyber-shadow {
-      box-shadow: 0 0 15px rgba(0, 255, 238, 0.3);
-    }
-    .cyber-text {
-      color: #00ffee;
-    }
-    .cyber-bg {
-      background-color: rgba(10, 20, 30, 0.92);
-    }
-    .cyber-button {
-      transition: all 0.3s ease;
-    }
-    .cyber-button:hover {
-      background: rgba(0, 255, 255, 0.1);
-      color: #00ffee;
-      box-shadow: 0 0 10px #00ffee;
-    }
-    .leaflet-container {
-      background: #101820 !important;
-    }
-    .log-output {
-      font-family: 'Courier New', monospace;
-    }
-    #particles-js {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      top: 0;
-      left: 0;
-    }
-    .language-selector {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 1000;
-    }
-    .threat-map-iframe {
-      border: 1px solid #00ffee;
-      border-radius: 8px;
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body class="cyber-gradient text-gray-100 min-h-screen">
   <div id="particles-js"></div>
@@ -186,13 +137,13 @@
       <div class="bg-gray-800 p-4 rounded-lg">
         <p class="mb-4" data-i18n="chatbot.description">Ask our AI assistant about cybersecurity topics, threats, and best practices.</p>
     <iframe 
-  src="https://stellababy2004-stellababy2004cyber-chatbot.hf.space" 
-  width="100%" 
-  height="600" 
-  style="border:none;border-radius:8px;overflow:hidden;background:#181c24"
-  title="CyberSec AI Chatbot"
-  allow="clipboard-write; clipboard-read"
-></iframe>
+    src="https://stellababy2004-stellababy2004cyber-chatbot.hf.space" 
+    width="100%" 
+    height="600" 
+    class="chatbot-iframe"
+    title="CyberSec AI Chatbot"
+    allow="clipboard-write; clipboard-read">
+  </iframe>
       </div>
     </section>
 
@@ -253,31 +204,21 @@
       </button>
     </section>
 
-    <!-- Contact Section -->
-    <section class="cyber-bg rounded-xl cyber-shadow p-8" id="contact">
-      <h2 class="text-2xl font-bold cyber-text mb-4" data-i18n="contact.title">Contact Me</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div>
-          <p data-i18n="contact.email">Email: <a href="mailto:stiliana.stoyanova@orange.fr" class="text-cyan-400 hover:text-cyan-300">stiliana.stoyanova@orange.fr</a></p>
-          <p class="mt-2" data-i18n="contact.linkedin">LinkedIn: <a href="#" class="text-cyan-400 hover:text-cyan-300" target="_blank">linkedin.com/in/stella-barbarella</a></p>
-        </div>
-        <div>
-          <p data-i18n="contact.availability">Available for consulting and freelance projects.</p>
-          <p class="mt-2" data-i18n="contact.response">Response time: typically within 24 hours.</p>
-        </div>
-      </div>
-    </section>
+<!-- Portfolio Download Section -->
+<section class="section" id="portfolio-download">
+  <h2>Свали моето портфолио</h2>
+  <p>Можеш да изтеглиш моето портфолио като Word файл от тук:</p>
+  <a class="button" href="portfolio.docx" download>Свали портфолио (.docx)</a>
+</section>
   </main>
 
   <footer class="bg-black bg-opacity-70 py-6 mt-12">
     <div class="container mx-auto px-4 text-center">
       <p data-i18n="footer.copyright">© 2023 Stella Barbarella. All rights reserved.</p>
       <div class="flex justify-center space-x-4 mt-4">
-        <a href="#" class="text-gray-400 hover:text-cyan-400" title="GitHub Profile"><i class="fab fa-github fa-lg"></i></a>
-        <a href="#" class="text-gray-400 hover:text-cyan-400" title="LinkedIn Profile"><i class="fab fa-linkedin fa-lg"></i></a>
-        <a href="#" class="text-gray-400 hover:text-cyan-400" title="Twitter Profile"><i class="fab fa-twitter fa-lg"></i></a>
+        <a href="https://github.com/stellababy2004" class="text-gray-400 hover:text-cyan-400" title="GitHub Profile" target="_blank" rel="noopener"><i class="fab fa-github fa-lg"></i></a>
+        <a href="https://www.linkedin.com/in/stella-s-95ba5683/" class="text-gray-400 hover:text-cyan-400" title="LinkedIn Profile" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg"></i></a>
       </div>
-    </div>
   </footer>
 
   <script>
