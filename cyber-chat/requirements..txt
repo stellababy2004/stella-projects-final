@@ -1,3 +1,2 @@
-fastapi
-uvicorn
-ollama
+gradio
+requests
