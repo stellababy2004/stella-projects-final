@@ -1,0 +1,25 @@
+{
+  "name": "stella-projects-final",
+  "version": "1.0.0",
+  "description": "- Building a simulated CTF Lab for blue teamers\r - Integrating AI chatbot for cybersecurity Q&A\r - Exploring advanced threat detection via MITRE ATT&CK",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stellababy2004/stella-projects-final.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stellababy2004/stella-projects-final/issues"
+  },
+  "homepage": "https://github.com/stellababy2004/stella-projects-final#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "node-fetch": "^3.3.2"
+  }
+}
