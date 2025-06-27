@@ -64,9 +64,13 @@
       border-radius: 8px;
     }
     .iframe-style {
+      background: #111;
       border: 2px solid #0ff;
       border-radius: 12px;
       box-shadow: 0 0 20px #0ff;
+    }
+    #chatbot-iframe-wrapper {
+      position: relative;
     }
   </style>
 </head>
@@ -83,13 +87,13 @@
   </div>
 
   <header class="bg-black bg-opacity-85 pb-0 border-b-2 cyber-border">
-    <nav class="container mx-auto px-4 py-4">
+о    <nav class="container mx-auto px-4 py-4">
       <ul class="flex flex-wrap justify-center gap-2 mb-2">
         <li><a href="#about" class="px-6 py-3 cyber-bg rounded-lg cyber-button inline-block" data-i18n="nav.about">About Me</a></li>
         <li><a href="#projects" class="px-6 py-3 cyber-bg rounded-lg cyber-button inline-block" data-i18n="nav.projects">Projects</a></li>
         <li><a href="#chart" class="px-6 py-3 cyber-bg rounded-lg cyber-button inline-block" data-i18n="nav.charts">Charts</a></li>
         <li><a href="#attack-sim" class="px-6 py-3 cyber-bg rounded-lg cyber-button inline-block" data-i18n="nav.attackSim">AttackSim</a></li>
-        <li><a href="https://huggingface.co/spaces/stellababy2004/cyber-chat" target="_blank" rel="noopener" class="px-6 py-3 cyber-bg rounded-lg cyber-button inline-block" data-i18n="nav.chatbot">🤖 Open AI Chatbot</a></li>
+        <li><a href="https://huggingface.co/spaces/stellababy2004/Cyber-CHAT-Mistral" target="_blank" rel="noopener" class="px-6 py-3 cyber-bg rounded-lg cyber-button inline-block" data-i18n="nav.chatbot">🤖 Open AI Chatbot</a></li>
         <li><a href="#map-section" class="px-6 py-3 cyber-bg rounded-lg cyber-button inline-block" data-i18n="nav.liveMap">Live Map</a></li>
         <li><a href="#testimonials" class="px-6 py-3 cyber-bg rounded-lg cyber-button inline-block" data-i18n="nav.testimonials">Testimonials</a></li>
         <li><a href="#contact" class="px-6 py-3 cyber-bg rounded-lg cyber-button inline-block" data-i18n="nav.contact">Contact</a></li>
@@ -192,28 +196,16 @@
     <p class="mb-4" data-i18n="chatbot.description">
       Ask our AI assistant about cybersecurity topics, threats, and best practices.
     </p>
-    <div id="chatbot-iframe-wrapper" style="position:relative;">
+    <div id="chatbot-iframe-wrapper">
       <iframe 
-        src="https://stellababy2004-stella-ai-chat.hf.space"
-        data-plausible-track="true"
+        src="https://huggingface.co/spaces/stellababy2004/Cyber-CHAT-Mistral"
         width="100%"
-        height="600"
+        height="400"
         class="iframe-style"
         title="CyberSec AI Chat"
         allow="clipboard-write; fullscreen"
-        loading="lazy"
-        style="background:#111; border:2px solid #0ff; border-radius:12px; box-shadow:0 0 20px #0ff;"
-        onerror="document.getElementById('chatbot-fallback').style.display='block'; this.style.display='none';">
+        loading="lazy">
       </iframe>
-      <div id="chatbot-fallback" style="display:none; position:absolute; top:0; left:0; width:100%; height:100%; background:#111; border-radius:12px; text-align:center; padding:3rem;">
-        <p style="color:#0ff; font-size:1.2rem; margin-bottom:1rem;">
-          🤖 Чатботът не може да се зареди директно тук.<br>
-          <b>Отвори го в нов прозорец:</b>
-        </p>
-        <a href="https://stellababy2004-stella-ai-chat.hf.space" target="_blank" class="px-6 py-3 bg-cyan-600 hover:bg-cyan-700 rounded-lg cyber-button">
-          Отвори AI Чатбот
-        </a>
-      </div>
     </div>
   </div>
 </section>
@@ -280,7 +272,59 @@
   <p>Можеш да изтеглиш моето портфолио като PDF файл от тук:</p>
   <a class="button" href="portfolio.pdf" download data-plausible-track="true">Свали портфолио (PDF)</a>
 </section>
-   </main>
+
+    <!-- Contact Section -->
+    <section class="cyber-bg rounded-xl cyber-shadow p-8 mb-8" id="contact">
+      <h2 class="text-2xl font-bold cyber-text mb-4" data-i18n="contact.title">Contact Me</h2>
+      <form action="https://formspree.io/f/mdkzdooa" method="POST" class="space-y-4">
+        <div>
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" required class="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg" />
+        </div>
+        <div>
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required class="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg" />
+        </div>
+        <div>
+          <label for="message">Message:</label>
+          <textarea id="message" name="message" rows="4" required class="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg"></textarea>
+        </div>
+        <button type="submit" class="px-6 py-2 bg-cyan-600 hover:bg-cyan-700 rounded-lg cyber-button">Send</button>
+      </form>
+      <div id="contact-success" class="hidden mt-4 p-4 bg-green-900 rounded-lg text-green-200"></div>
+    </section>
+
+    <!-- Скрипт за показване на съобщение за успех/грешка -->
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+  const form = document.querySelector('#contact form');
+  const successDiv = document.getElementById('contact-success');
+  if(form && successDiv) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const data = new FormData(form);
+      fetch(form.action, {
+        method: "POST",
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      }).then(response => {
+        if (response.ok) {
+          successDiv.textContent = "Thank you! Your message has been sent.";
+          successDiv.classList.remove('hidden');
+          form.reset();
+        } else {
+          successDiv.textContent = "There was an error. Please try again later.";
+          successDiv.classList.remove('hidden');
+        }
+      }).catch(() => {
+        successDiv.textContent = "There was an error. Please try again later.";
+        successDiv.classList.remove('hidden');
+      });
+    });
+  }
+});
+</script>
+  </main>
 
   <footer class="bg-black bg-opacity-70 py-6 mt-12">
     <div class="container mx-auto px-4 text-center">
@@ -899,5 +943,6 @@
     });
   </script>
   <script async defer data-domain="https://stellabarbarella.com/" src="https://plausible.io/js/plausible.js"></script>
+
 </body>
 </html>
