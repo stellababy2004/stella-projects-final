@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <title>Gemma Chat</title>
+</head>
+<body>
+  <h2>💬 Въведи въпрос:</h2>
+  <form id="chatForm">
+    <input type="text" id="prompt" placeholder="Напиши нещо..." size="50">
+    <button type="submit">Прати</button>
+  </form>
+  <h3>🔁 Отговор:</h3>
+  <pre id="response">...</pre>
+
+  <script>
+    document.getElementById("chatForm").onsubmit = async function(e) {
+      e.preventDefault();
+      const prompt = document.getElementById("prompt").value;
+      const res = await fetch("http://127.0.0.1:5000/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt })
+      });
+      const data = await res.json();
+      document.getElementById("response").innerText = data.response;
+    };
+  </script>
+</body>
+</html>

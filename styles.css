@@ -182,9 +182,55 @@ input[type="text"]:focus {
   overflow: hidden;
 }
 
+/* Loader styles */
+.loader {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border: 2px solid #0ff;
+  border-radius: 50%;
+  border-top: 2px solid transparent;
+  animation: spin 1s linear infinite;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
+
 /* Media queries */
 @media (max-width: 700px) {
   .section { padding: 18px 4px; }
   .button { min-width: 120px; font-size: 1em; padding: 10px 8px; }
   nav ul { flex-direction: column; gap: 4px; }
+}
+
+#custom-chat input:focus {
+  border-color: #00ffee;
+  box-shadow: 0 0 0 2px #00ffee44;
+}
+#chat-messages div {
+  margin-bottom: 0.5rem;
+}
+
+/* Download buttons section */
+.download-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.download-buttons a {
+  margin-bottom: 0;
+}
+
+#attack-animation {
+  animation: blink 1s infinite alternate;
+}
+@keyframes blink {
+  0% { opacity: 1; }
+  100% { opacity: 0.7; }
 }
