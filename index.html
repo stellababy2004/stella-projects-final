@@ -72,6 +72,71 @@
     #chatbot-iframe-wrapper {
       position: relative;
     }
+    /* Moved inline styles to external CSS */
+    #chat-output {
+      min-height: 100px;
+    }
+
+    #user-input {
+      background: #222;
+      color: #fff;
+    }
+
+    #custom-chat {
+      margin-top: 2rem;
+    }
+
+    #chat-messages {
+      min-height: 120px;
+      max-height: 300px;
+      overflow-y: auto;
+      color: #0ff;
+    }
+
+    #chat-input {
+      background: #222;
+      color: #fff;
+    }
+
+    #attack-animation {
+      display: none;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    #attack-icon {
+      font-size: 3rem;
+    }
+
+    #attack-progress {
+      width: 100%;
+      background: #222;
+      border-radius: 8px;
+      margin: 1rem 0;
+    }
+
+    #attack-progress-bar {
+      width: 0%;
+      height: 12px;
+      background: #00ffee;
+      border-radius: 8px;
+      transition: width 0.5s;
+    }
+
+    #attack-steps {
+      font-size: 1.1rem;
+    }
+
+    #attack-tip {
+      margin-top: 1rem;
+      font-style: italic;
+      color: #00ffee;
+    }
+
+    footer div {
+      display: flex;
+      gap: 12px;
+    }
   </style>
 </head>
 <body class="cyber-gradient text-gray-100 min-h-screen">
@@ -197,30 +262,19 @@
       Ask our AI assistant about cybersecurity topics, threats, and best practices.
     </p>
     
-  <div id="chat-output" style="min-height:100px"></div>
-  <input id="user-input" type="text" placeholder="Ask something..." 
-  style="background:#222;color:#fff;" class="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg mb-2" />
+  <div id="chat-output"></div>
+  <input id="user-input" type="text" placeholder="Ask something..." class="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg mb-2" />
   <button id="send-btn">Send</button>
 </section>
 
-<div id="custom-chat" class="bg-gray-800 p-4 rounded-lg" style="margin-top:2rem;">
+<div id="custom-chat" class="bg-gray-800 p-4 rounded-lg">
   <p class="mb-4 text-gray-300">
     Ask our AI assistant about cybersecurity topics, threats, and best practices.
   </p>
-  <div id="chat-messages"
-       class="bg-gray-900 rounded-lg p-4 mb-4"
-       style="min-height:120px; max-height:300px; overflow-y:auto; color:#0ff;">
-  </div>
+  <div id="chat-messages" class="bg-gray-900 rounded-lg p-4 mb-4"></div>
   <div class="flex gap-2">
-    <input id="chat-input"
-           type="text"
-           placeholder="Ask something..."
-           class="flex-1 px-4 py-2 bg-gray-700 text-white rounded-lg border border-cyan-400 focus:outline-none"
-           style="background:#222; color:#fff;">
-    <button id="chat-submit"
-            class="px-4 py-2 bg-cyan-600 hover:bg-cyan-700 rounded-lg cyber-button font-bold">
-      Send
-    </button>
+    <input id="chat-input" type="text" placeholder="Ask something..." class="flex-1 px-4 py-2 bg-gray-700 text-white rounded-lg border border-cyan-400 focus:outline-none">
+    <button id="chat-submit" class="px-4 py-2 bg-cyan-600 hover:bg-cyan-700 rounded-lg cyber-button font-bold">Send</button>
   </div>
 </div>
 
@@ -234,7 +288,16 @@
         <button type="button" class="px-4 py-3 cyber-bg rounded-lg cyber-button" data-attack="malware" data-i18n="attack.malware">Malware</button>
         <button type="button" class="px-4 py-3 cyber-bg rounded-lg cyber-button" data-attack="ddos" data-i18n="attack.ddos">DDoS</button>
       </div>
-      <div id="attack-result" class="p-4 bg-gray-800 rounded-lg hidden"></div>
+      <div id="attack-result" class="p-4 bg-gray-800 rounded-lg hidden">
+        <div id="attack-animation">
+          <span id="attack-icon">🛡️</span>
+          <div id="attack-progress">
+            <div id="attack-progress-bar"></div>
+          </div>
+        </div>
+        <div id="attack-steps"></div>
+        <div id="attack-tip"></div>
+      </div>
     </section>
 
     <!-- Testimonials -->
@@ -343,7 +406,7 @@ document.addEventListener("DOMContentLoaded", function () {
   <footer class="bg-black bg-opacity-70 py-6 mt-12">
     <div class="container mx-auto px-4 text-center">
       <p data-i18n="footer.copyright">© 2023 Stella Barbarella. All rights reserved.</p>
-      <div style="display: flex; gap: 12px;">
+      <div>
   <a href="https://github.com/stellababy2004" target="_blank" rel="noopener" class="cyber-button" aria-label="GitHub">
     <i class="fab fa-github fa-2x"></i>
   </a>
@@ -662,97 +725,69 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Attack simulation
     document.addEventListener("DOMContentLoaded", function () {
-      const buttons = document.querySelectorAll('#attack-buttons .button');
+      const buttons = document.querySelectorAll('#attack-buttons .button, #attack-buttons button');
       const result = document.getElementById('attack-result');
       const logOutput = document.getElementById('log-output');
       const attackMap = window.attackSimMap;
       const attackMarkers = window.globalMapMarkers || [];
 
-      const attackDescriptions = {
-        en: {
-          phishing: "Simulation: A phishing email was sent to an employee. The SOC detects a suspicious link and blocks access.",
-          "brute-force": "Simulation: Multiple failed login attempts detected. The system temporarily blocks the IP address.",
-          malware: "Simulation: A malicious file was uploaded. The antivirus system isolates it and alerts the SOC team.",
-          ddos: "Simulation: High traffic volume detected towards the server. DDoS protection limits attacking IPs."
-        },
-        bg: {
-          phishing: "Симулация: Изпратен е фишинг имейл до служител. SOC открива подозрителна връзка и блокира достъпа.",
-          "brute-force": "Симулация: Открити са множество неуспешни опити за влизане. Системата временно блокира IP адреса.",
-          malware: "Симулация: Качен е зловреден файл. Антивирусната система го изолира и сигнализира екипа на SOC.",
-          ddos: "Симулация: Открит е голям обем трафик към сървъра. DDoS защитата ограничава атакуващите IP адреси."
-        },
-        fr: {
-          phishing: "Simulation: Un e-mail de phishing a été envoyé à un employé. Le SOC détecte un lien suspect et bloque l'accès.",
-          "brute-force": "Simulation: Plusieurs tentatives de connexion infructueuses détectées. Le système bloque temporairement l'adresse IP.",
-          malware: "Simulation: Un fichier malveillant a été téléchargé. Le système antivirus l'isole et alerte l'équipe SOC.",
-          ddos: "Simulation: Volume de trafic élevé détecté vers le serveur. La protection DDoS limite les adresses IP attaquantes."
-        }
-      };
-
-      const attackLogs = {
-        en: {
-          phishing: "[ALERT] Phishing email detected and quarantined.",
-          "brute-force": "[WARNING] Multiple failed logins for user 'admin'.",
-          malware: "[CRITICAL] Malware detected and isolated.",
-          ddos: "[ALERT] DDoS attack detected. Traffic filtered."
-        },
-        bg: {
-          phishing: "[ALERT] Фишинг имейл открит и изолиран.",
-          "brute-force": "[WARNING] Множество неуспешни влизания за потребител 'admin'.",
-          malware: "[CRITICAL] Зловреден софтуер открит и изолиран.",
-          ddos: "[ALERT] DDoS атака открита. Трафикът е филтриран."
-        },
-        fr: {
-          phishing: "[ALERT] E-mail de phishing détecté et mis en quarantaine.",
-          "brute-force": "[WARNING] Plusieurs échecs de connexion pour l'utilisateur 'admin'.",
-          malware: "[CRITICAL] Logiciel malveillant détecté et isolé.",
-          ddos: "[ALERT] Attaque DDoS détectée. Trafic filtré."
-        }
-      };
-
-      const attackLocations = {
-        phishing: [51.5, -0.09],
-        "brute-force": [40.7, -74.0],
-        malware: [48.85, 2.35],
-        ddos: [35.68, 139.76]
-      };
-
-      const chartIndex = {
-        phishing: 0,
-        malware: 1,
-        ddos: 3,
-        "brute-force": 4
-      };
+      // Добави стъпки за phishing
+      const phishingSteps = [
+        "Изпратен е фишинг имейл до служител.",
+        "Служителят кликва на линка.",
+        "SOC засича подозрителна активност.",
+        "Достъпът е блокиран, инцидентът е докладван."
+      ];
+      const phishingTip = "Не отваряйте подозрителни линкове!";
 
       buttons.forEach(btn => {
         btn.addEventListener('click', function () {
           const type = btn.getAttribute('data-attack');
-          
           result.style.display = "block";
-          result.textContent = attackDescriptions[currentLanguage][type] || "No information for this attack type.";
-          result.className = "p-4 bg-gray-800 rounded-lg";
+          result.innerHTML = ""; // Изчисти предишното съдържание
 
-          if (attackLogs[currentLanguage][type]) {
-            const now = new Date().toLocaleTimeString();
-            const span = document.createElement('span');
-            span.textContent = `[${now}] ${attackLogs[currentLanguage][type]}\n`;
-            span.style.color = "#ffea00";
-            logOutput.appendChild(span);
-            logOutput.scrollTop = logOutput.scrollHeight;
-          }
+          // Само за phishing - стъпка по стъпка
+          if (type === "phishing") {
+            const animation = document.getElementById('attack-animation');
+            const stepsDiv = document.getElementById('attack-steps');
+            const tipDiv = document.getElementById('attack-tip');
+            const progressBar = document.getElementById('attack-progress-bar');
+            animation.style.display = "block";
+            stepsDiv.innerHTML = "";
+            tipDiv.innerHTML = "";
+            progressBar.style.width = "0%";
+            let step = 0;
 
-          if (attackMap && attackLocations[type]) {
-            const marker = L.marker(attackLocations[type])
-              .addTo(attackMap)
-              .bindPopup(`${type.charAt(0).toUpperCase()}${type.slice(1)} attack`)
-              .openPopup();
-            attackMarkers.push(marker);
-            window.globalMapMarkers = attackMarkers;
-          }
-
-          if (window.threatChartInstance && chartIndex[type] !== undefined) {
-            window.threatChartInstance.data.datasets[0].data[chartIndex[type]] += 1;
-            window.threatChartInstance.update();
+            function nextStep() {
+              if (step < phishingSteps.length) {
+                stepsDiv.innerHTML += `<div>➡️ ${phishingSteps[step]}</div>`;
+                progressBar.style.width = `${((step + 1) / phishingSteps.length) * 100}%`;
+                step++;
+                setTimeout(nextStep, 1200);
+              } else {
+                animation.style.display = "none";
+                tipDiv.innerHTML = phishingTip;
+                // Добави лог
+                const now = new Date().toLocaleTimeString();
+                const span = document.createElement('span');
+                span.textContent = `[${now}] [ALERT] Phishing email detected and quarantined.\n`;
+                span.style.color = "#ffea00";
+                logOutput.appendChild(span);
+                logOutput.scrollTop = logOutput.scrollHeight;
+                // Добави маркер на картата
+                if (attackMap) {
+                  const marker = L.marker([51.5, -0.09])
+                    .addTo(attackMap)
+                    .bindPopup("Phishing attack - London")
+                    .openPopup();
+                  attackMarkers.push(marker);
+                  window.globalMapMarkers = attackMarkers;
+                }
+              }
+            }
+            nextStep();
+          } else {
+            // ...тук оставаш старото поведение за другите атаки...
           }
         });
       });
