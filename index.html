@@ -754,7 +754,7 @@ document.addEventListener("DOMContentLoaded", function () {
             animation.style.display = "block";
             stepsDiv.innerHTML = "";
             tipDiv.innerHTML = "";
-            progressBar.style.width = "0%";
+            if (progressBar) progressBar.style.width = "0%";
             let step = 0;
 
             function nextStep() {
