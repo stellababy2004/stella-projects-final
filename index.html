@@ -137,6 +137,16 @@
       display: flex;
       gap: 12px;
     }
+    /* Добави към style секцията */
+#cybersec-chatbot .bg-gray-800 {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+#send-btn {
+  width: 100%;
+  margin-top: 0.25rem;
+}
   </style>
 </head>
 <body class="cyber-gradient text-gray-100 min-h-screen">
@@ -152,36 +162,36 @@
   </div>
 
   <header class="bg-black bg-opacity-85 pb-0 border-b-2 cyber-border">
-о    <nav class="container mx-auto px-4 py-4">
-      <ul class="flex flex-wrap justify-center gap-2 mb-2">
-        <li><a href="#about" class="px-6 py-3 cyber-bg rounded-lg cyber-button inline-block" data-i18n="nav.about">About Me</a></li>
-        <li><a href="#projects" class="px-6 py-3 cyber-bg rounded-lg cyber-button inline-block" data-i18n="nav.projects">Projects</a></li>
-        <li><a href="#chart" class="px-6 py-3 cyber-bg rounded-lg cyber-button inline-block" data-i18n="nav.charts">Charts</a></li>
-        <li><a href="#attack-sim" class="px-6 py-3 cyber-bg rounded-lg cyber-button inline-block" data-i18n="nav.attackSim">AttackSim</a></li>
-        <li><a href="https://huggingface.co/spaces/stellababy2004/Cyber-CHAT-Mistral" target="_blank" rel="noopener" class="px-6 py-3 cyber-bg rounded-lg cyber-button inline-block" data-i18n="nav.chatbot">🤖 Open AI Chatbot</a></li>
-        <li><a href="#map-section" class="px-6 py-3 cyber-bg rounded-lg cyber-button inline-block" data-i18n="nav.liveMap">Live Map</a></li>
-        <li><a href="#testimonials" class="px-6 py-3 cyber-bg rounded-lg cyber-button inline-block" data-i18n="nav.testimonials">Testimonials</a></li>
-        <li><a href="#contact" class="px-6 py-3 cyber-bg rounded-lg cyber-button inline-block" data-i18n="nav.contact">Contact</a></li>
-      </ul>
-      
-      <ul class="flex flex-wrap justify-center gap-2 mt-2">
-        <li>
-          <a class="px-6 py-3 cyber-bg rounded-lg cyber-button inline-block" href="penetration_test_report_acme_en.pdf" target="_blank" rel="noopener" download>
-            <span data-i18n="nav.report">📄 Report (PDF)</span>
-          </a>
-        </li>
-        <li>
-          <a href="presentation.html" target="_blank" rel="noopener" class="px-6 py-3 cyber-bg rounded-lg cyber-button inline-block" data-i18n="nav.presentation">
-            📊 View Pentest Presentation
-          </a>
-        </li>
-      </ul>
-      
-      <div class="text-center my-6">
-        <img src="images/logo.png" alt="Stella Barbarella Logo" class="mx-auto h-24" />
-      </div>
-    </nav>
-  </header>
+  <nav class="container mx-auto px-4 py-4">
+    <ul class="flex flex-wrap justify-center gap-2 mb-2">
+      <li><a href="#about" class="px-6 py-3 cyber-bg rounded-lg cyber-button inline-block" data-i18n="nav.about">About Me</a></li>
+      <li><a href="#projects" class="px-6 py-3 cyber-bg rounded-lg cyber-button inline-block" data-i18n="nav.projects">Projects</a></li>
+      <li><a href="#chart" class="px-6 py-3 cyber-bg rounded-lg cyber-button inline-block" data-i18n="nav.charts">Charts</a></li>
+      <li><a href="#attack-sim" class="px-6 py-3 cyber-bg rounded-lg cyber-button inline-block" data-i18n="nav.attackSim">AttackSim</a></li>
+      <li><a href="https://huggingface.co/spaces/stellababy2004/Cyber-CHAT-Mistral" target="_blank" rel="noopener" class="px-6 py-3 cyber-bg rounded-lg cyber-button inline-block" data-i18n="nav.chatbot">🤖 Open AI Chatbot</a></li>
+      <li><a href="#map-section" class="px-6 py-3 cyber-bg rounded-lg cyber-button inline-block" data-i18n="nav.liveMap">Live Map</a></li>
+      <li><a href="#testimonials" class="px-6 py-3 cyber-bg rounded-lg cyber-button inline-block" data-i18n="nav.testimonials">Testimonials</a></li>
+      <li><a href="#contact" class="px-6 py-3 cyber-bg rounded-lg cyber-button inline-block" data-i18n="nav.contact">Contact</a></li>
+    </ul>
+    
+    <ul class="flex flex-wrap justify-center gap-2 mt-2">
+      <li>
+        <a class="px-6 py-3 cyber-bg rounded-lg cyber-button inline-block" href="penetration_test_report_acme_en.pdf" target="_blank" rel="noopener" download>
+          <span data-i18n="nav.report">📄 Report (PDF)</span>
+        </a>
+      </li>
+      <li>
+        <a href="presentation.html" target="_blank" rel="noopener" class="px-6 py-3 cyber-bg rounded-lg cyber-button inline-block" data-i18n="nav.presentation">
+          📊 View Pentest Presentation
+        </a>
+      </li>
+    </ul>
+    
+    <div class="text-center my-6">
+      <img src="images/logo.png" alt="Stella Barbarella Logo" class="mx-auto h-24" />
+    </div>
+  </nav>
+</header>
 
   <main class="container mx-auto px-4 py-8">
     <!-- About Section -->
@@ -266,17 +276,6 @@
   <input id="user-input" type="text" placeholder="Ask something..." class="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg mb-2" />
   <button id="send-btn">Send</button>
 </section>
-
-<div id="custom-chat" class="bg-gray-800 p-4 rounded-lg">
-  <p class="mb-4 text-gray-300">
-    Ask our AI assistant about cybersecurity topics, threats, and best practices.
-  </p>
-  <div id="chat-messages" class="bg-gray-900 rounded-lg p-4 mb-4"></div>
-  <div class="flex gap-2">
-    <input id="chat-input" type="text" placeholder="Ask something..." class="flex-1 px-4 py-2 bg-gray-700 text-white rounded-lg border border-cyan-400 focus:outline-none">
-    <button id="chat-submit" class="px-4 py-2 bg-cyan-600 hover:bg-cyan-700 rounded-lg cyber-button font-bold">Send</button>
-  </div>
-</div>
 
     <!-- Attack Simulation -->
     <section class="cyber-bg rounded-xl cyber-shadow p-8 mb-8" id="attack-sim">
@@ -994,25 +993,25 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
   // CyberSec AI Chat интеграция с Hugging Face API
-  document.addEventListener("DOMContentLoaded", function () {
+ document.addEventListener("DOMContentLoaded", function () {
     const chatOutput = document.getElementById('chat-output');
     const userInput = document.getElementById('user-input');
     const sendBtn = document.getElementById('send-btn');
 
     async function askHuggingFace(question) {
       const response = await fetch(
-        "http://localhost:3001/api/chat",
+        "https://stellababy2004-cyber-chat-mistral.hf.space/api/predict",
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
           },
-          body: JSON.stringify({ inputs: question })
+          body: JSON.stringify({ data: [question] })
         }
       );
       const data = await response.json();
-      return data;жсш яш,шкя
-      
+      // Gradio Spaces връщат резултата в data.data[0]
+      return data.data[0];
     }
 
     if (sendBtn && userInput && chatOutput) {
@@ -1023,12 +1022,12 @@ document.addEventListener("DOMContentLoaded", function () {
         userInput.value = '';
         chatOutput.innerHTML += `<div class="bot-msg mb-2"><b>AI:</b> <span id="ai-typing">...</span></div>`;
         chatOutput.scrollTop = chatOutput.scrollHeight;
-        const result = await askHuggingFace(userMsg);
-        const aiMsg = result[0]?.generated_text || "No answer.";
-        document.getElementById('ai-typing').textContent = aiMsg;
+        const aiMsg = await askHuggingFace(userMsg);
+        document.getElementById('ai-typing').textContent = aiMsg || "No answer.";
       });
     }
   });
+    
 
 document.addEventListener("DOMContentLoaded", function () {
   const chatMessages = document.getElementById('chat-messages');
@@ -1053,20 +1052,17 @@ document.addEventListener("DOMContentLoaded", function () {
       if (!userMsg) return;
       chatMessages.innerHTML += `<div style="margin-bottom:8px;"><b>You:</b> ${userMsg}</div>`;
       chatInput.value = '';
-      // Показваш индикатора за изчакване:
       chatMessages.innerHTML += `<div><b>AI:</b> <span id="ai-custom-typing">AI typing...</span></div>`;
       chatMessages.scrollTop = chatMessages.scrollHeight;
 
       chatHistory.push({ role: "user", content: userMsg });
 
-      // Докато чакаш отговор, индикаторът стои
       const result = await askAI(chatHistory);
       const aiMsg = result[0]?.generated_text || "No answer.";
       document.getElementById('ai-custom-typing').textContent = aiMsg;
 
       chatHistory.push({ role: "assistant", content: aiMsg });
     });
-    // Позволи Enter да изпраща съобщение
     chatInput.addEventListener('keydown', function(e) {
       if (e.key === 'Enter') chatSubmit.click();
     });
