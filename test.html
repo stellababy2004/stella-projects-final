@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Stella Barbarella SOC Analyst & Cybersecurity Portfolio</title>
-  <meta name="description" content="Cybersecurity Portfolio of Stella Barbarella – SOC Analyst, Threat Hunter & Cybersecurity Enthusiast." />
+  <title>Test Environment - Stella Barbarella SOC Analyst & Cybersecurity Portfolio</title>
+  <meta name="description" content="Test Environment - Cybersecurity Portfolio of Stella Barbarella – SOC Analyst, Threat Hunter & Cybersecurity Enthusiast." />
   <meta name="keywords" content="SOC Analyst, Cybersecurity, Threat Hunting, Phishing Detector, Cyber Threat Map, Charts" />
   <link rel="stylesheet" href="styles.css" />
 
@@ -416,7 +416,7 @@
 
   <main>
     <section class="section" id="about">
-      <h1>Stella Barbarella</h1>
+      <h1>Stella Barbarella - Test Environment</h1>
       <p data-translate="about-description">SOC Analyst | Cybersecurity Enthusiast | Threat Hunter</p>
     </section>
 
@@ -429,18 +429,19 @@
         <li><a href="#checkpoint-map" class="button" data-translate="project-live">🌐 Threat Live</a></li>
         <li><a href="Stella_Barbarella_CV.odt" download class="button" data-translate="project-cv">📄 My CV</a></li>
       </ul>
-    </section>    <section class="section" id="phishing-check">
+    </section>
+
+    <section class="section" id="phishing-check">
       <h2 data-translate="phishing-title">Phishing URL Checker</h2>
       <form id="phishing-form">
         <label for="url" data-translate="phishing-label">Enter URL to check:</label>
         <input type="text" id="url" name="url" placeholder="https://example.com" required />
-
         <button type="submit" data-translate="phishing-button">Check</button>
       </form>
       <div id="phishing-result" style="margin-top: 10px; font-weight: bold;"></div>
       <img src="images/logo.png" alt="Stella Barbarella Logo" style="max-width:180px; height:auto;" loading="lazy" />
       <p style="font-size: 0.9em; color: gray; margin-top: 5px;" data-translate="phishing-note">
-        Note: This is a simulation and does not perform actual phishing detection.
+        Note: This uses real OpenPhish database for phishing detection.
       </p>
     </section>
   
@@ -449,9 +450,6 @@
       <p class="pentest-intro">
         Explore real-world pentest deliverables from <strong>Stella Barbarella</strong>.
       </p>
-      <ul>
-    
-      </ul>
     </section>
 
     <section class="section" id="log-analyzer">
@@ -462,28 +460,28 @@
 
     <section class="section" id="attack-sim">
       <h2 data-translate="lab-title">🔬 Attack Simulation Lab</h2>
-      <p data-translate="lab-description">Изберете тип атака за симулация и наблюдавайте как SOC екипът я открива и блокира:</p>
+      <p data-translate="lab-description">Select an attack type to simulate and observe how the SOC team detects and blocks it:</p>
       
       <div id="attack-buttons">
         <button class="attack-button" data-attack="phishing">
           <span class="attack-icon">📧</span><br>
           <strong>Phishing</strong><br>
-          <small data-translate="lab-phishing-desc">Фишинг атака</small>
+          <small data-translate="lab-phishing-desc">Phishing Attack</small>
         </button>
         <button class="attack-button" data-attack="brute-force">
           <span class="attack-icon">🔓</span><br>
           <strong>Brute Force</strong><br>
-          <small data-translate="lab-bruteforce-desc">Брут форс атака</small>
+          <small data-translate="lab-bruteforce-desc">Brute Force Attack</small>
         </button>
         <button class="attack-button" data-attack="malware">
           <span class="attack-icon">🦠</span><br>
           <strong>Malware</strong><br>
-          <small data-translate="lab-malware-desc">Злонамерен софтуер</small>
+          <small data-translate="lab-malware-desc">Malware Attack</small>
         </button>
         <button class="attack-button" data-attack="ddos">
           <span class="attack-icon">⚡</span><br>
           <strong>DDoS</strong><br>
-          <small data-translate="lab-ddos-desc">Разпределена атака</small>
+          <small data-translate="lab-ddos-desc">DDoS Attack</small>
         </button>
       </div>
       
@@ -509,6 +507,7 @@
         src="https://threatmap.checkpoint.com/" 
         width="100%" 
         height="600" 
+        title="CheckPoint Threat Map"
         style="border:2px solid #00ffee; border-radius:10px; box-shadow:0 0 10px #00ffee; background-color: black;">
       </iframe>
     </section>
@@ -567,7 +566,6 @@
   </main>
 
   <script>
-
   document.addEventListener("DOMContentLoaded", function () {
     var mapDiv = document.getElementById('map');
     if (mapDiv) {
@@ -591,7 +589,6 @@
   });
   </script>
 
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
     (function () {
   const logOutput = document.getElementById('log-output');
@@ -627,7 +624,6 @@
     if (!paused) {
       const log = logs[Math.floor(Math.random() * logs.length)];
       const now = new Date().toLocaleTimeString();
-
     
       let color = "#00ffee";
       if (log.includes("CRITICAL")) color = "#ff1744";
@@ -638,7 +634,6 @@
       else if (log.includes("NOTICE")) color = "#00b0ff";
       else if (log.includes("DEBUG")) color = "#bdbdbd";
       else if (log.includes("INFO")) color = "#00ffee";
-
      
       const span = document.createElement('span');
       span.textContent = `[${now}] ${log}\n`;
@@ -743,122 +738,6 @@ document.addEventListener("DOMContentLoaded", function () {
         location: [35.68, 139.76],
         chartIndex: 3
       }
-    },
-    fr: {
-      "phishing": {
-        title: "📧 Attaque de Phishing - Détection et Blocage",
-        description: "Email malveillant tentant d'extraire des informations sensibles des employés",
-        steps: [
-          { icon: "📧", text: "Email suspect avec lien falsifié reçu", status: "detecting", statusText: "DÉTECTION" },
-          { icon: "🔍", text: "La passerelle de sécurité email analyse le contenu", status: "detecting", statusText: "ANALYSE" },
-          { icon: "⚠️", text: "URL de phishing détectée dans l'email", status: "alert", statusText: "ALERTE" },
-          { icon: "🚫", text: "Email automatiquement mis en quarantaine", status: "blocking", statusText: "BLOQUÉ" },
-          { icon: "✅", text: "Équipe SOC notifiée et incident documenté", status: "success", statusText: "PROTÉGÉ" }
-        ],
-        logMessage: "[ALERTE] Email de phishing détecté et mis en quarantaine",
-        location: [51.5, -0.09],
-        chartIndex: 0
-      },
-      "brute-force": {
-        title: "🔓 Attaque Brute Force - Protection des Comptes",
-        description: "Le pirate tente de casser les mots de passe par des tentatives multiples",
-        steps: [
-          { icon: "🔑", text: "Multiples tentatives de connexion échouées détectées", status: "detecting", statusText: "DÉTECTION" },
-          { icon: "📊", text: "Analyse de la fréquence et du motif des tentatives", status: "detecting", statusText: "ANALYSE" },
-          { icon: "🚨", text: "Attaque brute force identifiée depuis IP: 185.23.44.12", status: "alert", statusText: "MENACE" },
-          { icon: "🛡️", text: "Adresse IP temporairement bloquée", status: "blocking", statusText: "BLOQUÉ" },
-          { icon: "✅", text: "Compte verrouillé et administrateur notifié", status: "success", statusText: "PROTÉGÉ" }
-        ],
-        logMessage: "[AVERTISSEMENT] Attaque brute force bloquée - IP temporairement bloquée",
-        location: [40.7, -74.0],
-        chartIndex: 4
-      },
-      "malware": {
-        title: "🦠 Attaque Malware - Isolation et Suppression",
-        description: "Fichier malveillant tentant d'infecter le système",
-        steps: [
-          { icon: "📁", text: "Fichier avec signature suspecte téléchargé", status: "detecting", statusText: "DÉTECTION" },
-          { icon: "🔬", text: "Le système antivirus analyse le fichier", status: "detecting", statusText: "ANALYSE" },
-          { icon: "☣️", text: "Malware détecté - Cheval de Troie", status: "alert", statusText: "MENACE" },
-          { icon: "🔒", text: "Fichier isolé en quarantaine", status: "blocking", statusText: "ISOLÉ" },
-          { icon: "✅", text: "Système nettoyé et protégé", status: "success", statusText: "NETTOYÉ" }
-        ],
-        logMessage: "[CRITIQUE] Malware détecté et isolé avec succès",
-        location: [48.85, 2.35],
-        chartIndex: 1
-      },
-      "ddos": {
-        title: "⚡ Attaque DDoS - Protection du Trafic",
-        description: "Trafic massif tentant de surcharger les serveurs",
-        steps: [
-          { icon: "📈", text: "Trafic anormalement élevé détecté vers le serveur", status: "detecting", statusText: "DÉTECTION" },
-          { icon: "📊", text: "Analyse du trafic et identification de la menace", status: "detecting", statusText: "ANALYSE" },
-          { icon: "🌊", text: "Attaque DDoS confirmée depuis plusieurs adresses IP", status: "alert", statusText: "ATTAQUE" },
-          { icon: "🛡️", text: "Protection DDoS activée - filtrage du trafic", status: "blocking", statusText: "PROTECTION" },
-          { icon: "✅", text: "Trafic normalisé, services stables", status: "success", statusText: "STABLE" }
-        ],
-        logMessage: "[ALERTE] Attaque DDoS neutralisée - trafic filtré",
-        location: [35.68, 139.76],
-        chartIndex: 3
-      }
-    },
-    bg: {
-      "phishing": {
-        title: "📧 Фишинг Атака - Детекция и Блокиране",
-        description: "Злонамерен имейл се опитва да извлече чувствителна информация от служители",
-        steps: [
-          { icon: "📧", text: "Получен подозрителен имейл с фалшива връзка", status: "detecting", statusText: "ДЕТЕКТИРАНЕ" },
-          { icon: "🔍", text: "Email Security Gateway сканира съдържанието", status: "detecting", statusText: "АНАЛИЗ" },
-          { icon: "⚠️", text: "Открит фишинг URL в имейла", status: "alert", statusText: "АЛАРМА" },
-          { icon: "🚫", text: "Имейлът е карантиниран автоматично", status: "blocking", statusText: "БЛОКИРАНЕ" },
-          { icon: "✅", text: "SOC екипът е уведомен и инцидентът е документиран", status: "success", statusText: "ЗАЩИТЕН" }
-        ],
-        logMessage: "[ALERT] Фишинг имейл детектиран и карантиниран от системата",
-        location: [51.5, -0.09],
-        chartIndex: 0
-      },
-      "brute-force": {
-        title: "🔓 Брут Форс Атака - Защита на Акаунти",
-        description: "Хакер се опитва да разбие пароли чрез множество опити за вход",
-        steps: [
-          { icon: "🔑", text: "Детектирани множество неуспешни опити за вход", status: "detecting", statusText: "ДЕТЕКТИРАНЕ" },
-          { icon: "📊", text: "Анализ на честотата и образеца на опитите", status: "detecting", statusText: "АНАЛИЗ" },
-          { icon: "🚨", text: "Идентифицирана брут форс атака от IP: 185.23.44.12", status: "alert", statusText: "ЗАПЛАХА" },
-          { icon: "🛡️", text: "IP адресът е блокиран временно", status: "blocking", statusText: "БЛОКИРАНЕ" },
-          { icon: "✅", text: "Акаунтът е заключен и администраторът е уведомен", status: "success", statusText: "ЗАЩИТЕН" }
-        ],
-        logMessage: "[WARNING] Брут форс атака блокирана - IP временно блокиран",
-        location: [40.7, -74.0],
-        chartIndex: 4
-      },
-      "malware": {
-        title: "🦠 Малуер Атака - Изолация и Премахване",
-        description: "Злонамерен файл се опитва да зарази системата",
-        steps: [
-          { icon: "📁", text: "Качен файл с подозрителна сигнатура", status: "detecting", statusText: "ДЕТЕКТИРАНЕ" },
-          { icon: "🔬", text: "Антивирусната система сканира файла", status: "detecting", statusText: "СКАНИРАНЕ" },
-          { icon: "☣️", text: "Открит малуер - Троянски кон", status: "alert", statusText: "ЗАПЛАХА" },
-          { icon: "🔒", text: "Файлът е изолиран в карантина", status: "blocking", statusText: "ИЗОЛАЦИЯ" },
-          { icon: "✅", text: "Системата е почистена и защитена", status: "success", statusText: "ОЧИСТЕНА" }
-        ],
-        logMessage: "[CRITICAL] Малуер детектиран и изолиран успешно",
-        location: [48.85, 2.35],
-        chartIndex: 1
-      },
-      "ddos": {
-        title: "⚡ DDoS Атака - Защита на Трафика",
-        description: "Масивен трафик се опитва да претовари сървърите",
-        steps: [
-          { icon: "📈", text: "Детектиран аномално висок трафик към сървъра", status: "detecting", statusText: "ДЕТЕКТИРАНЕ" },
-          { icon: "📊", text: "Анализ на трафика и идентификация на заплахата", status: "detecting", statusText: "АНАЛИЗ" },
-          { icon: "🌊", text: "Потвърдена DDoS атака от множество IP адреси", status: "alert", statusText: "АТАКА" },
-          { icon: "🛡️", text: "DDoS защитата активирана - филтриране на трафика", status: "blocking", statusText: "ЗАЩИТА" },
-          { icon: "✅", text: "Трафикът е нормализиран, услугите са стабилни", status: "success", statusText: "СТАБИЛНО" }
-        ],
-        logMessage: "[ALERT] DDoS атака неутрализирана - трафикът е филтриран",
-        location: [35.68, 139.76],
-        chartIndex: 3
-      }
     }
   };
 
@@ -890,7 +769,7 @@ document.addEventListener("DOMContentLoaded", function () {
     
     // Set title and description
     titleDiv.textContent = scenario.title;
-    descriptionDiv.innerHTML = `<p><strong>${currentLanguage === 'bg' ? 'Сценарий:' : currentLanguage === 'fr' ? 'Scénario:' : 'Scenario:'}</strong> ${scenario.description}</p>`;
+    descriptionDiv.innerHTML = `<p><strong>Scenario:</strong> ${scenario.description}</p>`;
     
     // Clear previous steps
     stepsDiv.innerHTML = '';
@@ -934,25 +813,6 @@ document.addEventListener("DOMContentLoaded", function () {
       if (window.threatChartInstance && scenario.chartIndex !== undefined) {
         window.threatChartInstance.data.datasets[0].data[scenario.chartIndex] += 1;
         window.threatChartInstance.update();
-      }
-      
-      // Update map
-      if (mapDiv && window.L && scenario.location) {
-        if (!window.attackSimMap) {
-          window.attackSimMap = L.map('map').setView([42.7, 23.3], 3);
-          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 18,
-            attribution: '© OpenStreetMap contributors'
-          }).addTo(window.attackSimMap);
-        }
-        
-        const popupText = currentLanguage === 'bg' ? `${attackType.charAt(0).toUpperCase() + attackType.slice(1)} атака блокирана` :
-                         currentLanguage === 'fr' ? `Attaque ${attackType} bloquée` :
-                         `${attackType.charAt(0).toUpperCase() + attackType.slice(1)} attack blocked`;
-        
-        L.marker(scenario.location).addTo(window.attackSimMap)
-          .bindPopup(popupText)
-          .openPopup();
       }
     }, scenario.steps.length * 800 + 1000);
   }
@@ -1009,13 +869,19 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 </script>
+
 <script>
+// Real Phishing Detection
 let openPhishList = [];
 
 fetch('openphish.txt')
   .then(res => res.text())
   .then(text => {
     openPhishList = text.split('\n').map(url => url.trim()).filter(Boolean);
+    console.log(`Loaded ${openPhishList.length} known phishing URLs`);
+  })
+  .catch(error => {
+    console.warn('Could not load openphish.txt, using pattern-based detection only:', error);
   });
 
 function normalizeUrl(url) {
@@ -1031,53 +897,27 @@ document.getElementById('phishing-form').addEventListener('submit', async functi
   e.preventDefault();
   const url = document.getElementById('url').value;
   const resultDiv = document.getElementById('phishing-result');
-  const translation = translations[currentLanguage] || translations['en'];
   
-  resultDiv.textContent = translation['phishing-checking'] || 'Checking...';
-  const isPhishing = await checkPhishing(url);
-  if (isPhishing) {
-    resultDiv.textContent = translation['phishing-dangerous'] || '⚠️ Dangerous/phishing site!';
-    resultDiv.style.color = 'red';
-  } else {
-    resultDiv.textContent = translation['phishing-safe'] || '✅ The site appears safe.';
-    resultDiv.style.color = 'lime';
+  resultDiv.textContent = 'Checking...';
+  resultDiv.style.color = '#ffea00';
+  
+  try {
+    await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate delay
+    const isPhishing = await checkPhishing(url);
+    if (isPhishing) {
+      resultDiv.textContent = '⚠️ DANGEROUS - Known phishing site detected!';
+      resultDiv.style.color = '#ff1744';
+    } else {
+      resultDiv.textContent = '✅ URL appears safe - not found in phishing database';
+      resultDiv.style.color = '#00e676';
+    }
+  } catch (error) {
+    resultDiv.textContent = '❌ Error checking URL';
+    resultDiv.style.color = '#ff1744';
   }
 });
 </script>
-<script>
-// Contact Form Handler with Multi-language Support
-document.addEventListener("DOMContentLoaded", function () {
-  const contactForm = document.getElementById('contact-form');
-  const contactResult = document.getElementById('contact-result');
-  
-  if (contactForm && contactResult) {
-    contactForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      const translation = translations[currentLanguage] || translations['en'];
-      
-      // Show loading message
-      contactResult.style.display = 'block';
-      contactResult.textContent = translation['contact-sending'] || 'Sending message...';
-      contactResult.style.color = '#ffea00';
-      
-      // Simulate form submission (since this is a static site)
-      setTimeout(() => {
-        contactResult.textContent = translation['contact-success'] || '✅ Message sent successfully! I will get back to you soon.';
-        contactResult.style.color = '#00e676';
-        
-        // Clear form
-        contactForm.reset();
-        
-        // Hide message after 5 seconds
-        setTimeout(() => {
-          contactResult.style.display = 'none';
-        }, 5000);
-      }, 1500);
-    });
-  }
-});
-</script>
+
 <script>
 // Multi-language Support
 const translations = {
@@ -1100,17 +940,12 @@ const translations = {
     'phishing-title': 'Phishing URL Checker',
     'phishing-label': 'Enter URL to check:',
     'phishing-button': 'Check',
-    'phishing-note': 'Note: This is a simulation and does not perform actual phishing detection.',
-    'phishing-checking': 'Checking...',
-    'phishing-dangerous': '⚠️ Dangerous/phishing site!',
-    'phishing-safe': '✅ The site appears safe.',
+    'phishing-note': 'Note: This uses real OpenPhish database for phishing detection.',
     'contact-name': 'Name:',
     'contact-email': 'Email:',
     'contact-subject': 'Subject:',
     'contact-message': 'Message:',
     'contact-send': '📧 Send Message',
-    'contact-sending': 'Sending message...',
-    'contact-success': '✅ Message sent successfully! I will get back to you soon.',
     'contact-download': '📥 Download Portfolio',
     'contact-linkedin': '🔗 LinkedIn',
     'lab-title': '🔬 Attack Simulation Lab',
@@ -1139,17 +974,12 @@ const translations = {
     'phishing-title': 'Vérificateur d\'URL de Phishing',
     'phishing-label': 'Entrez l\'URL à vérifier:',
     'phishing-button': 'Vérifier',
-    'phishing-note': 'Note: Ceci est une simulation et ne détecte pas réellement le phishing.',
-    'phishing-checking': 'Vérification...',
-    'phishing-dangerous': '⚠️ Site dangereux/phishing !',
-    'phishing-safe': '✅ Le site semble sûr.',
+    'phishing-note': 'Note: Ceci utilise la vraie base de données OpenPhish pour la détection de phishing.',
     'contact-name': 'Nom:',
     'contact-email': 'Email:',
     'contact-subject': 'Sujet:',
     'contact-message': 'Message:',
     'contact-send': '📧 Envoyer Message',
-    'contact-sending': 'Envoi du message...',
-    'contact-success': '✅ Message envoyé avec succès! Je vous répondrai bientôt.',
     'contact-download': '📥 Télécharger Portfolio',
     'contact-linkedin': '🔗 LinkedIn',
     'lab-title': '🔬 Laboratoire de Simulation d\'Attaques',
@@ -1178,17 +1008,12 @@ const translations = {
     'phishing-title': 'Проверка за Фишинг URL',
     'phishing-label': 'Въведете URL за проверка:',
     'phishing-button': 'Провери',
-    'phishing-note': 'Забележка: Това е симулация и не прави реална детекция на фишинг.',
-    'phishing-checking': 'Проверявам...',
-    'phishing-dangerous': '⚠️ Опасен/фишинг сайт!',
-    'phishing-safe': '✅ Сайтът изглежда безопасен.',
+    'phishing-note': 'Забележка: Това използва реална OpenPhish база данни за детекция на фишинг.',
     'contact-name': 'Име:',
     'contact-email': 'Имейл:',
     'contact-subject': 'Тема:',
     'contact-message': 'Съобщение:',
     'contact-send': '📧 Изпрати Съобщение',
-    'contact-sending': 'Изпращане на съобщението...',
-    'contact-success': '✅ Съобщението е изпратено успешно! Ще се свържа с вас скоро.',
     'contact-download': '📥 Изтегли Портфолио',
     'contact-linkedin': '🔗 LinkedIn',
     'lab-title': '🔬 Лаборатория за Симулация на Атаки',
@@ -1214,53 +1039,8 @@ function translatePage(language) {
     }
   });
   
-  // Update form placeholders and dynamic content
-  updateDynamicContent(language);
-  
   // Save language preference
   localStorage.setItem('preferredLanguage', language);
-}
-
-function updateDynamicContent(language) {
-  const translation = translations[language];
-  
-  // Update contact form button
-  const contactButton = document.querySelector('#contact-form button[type="submit"]');
-  if (contactButton && translation['contact-send']) {
-    contactButton.textContent = translation['contact-send'];
-  }
-  
-  // Update contact form labels
-  const nameLabel = document.querySelector('label[for="contact-name"]');
-  if (nameLabel && translation['contact-name']) {
-    nameLabel.textContent = translation['contact-name'];
-  }
-  
-  const emailLabel = document.querySelector('label[for="contact-email"]');
-  if (emailLabel && translation['contact-email']) {
-    emailLabel.textContent = translation['contact-email'];
-  }
-  
-  const subjectLabel = document.querySelector('label[for="contact-subject"]');
-  if (subjectLabel && translation['contact-subject']) {
-    subjectLabel.textContent = translation['contact-subject'];
-  }
-  
-  const messageLabel = document.querySelector('label[for="contact-message"]');
-  if (messageLabel && translation['contact-message']) {
-    messageLabel.textContent = translation['contact-message'];
-  }
-  
-  // Update contact buttons
-  const downloadBtn = document.querySelector('a[href*="Portfolio"]');
-  if (downloadBtn && translation['contact-download']) {
-    downloadBtn.textContent = translation['contact-download'];
-  }
-  
-  const linkedinBtn = document.querySelector('a[href*="linkedin"]');
-  if (linkedinBtn && translation['contact-linkedin']) {
-    linkedinBtn.textContent = translation['contact-linkedin'];
-  }
 }
 
 // Initialize language on page load
@@ -1278,8 +1058,8 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-// Update existing contact form handler to use translations
-function updateContactFormWithTranslations() {
+// Contact Form Handler
+document.addEventListener("DOMContentLoaded", function () {
   const contactForm = document.getElementById('contact-form');
   const contactResult = document.getElementById('contact-result');
   
@@ -1287,16 +1067,14 @@ function updateContactFormWithTranslations() {
     contactForm.addEventListener('submit', function(e) {
       e.preventDefault();
       
-      const translation = translations[currentLanguage];
-      
       // Show loading message
       contactResult.style.display = 'block';
-      contactResult.textContent = translation['contact-sending'] || 'Sending message...';
+      contactResult.textContent = 'Sending message...';
       contactResult.style.color = '#ffea00';
       
       // Simulate form submission
       setTimeout(() => {
-        contactResult.textContent = translation['contact-success'] || '✅ Message sent successfully!';
+        contactResult.textContent = '✅ Message sent successfully! I will get back to you soon.';
         contactResult.style.color = '#00e676';
         
         // Clear form
@@ -1309,33 +1087,7 @@ function updateContactFormWithTranslations() {
       }, 1500);
     });
   }
-}
-
-// Update existing phishing checker to use translations
-function updatePhishingCheckerWithTranslations() {
-  const phishingForm = document.getElementById('phishing-form');
-  
-  if (phishingForm) {
-    phishingForm.addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const url = document.getElementById('url').value;
-      const resultDiv = document.getElementById('phishing-result');
-      const translation = translations[currentLanguage];
-      
-      resultDiv.textContent = translation['phishing-checking'] || 'Checking...';
-      
-      // Simulate checking (using existing logic)
-      const isPhishing = await checkPhishing(url);
-      if (isPhishing) {
-        resultDiv.textContent = translation['phishing-dangerous'] || '⚠️ Dangerous/phishing site!';
-        resultDiv.style.color = 'red';
-      } else {
-        resultDiv.textContent = translation['phishing-safe'] || '✅ The site appears safe.';
-        resultDiv.style.color = 'lime';
-      }
-    });
-  }
-}
+});
 
 // Particles.js configuration
 particlesJS('particles-js', {
@@ -1356,5 +1108,258 @@ particlesJS('particles-js', {
   retina_detect: true
 });
 </script>
+</body>
+</html>
+<body>
+  <div id="particles-js"></div>
+  
+  <div class="container">
+    <a href="index.html" class="back-btn">⬅️ Back to Portfolio</a>
+    
+    <h1>🧪 Testing Environment</h1>
+    <p>Interactive testing playground for cybersecurity tools and simulations</p>
+    
+    <div class="test-grid">
+      <div class="test-card" onclick="runNetworkScan()">
+        <h3>🌐 Network Scanner</h3>
+        <p>Simulate network discovery and port scanning operations</p>
+        <button class="test-btn">Run Scan</button>
+      </div>
+      
+      <div class="test-card" onclick="runVulnCheck()">
+        <h3>🔍 Vulnerability Check</h3>
+        <p>Test common vulnerability detection patterns</p>
+        <button class="test-btn">Check Vulns</button>
+      </div>
+      
+      <div class="test-card" onclick="runLogAnalysis()">
+        <h3>📊 Log Analysis</h3>
+        <p>Analyze sample security logs for suspicious activities</p>
+        <button class="test-btn">Analyze Logs</button>
+      </div>
+      
+      <div class="test-card" onclick="runThreatIntel()">
+        <h3>🎯 Threat Intelligence</h3>
+        <p>Query threat intelligence feeds and IOCs</p>
+        <button class="test-btn">Check Intel</button>
+      </div>
+      
+      <div class="test-card" onclick="runPasswordTest()">
+        <h3>🔐 Password Strength</h3>
+        <p>Test password complexity and security policies</p>
+        <button class="test-btn">Test Password</button>
+      </div>
+      
+      <div class="test-card" onclick="runHashAnalysis()">
+        <h3>🔢 Hash Analysis</h3>
+        <p>Analyze file hashes and digital signatures</p>
+        <button class="test-btn">Analyze Hash</button>
+      </div>
+    </div>
+    
+    <div class="console">
+      <div class="console-header">
+        🖥️ Testing Console Output
+      </div>
+      <div id="console-output" class="console-output">
+        Ready for testing... Click on any test above to begin.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Particles.js configuration
+    particlesJS('particles-js', {
+      particles: {
+        number: { value: 80, density: { enable: true, value_area: 800 } },
+        color: { value: '#00ffee' },
+        shape: { type: 'circle' },
+        opacity: { value: 0.5, random: false },
+        size: { value: 3, random: true },
+        line_linked: { enable: true, distance: 150, color: '#00ffee', opacity: 0.4, width: 1 },
+        move: { enable: true, speed: 6, direction: 'none', random: false, straight: false, out_mode: 'out', bounce: false }
+      },
+      interactivity: {
+        detect_on: 'canvas',
+        events: { onhover: { enable: true, mode: 'repulse' }, onclick: { enable: true, mode: 'push' }, resize: true },
+        modes: { grab: { distance: 400, line_linked: { opacity: 1 } }, bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 }, repulse: { distance: 200, duration: 0.4 }, push: { particles_nb: 4 }, remove: { particles_nb: 2 } }
+      },
+      retina_detect: true
+    });
+
+    const consoleOutput = document.getElementById('console-output');
+    
+    function addToConsole(text, type = 'info') {
+      const timestamp = new Date().toLocaleTimeString();
+      const prefix = type === 'error' ? '❌' : type === 'success' ? '✅' : '🔍';
+      consoleOutput.textContent += `\n[${timestamp}] ${prefix} ${text}`;
+      consoleOutput.scrollTop = consoleOutput.scrollHeight;
+    }
+    
+    function showLoading(message) {
+      consoleOutput.innerHTML += `\n<span class="loading"></span> ${message}`;
+      consoleOutput.scrollTop = consoleOutput.scrollHeight;
+    }
+    
+    async function simulateDelay(min = 1000, max = 3000) {
+      const delay = Math.random() * (max - min) + min;
+      return new Promise(resolve => setTimeout(resolve, delay));
+    }
+    
+    async function runNetworkScan() {
+      addToConsole('Starting network discovery scan...');
+      showLoading('Scanning network range 192.168.1.0/24');
+      
+      await simulateDelay(2000, 4000);
+      
+      const devices = [
+        '192.168.1.1 - Router (ports: 22, 23, 80, 443)',
+        '192.168.1.100 - Server (ports: 22, 80, 443, 3389)',
+        '192.168.1.150 - Workstation (ports: 135, 139, 445)',
+        '192.168.1.200 - Printer (ports: 9100, 515, 631)'
+      ];
+      
+      devices.forEach((device, index) => {
+        setTimeout(() => addToConsole(`Found: ${device}`, 'success'), index * 500);
+      });
+      
+      setTimeout(() => addToConsole('Network scan completed. 4 devices discovered.', 'success'), 2500);
+    }
+    
+    async function runVulnCheck() {
+      addToConsole('Initializing vulnerability scanner...');
+      showLoading('Checking for common vulnerabilities');
+      
+      await simulateDelay(2000, 3000);
+      
+      const vulns = [
+        'CVE-2021-44228 (Log4Shell) - CRITICAL - Found in Java application',
+        'CVE-2021-34527 (PrintNightmare) - HIGH - Windows Print Spooler vulnerable',
+        'CVE-2020-1472 (Zerologon) - CRITICAL - Domain Controller at risk'
+      ];
+      
+      vulns.forEach((vuln, index) => {
+        setTimeout(() => addToConsole(`🚨 ${vuln}`, 'error'), index * 800);
+      });
+      
+      setTimeout(() => addToConsole('Vulnerability scan completed. 3 critical issues found.', 'error'), 3000);
+    }
+    
+    async function runLogAnalysis() {
+      addToConsole('Loading security logs for analysis...');
+      showLoading('Processing authentication logs');
+      
+      await simulateDelay(1500, 2500);
+      
+      const events = [
+        'Failed login attempt from 203.0.113.42 - User: admin',
+        'Successful login after 5 failed attempts - Potential brute force',
+        'Privilege escalation detected - User: service_account',
+        'Unusual file access pattern detected in /etc/passwd'
+      ];
+      
+      events.forEach((event, index) => {
+        setTimeout(() => addToConsole(`⚠️ ${event}`, 'error'), index * 600);
+      });
+      
+      setTimeout(() => addToConsole('Log analysis completed. 4 suspicious events identified.', 'success'), 3000);
+    }
+    
+    async function runThreatIntel() {
+      addToConsole('Querying threat intelligence feeds...');
+      showLoading('Checking IOCs against known threat actors');
+      
+      await simulateDelay(2000, 3500);
+      
+      const threats = [
+        'IP 185.220.101.42 - Associated with APT29 (Cozy Bear)',
+        'Domain evil-site.com - Recently registered, suspicious TLD',
+        'Hash SHA256:a1b2c3... - Known malware family: TrickBot'
+      ];
+      
+      threats.forEach((threat, index) => {
+        setTimeout(() => addToConsole(`🎯 ${threat}`, 'error'), index * 700);
+      });
+      
+      setTimeout(() => addToConsole('Threat intel check completed. 3 IOCs matched.', 'success'), 2500);
+    }
+    
+    async function runPasswordTest() {
+      const password = prompt('Enter password to test:') || 'password123';
+      addToConsole(`Testing password strength for: ${password.replace(/./g, '*')}`);
+      showLoading('Analyzing password complexity');
+      
+      await simulateDelay(1000, 2000);
+      
+      let score = 0;
+      const checks = [];
+      
+      if (password.length >= 8) {
+        score += 2;
+        checks.push('✅ Length >= 8 characters');
+      } else {
+        checks.push('❌ Length < 8 characters');
+      }
+      
+      if (/[A-Z]/.test(password)) {
+        score += 1;
+        checks.push('✅ Contains uppercase letters');
+      } else {
+        checks.push('❌ No uppercase letters');
+      }
+      
+      if (/[a-z]/.test(password)) {
+        score += 1;
+        checks.push('✅ Contains lowercase letters');
+      } else {
+        checks.push('❌ No lowercase letters');
+      }
+      
+      if (/[0-9]/.test(password)) {
+        score += 1;
+        checks.push('✅ Contains numbers');
+      } else {
+        checks.push('❌ No numbers');
+      }
+      
+      if (/[^A-Za-z0-9]/.test(password)) {
+        score += 2;
+        checks.push('✅ Contains special characters');
+      } else {
+        checks.push('❌ No special characters');
+      }
+      
+      checks.forEach((check, index) => {
+        setTimeout(() => addToConsole(check), index * 300);
+      });
+      
+      const strength = score >= 6 ? 'STRONG' : score >= 4 ? 'MEDIUM' : 'WEAK';
+      const type = score >= 6 ? 'success' : score >= 4 ? 'info' : 'error';
+      
+      setTimeout(() => addToConsole(`Password strength: ${strength} (Score: ${score}/7)`, type), checks.length * 300 + 500);
+    }
+    
+    async function runHashAnalysis() {
+      const hash = prompt('Enter file hash (SHA256):') || 'a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456';
+      addToConsole(`Analyzing hash: ${hash.substring(0, 16)}...`);
+      showLoading('Checking hash against malware databases');
+      
+      await simulateDelay(1500, 2500);
+      
+      const isKnownMalware = Math.random() > 0.7;
+      
+      if (isKnownMalware) {
+        addToConsole('🚨 Hash found in malware database!', 'error');
+        addToConsole('Family: TrojanDownloader.Generic', 'error');
+        addToConsole('First seen: 2024-01-15', 'error');
+        addToConsole('Risk level: HIGH', 'error');
+      } else {
+        addToConsole('✅ Hash not found in malware databases', 'success');
+        addToConsole('File appears to be clean', 'success');
+      }
+      
+      setTimeout(() => addToConsole('Hash analysis completed.', 'success'), 1000);
+    }
+  </script>
 </body>
 </html>

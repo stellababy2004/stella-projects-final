@@ -2,9 +2,119 @@
 <html lang="bg">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gemma Chat</title>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+  <style>
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      background: linear-gradient(135deg, #0a0a0a, #1a1a2e, #16213e);
+    }
+    
+    body {
+      background: transparent;
+      color: #00ffee;
+      font-family: 'Courier New', monospace;
+      padding: 20px;
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+      z-index: 1;
+    }
+    
+    h2 {
+      color: #00ffee;
+      text-shadow: 0 0 10px #00ffee;
+      text-align: center;
+    }
+    
+    h3 {
+      color: #00ff88;
+      text-shadow: 0 0 8px #00ff88;
+    }
+    
+    #chatForm {
+      background: rgba(0, 20, 40, 0.8);
+      padding: 20px;
+      border-radius: 10px;
+      border: 2px solid #00ffee;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    
+    input[type="text"] {
+      background: rgba(0, 0, 0, 0.7);
+      border: 2px solid #00ffee;
+      color: #00ffee;
+      padding: 10px;
+      border-radius: 5px;
+      width: 300px;
+      font-family: 'Courier New', monospace;
+    }
+    
+    input[type="text"]:focus {
+      outline: none;
+      box-shadow: 0 0 10px #00ffee;
+    }
+    
+    button {
+      background: linear-gradient(45deg, #00ffee, #0066cc);
+      border: none;
+      color: #000;
+      padding: 10px 20px;
+      border-radius: 5px;
+      margin-left: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+    
+    button:hover {
+      background: linear-gradient(45deg, #00ff88, #0088ff);
+      transform: translateY(-2px);
+    }
+    
+    #response {
+      background: rgba(0, 0, 0, 0.8);
+      border: 2px solid #00ff88;
+      color: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      white-space: pre-wrap;
+      min-height: 100px;
+      font-family: 'Courier New', monospace;
+      line-height: 1.4;
+    }
+    
+    .back-btn {
+      display: inline-block;
+      margin-bottom: 20px;
+      padding: 10px 20px;
+      background: rgba(0, 255, 238, 0.1);
+      border: 2px solid #00ffee;
+      color: #00ffee;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+    }
+    
+    .back-btn:hover {
+      background: rgba(0, 255, 238, 0.2);
+      box-shadow: 0 0 15px rgba(0, 255, 238, 0.5);
+    }
+  </style>
 </head>
 <body>
+  <div id="particles-js"></div>
+  
+  <a href="index.html" class="back-btn">⬅️ Назад към Портфолио</a>
+  
   <h2>💬 Въведи въпрос:</h2>
   <form id="chatForm">
     <input type="text" id="prompt" placeholder="Напиши нещо..." size="50">
@@ -14,16 +124,54 @@
   <pre id="response">...</pre>
 
   <script>
+    // Particles.js configuration
+    particlesJS('particles-js', {
+      particles: {
+        number: { value: 80, density: { enable: true, value_area: 800 } },
+        color: { value: '#00ffee' },
+        shape: { type: 'circle' },
+        opacity: { value: 0.5, random: false },
+        size: { value: 3, random: true },
+        line_linked: { enable: true, distance: 150, color: '#00ffee', opacity: 0.4, width: 1 },
+        move: { enable: true, speed: 6, direction: 'none', random: false, straight: false, out_mode: 'out', bounce: false }
+      },
+      interactivity: {
+        detect_on: 'canvas',
+        events: { onhover: { enable: true, mode: 'repulse' }, onclick: { enable: true, mode: 'push' }, resize: true },
+        modes: { grab: { distance: 400, line_linked: { opacity: 1 } }, bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 }, repulse: { distance: 200, duration: 0.4 }, push: { particles_nb: 4 }, remove: { particles_nb: 2 } }
+      },
+      retina_detect: true
+    });
+    
+    // Chat functionality
     document.getElementById("chatForm").onsubmit = async function(e) {
       e.preventDefault();
       const prompt = document.getElementById("prompt").value;
-      const res = await fetch("http://127.0.0.1:5000/generate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prompt })
-      });
-      const data = await res.json();
-      document.getElementById("response").innerText = data.response;
+      const responseElement = document.getElementById("response");
+      
+      if (!prompt.trim()) {
+        responseElement.innerText = "Моля, въведете въпрос.";
+        return;
+      }
+      
+      responseElement.innerText = "Зареждам отговор...";
+      
+      try {
+        const res = await fetch("http://127.0.0.1:5000/generate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ prompt })
+        });
+        
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        
+        const data = await res.json();
+        responseElement.innerText = data.response || "Няма отговор от сървъра.";
+      } catch (error) {
+        responseElement.innerText = `Грешка: ${error.message}\n\nМоля, уверете се че сървърът работи на http://127.0.0.1:5000`;
+      }
     };
   </script>
 </body>

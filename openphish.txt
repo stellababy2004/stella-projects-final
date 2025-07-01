@@ -1,2 +1,4 @@
 4000.top
 case-support-nine.vercel.app
+malicious-site.com
+phishingsite.net

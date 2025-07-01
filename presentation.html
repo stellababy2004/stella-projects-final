@@ -2,25 +2,33 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pentest Presentation</title>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
   <style>
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      background: linear-gradient(135deg, #0a0a0a, #1a1a2e, #16213e);
+    }
+    
     body {
       margin: 0;
-      background: #000;
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 6c498508cfb0e06fb8c5ee7d07c9b0e89eb507f0
->>>>>>> 871d14f879b332bc4e1329c93e1ef50fa0e9e366
+      background: transparent;
       color: #fff;
       font-family: Arial, sans-serif;
+      overflow-x: hidden;
     }
     .not-found {
       padding: 2em;
       text-align: center;
       color: #ff8080;
+      position: relative;
+      z-index: 1;
     }
     .download-btn {
       display: inline-block;
@@ -37,44 +45,56 @@
     .download-btn:hover {
       background: #0ff;
       color: #222;
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
->>>>>>> 694cf335d67f092669afe59cad2c2af6f335cd4e
-=======
->>>>>>> 6c498508cfb0e06fb8c5ee7d07c9b0e89eb507f0
->>>>>>> 871d14f879b332bc4e1329c93e1ef50fa0e9e366
     }
     iframe {
       width: 100%;
       height: 100vh;
       border: none;
+      position: relative;
+      z-index: 1;
+    }
+    .hidden {
+      display: none;
     }
   </style>
 </head>
 <body>
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 6c498508cfb0e06fb8c5ee7d07c9b0e89eb507f0
->>>>>>> 871d14f879b332bc4e1329c93e1ef50fa0e9e366
-  <!-- Проверете дали файлът съществува! -->
-  <iframe src="reports/presentation_pentest_ad_acme.pdf" onerror="this.style.display='none';document.getElementById('nofile').style.display='block';"></iframe>
-  <div id="nofile" class="not-found" style="display:none;">
-    PDF файлът не е наличен.<br>
-    <a href="reports/presentation_pentest_ad_acme.pdf" class="download-btn" target="_blank">Изтегли PDF</a>
+  <div id="particles-js"></div>
+  
+  <iframe src="presentation_pentest_ad_acme.pdf" title="Pentest Presentation" onerror="this.classList.add('hidden');document.getElementById('nofile').classList.remove('hidden');"></iframe>
+  
+  <div id="nofile" class="not-found hidden">
+    <h2>📄 Pentest Presentation</h2>
+    <p>The presentation file is not available for direct viewing.</p>
+    <a href="presentation_pentest_ad_acme.pdf" class="download-btn" download>
+      📥 Download PDF
+    </a>
+    <br><br>
+    <a href="index.html" class="download-btn">
+      ⬅️ Back to Portfolio
+    </a>
   </div>
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-  <iframe src="reports/presentation_pentest_ad_acme.pdf"></iframe>
->>>>>>> 694cf335d67f092669afe59cad2c2af6f335cd4e
-=======
->>>>>>> 6c498508cfb0e06fb8c5ee7d07c9b0e89eb507f0
->>>>>>> 871d14f879b332bc4e1329c93e1ef50fa0e9e366
+
+  <script>
+    // Particles.js configuration
+    particlesJS('particles-js', {
+      particles: {
+        number: { value: 80, density: { enable: true, value_area: 800 } },
+        color: { value: '#00ffee' },
+        shape: { type: 'circle' },
+        opacity: { value: 0.5, random: false },
+        size: { value: 3, random: true },
+        line_linked: { enable: true, distance: 150, color: '#00ffee', opacity: 0.4, width: 1 },
+        move: { enable: true, speed: 6, direction: 'none', random: false, straight: false, out_mode: 'out', bounce: false }
+      },
+      interactivity: {
+        detect_on: 'canvas',
+        events: { onhover: { enable: true, mode: 'repulse' }, onclick: { enable: true, mode: 'push' }, resize: true },
+        modes: { grab: { distance: 400, line_linked: { opacity: 1 } }, bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 }, repulse: { distance: 200, duration: 0.4 }, push: { particles_nb: 4 }, remove: { particles_nb: 2 } }
+      },
+      retina_detect: true
+    });
+  </script>
+
 </body>
 </html>
