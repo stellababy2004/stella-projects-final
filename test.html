@@ -566,29 +566,7 @@
     </section>
   </main>
 
-  <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    var mapDiv = document.getElementById('map');
-    if (mapDiv) {
-      var map = L.map('map').setView([42.7, 23.3], 3);
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 18,
-        attribution: '© OpenStreetMap contributors'
-      }).addTo(map);
-
-      L.marker([42.7, 23.3]).addTo(map).bindPopup('Sofia, Bulgaria');
-      L.marker([51.5, -0.09]).addTo(map).bindPopup('London, UK');
-      L.marker([40.7, -74.0]).addTo(map).bindPopup('New York, USA');
-      L.marker([48.85, 2.35]).addTo(map).bindPopup('Paris, France');
-      L.marker([35.68, 139.76]).addTo(map).bindPopup('Tokyo, Japan');
-      L.marker([55.75, 37.62]).addTo(map).bindPopup('Moscow, Russia');
-      L.marker([52.52, 13.40]).addTo(map).bindPopup('Berlin, Germany');
-      L.marker([34.05, -118.24]).addTo(map).bindPopup('Los Angeles, USA');
-      L.marker([-33.87, 151.21]).addTo(map).bindPopup('Sydney, Australia');
-      L.marker([19.43, -99.13]).addTo(map).bindPopup('Mexico City, Mexico');
-    }
-  });
-  </script>
+  <!-- Map initialization will be handled in main script section -->
 
   <script>
     (function () {
@@ -1361,6 +1339,239 @@ particlesJS('particles-js', {
       
       setTimeout(() => addToConsole('Hash analysis completed.', 'success'), 1000);
     }
+  </script>
+
+  <script>
+// AI Chat functionality with improved error handling
+function initializeAIChat() {
+  const chatForm = document.getElementById('chat-form');
+  const chatPrompt = document.getElementById('chat-prompt');
+  const chatMessages = document.getElementById('chat-messages');
+  
+  if (chatForm && chatPrompt && chatMessages) {
+    chatForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const prompt = chatPrompt.value.trim();
+      if (!prompt) return;
+      
+      // Add user message
+      addMessage(prompt, 'user');
+      
+      // Clear input
+      chatPrompt.value = '';
+      
+      // Add typing indicator
+      const typingMsg = addMessage('Typing...', 'assistant', true);
+      
+      try {
+        // Try to connect to local AI server with timeout
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
+        
+        const response = await fetch('http://127.0.0.1:5000/generate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prompt }),
+          signal: controller.signal
+        });
+        
+        clearTimeout(timeoutId);
+        
+        if (!response.ok) {
+          throw new Error(`Server error: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        
+        // Remove typing indicator
+        typingMsg.remove();
+        
+        // Add AI response
+        addMessage(data.response || 'No response received.', 'assistant');
+        
+      } catch (error) {
+        // Remove typing indicator
+        typingMsg.remove();
+        
+        // Provide fallback cybersecurity responses silently
+        const fallbackResponse = getCyberSecurityResponse(prompt);
+        addMessage(fallbackResponse, 'assistant');
+        
+        // Log error only in development mode (optional)
+        // console.debug('AI server not available, using fallback response');
+      }
+    });
+  }
+  
+  function addMessage(text, sender, isTyping = false) {
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `chat-message ${sender}`;
+    
+    const headerDiv = document.createElement('div');
+    headerDiv.className = 'message-header';
+    headerDiv.textContent = sender === 'user' ? '👤 You' : '🤖 AI Assistant';
+    
+    const contentDiv = document.createElement('div');
+    contentDiv.className = 'message-content';
+    
+    if (isTyping) {
+      contentDiv.innerHTML = '<span class="typing-indicator">⌨️ Typing...</span>';
+    } else {
+      contentDiv.textContent = text;
+    }
+    
+    messageDiv.appendChild(headerDiv);
+    messageDiv.appendChild(contentDiv);
+    
+    chatMessages.appendChild(messageDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+    
+    return messageDiv;
+  }
+  
+  function getCyberSecurityResponse(prompt) {
+    const lowerPrompt = prompt.toLowerCase();
+    
+    if (lowerPrompt.includes('phishing') || lowerPrompt.includes('фишинг')) {
+      return `🎣 Phishing Protection Tips:
+
+• Always verify sender identity before clicking links
+• Check URL spelling carefully - look for suspicious domains
+• Never enter personal information via email links
+• Use email security gateways and anti-phishing tools
+• Report suspicious emails to your IT security team
+• Enable 2FA on all important accounts
+
+Remember: When in doubt, don't click out!`;
+    }
+    
+    if (lowerPrompt.includes('malware') || lowerPrompt.includes('малуер')) {
+      return `🦠 Malware Defense Strategy:
+
+• Keep antivirus software updated and active
+• Regular system and software updates
+• Avoid suspicious downloads and email attachments
+• Use application whitelisting when possible
+• Enable real-time protection and behavioral analysis
+• Regular system backups to clean locations
+• Network segmentation to limit spread
+
+Prevention is better than cure!`;
+    }
+    
+    if (lowerPrompt.includes('password') || lowerPrompt.includes('парола')) {
+      return `🔐 Strong Password Guidelines:
+
+• Minimum 12+ characters length
+• Mix uppercase, lowercase, numbers, symbols
+• Avoid dictionary words and personal info
+• Use unique passwords for each account
+• Enable multi-factor authentication (MFA)
+• Consider password managers
+• Regular password rotation for critical accounts
+
+A strong password is your first line of defense!`;
+    }
+    
+    if (lowerPrompt.includes('ddos') || lowerPrompt.includes('атака')) {
+      return `⚡ DDoS Attack Mitigation:
+
+• Implement rate limiting and traffic filtering
+• Use DDoS protection services (Cloudflare, AWS Shield)
+• Network redundancy and load balancing
+• Monitor traffic patterns for anomalies
+• Have incident response procedures ready
+• Consider CDN services for content delivery
+• Maintain updated blacklists
+
+Preparation and detection are key to defense!`;
+    }
+    
+    if (lowerPrompt.includes('soc') || lowerPrompt.includes('security operations')) {
+      return `🏢 SOC Best Practices:
+
+• 24/7 continuous monitoring and threat detection
+• SIEM integration for centralized log analysis
+• Incident response playbooks and procedures
+• Threat intelligence integration
+• Regular security awareness training
+• Automated response for common threats
+• Regular drills and tabletop exercises
+
+A well-prepared SOC is a strong defense!`;
+    }
+    
+    // Default cybersecurity response
+    return `🛡️ Cybersecurity Guidance:
+
+I'm here to help with cybersecurity topics! You can ask me about:
+
+• Phishing detection and prevention
+• Malware protection strategies
+• Password security best practices
+• DDoS attack mitigation
+• SOC operations and procedures
+• Threat hunting techniques
+• Incident response planning
+
+What specific cybersecurity topic would you like to explore?
+
+Note: For advanced analysis, the AI server can be started locally.`;
+  }
+}
+
+// Map initialization and other functionality
+document.addEventListener("DOMContentLoaded", function () {
+  // Initialize Leaflet map safely
+  const mapDiv = document.getElementById('map');
+  if (mapDiv && !mapDiv._leaflet_id) {
+    try {
+      const map = L.map('map').setView([42.7, 23.3], 3);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 18,
+        attribution: '© OpenStreetMap contributors'
+      }).addTo(map);
+
+      // Add markers
+      L.marker([42.7, 23.3]).addTo(map).bindPopup('Sofia, Bulgaria');
+      L.marker([51.5, -0.09]).addTo(map).bindPopup('London, UK');
+      L.marker([40.7, -74.0]).addTo(map).bindPopup('New York, USA');
+      L.marker([48.85, 2.35]).addTo(map).bindPopup('Paris, France');
+      L.marker([35.68, 139.76]).addTo(map).bindPopup('Tokyo, Japan');
+      L.marker([55.75, 37.62]).addTo(map).bindPopup('Moscow, Russia');
+      L.marker([52.52, 13.40]).addTo(map).bindPopup('Berlin, Germany');
+      L.marker([34.05, -118.24]).addTo(map).bindPopup('Los Angeles, USA');
+      L.marker([-33.87, 151.21]).addTo(map).bindPopup('Sydney, Australia');
+      L.marker([19.43, -99.13]).addTo(map).bindPopup('Mexico City, Mexico');
+      
+      // Clear map button functionality
+      const clearMapBtn = document.getElementById('clear-map');
+      if (clearMapBtn) {
+        clearMapBtn.addEventListener('click', function() {
+          map.eachLayer(function(layer) {
+            if (layer instanceof L.Marker) {
+              map.removeLayer(layer);
+            }
+          });
+        });
+      }
+    } catch (error) {
+      console.warn('Map initialization error:', error.message);
+    }
+  }
+  
+  // Initialize AI Chat
+  initializeAIChat();
+  
+  // Initialize other components (if available)
+  if (typeof updateContactFormWithTranslations === 'function') {
+    updateContactFormWithTranslations();
+  }
+  if (typeof updatePhishingCheckerWithTranslations === 'function') {
+    updatePhishingCheckerWithTranslations();
+  }
+});
   </script>
 </body>
 </html>

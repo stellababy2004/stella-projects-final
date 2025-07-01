@@ -710,32 +710,7 @@
     </section>
   </main>
 
-  <script>
-
-  document.addEventListener("DOMContentLoaded", function () {
-    var mapDiv = document.getElementById('map');
-    if (mapDiv) {
-      var map = L.map('map').setView([42.7, 23.3], 3);
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 18,
-        attribution: '© OpenStreetMap contributors'
-      }).addTo(map);
-
-      L.marker([42.7, 23.3]).addTo(map).bindPopup('Sofia, Bulgaria');
-      L.marker([51.5, -0.09]).addTo(map).bindPopup('London, UK');
-      L.marker([40.7, -74.0]).addTo(map).bindPopup('New York, USA');
-      L.marker([48.85, 2.35]).addTo(map).bindPopup('Paris, France');
-      L.marker([35.68, 139.76]).addTo(map).bindPopup('Tokyo, Japan');
-      L.marker([55.75, 37.62]).addTo(map).bindPopup('Moscow, Russia');
-      L.marker([52.52, 13.40]).addTo(map).bindPopup('Berlin, Germany');
-      L.marker([34.05, -118.24]).addTo(map).bindPopup('Los Angeles, USA');
-      L.marker([-33.87, 151.21]).addTo(map).bindPopup('Sydney, Australia');
-      L.marker([19.43, -99.13]).addTo(map).bindPopup('Mexico City, Mexico');
-    }
-  });
-  </script>
-
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- Map initialization will be handled in main script section -->
   <script>
     (function () {
   const logOutput = document.getElementById('log-output');
@@ -1496,8 +1471,8 @@ function updatePhishingCheckerWithTranslations() {
   }
 }
 
-// AI Chat functionality
-document.addEventListener("DOMContentLoaded", function () {
+// AI Chat functionality with improved error handling
+function initializeAIChat() {
   const chatForm = document.getElementById('chat-form');
   const chatPrompt = document.getElementById('chat-prompt');
   const chatMessages = document.getElementById('chat-messages');
@@ -1519,12 +1494,18 @@ document.addEventListener("DOMContentLoaded", function () {
       const typingMsg = addMessage('Typing...', 'assistant', true);
       
       try {
-        // Try to connect to local AI server
+        // Try to connect to local AI server with timeout
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
+        
         const response = await fetch('http://127.0.0.1:5000/generate', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ prompt })
+          body: JSON.stringify({ prompt }),
+          signal: controller.signal
         });
+        
+        clearTimeout(timeoutId);
         
         if (!response.ok) {
           throw new Error(`Server error: ${response.status}`);
@@ -1542,9 +1523,12 @@ document.addEventListener("DOMContentLoaded", function () {
         // Remove typing indicator
         typingMsg.remove();
         
-        // Provide fallback cybersecurity responses
+        // Provide fallback cybersecurity responses silently
         const fallbackResponse = getCyberSecurityResponse(prompt);
         addMessage(fallbackResponse, 'assistant');
+        
+        // Log error only in development mode (optional)
+        // console.debug('AI server not available, using fallback response');
       }
     });
   }
@@ -1662,8 +1646,56 @@ I'm here to help with cybersecurity topics! You can ask me about:
 
 What specific cybersecurity topic would you like to explore?
 
-Note: For advanced analysis, make sure the AI server is running on http://127.0.0.1:5000`;
+Note: For advanced analysis, the AI server can be started locally.`;
   }
+}
+
+// Map initialization and other functionality
+document.addEventListener("DOMContentLoaded", function () {
+  // Initialize Leaflet map safely
+  const mapDiv = document.getElementById('map');
+  if (mapDiv && !mapDiv._leaflet_id) {
+    try {
+      const map = L.map('map').setView([42.7, 23.3], 3);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 18,
+        attribution: '© OpenStreetMap contributors'
+      }).addTo(map);
+
+      // Add markers
+      L.marker([42.7, 23.3]).addTo(map).bindPopup('Sofia, Bulgaria');
+      L.marker([51.5, -0.09]).addTo(map).bindPopup('London, UK');
+      L.marker([40.7, -74.0]).addTo(map).bindPopup('New York, USA');
+      L.marker([48.85, 2.35]).addTo(map).bindPopup('Paris, France');
+      L.marker([35.68, 139.76]).addTo(map).bindPopup('Tokyo, Japan');
+      L.marker([55.75, 37.62]).addTo(map).bindPopup('Moscow, Russia');
+      L.marker([52.52, 13.40]).addTo(map).bindPopup('Berlin, Germany');
+      L.marker([34.05, -118.24]).addTo(map).bindPopup('Los Angeles, USA');
+      L.marker([-33.87, 151.21]).addTo(map).bindPopup('Sydney, Australia');
+      L.marker([19.43, -99.13]).addTo(map).bindPopup('Mexico City, Mexico');
+      
+      // Clear map button functionality
+      const clearMapBtn = document.getElementById('clear-map');
+      if (clearMapBtn) {
+        clearMapBtn.addEventListener('click', function() {
+          map.eachLayer(function(layer) {
+            if (layer instanceof L.Marker) {
+              map.removeLayer(layer);
+            }
+          });
+        });
+      }
+    } catch (error) {
+      console.warn('Map initialization error:', error.message);
+    }
+  }
+  
+  // Initialize AI Chat
+  initializeAIChat();
+  
+  // Initialize other components
+  updateContactFormWithTranslations();
+  updatePhishingCheckerWithTranslations();
 });
 
 // Particles.js configuration
