@@ -371,6 +371,129 @@
       font-size: 0.8em;
       margin-right: 8px;
     }
+
+    /* AI Chat Styles */
+    #ai-chat {
+      position: relative;
+    }
+
+    #chat-container {
+      background: rgba(10, 20, 30, 0.9);
+      border: 2px solid #00ffee;
+      border-radius: 10px;
+      padding: 20px;
+      margin-top: 20px;
+    }
+
+    #chat-form {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      align-items: center;
+    }
+
+    #chat-prompt {
+      flex: 1;
+      background: rgba(0, 0, 0, 0.7);
+      border: 2px solid #00ffee;
+      color: #00ffee;
+      padding: 10px;
+      border-radius: 5px;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+    }
+
+    #chat-prompt:focus {
+      outline: none;
+      box-shadow: 0 0 10px rgba(0, 255, 238, 0.5);
+    }
+
+    #chat-prompt::placeholder {
+      color: rgba(0, 255, 238, 0.5);
+    }
+
+    #chat-form button {
+      background: linear-gradient(45deg, #00ffee, #0066cc);
+      border: none;
+      color: #000;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+    }
+
+    #chat-form button:hover {
+      background: linear-gradient(45deg, #00ff88, #0088ff);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 255, 238, 0.3);
+    }
+
+    #chat-messages {
+      max-height: 400px;
+      overflow-y: auto;
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(0, 255, 238, 0.3);
+      border-radius: 8px;
+      padding: 15px;
+    }
+
+    .chat-message {
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 8px;
+      background: rgba(0, 255, 238, 0.1);
+      border-left: 3px solid #00ffee;
+    }
+
+    .chat-message.user {
+      background: rgba(0, 255, 136, 0.1);
+      border-left-color: #00ff88;
+      margin-left: 20px;
+    }
+
+    .chat-message.assistant {
+      background: rgba(0, 255, 238, 0.1);
+      border-left-color: #00ffee;
+      margin-right: 20px;
+    }
+
+    .message-content {
+      font-family: 'Courier New', monospace;
+      line-height: 1.4;
+      white-space: pre-wrap;
+      color: #fff;
+    }
+
+    .message-header {
+      font-size: 0.8em;
+      color: #00ffee;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .typing-indicator {
+      display: inline-block;
+      color: #ffea00;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    @media (max-width: 600px) {
+      #chat-form {
+        flex-direction: column;
+        gap: 10px;
+      }
+      
+      #chat-form button {
+        width: 100%;
+      }
+    }
   </style>
 </head>
 <body id="top">
@@ -391,6 +514,7 @@
         <li><a href="#about" class="button" data-translate="nav-about">About Me</a></li>
         <li><a href="#projects" class="button" data-translate="nav-projects">Projects</a></li>
         <li><a href="#chart" class="button" data-translate="nav-charts">Charts</a></li>
+        <li><a href="#ai-chat" class="button" data-translate="nav-aichat">🤖 AI Chat</a></li>
         <li><a href="attack-sim.html" class="button">AttackSim</a></li>
         <li><a href="#map-section" class="button" data-translate="nav-livemap">Live Map</a></li>
         <li><a href="#testimonials" class="button" data-translate="nav-testimonials">Testimonials</a></li>
@@ -494,6 +618,26 @@
           <div class="progress-fill"></div>
         </div>
         <div class="attack-steps" id="attack-steps"></div>
+      </div>
+    </section>
+
+    <section class="section" id="ai-chat">
+      <h2 data-translate="aichat-title">🤖 CyberSec AI Chat</h2>
+      <p data-translate="aichat-description">Попитай нашия AI асистент за киберсигурност теми, заплахи и най-добри практики.</p>
+      
+      <div id="chat-container">
+        <form id="chat-form">
+          <input type="text" id="chat-prompt" placeholder="Ask something..." required />
+          <button type="submit" data-translate="aichat-send">Send</button>
+        </form>
+        
+        <div id="chat-messages">
+          <div id="chat-response" class="chat-message">
+            <div class="message-content">
+              <span data-translate="aichat-welcome">Ask our AI assistant about cybersecurity topics, threats, and best practices.</span>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -775,7 +919,7 @@ document.addEventListener("DOMContentLoaded", function () {
       },
       "malware": {
         title: "🦠 Attaque Malware - Isolation et Suppression",
-        description: "Fichier malveillant tentant d'infecter le système",
+        description: "Fichier malveillant tentанt d'infecter le système",
         steps: [
           { icon: "📁", text: "Fichier avec signature suspecte téléchargé", status: "detecting", statusText: "DÉTECTION" },
           { icon: "🔬", text: "Le système antivirus analyse le fichier", status: "detecting", statusText: "ANALYSE" },
@@ -841,7 +985,7 @@ document.addEventListener("DOMContentLoaded", function () {
           { icon: "🔒", text: "Файлът е изолиран в карантина", status: "blocking", statusText: "ИЗОЛАЦИЯ" },
           { icon: "✅", text: "Системата е почистена и защитена", status: "success", statusText: "ОЧИСТЕНА" }
         ],
-        logMessage: "[CRITICAL] Малуер детектиран и изолиран успешно",
+        logMessage: "[CRITICAL] Малуер детектиран и изолирани успешно",
         location: [48.85, 2.35],
         chartIndex: 1
       },
@@ -1085,6 +1229,7 @@ const translations = {
     'nav-about': 'About Me',
     'nav-projects': 'Projects',
     'nav-charts': 'Charts',
+    'nav-aichat': '🤖 AI Chat',
     'nav-livemap': 'Live Map',
     'nav-testimonials': 'Testimonials',
     'nav-contact': 'Contact',
@@ -1118,12 +1263,17 @@ const translations = {
     'lab-phishing-desc': 'Phishing Attack',
     'lab-bruteforce-desc': 'Brute Force Attack',
     'lab-malware-desc': 'Malware Attack',
-    'lab-ddos-desc': 'DDoS Attack'
+    'lab-ddos-desc': 'DDoS Attack',
+    'aichat-title': '🤖 CyberSec AI Chat',
+    'aichat-description': 'Ask our AI assistant about cybersecurity topics, threats, and best practices.',
+    'aichat-send': 'Send',
+    'aichat-welcome': 'Ask our AI assistant about cybersecurity topics, threats, and best practices.'
   },
   fr: {
     'nav-about': 'À Propos',
     'nav-projects': 'Projets',
     'nav-charts': 'Graphiques',
+    'nav-aichat': '🤖 Chat IA',
     'nav-livemap': 'Carte en Direct',
     'nav-testimonials': 'Témoignages',
     'nav-contact': 'Contact',
@@ -1153,16 +1303,21 @@ const translations = {
     'contact-download': '📥 Télécharger Portfolio',
     'contact-linkedin': '🔗 LinkedIn',
     'lab-title': '🔬 Laboratoire de Simulation d\'Attaques',
-    'lab-description': 'Sélectionnez un type d\'attaque à simuler et observez comment l\'équipe SOC la détecte et la bloque:',
+    'lab-description': 'Sélectionnez un type d\'attaque à simuler и observez comment l\'équipe SOC la détecte et la bloque:',
     'lab-phishing-desc': 'Attaque de Phishing',
     'lab-bruteforce-desc': 'Attaque Brute Force',
     'lab-malware-desc': 'Attaque Malware',
-    'lab-ddos-desc': 'Attaque DDoS'
+    'lab-ddos-desc': 'Attaque DDoS',
+    'aichat-title': '🤖 Chat IA CyberSec',
+    'aichat-description': 'Demandez à notre assistant IA sur les sujets de cybersécurité, menaces et meilleures pratiques.',
+    'aichat-send': 'Envoyer',
+    'aichat-welcome': 'Demandez à notre assistant IA sur les sujets de cybersécurité, menaces et meilleures pratiques.'
   },
   bg: {
     'nav-about': 'За Мен',
     'nav-projects': 'Проекти',
     'nav-charts': 'Графики',
+    'nav-aichat': '🤖 AI Чат',
     'nav-livemap': 'Карта на Живо',
     'nav-testimonials': 'Препоръки',
     'nav-contact': 'Контакт',
@@ -1196,7 +1351,11 @@ const translations = {
     'lab-phishing-desc': 'Фишинг атака',
     'lab-bruteforce-desc': 'Брут форс атака',
     'lab-malware-desc': 'Злонамерен софтуер',
-    'lab-ddos-desc': 'Разпределена атака'
+    'lab-ddos-desc': 'Разпределена атака',
+    'aichat-title': '🤖 CyberSec AI Чат',
+    'aichat-description': 'Попитай нашия AI асистент за киберсигурност теми, заплахи и най-добри практики.',
+    'aichat-send': 'Изпрати',
+    'aichat-welcome': 'Попитай нашия AI асистент за киберсигурност теми, заплахи и най-добри практики.'
   }
 };
 
@@ -1336,6 +1495,176 @@ function updatePhishingCheckerWithTranslations() {
     });
   }
 }
+
+// AI Chat functionality
+document.addEventListener("DOMContentLoaded", function () {
+  const chatForm = document.getElementById('chat-form');
+  const chatPrompt = document.getElementById('chat-prompt');
+  const chatMessages = document.getElementById('chat-messages');
+  
+  if (chatForm && chatPrompt && chatMessages) {
+    chatForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const prompt = chatPrompt.value.trim();
+      if (!prompt) return;
+      
+      // Add user message
+      addMessage(prompt, 'user');
+      
+      // Clear input
+      chatPrompt.value = '';
+      
+      // Add typing indicator
+      const typingMsg = addMessage('Typing...', 'assistant', true);
+      
+      try {
+        // Try to connect to local AI server
+        const response = await fetch('http://127.0.0.1:5000/generate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prompt })
+        });
+        
+        if (!response.ok) {
+          throw new Error(`Server error: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        
+        // Remove typing indicator
+        typingMsg.remove();
+        
+        // Add AI response
+        addMessage(data.response || 'No response received.', 'assistant');
+        
+      } catch (error) {
+        // Remove typing indicator
+        typingMsg.remove();
+        
+        // Provide fallback cybersecurity responses
+        const fallbackResponse = getCyberSecurityResponse(prompt);
+        addMessage(fallbackResponse, 'assistant');
+      }
+    });
+  }
+  
+  function addMessage(text, sender, isTyping = false) {
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `chat-message ${sender}`;
+    
+    const headerDiv = document.createElement('div');
+    headerDiv.className = 'message-header';
+    headerDiv.textContent = sender === 'user' ? '👤 You' : '🤖 AI Assistant';
+    
+    const contentDiv = document.createElement('div');
+    contentDiv.className = 'message-content';
+    
+    if (isTyping) {
+      contentDiv.innerHTML = '<span class="typing-indicator">⌨️ Typing...</span>';
+    } else {
+      contentDiv.textContent = text;
+    }
+    
+    messageDiv.appendChild(headerDiv);
+    messageDiv.appendChild(contentDiv);
+    
+    chatMessages.appendChild(messageDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+    
+    return messageDiv;
+  }
+  
+  function getCyberSecurityResponse(prompt) {
+    const lowerPrompt = prompt.toLowerCase();
+    
+    if (lowerPrompt.includes('phishing') || lowerPrompt.includes('фишинг')) {
+      return `🎣 Phishing Protection Tips:
+
+• Always verify sender identity before clicking links
+• Check URL spelling carefully - look for suspicious domains
+• Never enter personal information via email links
+• Use email security gateways and anti-phishing tools
+• Report suspicious emails to your IT security team
+• Enable 2FA on all important accounts
+
+Remember: When in doubt, don't click out!`;
+    }
+    
+    if (lowerPrompt.includes('malware') || lowerPrompt.includes('малуер')) {
+      return `🦠 Malware Defense Strategy:
+
+• Keep antivirus software updated and active
+• Regular system and software updates
+• Avoid suspicious downloads and email attachments
+• Use application whitelisting when possible
+• Enable real-time protection and behavioral analysis
+• Regular system backups to clean locations
+• Network segmentation to limit spread
+
+Prevention is better than cure!`;
+    }
+    
+    if (lowerPrompt.includes('password') || lowerPrompt.includes('парола')) {
+      return `🔐 Strong Password Guidelines:
+
+• Minimum 12+ characters length
+• Mix uppercase, lowercase, numbers, symbols
+• Avoid dictionary words and personal info
+• Use unique passwords for each account
+• Enable multi-factor authentication (MFA)
+• Consider password managers
+• Regular password rotation for critical accounts
+
+A strong password is your first line of defense!`;
+    }
+    
+    if (lowerPrompt.includes('ddos') || lowerPrompt.includes('атака')) {
+      return `⚡ DDoS Attack Mitigation:
+
+• Implement rate limiting and traffic filtering
+• Use DDoS protection services (Cloudflare, AWS Shield)
+• Network redundancy and load balancing
+• Monitor traffic patterns for anomalies
+• Have incident response procedures ready
+• Consider CDN services for content delivery
+• Maintain updated blacklists
+
+Preparation and detection are key to defense!`;
+    }
+    
+    if (lowerPrompt.includes('soc') || lowerPrompt.includes('security operations')) {
+      return `🏢 SOC Best Practices:
+
+• 24/7 continuous monitoring and threat detection
+• SIEM integration for centralized log analysis
+• Incident response playbooks and procedures
+• Threat intelligence integration
+• Regular security awareness training
+• Automated response for common threats
+• Regular drills and tabletop exercises
+
+A well-prepared SOC is a strong defense!`;
+    }
+    
+    // Default cybersecurity response
+    return `🛡️ Cybersecurity Guidance:
+
+I'm here to help with cybersecurity topics! You can ask me about:
+
+• Phishing detection and prevention
+• Malware protection strategies
+• Password security best practices
+• DDoS attack mitigation
+• SOC operations and procedures
+• Threat hunting techniques
+• Incident response planning
+
+What specific cybersecurity topic would you like to explore?
+
+Note: For advanced analysis, make sure the AI server is running on http://127.0.0.1:5000`;
+  }
+});
 
 // Particles.js configuration
 particlesJS('particles-js', {
