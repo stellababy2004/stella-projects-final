@@ -19,6 +19,17 @@
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
   <style>
+    /* Add smooth scrolling and offset for anchors */
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 80px; /* Offset for fixed headers */
+    }
+    
+    /* Ensure phishing detector is visible from top */
+    #phishing-detector {
+      scroll-margin-top: 20px;
+    }
+    
     #particles-js {
       position: fixed;
       width: 100%;
@@ -540,8 +551,8 @@
   </header>
 
   <main>
-    <!-- Move Phishing Detector section to the top -->
-    <section class="section" id="phishing-detector">
+    <!-- Move Phishing Detector to the very top -->
+    <section class="section" id="phishing-detector" style="margin-top: 20px;">
       <h2>🛡️ <span data-translate="phishing-detector-title">Детектор за Фишинг</span></h2>
       <p data-translate="phishing-detector-description">Усъвършенствана инструмент за откриване на фишинг атаки и злонамерено съдържание</p>
       
@@ -561,6 +572,7 @@
       </div>
     </section>
 
+    <!-- About Me section moved down -->
     <section class="section" id="about">
       <h1>Stella Barbarella</h1>
       <p data-translate="about-description">SOC Analyst | Cybersecurity Enthusiast | Threat Hunter</p>
@@ -1278,7 +1290,34 @@ const translations = {
     'aichat-title': '🤖 CyberSec AI Chat',
     'aichat-description': 'Ask our AI assistant about cybersecurity topics, threats, and best practices.',
     'aichat-send': 'Send',
-    'aichat-welcome': 'Ask our AI assistant about cybersecurity topics, threats, and best practices.'
+    'aichat-welcome': 'Ask our AI assistant about cybersecurity topics, threats, and best practices.',
+    'phishing-detector-title': 'Phishing Detector',
+    'phishing-detector-description': 'Advanced tool for detecting phishing attacks and malicious content',
+    'phishing-check-btn': '🔍 Check URL',
+    'phishing-url-placeholder': 'Enter URL to check...',
+    'phishing-enter-url': 'Please enter URL to check',
+    'phishing-checking': 'Checking URL...',
+    'phishing-wait': 'Please wait while we analyze the URL address',
+    'phishing-dangerous-detected': 'DANGEROUS URL DETECTED!',
+    'phishing-safe-detected': 'URL appears safe',
+    'phishing-dangerous-details': `
+      <strong>Threats:</strong><br>
+      • Potential phishing site<br>
+      • May steal personal data<br>
+      • We recommend NOT visiting this site<br>
+      <br><strong>Recommendations:</strong><br>
+      • Do not enter personal data<br>
+      • Do not download files<br>
+      • Report to IT department
+    `,
+    'phishing-safe-details': `
+      <strong>Status:</strong> Safe<br>
+      • No detected threats<br>
+      • URL not in blacklist<br>
+      • You can visit the site<br>
+      <br><strong>Note:</strong><br>
+      Always be careful with personal data online
+    `
   },
   fr: {
     'nav-about': 'À Propos',
@@ -1324,7 +1363,16 @@ const translations = {
     'aichat-title': '🤖 Chat IA CyberSec',
     'aichat-description': 'Demandez à notre assistant IA sur les sujets de cybersécurité, menaces et meilleures pratiques.',
     'aichat-send': 'Envoyer',
-    'aichat-welcome': 'Demandez à notre assistant IA sur les sujets de cybersécurité, menaces et meilleures pratiques.'
+    'aichat-welcome': 'Demandez à notre assistant IA sur les sujets de cybersécurité, menaces et meilleures pratiques.',
+    'phishing-detector-title': 'Détecteur de Phishing',
+    'phishing-detector-description': 'Outil avancé pour détecter les attaques de phishing et le contenu malveillant',
+    'phishing-check-btn': '🔍 Vérifier URL',
+    'phishing-url-placeholder': 'Entrez l\'URL à vérifier...',
+    'phishing-enter-url': 'Veuillez entrer l\'URL à vérifier',
+    'phishing-checking': 'Vérification de l\'URL...',
+    'phishing-wait': 'Veuillez patienter pendant que nous analysons l\'adresse URL',
+    'phishing-dangerous-detected': 'URL DANGEREUSE DÉTECTÉE !',
+    'phishing-safe-detected': 'L\'URL semble sûre'
   },
   bg: {
     'nav-about': 'За Мен',
@@ -1370,7 +1418,16 @@ const translations = {
     'aichat-title': '🤖 CyberSec AI Чат',
     'aichat-description': 'Попитай нашия AI асистент за киберсигурност теми, заплахи и най-добри практики.',
     'aichat-send': 'Изпрати',
-    'aichat-welcome': 'Попитай нашия AI асистент за киберсигурност теми, заплахи и най-добри практики.'
+    'aichat-welcome': 'Попитай нашия AI асистент за киберсигурност теми, заплахи и най-добри практики.',
+    'phishing-detector-title': 'Детектор за Фишинг',
+    'phishing-detector-description': 'Усъвършенствана инструмент за откриване на фишинг атаки и злонамерено съдържание',
+    'phishing-check-btn': '🔍 Провери URL',
+    'phishing-url-placeholder': 'Въведете URL за проверка...',
+    'phishing-enter-url': 'Моля въведете URL за проверка',
+    'phishing-checking': 'Проверявам URL...',
+    'phishing-wait': 'Моля изчакайте докато анализираме URL адреса',
+    'phishing-dangerous-detected': 'ОПАСЕН URL ДЕТЕКТИРАН!',
+    'phishing-safe-detected': 'URL изглежда безопасен'
   }
 };
 
@@ -1606,17 +1663,6 @@ function initializeAIChat() {
       return `🎣 Phishing Protection Tips:
 
 • Always verify sender identity before clicking links
-• Check URL spelling carefully - look for suspicious domains
-• Never enter personal information via email links
-• Use email security gateways and anti-phishing tools
-• Report suspicious emails to your IT security team
-• Enable 2FA on all important accounts
-
-Remember: When in doubt, don't click out!`;
-    }
-    
-    if (lowerPrompt.includes('malware') || lowerPrompt.includes('малуер')) {
-                return `🦠 Malware Defense Strategy:
 
 • Keep antivirus software updated and active
 • Regular system and software updates

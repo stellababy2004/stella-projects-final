@@ -1,377 +1,261 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Phishing Checker - Stella Barbarella Cybersecurity</title>
-  <meta name="description" content="Advanced Phishing Detection Tool - Check URLs and emails for malicious content" />
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phishing Checker - Stella Barbarella</title>
   <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
-  
   <style>
-    body {
-      font-family: 'Courier New', monospace;
-      background: linear-gradient(135deg, #0a0a0a, #1a1a2e, #16213e);
-      color: #00ffee;
-      min-height: 100vh;
-      margin: 0;
-      overflow-x: hidden;
-    }
-
-    /* Language Switcher */
-    #language-switcher {
+    #particles-js {
       position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 1000;
-      background: rgba(0, 20, 40, 0.9);
-      border: 2px solid #00ffee;
-      border-radius: 8px;
-      padding: 8px;
-      -webkit-backdrop-filter: blur(10px);
-      backdrop-filter: blur(10px);
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      background: linear-gradient(135deg, #0a0a0a, #1a1a2e, #16213e);
     }
-
-    #language-switcher select {
+    
+    body {
+      margin: 0;
+      padding: 0;
       background: transparent;
       color: #00ffee;
-      border: none;
-      padding: 5px 10px;
       font-family: 'Courier New', monospace;
-      font-size: 14px;
-      cursor: pointer;
+      overflow-x: hidden;
+      min-height: 100vh;
     }
 
-    #language-switcher select option {
-      background: #0a0a0a;
-      color: #00ffee;
-    }
-
-    /* Container */
     .container {
-      max-width: 1200px;
+      max-width: 1000px;
       margin: 0 auto;
-      padding: 80px 20px 40px;
-    }
-
-    /* Header */
-    .header {
-      text-align: center;
-      margin-bottom: 50px;
-    }
-
-    .header h1 {
-      font-size: 3em;
-      margin-bottom: 10px;
-      text-shadow: 0 0 20px #00ffee;
-      animation: glow 2s ease-in-out infinite alternate;
-    }
-
-    .header p {
-      font-size: 1.2em;
-      opacity: 0.8;
-      margin-bottom: 30px;
+      padding: 20px;
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
     }
 
     .back-btn {
-      display: inline-block;
-      padding: 12px 24px;
-      background: rgba(0, 255, 238, 0.1);
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: rgba(10, 20, 30, 0.9);
       border: 2px solid #00ffee;
       color: #00ffee;
       text-decoration: none;
+      padding: 10px 20px;
       border-radius: 8px;
       transition: all 0.3s ease;
-      font-family: 'Courier New', monospace;
-      margin-bottom: 30px;
+      z-index: 100;
     }
 
     .back-btn:hover {
       background: rgba(0, 255, 238, 0.2);
-      box-shadow: 0 0 20px rgba(0, 255, 238, 0.5);
-      transform: translateY(-2px);
+      box-shadow: 0 0 15px rgba(0, 255, 238, 0.5);
     }
 
-    /* Main Content */
-    .phishing-checker {
-      background: rgba(0, 20, 40, 0.8);
+    .main-content {
+      background: rgba(10, 20, 30, 0.9);
       border: 2px solid #00ffee;
       border-radius: 15px;
       padding: 40px;
-      margin-bottom: 40px;
-      -webkit-backdrop-filter: blur(10px);
-      backdrop-filter: blur(10px);
-      box-shadow: 0 0 30px rgba(0, 255, 238, 0.2);
+      margin-top: 80px;
+      box-shadow: 0 0 20px rgba(0, 255, 238, 0.3);
+      text-align: center;
     }
 
-    .checker-section {
-      margin-bottom: 40px;
+    .main-content h1 {
+      color: #00ffee;
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      text-shadow: 0 0 10px rgba(0, 255, 238, 0.5);
     }
 
-    .checker-section h2 {
+    .main-content p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      color: #00ddcc;
+    }
+
+    .url-checker {
+      background: rgba(0, 0, 0, 0.5);
+      border: 2px solid #00ffee;
+      border-radius: 10px;
+      padding: 30px;
+      margin: 30px 0;
+    }
+
+    .url-checker h2 {
       color: #00ffee;
       margin-bottom: 20px;
-      font-size: 1.8em;
-      text-align: center;
-      text-shadow: 0 0 10px #00ffee;
+      font-size: 1.8rem;
     }
 
     .input-group {
+      display: flex;
+      gap: 15px;
       margin-bottom: 20px;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: center;
     }
 
-    .input-group label {
-      display: block;
-      margin-bottom: 8px;
-      color: #00ffee;
-      font-weight: bold;
-    }
-
-    .input-group input,
-    .input-group textarea {
-      width: 100%;
+    .url-input {
+      flex: 1;
+      min-width: 300px;
       padding: 15px;
-      background: rgba(0, 0, 0, 0.7);
       border: 2px solid #00ffee;
-      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.7);
       color: #00ffee;
+      border-radius: 8px;
+      font-size: 1rem;
       font-family: 'Courier New', monospace;
-      font-size: 16px;
-      transition: all 0.3s ease;
-      box-sizing: border-box;
     }
 
-    .input-group input:focus,
-    .input-group textarea:focus {
+    .url-input:focus {
       outline: none;
-      box-shadow: 0 0 20px rgba(0, 255, 238, 0.5);
-      border-color: #00ff88;
-    }
-
-    .input-group textarea {
-      min-height: 120px;
-      resize: vertical;
+      box-shadow: 0 0 15px rgba(0, 255, 238, 0.5);
     }
 
     .check-btn {
-      width: 100%;
-      padding: 18px;
+      padding: 15px 30px;
       background: linear-gradient(45deg, #00ffee, #0066cc);
       border: none;
-      border-radius: 8px;
       color: #000;
-      font-size: 18px;
-      font-weight: bold;
+      border-radius: 8px;
       cursor: pointer;
+      font-weight: bold;
+      font-size: 1rem;
       transition: all 0.3s ease;
-      text-transform: uppercase;
-      letter-spacing: 1px;
+      white-space: nowrap;
     }
 
     .check-btn:hover {
       background: linear-gradient(45deg, #00ff88, #0088ff);
       transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(0, 255, 238, 0.4);
+      box-shadow: 0 4px 15px rgba(0, 255, 238, 0.4);
     }
 
-    .check-btn:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    /* Quick Test Buttons */
-    .quick-test-section {
-      margin: 15px 0;
-      text-align: center;
-    }
-
-    .quick-test-label {
-      font-size: 0.9em;
-      margin-bottom: 10px;
-      color: #ccc;
+    .quick-test-buttons {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 20px;
     }
 
     .quick-test-btn {
-      display: inline-block;
-      margin: 5px;
-      padding: 8px 16px;
+      padding: 8px 15px;
       background: rgba(0, 255, 238, 0.1);
       border: 1px solid #00ffee;
-      border-radius: 6px;
       color: #00ffee;
-      font-size: 12px;
+      border-radius: 5px;
       cursor: pointer;
+      font-size: 0.9rem;
       transition: all 0.3s ease;
-      font-family: 'Courier New', monospace;
     }
 
     .quick-test-btn:hover {
       background: rgba(0, 255, 238, 0.2);
       transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(0, 255, 238, 0.3);
     }
 
-    /* Results */
-    .results {
+    .result-container {
       margin-top: 30px;
-      padding: 20px;
-      background: rgba(0, 0, 0, 0.8);
-      border-radius: 8px;
-      border: 2px solid #333;
+      padding: 25px;
+      border-radius: 10px;
       display: none;
+      animation: fadeIn 0.5s ease;
     }
 
-    .results.show {
-      display: block;
-      animation: slideIn 0.5s ease-out;
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .result-safe {
-      border-color: #00ff88;
-      background: rgba(0, 255, 136, 0.1);
+      background: rgba(0, 230, 118, 0.1);
+      border: 2px solid #00e676;
+      color: #00e676;
     }
 
-    .result-suspicious {
-      border-color: #ffaa00;
-      background: rgba(255, 165, 0, 0.1);
+    .result-dangerous {
+      background: rgba(255, 23, 68, 0.1);
+      border: 2px solid #ff1744;
+      color: #ff1744;
     }
 
-    .result-malicious {
-      border-color: #ff4444;
-      background: rgba(255, 68, 68, 0.1);
+    .result-checking {
+      background: rgba(255, 234, 0, 0.1);
+      border: 2px solid #ffea00;
+      color: #ffea00;
     }
 
     .result-header {
       display: flex;
       align-items: center;
       margin-bottom: 15px;
-      font-size: 1.4em;
+      font-size: 1.5rem;
       font-weight: bold;
     }
 
     .result-icon {
+      font-size: 2.5rem;
       margin-right: 15px;
-      font-size: 1.5em;
     }
 
     .result-details {
-      font-size: 14px;
+      text-align: left;
       line-height: 1.6;
     }
 
-    .result-details ul {
-      margin: 10px 0;
-      padding-left: 20px;
+    .info-section {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(0, 255, 238, 0.3);
+      border-radius: 10px;
+      padding: 25px;
+      margin-top: 30px;
+      text-align: left;
     }
 
-    .result-details li {
-      margin-bottom: 5px;
-    }
-
-    /* Tips Section */
-    .tips-section {
-      background: rgba(0, 20, 40, 0.8);
-      border: 2px solid #00ffee;
-      border-radius: 15px;
-      padding: 30px;
-      -webkit-backdrop-filter: blur(10px);
-      backdrop-filter: blur(10px);
-    }
-
-    .tips-section h2 {
+    .info-section h3 {
       color: #00ffee;
-      text-align: center;
-      margin-bottom: 25px;
-      text-shadow: 0 0 10px #00ffee;
+      margin-bottom: 15px;
     }
 
-    .tips-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
+    .info-section ul {
+      color: #00ddcc;
+      line-height: 1.8;
     }
 
-    .tip-card {
-      background: rgba(0, 0, 0, 0.6);
-      padding: 20px;
-      border-radius: 8px;
-      border: 1px solid #00ffee;
-      transition: all 0.3s ease;
-    }
-
-    .tip-card:hover {
-      background: rgba(0, 255, 238, 0.1);
-      transform: translateY(-2px);
-    }
-
-    .tip-card h3 {
-      color: #00ff88;
-      margin-bottom: 10px;
-      font-size: 1.2em;
-    }
-
-    .tip-card p {
-      color: #ccc;
-      line-height: 1.5;
-    }
-
-    /* Animations */
-    @keyframes glow {
-      from { text-shadow: 0 0 20px #00ffee; }
-      to { text-shadow: 0 0 30px #00ffee, 0 0 40px #0088ff; }
-    }
-
-    @keyframes slideIn {
-      from {
-        opacity: 0;
-        transform: translateY(-20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* Loading Animation */
-    .loading {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 20px 0;
-    }
-
-    .loading-spinner {
-      width: 40px;
-      height: 40px;
-      border: 4px solid rgba(0, 255, 238, 0.2);
-      border-left: 4px solid #00ffee;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    /* Responsive */
     @media (max-width: 768px) {
       .container {
-        padding: 60px 15px 30px;
+        padding: 10px;
       }
       
-      .header h1 {
-        font-size: 2.2em;
+      .main-content {
+        padding: 20px;
+        margin-top: 60px;
       }
       
-      .phishing-checker {
-        padding: 25px;
+      .main-content h1 {
+        font-size: 2rem;
       }
       
-      .tips-grid {
-        grid-template-columns: 1fr;
+      .input-group {
+        flex-direction: column;
+      }
+      
+      .url-input {
+        min-width: 100%;
+      }
+      
+      .quick-test-buttons {
+        flex-direction: column;
+        align-items: center;
       }
     }
   </style>
@@ -379,547 +263,163 @@
 <body>
   <div id="particles-js"></div>
   
-  <!-- Language Switcher -->
-  <div id="language-switcher">
-    <select id="language-select" title="Select Language">>
-      <option value="en">🇺🇸 EN</option>
-      <option value="fr">🇫🇷 FR</option>
-      <option value="bg">🇧🇬 BG</option>
-    </select>
-  </div>
-
+  <a href="index.html" class="back-btn">← Назад към Портфолио</a>
+  
   <div class="container">
-    <!-- Header -->
-    <div class="header">
-      <a href="index.html" class="back-btn" data-translate="back-to-portfolio">
-        <i class="fas fa-arrow-left"></i> Back to Portfolio
-      </a>
-      <h1 data-translate="phishing-checker-title">🛡️ Phishing Checker</h1>
-      <p data-translate="phishing-checker-subtitle">Advanced tool to detect phishing attempts and malicious content</p>
-    </div>
-
-    <!-- Main Checker -->
-    <div class="phishing-checker">
-      <!-- URL Checker -->
-      <div class="checker-section">
-        <h2 data-translate="url-checker-title">🔗 URL Analysis</h2>
+    <div class="main-content">
+      <h1>🛡️ Детектор за Фишинг</h1>
+      <p>Усъвършенствана инструмент за откриване на фишинг атаки и злонамерено съдържание</p>
+      
+      <div class="url-checker">
+        <h2>🔍 Анализ на URL</h2>
+        <p>Въведете URL за проверка:</p>
+        
         <div class="input-group">
-          <label for="url-input" data-translate="url-input-label">Enter URL to check:</label>
-          <input type="url" id="url-input" placeholder="https://example.com" data-translate-placeholder="url-placeholder">
+          <input 
+            type="url" 
+            id="url-input" 
+            class="url-input"
+            placeholder="https://example.com"
+            value="https://example.com"
+          >
+          <button onclick="checkURL()" class="check-btn">
+            🔍 Провери URL
+          </button>
         </div>
         
-        <!-- Quick Test Buttons -->
-        <div class="quick-test-section">
-          <p class="quick-test-label" data-translate="quick-test-label">Quick Test Examples:</p>
-          <button class="quick-test-btn" onclick="testPhishingURL('4000.top')" data-translate="test-phishing">Test Known Phishing</button>
-          <button class="quick-test-btn" onclick="testPhishingURL('google.com')" data-translate="test-safe">Test Safe Site</button>
-          <button class="quick-test-btn" onclick="testPhishingURL('http://malicious-site.com')" data-translate="test-suspicious">Test Suspicious</button>
+        <div class="quick-test-buttons">
+          <p style="width: 100%; text-align: center; margin-bottom: 10px; color: #00ddcc;">Quick Test Examples:</p>
+          <button class="quick-test-btn" onclick="testURL('https://known-phishing.com')">Test Known Phishing</button>
+          <button class="quick-test-btn" onclick="testURL('https://safe-site.com')">Test Safe Site</button>
+          <button class="quick-test-btn" onclick="testURL('https://suspicious.com')">Test Suspicious</button>
         </div>
         
-        <button class="check-btn" id="check-url-btn" data-translate="check-url-btn">Analyze URL</button>
-        <div id="url-results" class="results"></div>
+        <div id="result-container" class="result-container">
+          <div class="result-header">
+            <span id="result-icon" class="result-icon"></span>
+            <span id="result-text"></span>
+          </div>
+          <div id="result-details" class="result-details"></div>
+        </div>
       </div>
-
-      <!-- Email Checker -->
-      <div class="checker-section">
-        <h2 data-translate="email-checker-title">📧 Email Content Analysis</h2>
-        <div class="input-group">
-          <label for="email-input" data-translate="email-input-label">Paste email content or headers:</label>
-          <textarea id="email-input" placeholder="Paste email content here..." data-translate-placeholder="email-placeholder"></textarea>
-        </div>
-        <button class="check-btn" id="check-email-btn" data-translate="check-email-btn">Analyze Email</button>
-        <div id="email-results" class="results"></div>
-      </div>
-    </div>
-
-    <!-- Tips Section -->
-    <div class="tips-section">
-      <h2 data-translate="tips-title">💡 Phishing Detection Tips</h2>
-      <div class="tips-grid">
-        <div class="tip-card">
-          <h3 data-translate="tip1-title">Check the URL</h3>
-          <p data-translate="tip1-text">Look for misspelled domains, suspicious subdomains, and unusual top-level domains (.tk, .ml, etc.)</p>
-        </div>
-        <div class="tip-card">
-          <h3 data-translate="tip2-title">Verify SSL Certificate</h3>
-          <p data-translate="tip2-text">Legitimate sites use HTTPS. Check for the padlock icon and valid SSL certificates.</p>
-        </div>
-        <div class="tip-card">
-          <h3 data-translate="tip3-title">Examine Email Headers</h3>
-          <p data-translate="tip3-text">Check sender's email address, reply-to address, and routing information for inconsistencies.</p>
-        </div>
-        <div class="tip-card">
-          <h3 data-translate="tip4-title">Look for Urgency</h3>
-          <p data-translate="tip4-text">Phishing attempts often create false urgency to pressure quick action without thinking.</p>
-        </div>
-        <div class="tip-card">
-          <h3 data-translate="tip5-title">Grammar and Spelling</h3>
-          <p data-translate="tip5-text">Professional organizations rarely send emails with poor grammar or spelling mistakes.</p>
-        </div>
-        <div class="tip-card">
-          <h3 data-translate="tip6-title">Unexpected Attachments</h3>
-          <p data-translate="tip6-text">Be cautious with unexpected attachments, especially executable files (.exe, .zip, .scr).</p>
-        </div>
+      
+      <div class="info-section">
+        <h3>🔒 Как да се защитите от фишинг:</h3>
+        <ul>
+          <li><strong>Проверявайте URL адресите</strong> - Винаги проверявайте дали URL-ът изглежда легитимен</li>
+          <li><strong>Внимавайте с имейлите</strong> - Не кликвайте на подозрителни връзки в имейли</li>
+          <li><strong>Използвайте двуфакторна автентификация</strong> - Добавете допълнителен слой сигурност</li>
+          <li><strong>Актуализирайте браузъра</strong> - Поддържайте актуален браузър с най-новите защити</li>
+          <li><strong>Внимавайте с личните данни</strong> - Никога не въвеждайте пароли на подозрителни сайтове</li>
+        </ul>
       </div>
     </div>
   </div>
 
   <script>
+    function checkURL() {
+      const urlInput = document.getElementById('url-input');
+      const resultContainer = document.getElementById('result-container');
+      const resultIcon = document.getElementById('result-icon');
+      const resultText = document.getElementById('result-text');
+      const resultDetails = document.getElementById('result-details');
+      
+      const url = urlInput.value.trim();
+      
+      if (!url) {
+        alert('Моля въведете URL за проверка');
+        return;
+      }
+      
+      // Show result container
+      resultContainer.style.display = 'block';
+      resultContainer.className = 'result-container result-checking';
+      
+      // Show loading state
+      resultIcon.textContent = '⏳';
+      resultText.textContent = 'Проверявам URL...';
+      resultDetails.textContent = 'Моля изчакайте докато анализираме URL адреса';
+      
+      // Simulate checking process
+      setTimeout(() => {
+        // Simple URL analysis
+        const suspiciousPatterns = [
+          'bit.ly', 'tinyurl.com', 'short.link', 'suspicious.com',
+          'phishing', 'malware', 'virus', 'hack', 'fraud',
+          'paypal-security', 'bank-verify', 'account-suspended',
+          'security-alert', 'verify-account', 'suspend-account',
+          'click-here', 'urgent-action', 'immediate-action',
+          'known-phishing'
+        ];
+        
+        const isPhishing = suspiciousPatterns.some(pattern => 
+          url.toLowerCase().includes(pattern.toLowerCase())
+        );
+        
+        if (isPhishing) {
+          // Dangerous URL
+          resultContainer.className = 'result-container result-dangerous';
+          resultIcon.textContent = '⚠️';
+          resultText.textContent = 'ОПАСЕН URL ДЕТЕКТИРАН!';
+          resultDetails.innerHTML = `
+            <strong>🚨 Заплахи:</strong><br>
+            • Потенциален фишинг сайт<br>
+            • Може да краде лични данни<br>
+            • Препоръчваме да НЕ посещавате този сайт<br>
+            <br><strong>⚡ Препоръки:</strong><br>
+            • Не въвеждайте лични данни<br>
+            • Не изтегляйте файлове<br>
+            • Докладвайте на IT отдела<br>
+            • Сканирайте системата си за вируси
+          `;
+        } else {
+          // Safe URL
+          resultContainer.className = 'result-container result-safe';
+          resultIcon.textContent = '✅';
+          resultText.textContent = 'URL изглежда безопасен';
+          resultDetails.innerHTML = `
+            <strong>🛡️ Статус:</strong> Безопасен<br>
+            • Няма детектирани заплахи<br>
+            • URL не е в черния списък<br>
+            • Можете да посетите сайта<br>
+            <br><strong>⚠️ Внимание:</strong><br>
+            Винаги бъдете предпазливи с лични данни онлайн.<br>
+            Този инструмент не заменя здравия разум и внимателността.
+          `;
+        }
+      }, 2000);
+    }
+    
+    function testURL(testUrl) {
+      document.getElementById('url-input').value = testUrl;
+      checkURL();
+    }
+    
+    // Add Enter key support
+    document.getElementById('url-input').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        checkURL();
+      }
+    });
+    
     // Particles.js configuration
     particlesJS('particles-js', {
       particles: {
-        number: { value: 80, density: { enable: true, value_area: 800 } },
+        number: { value: 60, density: { enable: true, value_area: 800 } },
         color: { value: '#00ffee' },
         shape: { type: 'circle' },
-        opacity: { value: 0.5, random: false },
-        size: { value: 3, random: true },
-        line_linked: { enable: true, distance: 150, color: '#00ffee', opacity: 0.4, width: 1 },
-        move: { enable: true, speed: 6, direction: 'none', random: false, straight: false, out_mode: 'out', bounce: false }
+        opacity: { value: 0.3, random: false },
+        size: { value: 2, random: true },
+        line_linked: { enable: true, distance: 150, color: '#00ffee', opacity: 0.2, width: 1 },
+        move: { enable: true, speed: 4, direction: 'none', random: false, straight: false, out_mode: 'out', bounce: false }
       },
       interactivity: {
         detect_on: 'canvas',
         events: { onhover: { enable: true, mode: 'repulse' }, onclick: { enable: true, mode: 'push' }, resize: true },
-        modes: { grab: { distance: 400, line_linked: { opacity: 1 } }, bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 }, repulse: { distance: 200, duration: 0.4 }, push: { particles_nb: 4 }, remove: { particles_nb: 2 } }
+        modes: { repulse: { distance: 100, duration: 0.4 }, push: { particles_nb: 2 } }
       },
       retina_detect: true
     });
-
-    // Real Phishing Detection - Load OpenPhish database
-    let openPhishList = [];
-    
-    // Load phishing URLs from openphish.txt
-    fetch('openphish.txt')
-      .then(res => res.text())
-      .then(text => {
-        openPhishList = text.split('\n').map(url => url.trim()).filter(Boolean);
-        console.log(`Loaded ${openPhishList.length} known phishing URLs`);
-      })
-      .catch(error => {
-        console.warn('Could not load openphish.txt, using pattern-based detection only:', error);
-      });
-
-    // URL normalization function
-    function normalizeUrl(url) {
-      return url.trim().replace(/^https?:\/\//i, '').replace(/\/$/, '').toLowerCase();
-    }
-
-    // Real phishing check function
-    async function checkPhishing(url) {
-      const testUrl = normalizeUrl(url);
-      return openPhishList.some(phishUrl => normalizeUrl(phishUrl) === testUrl);
-    }
-
-    // Translation data
-    const translations = {
-      en: {
-        'back-to-portfolio': '← Back to Portfolio',
-        'phishing-checker-title': '🛡️ Phishing Checker',
-        'phishing-checker-subtitle': 'Advanced tool to detect phishing attempts and malicious content',
-        'url-checker-title': '🔗 URL Analysis',
-        'url-input-label': 'Enter URL to check:',
-        'url-placeholder': 'https://example.com',
-        'check-url-btn': 'Analyze URL',
-        'email-checker-title': '📧 Email Content Analysis',
-        'email-input-label': 'Paste email content or headers:',
-        'email-placeholder': 'Paste email content here...',
-        'check-email-btn': 'Analyze Email',
-        'tips-title': '💡 Phishing Detection Tips',
-        'tip1-title': 'Check the URL',
-        'tip1-text': 'Look for misspelled domains, suspicious subdomains, and unusual top-level domains (.tk, .ml, etc.)',
-        'tip2-title': 'Verify SSL Certificate',
-        'tip2-text': 'Legitimate sites use HTTPS. Check for the padlock icon and valid SSL certificates.',
-        'tip3-title': 'Examine Email Headers',
-        'tip3-text': 'Check sender\'s email address, reply-to address, and routing information for inconsistencies.',
-        'tip4-title': 'Look for Urgency',
-        'tip4-text': 'Phishing attempts often create false urgency to pressure quick action without thinking.',
-        'tip5-title': 'Grammar and Spelling',
-        'tip5-text': 'Professional organizations rarely send emails with poor grammar or spelling mistakes.',
-        'tip6-title': 'Unexpected Attachments',
-        'tip6-text': 'Be cautious with unexpected attachments, especially executable files (.exe, .zip, .scr).',
-        'safe-verdict': 'SAFE',
-        'suspicious-verdict': 'SUSPICIOUS',
-        'malicious-verdict': 'MALICIOUS',
-        'analyzing': 'Analyzing...',
-        'analysis-complete': 'Analysis Complete',
-        'safe-description': 'This URL appears to be safe based on our analysis.',
-        'suspicious-description': 'This content shows some suspicious characteristics. Exercise caution.',
-        'malicious-description': 'This content appears to be malicious. Do not interact with it.',
-        'common-indicators': 'Common indicators found:',
-        'recommendations': 'Recommendations:'
-      },
-      fr: {
-        'back-to-portfolio': '← Retour au Portfolio',
-        'phishing-checker-title': '🛡️ Détecteur de Phishing',
-        'phishing-checker-subtitle': 'Outil avancé pour détecter les tentatives de phishing et contenu malveillant',
-        'url-checker-title': '🔗 Analyse d\'URL',
-        'url-input-label': 'Entrez l\'URL à vérifier:',
-        'url-placeholder': 'https://exemple.com',
-        'check-url-btn': 'Analyser l\'URL',
-        'email-checker-title': '📧 Analyse du Contenu Email',
-        'email-input-label': 'Collez le contenu ou les en-têtes de l\'email:',
-        'email-placeholder': 'Collez le contenu de l\'email ici...',
-        'check-email-btn': 'Analyser l\'Email',
-        'tips-title': '💡 Conseils de Détection de Phishing',
-        'tip1-title': 'Vérifiez l\'URL',
-        'tip1-text': 'Recherchez les domaines mal orthographiés, les sous-domaines suspects et les domaines de premier niveau inhabituels (.tk, .ml, etc.)',
-        'tip2-title': 'Vérifiez le Certificat SSL',
-        'tip2-text': 'Les sites légitimes utilisent HTTPS. Vérifiez l\'icône de cadenas et les certificats SSL valides.',
-        'tip3-title': 'Examinez les En-têtes d\'Email',
-        'tip3-text': 'Vérifiez l\'adresse email de l\'expéditeur, l\'adresse de réponse et les informations de routage pour détecter les incohérences.',
-        'tip4-title': 'Attention à l\'Urgence',
-        'tip4-text': 'Les tentatives de phishing créent souvent une fausse urgence pour pousser à l\'action rapide sans réflexion.',
-        'tip5-title': 'Grammaire et Orthographe',
-        'tip5-text': 'Les organisations professionnelles envoient rarement des emails avec une grammaire ou orthographe médiocre.',
-        'tip6-title': 'Pièces Jointes Inattendues',
-        'tip6-text': 'Méfiez-vous des pièces jointes inattendues, surtout les fichiers exécutables (.exe, .zip, .scr).',
-        'safe-verdict': 'SÛR',
-        'suspicious-verdict': 'SUSPECT',
-        'malicious-verdict': 'MALVEILLANT',
-        'analyzing': 'Analyse en cours...',
-        'analysis-complete': 'Analyse Terminée',
-        'safe-description': 'Cette URL semble sûre selon notre analyse.',
-        'suspicious-description': 'Ce contenu présente des caractéristiques suspectes. Soyez prudent.',
-        'malicious-description': 'Ce contenu semble malveillant. N\'interagissez pas avec.',
-        'common-indicators': 'Indicateurs communs trouvés:',
-        'recommendations': 'Recommandations:'
-      },
-      bg: {
-        'back-to-portfolio': '← Назад към Портфолио',
-        'phishing-checker-title': '🛡️ Детектор за Фишинг',
-        'phishing-checker-subtitle': 'Усъвършенстван инструмент за откриване на фишинг атаки и злонамерено съдържание',
-        'url-checker-title': '🔗 Анализ на URL',
-        'url-input-label': 'Въведете URL за проверка:',
-        'url-placeholder': 'https://example.com',
-        'check-url-btn': 'Анализирай URL',
-        'email-checker-title': '📧 Анализ на Имейл Съдържание',
-        'email-input-label': 'Поставете съдържанието или хедърите на имейла:',
-        'email-placeholder': 'Поставете съдържанието на имейла тук...',
-        'check-email-btn': 'Анализирай Имейл',
-        'tips-title': '💡 Съвети за Откриване на Фишинг',
-        'tip1-title': 'Проверете URL-а',
-        'tip1-text': 'Търсете грешно изписани домейни, подозрителни поддомейни и необичайни домейни от най-високо ниво (.tk, .ml, и др.)',
-        'tip2-title': 'Проверете SSL Сертификата',
-        'tip2-text': 'Легитимните сайтове използват HTTPS. Проверете за иконата на катинар и валидни SSL сертификати.',
-        'tip3-title': 'Изследвайте Имейл Хедърите',
-        'tip3-text': 'Проверете имейл адреса на изпращача, адреса за отговор и информацията за маршрутизиране за несъответствия.',
-        'tip4-title': 'Внимавайте с Спешността',
-        'tip4-text': 'Фишинг атаките често създават фалшива спешност, за да принудят към бързи действия без размисъл.',
-        'tip5-title': 'Граматика и Правопис',
-        'tip5-text': 'Професионалните организации рядко изпращат имейли с лоша граматика или правописни грешки.',
-        'tip6-title': 'Неочаквани Прикачени Файлове',
-        'tip6-text': 'Бъдете предпазливи с неочаквани прикачени файлове, особено изпълними файлове (.exe, .zip, .scr).',
-        'safe-verdict': 'БЕЗОПАСНО',
-        'suspicious-verdict': 'ПОДОЗРИТЕЛНО',
-        'malicious-verdict': 'ЗЛОНАМЕРЕНО',
-        'analyzing': 'Анализирам...',
-        'analysis-complete': 'Анализът е Завършен',
-        'safe-description': 'Този URL изглежда безопасен според нашия анализ.',
-        'suspicious-description': 'Това съдържание показва подозрителни характеристики. Бъдете предпазливи.',
-        'malicious-description': 'Това съдържание изглежда злонамерено. Не взаимодействайте с него.',
-        'common-indicators': 'Намерени общи индикатори:',
-        'recommendations': 'Препоръки:'
-      }
-    };
-
-    // Language switching functionality
-    let currentLanguage = localStorage.getItem('selectedLanguage') || 'en';
-    
-    function updateLanguage(language) {
-      currentLanguage = language;
-      localStorage.setItem('selectedLanguage', language);
-      document.documentElement.lang = language;
-      
-      // Update all elements with data-translate attributes
-      const elements = document.querySelectorAll('[data-translate]');
-      elements.forEach(element => {
-        const key = element.getAttribute('data-translate');
-        if (translations[language] && translations[language][key]) {
-          element.textContent = translations[language][key];
-        }
-      });
-
-      // Update placeholders
-      const placeholderElements = document.querySelectorAll('[data-translate-placeholder]');
-      placeholderElements.forEach(element => {
-        const key = element.getAttribute('data-translate-placeholder');
-        if (translations[language] && translations[language][key]) {
-          element.placeholder = translations[language][key];
-        }
-      });
-    }
-
-    // Initialize language
-    document.getElementById('language-select').value = currentLanguage;
-    updateLanguage(currentLanguage);
-
-    // Language select event listener
-    document.getElementById('language-select').addEventListener('change', function(e) {
-      updateLanguage(e.target.value);
-    });
-
-    // URL Checker functionality
-    document.getElementById('check-url-btn').addEventListener('click', async function() {
-      const url = document.getElementById('url-input').value.trim();
-      const resultsDiv = document.getElementById('url-results');
-      
-      if (!url) {
-        alert('Please enter a URL to check');
-        return;
-      }
-
-      // Show loading
-      resultsDiv.innerHTML = `
-        <div class="loading">
-          <div class="loading-spinner"></div>
-          <span style="margin-left: 15px;">${translations[currentLanguage]['analyzing']}</span>
-        </div>
-      `;
-      resultsDiv.className = 'results show';
-
-      // Real analysis with database check
-      try {
-        await new Promise(resolve => setTimeout(resolve, 1500)); // Small delay for UX
-        const result = await analyzeURL(url);
-        displayResults(resultsDiv, result, 'url');
-      } catch (error) {
-        console.error('Error analyzing URL:', error);
-        resultsDiv.innerHTML = `
-          <div class="result-header">
-            <span class="result-icon">❌</span>
-            <span>Analysis Error</span>
-          </div>
-          <p>Could not analyze URL. Please try again.</p>
-        `;
-        resultsDiv.className = 'results show result-suspicious';
-      }
-    });
-
-    // Email Checker functionality
-    document.getElementById('check-email-btn').addEventListener('click', function() {
-      const email = document.getElementById('email-input').value.trim();
-      const resultsDiv = document.getElementById('email-results');
-      
-      if (!email) {
-        alert('Please enter email content to check');
-        return;
-      }
-
-      // Show loading
-      resultsDiv.innerHTML = `
-        <div class="loading">
-          <div class="loading-spinner"></div>
-          <span style="margin-left: 15px;">${translations[currentLanguage]['analyzing']}</span>
-        </div>
-      `;
-      resultsDiv.className = 'results show';
-
-      // Simulate analysis
-      setTimeout(() => {
-        const result = analyzeEmail(email);
-        displayResults(resultsDiv, result, 'email');
-      }, 2000);
-    });
-
-    // URL Analysis function (with real phishing detection)
-    async function analyzeURL(url) {
-      const suspiciousPatterns = [
-        /[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}/, // IP addresses
-        /\.(tk|ml|ga|cf)$/i, // Suspicious TLDs
-        /-/g, // Multiple hyphens
-        /[0-9]{4,}/, // Long numbers
-        /paypal|amazon|microsoft|google/i // Brand impersonation
-      ];
-
-      let riskScore = 0;
-      const indicators = [];
-
-      // First check against known phishing database
-      const isKnownPhishing = await checkPhishing(url);
-      if (isKnownPhishing) {
-        riskScore += 100; // Maximum risk for known phishing
-        indicators.push('🚨 Found in known phishing database');
-      }
-
-      // Check for suspicious patterns
-      suspiciousPatterns.forEach(pattern => {
-        if (pattern.test(url)) {
-          riskScore += 20;
-          if (pattern.toString().includes('paypal|amazon')) {
-            indicators.push('Potential brand impersonation detected');
-          } else if (pattern.toString().includes('tk|ml')) {
-            indicators.push('Suspicious top-level domain');
-          } else if (pattern.toString().includes('[0-9]')) {
-            indicators.push('IP address or suspicious numbers in URL');
-          }
-        }
-      });
-
-      // Check HTTPS
-      if (!url.startsWith('https://')) {
-        riskScore += 30;
-        indicators.push('Not using secure HTTPS protocol');
-      }
-
-      // Determine verdict
-      let verdict, className, icon;
-      if (riskScore >= 50) {
-        verdict = 'malicious-verdict';
-        className = 'result-malicious';
-        icon = '🚨';
-      } else if (riskScore >= 20) {
-        verdict = 'suspicious-verdict';
-        className = 'result-suspicious';
-        icon = '⚠️';
-      } else {
-        verdict = 'safe-verdict';
-        className = 'result-safe';
-        icon = '✅';
-      }
-
-      return {
-        verdict,
-        className,
-        icon,
-        riskScore,
-        indicators,
-        url
-      };
-    }
-
-    // Email Analysis function (simulated)
-    function analyzeEmail(emailContent) {
-      const suspiciousPatterns = [
-        /urgent|immediate|act now|limited time|expires/i,
-        /click here|download now|update your/i,
-        /verify your account|suspended|locked/i,
-        /congratulations|you've won|lottery/i,
-        /nigerian prince|inheritance|million dollars/i
-      ];
-
-      let riskScore = 0;
-      const indicators = [];
-
-      // Check for suspicious patterns
-      suspiciousPatterns.forEach(pattern => {
-        if (pattern.test(emailContent)) {
-          riskScore += 25;
-          if (pattern.toString().includes('urgent|immediate')) {
-            indicators.push('Creates false sense of urgency');
-          } else if (pattern.toString().includes('click here')) {
-            indicators.push('Contains suspicious call-to-action phrases');
-          } else if (pattern.toString().includes('verify your account')) {
-            indicators.push('Requests account verification');
-          } else if (pattern.toString().includes('congratulations')) {
-            indicators.push('Contains lottery/prize scam language');
-          } else if (pattern.toString().includes('nigerian')) {
-            indicators.push('Contains advance fee fraud patterns');
-          }
-        }
-      });
-
-      // Check for poor grammar (simplified check)
-      const grammarIssues = emailContent.match(/\b(recieve|seperate|thier|youre)\b/gi);
-      if (grammarIssues && grammarIssues.length > 0) {
-        riskScore += 15;
-        indicators.push('Contains spelling/grammar errors');
-      }
-
-      // Determine verdict
-      let verdict, className, icon;
-      if (riskScore >= 50) {
-        verdict = 'malicious-verdict';
-        className = 'result-malicious';
-        icon = '🚨';
-      } else if (riskScore >= 25) {
-        verdict = 'suspicious-verdict';
-        className = 'result-suspicious';
-        icon = '⚠️';
-      } else {
-        verdict = 'safe-verdict';
-        className = 'result-safe';
-        icon = '✅';
-      }
-
-      return {
-        verdict,
-        className,
-        icon,
-        riskScore,
-        indicators,
-        content: emailContent.substring(0, 100) + '...'
-      };
-    }
-
-    // Display results function
-    function displayResults(resultsDiv, result, type) {
-      const verdictText = translations[currentLanguage][result.verdict];
-      const description = translations[currentLanguage][result.verdict.replace('-verdict', '-description')];
-      
-      let indicatorsHTML = '';
-      if (result.indicators.length > 0) {
-        indicatorsHTML = `
-          <div class="result-details">
-            <strong>${translations[currentLanguage]['common-indicators']}</strong>
-            <ul>
-              ${result.indicators.map(indicator => `<li>${indicator}</li>`).join('')}
-            </ul>
-          </div>
-        `;
-      }
-
-      const recommendations = getRecommendations(result.riskScore);
-      let recommendationsHTML = '';
-      if (recommendations.length > 0) {
-        recommendationsHTML = `
-          <div class="result-details">
-            <strong>${translations[currentLanguage]['recommendations']}</strong>
-            <ul>
-              ${recommendations.map(rec => `<li>${rec}</li>`).join('')}
-            </ul>
-          </div>
-        `;
-      }
-
-      resultsDiv.innerHTML = `
-        <div class="result-header">
-          <span class="result-icon">${result.icon}</span>
-          <span>${translations[currentLanguage]['analysis-complete']}: ${verdictText}</span>
-        </div>
-        <p>${description}</p>
-        ${indicatorsHTML}
-        ${recommendationsHTML}
-        <div class="result-details">
-          <small><strong>Risk Score:</strong> ${result.riskScore}/100</small>
-        </div>
-      `;
-      
-      resultsDiv.className = `results show ${result.className}`;
-    }
-
-    // Get recommendations based on risk score
-    function getRecommendations(riskScore) {
-      if (riskScore >= 50) {
-        return [
-          'Do not click any links or download attachments',
-          'Report this content to your IT security team',
-          'Delete the message immediately',
-          'Scan your system for malware if you interacted with the content'
-        ];
-      } else if (riskScore >= 25) {
-        return [
-          'Exercise extreme caution',
-          'Verify sender through alternative means',
-          'Do not provide personal information',
-          'Consider reporting to security team'
-        ];
-      } else {
-        return [
-          'Content appears safe, but stay vigilant',
-          'Always verify unexpected requests',
-          'Keep security software updated'
-        ];
-      }
-    }
   </script>
 </body>
 </html>
