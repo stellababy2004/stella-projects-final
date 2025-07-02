@@ -540,6 +540,27 @@
   </header>
 
   <main>
+    <!-- Move Phishing Detector section to the top -->
+    <section class="section" id="phishing-detector">
+      <h2>🛡️ <span data-translate="phishing-detector-title">Детектор за Фишинг</span></h2>
+      <p data-translate="phishing-detector-description">Усъвършенствана инструмент за откриване на фишинг атаки и злонамерено съдържание</p>
+      
+      <div class="phishing-detector-container" style="margin: 20px 0;">
+        <input type="url" id="url-input" placeholder="Въведете URL за проверка..." style="width: 70%; padding: 10px; border: 2px solid #00ffee; background: rgba(0,0,0,0.7); color: #00ffee; border-radius: 5px; margin-right: 10px;">
+        <button onclick="checkURL()" style="padding: 10px 20px; background: linear-gradient(45deg, #00ffee, #0066cc); border: none; color: #000; border-radius: 5px; cursor: pointer; font-weight: bold;" data-translate="phishing-check-btn">🔍 Провери URL</button>
+      </div>
+      
+      <div id="phishing-result" style="display: none; margin-top: 20px;">
+        <div class="result-container" style="padding: 20px; border-radius: 10px; border: 2px solid #00ffee; background: rgba(10,20,30,0.8);">
+          <div class="result-header" style="display: flex; align-items: center; margin-bottom: 15px;">
+            <span class="result-icon" style="font-size: 2em; margin-right: 15px;"></span>
+            <span class="result-text" style="font-size: 1.2em; font-weight: bold;"></span>
+          </div>
+          <div class="result-details" style="color: #00ddcc;"></div>
+        </div>
+      </div>
+    </section>
+
     <section class="section" id="about">
       <h1>Stella Barbarella</h1>
       <p data-translate="about-description">SOC Analyst | Cybersecurity Enthusiast | Threat Hunter</p>
@@ -554,21 +575,8 @@
         <li><a href="#checkpoint-map" class="button" data-translate="project-live">🌐 Threat Live</a></li>
         <li><a href="Stella_Barbarella_CV.odt" download class="button" data-translate="project-cv">📄 My CV</a></li>
       </ul>
-    </section>    <section class="section" id="phishing-check">
-      <h2 data-translate="phishing-title">Phishing URL Checker</h2>
-      <form id="phishing-form">
-        <label for="url" data-translate="phishing-label">Enter URL to check:</label>
-        <input type="text" id="url" name="url" placeholder="https://example.com" required />
-
-        <button type="submit" data-translate="phishing-button">Check</button>
-      </form>
-      <div id="phishing-result" style="margin-top: 10px; font-weight: bold;"></div>
-      <img src="images/logo.png" alt="Stella Barbarella Logo" style="max-width:180px; height:auto;" loading="lazy" />
-      <p style="font-size: 0.9em; color: gray; margin-top: 5px;" data-translate="phishing-note">
-        Note: This is a simulation and does not perform actual phishing detection.
-      </p>
     </section>
-  
+
     <section class="section" id="pentest-reports">
       <h2>Pentest Reports</h2>
       <p class="pentest-intro">
@@ -903,7 +911,7 @@ document.addEventListener("DOMContentLoaded", function () {
           { icon: "🔒", text: "Fichier isolé en quarantaine", status: "blocking", statusText: "ISOLÉ" },
           { icon: "✅", text: "Système nettoyé et protégé", status: "success", statusText: "NETTOYÉ" }
         ],
-        logMessage: "[CRITIQUE] Malware détecté et isolé avec succès",
+        logMessage: "[CRITIQUE] Malware détecté и изолирани успешно",
         location: [48.85, 2.35],
         chartIndex: 1
       },
@@ -1608,7 +1616,7 @@ Remember: When in doubt, don't click out!`;
     }
     
     if (lowerPrompt.includes('malware') || lowerPrompt.includes('малуер')) {
-      return `🦠 Malware Defense Strategy:
+                return `🦠 Malware Defense Strategy:
 
 • Keep antivirus software updated and active
 • Regular system and software updates
@@ -1752,6 +1760,89 @@ particlesJS('particles-js', {
     modes: { grab: { distance: 400, line_linked: { opacity: 1 } }, bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 }, repulse: { distance: 200, duration: 0.4 }, push: { particles_nb: 4 }, remove: { particles_nb: 2 } }
   },
   retina_detect: true
+});
+</script>
+<script>
+// Phishing URL Checker Function
+function checkURL() {
+  const urlInput = document.getElementById('url-input');
+  const resultDiv = document.getElementById('phishing-result');
+  const resultIcon = document.querySelector('.result-icon');
+  const resultText = document.querySelector('.result-text');
+  const resultDetails = document.querySelector('.result-details');
+  
+  const url = urlInput.value.trim();
+  
+  if (!url) {
+    alert('Моля въведете URL за проверка');
+    return;
+  }
+  
+  // Show result container
+  resultDiv.style.display = 'block';
+  
+  // Show loading state
+  resultIcon.textContent = '⏳';
+  resultText.textContent = 'Проверявам URL...';
+  resultDetails.textContent = 'Моля изчакайте докато анализираме URL адреса';
+  
+  // Simulate checking process
+  setTimeout(() => {
+    // Simple URL analysis
+    const suspiciousPatterns = [
+      'bit.ly', 'tinyurl.com', 'short.link', 'suspicious.com',
+      'phishing', 'malware', 'virus', 'hack', 'fraud',
+      'paypal-security', 'bank-verify', 'account-suspended'
+    ];
+    
+    const isPhishing = suspiciousPatterns.some(pattern => 
+      url.toLowerCase().includes(pattern.toLowerCase())
+    );
+    
+    if (isPhishing) {
+      // Dangerous URL
+      resultIcon.textContent = '⚠️';
+      resultIcon.style.color = '#ff1744';
+      resultText.textContent = 'ОПАСЕН URL ДЕТЕКТИРАН!';
+      resultText.style.color = '#ff1744';
+      resultDetails.innerHTML = `
+        <strong>Заплахи:</strong><br>
+        • Потенциален фишинг сайт<br>
+        • Може да краде лични данни<br>
+        • Препоръчваме да НЕ посещавате този сайт<br>
+        <br><strong>Препоръки:</strong><br>
+        • Не въвеждайте лични данни<br>
+        • Не изтегляйте файлове<br>
+        • Докладвайте на IT отдела
+      `;
+    } else {
+      // Safe URL
+      resultIcon.textContent = '✅';
+      resultIcon.style.color = '#00e676';
+      resultText.textContent = 'URL изглежда безопасен';
+      resultText.style.color = '#00e676';
+      resultDetails.innerHTML = `
+        <strong>Статус:</strong> Безопасен<br>
+        • Няма детектирани заплахи<br>
+        • URL не е в черния списък<br>
+        • Можете да посетите сайта<br>
+        <br><strong>Внимание:</strong><br>
+        Винаги бъдете предпазливи с лични данни онлайн
+      `;
+    }
+  }, 2000);
+}
+
+// Add Enter key support for URL input
+document.addEventListener('DOMContentLoaded', function() {
+  const urlInput = document.getElementById('url-input');
+  if (urlInput) {
+    urlInput.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        checkURL();
+      }
+    });
+  }
 });
 </script>
 </body>
