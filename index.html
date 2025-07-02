@@ -1652,10 +1652,13 @@ Note: For advanced analysis, the AI server can be started locally.`;
 
 // Map initialization and other functionality
 document.addEventListener("DOMContentLoaded", function () {
-  // Initialize Leaflet map safely
+  // Initialize Leaflet map safely with extra protection
   const mapDiv = document.getElementById('map');
-  if (mapDiv && !mapDiv._leaflet_id) {
+  if (mapDiv && !mapDiv._leaflet_id && !window.portfolioMapInitialized) {
     try {
+      // Mark as initialized to prevent double initialization
+      window.portfolioMapInitialized = true;
+      
       const map = L.map('map').setView([42.7, 23.3], 3);
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 18,
@@ -1686,7 +1689,9 @@ document.addEventListener("DOMContentLoaded", function () {
         });
       }
     } catch (error) {
-      console.warn('Map initialization error:', error.message);
+      console.warn('Map initialization error (this is normal if map already exists):', error.message);
+      // Reset the flag if initialization failed
+      window.portfolioMapInitialized = false;
     }
   }
   
