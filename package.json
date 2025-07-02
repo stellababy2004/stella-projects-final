@@ -1,11 +1,17 @@
 {
-  "name": "hf-proxy",
+  "name": "stella-cybersecurity-portfolio",
   "version": "1.0.0",
-  "main": "proxy.js",
-  "type": "commonjs",
+  "description": "Cybersecurity Portfolio of Stella Barbarella",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "build": "echo 'Static site ready'",
+    "dev": "node server.js"
+  },
   "dependencies": {
-    "express": "^4.18.2",
-    "node-fetch": "^2.6.7",
-    "cors": "^2.8.5"
+    "express": "^4.18.2"
+  },
+  "engines": {
+    "node": ">=14.0.0"
   }
 }

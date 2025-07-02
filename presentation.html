@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pentest Presentation</title>
+  <title>Pentest Presentation - Stella Barbarella</title>
   <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
   <style>
     #particles-js {
@@ -19,82 +19,348 @@
     body {
       margin: 0;
       background: transparent;
-      color: #fff;
-      font-family: Arial, sans-serif;
+      color: #00ffee;
+      font-family: 'Courier New', monospace;
       overflow-x: hidden;
     }
-    .not-found {
-      padding: 2em;
+
+    .presentation-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .slide {
+      background: rgba(10, 20, 30, 0.9);
+      border: 2px solid #00ffee;
+      border-radius: 15px;
+      padding: 3rem;
+      margin: 2rem 0;
+      box-shadow: 0 0 20px rgba(0, 255, 238, 0.3);
+    }
+
+    .slide h1 {
+      color: #00ffee;
       text-align: center;
-      color: #ff8080;
-      position: relative;
-      z-index: 1;
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      text-shadow: 0 0 10px rgba(0, 255, 238, 0.5);
     }
-    .download-btn {
-      display: inline-block;
-      margin-top: 1em;
-      padding: 1em 2em;
-      background: #222;
-      color: #0ff;
-      border: 2px solid #0ff;
-      border-radius: 10px;
+
+    .slide h2 {
+      color: #00ffee;
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      border-bottom: 2px solid #00ffee;
+      padding-bottom: 0.5rem;
+    }
+
+    .slide h3 {
+      color: #00ddcc;
+      font-size: 1.5rem;
+      margin: 1.5rem 0 1rem 0;
+    }
+
+    .slide ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .slide li {
+      margin: 1rem 0;
+      padding-left: 2rem;
+      position: relative;
+    }
+
+    .slide li:before {
+      content: "🔸";
+      position: absolute;
+      left: 0;
+      color: #00ffee;
+    }
+
+    .highlight {
+      background: rgba(255, 0, 100, 0.2);
+      padding: 0.2rem 0.5rem;
+      border-radius: 5px;
+      color: #ff6b9d;
+    }
+
+    .code-block {
+      background: rgba(0, 0, 0, 0.7);
+      border: 1px solid #00ffee;
+      border-radius: 8px;
+      padding: 1rem;
+      margin: 1rem 0;
+      font-family: 'Courier New', monospace;
+      color: #00ff88;
+      overflow-x: auto;
+    }
+
+    .back-btn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: rgba(10, 20, 30, 0.9);
+      border: 2px solid #00ffee;
+      color: #00ffee;
       text-decoration: none;
-      font-size: 1.2em;
-      transition: background 0.2s;
+      padding: 10px 20px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      z-index: 100;
     }
-    .download-btn:hover {
-      background: #0ff;
-      color: #222;
+
+    .back-btn:hover {
+      background: rgba(0, 255, 238, 0.2);
+      box-shadow: 0 0 15px rgba(0, 255, 238, 0.5);
     }
-    iframe {
-      width: 100%;
-      height: 100vh;
-      border: none;
-      position: relative;
-      z-index: 1;
+
+    .navigation {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 100;
     }
-    .hidden {
-      display: none;
+
+    .nav-btn {
+      background: rgba(10, 20, 30, 0.9);
+      border: 2px solid #00ffee;
+      color: #00ffee;
+      padding: 10px 15px;
+      margin: 0 5px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .nav-btn:hover {
+      background: rgba(0, 255, 238, 0.2);
+    }
+
+    .slide-counter {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(10, 20, 30, 0.9);
+      border: 2px solid #00ffee;
+      color: #00ffee;
+      padding: 10px 20px;
+      border-radius: 20px;
+      z-index: 100;
     }
   </style>
 </head>
 <body>
   <div id="particles-js"></div>
   
-  <iframe src="presentation_pentest_ad_acme.pdf" title="Pentest Presentation" onerror="this.classList.add('hidden');document.getElementById('nofile').classList.remove('hidden');"></iframe>
+  <a href="index.html" class="back-btn">⬅️ Back to Portfolio</a>
   
-  <div id="nofile" class="not-found hidden">
-    <h2>📄 Pentest Presentation</h2>
-    <p>The presentation file is not available for direct viewing.</p>
-    <a href="presentation_pentest_ad_acme.pdf" class="download-btn" download>
-      📥 Download PDF
-    </a>
-    <br><br>
-    <a href="index.html" class="download-btn">
-      ⬅️ Back to Portfolio
-    </a>
+  <div class="slide-counter">
+    <span id="current-slide">1</span> / <span id="total-slides">6</span>
+  </div>
+  
+  <div class="navigation">
+    <button class="nav-btn" onclick="previousSlide()">❮ Prev</button>
+    <button class="nav-btn" onclick="nextSlide()">Next ❯</button>
+  </div>
+
+  <div class="presentation-container">
+    <!-- Slide 1: Title -->
+    <div class="slide active" data-slide="1">
+      <h1>🛡️ Penetration Testing</h1>
+      <h1>ACME Corporation</h1>
+      <div style="text-align: center; margin-top: 3rem;">
+        <h3>Presented by: <span class="highlight">Stella Barbarella</span></h3>
+        <h3>Cybersecurity Specialist</h3>
+        <h3>📅 July 2025</h3>
+      </div>
+    </div>
+
+    <!-- Slide 2: Executive Summary -->
+    <div class="slide" data-slide="2" style="display: none;">
+      <h2>📊 Executive Summary</h2>
+      <h3>🎯 Assessment Objectives</h3>
+      <ul>
+        <li>Identify security vulnerabilities in ACME's infrastructure</li>
+        <li>Test network security controls and configurations</li>
+        <li>Evaluate web application security posture</li>
+        <li>Assess social engineering susceptibility</li>
+      </ul>
+      
+      <h3>⚠️ Key Findings</h3>
+      <ul>
+        <li><span class="highlight">Critical:</span> 3 vulnerabilities identified</li>
+        <li><span class="highlight">High:</span> 7 security issues found</li>
+        <li><span class="highlight">Medium:</span> 12 areas for improvement</li>
+        <li><span class="highlight">Low:</span> 8 minor security concerns</li>
+      </ul>
+    </div>
+
+    <!-- Slide 3: Methodology -->
+    <div class="slide" data-slide="3" style="display: none;">
+      <h2>🔍 Testing Methodology</h2>
+      <h3>🔄 OWASP Testing Framework</h3>
+      <ul>
+        <li><strong>Reconnaissance:</strong> Information gathering and footprinting</li>
+        <li><strong>Scanning:</strong> Port scanning and service enumeration</li>
+        <li><strong>Enumeration:</strong> Detailed service and application analysis</li>
+        <li><strong>Exploitation:</strong> Vulnerability exploitation attempts</li>
+        <li><strong>Post-Exploitation:</strong> Privilege escalation and persistence</li>
+      </ul>
+      
+      <div class="code-block">
+# Example reconnaissance command
+nmap -sS -sV -O target_network/24
+nikto -h https://target.acme.com
+dirb https://target.acme.com /usr/share/wordlists/dirb/common.txt
+      </div>
+    </div>
+
+    <!-- Slide 4: Critical Findings -->
+    <div class="slide" data-slide="4" style="display: none;">
+      <h2>🚨 Critical Vulnerabilities</h2>
+      
+      <h3>1. SQL Injection in Web Application</h3>
+      <ul>
+        <li><strong>Risk Level:</strong> <span class="highlight">CRITICAL</span></li>
+        <li><strong>Location:</strong> /login.php parameter 'username'</li>
+        <li><strong>Impact:</strong> Complete database compromise</li>
+        <li><strong>CVSS Score:</strong> 9.8</li>
+      </ul>
+      
+      <h3>2. Unpatched Windows Server 2019</h3>
+      <ul>
+        <li><strong>Risk Level:</strong> <span class="highlight">CRITICAL</span></li>
+        <li><strong>Vulnerability:</strong> CVE-2021-34527 (PrintNightmare)</li>
+        <li><strong>Impact:</strong> Remote code execution as SYSTEM</li>
+        <li><strong>Affected Systems:</strong> Domain Controller (10.0.1.10)</li>
+      </ul>
+      
+      <h3>3. Default Credentials on Network Devices</h3>
+      <ul>
+        <li><strong>Risk Level:</strong> <span class="highlight">CRITICAL</span></li>
+        <li><strong>Devices:</strong> Cisco Router, Dell Switch</li>
+        <li><strong>Credentials:</strong> admin/admin, cisco/cisco</li>
+        <li><strong>Impact:</strong> Network infrastructure compromise</li>
+      </ul>
+    </div>
+
+    <!-- Slide 5: Recommendations -->
+    <div class="slide" data-slide="5" style="display: none;">
+      <h2>✅ Recommendations</h2>
+      
+      <h3>🔥 Immediate Actions (0-7 days)</h3>
+      <ul>
+        <li>Patch PrintNightmare vulnerability on all Windows servers</li>
+        <li>Change all default credentials on network devices</li>
+        <li>Implement input validation for web application</li>
+        <li>Deploy Web Application Firewall (WAF)</li>
+      </ul>
+      
+      <h3>⚡ Short-term Actions (1-4 weeks)</h3>
+      <ul>
+        <li>Implement regular vulnerability scanning</li>
+        <li>Deploy endpoint detection and response (EDR)</li>
+        <li>Conduct security awareness training</li>
+        <li>Establish incident response procedures</li>
+      </ul>
+      
+      <h3>🛡️ Long-term Strategy (1-6 months)</h3>
+      <ul>
+        <li>Implement Zero Trust architecture</li>
+        <li>Deploy Security Information and Event Management (SIEM)</li>
+        <li>Regular penetration testing program</li>
+        <li>Security governance framework</li>
+      </ul>
+    </div>
+
+    <!-- Slide 6: Questions -->
+    <div class="slide" data-slide="6" style="display: none;">
+      <h2 style="text-align: center; margin-bottom: 3rem;">❓ Questions & Discussion</h2>
+      
+      <div style="text-align: center;">
+        <h3>Thank you for your attention!</h3>
+        <br>
+        <h3>📧 Contact Information</h3>
+        <ul style="list-style: none; text-align: center;">
+          <li>📧 stella.barbarella@cybersec.com</li>
+          <li>🔗 LinkedIn: /in/stella-barbarella</li>
+          <li>🌐 Portfolio: stellababy2004-stella-projects-final.onrender.com</li>
+        </ul>
+        
+        <div style="margin-top: 3rem;">
+          <h3>🛡️ "Security is not a product, but a process"</h3>
+          <p style="font-style: italic; color: #00ddcc;">- Bruce Schneier</p>
+        </div>
+      </div>
+    </div>
   </div>
 
   <script>
+    let currentSlide = 1;
+    const totalSlides = 6;
+    
+    function showSlide(n) {
+      const slides = document.querySelectorAll('.slide');
+      slides.forEach(slide => slide.style.display = 'none');
+      
+      const targetSlide = document.querySelector(`[data-slide="${n}"]`);
+      if (targetSlide) {
+        targetSlide.style.display = 'block';
+      }
+      
+      document.getElementById('current-slide').textContent = n;
+    }
+    
+    function nextSlide() {
+      if (currentSlide < totalSlides) {
+        currentSlide++;
+        showSlide(currentSlide);
+      }
+    }
+    
+    function previousSlide() {
+      if (currentSlide > 1) {
+        currentSlide--;
+        showSlide(currentSlide);
+      }
+    }
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        nextSlide();
+      } else if (e.key === 'ArrowLeft') {
+        previousSlide();
+      }
+    });
+    
+    // Initialize
+    document.getElementById('total-slides').textContent = totalSlides;
+    showSlide(currentSlide);
+
     // Particles.js configuration
     particlesJS('particles-js', {
       particles: {
-        number: { value: 80, density: { enable: true, value_area: 800 } },
+        number: { value: 60, density: { enable: true, value_area: 800 } },
         color: { value: '#00ffee' },
         shape: { type: 'circle' },
-        opacity: { value: 0.5, random: false },
-        size: { value: 3, random: true },
-        line_linked: { enable: true, distance: 150, color: '#00ffee', opacity: 0.4, width: 1 },
-        move: { enable: true, speed: 6, direction: 'none', random: false, straight: false, out_mode: 'out', bounce: false }
+        opacity: { value: 0.3, random: false },
+        size: { value: 2, random: true },
+        line_linked: { enable: true, distance: 150, color: '#00ffee', opacity: 0.2, width: 1 },
+        move: { enable: true, speed: 4, direction: 'none', random: false, straight: false, out_mode: 'out', bounce: false }
       },
       interactivity: {
         detect_on: 'canvas',
         events: { onhover: { enable: true, mode: 'repulse' }, onclick: { enable: true, mode: 'push' }, resize: true },
-        modes: { grab: { distance: 400, line_linked: { opacity: 1 } }, bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 }, repulse: { distance: 200, duration: 0.4 }, push: { particles_nb: 4 }, remove: { particles_nb: 2 } }
+        modes: { repulse: { distance: 100, duration: 0.4 }, push: { particles_nb: 2 } }
       },
       retina_detect: true
     });
   </script>
-
 </body>
 </html>
