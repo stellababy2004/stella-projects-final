@@ -16,6 +16,7 @@
   <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
   <style>
     #particles-js {
@@ -1039,8 +1040,11 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-// Contact Form Handler
+// Contact Form Handler with EmailJS
 document.addEventListener("DOMContentLoaded", function () {
+  // Initialize EmailJS
+  emailjs.init("YOUR_PUBLIC_KEY"); // Replace with your actual public key
+  
   const contactForm = document.getElementById('contact-form');
   const contactResult = document.getElementById('contact-result');
   
@@ -1053,19 +1057,41 @@ document.addEventListener("DOMContentLoaded", function () {
       contactResult.textContent = 'Sending message...';
       contactResult.style.color = '#ffea00';
       
-      // Simulate form submission
-      setTimeout(() => {
-        contactResult.textContent = '✅ Message sent successfully! I will get back to you soon.';
-        contactResult.style.color = '#00e676';
-        
-        // Clear form
-        contactForm.reset();
-        
-        // Hide message after 5 seconds
-        setTimeout(() => {
-          contactResult.style.display = 'none';
-        }, 5000);
-      }, 1500);
+      // Get form data
+      const formData = new FormData(this);
+      const templateParams = {
+        from_name: formData.get('name'),
+        from_email: formData.get('email'),
+        message: formData.get('message'),
+        to_name: 'Stella Barbarella',
+        reply_to: formData.get('email')
+      };
+      
+      // Send email via EmailJS
+      emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
+        .then(function(response) {
+          console.log('Email sent successfully:', response);
+          contactResult.textContent = '✅ Message sent successfully! I will get back to you soon.';
+          contactResult.style.color = '#00e676';
+          
+          // Clear form
+          contactForm.reset();
+          
+          // Hide message after 5 seconds
+          setTimeout(() => {
+            contactResult.style.display = 'none';
+          }, 5000);
+        })
+        .catch(function(error) {
+          console.error('Failed to send email:', error);
+          contactResult.textContent = '❌ Failed to send message. Please try again or contact me directly.';
+          contactResult.style.color = '#ff5722';
+          
+          // Hide message after 8 seconds
+          setTimeout(() => {
+            contactResult.style.display = 'none';
+          }, 8000);
+        });
     });
   }
 });
