@@ -43,5 +43,3 @@ app.post('/api/chat', async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Proxy server listening on http://localhost:${PORT}`);
 });
-
-<span id="ai-custom-typing"><span class="loader"></span> AI typing...</span>
