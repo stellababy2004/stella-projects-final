@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phishing Response Guide - 10 Minutes Protocol</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Complete phishing response guide - Learn how to respond to phishing attacks within 10 minutes. Professional incident response procedures.">
+  <meta name="keywords" content="phishing response, incident response, cybersecurity guide, phishing attack response, 10 minute protocol">
+  <meta name="author" content="Stella Barbarella">
+  <meta name="robots" content="index, follow">
+  
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 20px;
+      background: linear-gradient(135deg, #0a0a0a, #1a1a2e, #16213e);
+      color: #fff;
+      min-height: 100vh;
+    }
+    
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: rgba(10, 20, 30, 0.95);
+      border: 2px solid #00ffee;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 0 20px rgba(0, 255, 238, 0.3);
+    }
+    
+    h1 {
+      color: #00ffee;
+      text-align: center;
+      font-size: 2.5em;
+      margin-bottom: 30px;
+      text-shadow: 0 0 10px rgba(0, 255, 238, 0.5);
+    }
+    
+    h2 {
+      color: #00ffee;
+      border-bottom: 2px solid #00ffee;
+      padding-bottom: 10px;
+      margin-top: 40px;
+    }
+    
+    h3 {
+      color: #00ddcc;
+      margin-top: 30px;
+    }
+    
+    .warning-box {
+      background: rgba(255, 193, 7, 0.1);
+      border: 2px solid #ffc107;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px 0;
+      color: #ffc107;
+    }
+    
+    .danger-box {
+      background: rgba(220, 53, 69, 0.1);
+      border: 2px solid #dc3545;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px 0;
+      color: #dc3545;
+    }
+    
+    .success-box {
+      background: rgba(40, 167, 69, 0.1);
+      border: 2px solid #28a745;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px 0;
+      color: #28a745;
+    }
+    
+    .timeline {
+      background: rgba(0, 0, 0, 0.3);
+      border-left: 4px solid #00ffee;
+      padding: 20px;
+      margin: 20px 0;
+    }
+    
+    .step {
+      margin: 15px 0;
+      padding: 15px;
+      background: rgba(0, 255, 238, 0.05);
+      border-radius: 8px;
+      border-left: 3px solid #00ffee;
+    }
+    
+    .step-number {
+      background: #00ffee;
+      color: #000;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      margin-right: 15px;
+    }
+    
+    ul, ol {
+      padding-left: 20px;
+    }
+    
+    li {
+      margin: 8px 0;
+    }
+    
+    .back-btn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: rgba(10, 20, 30, 0.9);
+      border: 2px solid #00ffee;
+      color: #00ffee;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+    
+    .back-btn:hover {
+      background: rgba(0, 255, 238, 0.2);
+      box-shadow: 0 0 15px rgba(0, 255, 238, 0.5);
+    }
+    
+    @media (max-width: 768px) {
+      body {
+        padding: 10px;
+      }
+      
+      .container {
+        padding: 15px;
+      }
+      
+      h1 {
+        font-size: 2em;
+      }
+      
+      .back-btn {
+        position: relative;
+        top: auto;
+        left: auto;
+        display: block;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a href="index.html" class="back-btn">← Назад към портфолиото</a>
+  
+  <div class="container">
+    <h1>📚 Phishing Response Guide</h1>
+    <p style="text-align: center; font-size: 1.2em; color: #00ddcc;">
+      <strong>10-Minute Emergency Response Protocol</strong><br>
+      Comprehensive guide for immediate phishing incident response
+    </p>
+    
+    <div class="danger-box">
+      <h3>🚨 CRITICAL: Time is Everything!</h3>
+      <p><strong>The first 10 minutes after detecting a phishing attack are crucial for preventing data loss and system compromise.</strong></p>
+    </div>
+
+    <h2>⚡ 1. Immediate Response (0-2 minutes)</h2>
+    
+    <div class="timeline">
+      <div class="step">
+        <span class="step-number">1</span>
+        <strong>DO NOT PANIC</strong> - Stay calm and follow this protocol
+      </div>
+      
+      <div class="step">
+        <span class="step-number">2</span>
+        <strong>Isolate the affected system immediately</strong>
+        <ul>
+          <li>Disconnect from network (unplug Ethernet cable)</li>
+          <li>Disable Wi-Fi if wireless connection</li>
+          <li>Do NOT shut down the computer (preserves evidence)</li>
+        </ul>
+      </div>
+      
+      <div class="step">
+        <span class="step-number">3</span>
+        <strong>Alert the Security Team</strong>
+        <ul>
+          <li>Call SOC immediately: [INSERT SOC PHONE NUMBER]</li>
+          <li>Send urgent email to: security@company.com</li>
+          <li>Use incident response hotline if available</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>🔍 2. Threat Assessment (2-5 minutes)</h2>
+    
+    <h3>📊 Information to Gather:</h3>
+    <ul>
+      <li><strong>Email Details:</strong>
+        <ul>
+          <li>Sender's email address</li>
+          <li>Subject line</li>
+          <li>Time received</li>
+          <li>Any links or attachments</li>
+        </ul>
+      </li>
+      <li><strong>User Actions:</strong>
+        <ul>
+          <li>Did the user click any links?</li>
+          <li>Were any files downloaded?</li>
+          <li>Was any information entered?</li>
+          <li>Time of interaction</li>
+        </ul>
+      </li>
+    </ul>
+
+    <div class="success-box">
+      <h3>✅ Quick Reference Checklist</h3>
+      <ol>
+        <li>☐ Isolate affected system</li>
+        <li>☐ Alert security team</li>
+        <li>☐ Gather incident information</li>
+        <li>☐ Quarantine malicious emails</li>
+        <li>☐ Reset compromised passwords</li>
+        <li>☐ Notify users</li>
+        <li>☐ Document everything</li>
+        <li>☐ Monitor for additional threats</li>
+      </ol>
+    </div>
+
+    <hr style="border-color: #00ffee; margin: 40px 0;">
+    
+    <div style="text-align: center; color: #00ddcc;">
+      <p><strong>Phishing Response Guide v1.0</strong></p>
+      <p>Created by: <strong>Stella Barbarella</strong> | SOC Analyst & Cybersecurity Specialist</p>
+      <p>Last Updated: December 2024</p>
+    </div>
+  </div>
+</body>
+</html>

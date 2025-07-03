@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phishing Response Guide - Stella Barbarella</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/common.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #0a0a0a, #1a1a2e, #16213e);
+            color: #fff;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 100px 20px 50px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { text-shadow: 0 0 20px rgba(0, 255, 238, 0.3); }
+            to { text-shadow: 0 0 30px rgba(0, 255, 238, 0.8); }
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            color: #00ddcc;
+            margin-bottom: 30px;
+        }
+        
+        .guide-section {
+            background: rgba(0, 255, 238, 0.1);
+            border: 2px solid #00ffee;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .guide-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 238, 0.05), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .guide-section:hover::before {
+            left: 100%;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            color: #00ffee;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .section-icon {
+            font-size: 2.5rem;
+        }
+        
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .step-card {
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid #00ffee;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .step-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 255, 238, 0.3);
+        }
+        
+        .step-number {
+            background: linear-gradient(45deg, #00ffee, #00ff88);
+            color: #000000;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 20px;
+        }
+        
+        .step-title {
+            font-size: 1.3rem;
+            color: #00ffee;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .step-description {
+            color: #ffffff;
+            line-height: 1.6;
+        }
+        
+        .checklist {
+            background: rgba(0, 255, 136, 0.1);
+            border: 2px solid #00ff88;
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 30px;
+        }
+        
+        .checklist-title {
+            font-size: 1.5rem;
+            color: #00ff88;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .checklist-items {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .checklist-item:hover {
+            background: rgba(0, 255, 136, 0.1);
+        }
+        
+        .checklist-icon {
+            color: #00ff88;
+            font-size: 1.2rem;
+            margin-right: 15px;
+        }
+        
+        .checklist-text {
+            color: #ffffff;
+            font-size: 1.1rem;
+        }
+        
+        .warning-box {
+            background: rgba(255, 68, 68, 0.1);
+            border: 2px solid #ff4444;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .warning-title {
+            font-size: 1.5rem;
+            color: #ff4444;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .warning-text {
+            color: #ffffff;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        
+        .contact-section {
+            background: rgba(0, 255, 238, 0.1);
+            border: 2px solid #00ffee;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            margin-top: 50px;
+        }
+        
+        .contact-title {
+            font-size: 2rem;
+            color: #00ffee;
+            margin-bottom: 20px;
+        }
+        
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .contact-item {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid #00ffee;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .contact-icon {
+            font-size: 2rem;
+            color: #00ffee;
+            margin-bottom: 10px;
+        }
+        
+        .contact-label {
+            color: #00ffee;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .contact-value {
+            color: #ffffff;
+            font-size: 1.1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 80px 15px 30px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-info {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Particles Background -->
+    <div id="particles-js"></div>
+    
+    <!-- Content Wrapper -->
+    <div class="content-wrapper">
+        <a href="index.html" class="back-btn">← Back to Portfolio</a>
+        
+        <div class="container">
+            <div class="header">
+                <h1>📚 Phishing Response Guide</h1>
+                <p class="subtitle">Complete incident response guide for phishing attacks</p>
+            </div>
+            
+            <div class="guide-section">
+                <h2 class="section-title">
+                    <span class="section-icon">🚨</span>
+                    Immediate Response Steps
+                </h2>
+                
+                <div class="steps-grid">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <div class="step-title">Don't Panic</div>
+                        <div class="step-description">
+                            Stay calm and avoid clicking any links or downloading attachments from the suspicious email.
+                        </div>
+                    </div>
+                    
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <div class="step-title">Isolate the Threat</div>
+                        <div class="step-description">
+                            Disconnect from the network if you suspect compromise. Do not delete the email yet.
+                        </div>
+                    </div>
+                    
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <div class="step-title">Document Evidence</div>
+                        <div class="step-description">
+                            Take screenshots of the email, headers, and any suspicious activities before taking action.
+                        </div>
+                    </div>
+                    
+                    <div class="step-card">
+                        <div class="step-number">4</div>
+                        <div class="step-title">Report Incident</div>
+                        <div class="step-description">
+                            Immediately notify your IT security team or incident response team.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="guide-section">
+                <h2 class="section-title">
+                    <span class="section-icon">🔍</span>
+                    Investigation Phase
+                </h2>
+                
+                <div class="checklist">
+                    <h3 class="checklist-title">
+                        <i class="fas fa-clipboard-check"></i>
+                        Investigation Checklist
+                    </h3>
+                    <ul class="checklist-items">
+                        <li class="checklist-item">
+                            <i class="fas fa-check checklist-icon"></i>
+                            <span class="checklist-text">Analyze email headers for authenticity</span>
+                        </li>
+                        <li class="checklist-item">
+                            <i class="fas fa-check checklist-icon"></i>
+                            <span class="checklist-text">Check sender reputation and domain</span>
+                        </li>
+                        <li class="checklist-item">
+                            <i class="fas fa-check checklist-icon"></i>
+                            <span class="checklist-text">Examine URLs and attachments (in safe environment)</span>
+                        </li>
+                        <li class="checklist-item">
+                            <i class="fas fa-check checklist-icon"></i>
+                            <span class="checklist-text">Review similar emails in the organization</span>
+                        </li>
+                        <li class="checklist-item">
+                            <i class="fas fa-check checklist-icon"></i>
+                            <span class="checklist-text">Check for compromised accounts</span>
+                        </li>
+                        <li class="checklist-item">
+                            <i class="fas fa-check checklist-icon"></i>
+                            <span class="checklist-text">Analyze network traffic for suspicious activity</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="guide-section">
+                <h2 class="section-title">
+                    <span class="section-icon">🛡️</span>
+                    Containment & Eradication
+                </h2>
+                
+                <div class="steps-grid">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <div class="step-title">Block Threats</div>
+                        <div class="step-description">
+                            Update email filters, block malicious domains, and quarantine suspicious emails.
+                        </div>
+                    </div>
+                    
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <div class="step-title">Password Reset</div>
+                        <div class="step-description">
+                            Force password reset for potentially compromised accounts.
+                        </div>
+                    </div>
+                    
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <div class="step-title">System Scan</div>
+                        <div class="step-description">
+                            Perform comprehensive malware scans on affected systems.
+                        </div>
+                    </div>
+                    
+                    <div class="step-card">
+                        <div class="step-number">4</div>
+                        <div class="step-title">Update Security</div>
+                        <div class="step-description">
+                            Update security controls and add new indicators of compromise.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="warning-box">
+                <h3 class="warning-title">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Critical Warning
+                </h3>
+                <p class="warning-text">
+                    Never forward suspicious emails to colleagues or attempt to "test" malicious links. 
+                    Always use isolated environments and proper security tools for analysis.
+                </p>
+            </div>
+            
+            <div class="guide-section">
+                <h2 class="section-title">
+                    <span class="section-icon">📈</span>
+                    Recovery & Lessons Learned
+                </h2>
+                
+                <div class="checklist">
+                    <h3 class="checklist-title">
+                        <i class="fas fa-clipboard-check"></i>
+                        Recovery Checklist
+                    </h3>
+                    <ul class="checklist-items">
+                        <li class="checklist-item">
+                            <i class="fas fa-check checklist-icon"></i>
+                            <span class="checklist-text">Verify system integrity and functionality</span>
+                        </li>
+                        <li class="checklist-item">
+                            <i class="fas fa-check checklist-icon"></i>
+                            <span class="checklist-text">Monitor for recurring threats</span>
+                        </li>
+                        <li class="checklist-item">
+                            <i class="fas fa-check checklist-icon"></i>
+                            <span class="checklist-text">Update incident response procedures</span>
+                        </li>
+                        <li class="checklist-item">
+                            <i class="fas fa-check checklist-icon"></i>
+                            <span class="checklist-text">Conduct user awareness training</span>
+                        </li>
+                        <li class="checklist-item">
+                            <i class="fas fa-check checklist-icon"></i>
+                            <span class="checklist-text">Document lessons learned</span>
+                        </li>
+                        <li class="checklist-item">
+                            <i class="fas fa-check checklist-icon"></i>
+                            <span class="checklist-text">Share threat intelligence with community</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="contact-section">
+                <h2 class="contact-title">Emergency Contacts</h2>
+                <p style="color: #00ddcc; font-size: 1.1rem; margin-bottom: 20px;">
+                    In case of suspected phishing incident, contact immediately:
+                </p>
+                
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">📞</div>
+                        <div class="contact-label">IT Security Team</div>
+                        <div class="contact-value">+1 (555) 123-4567</div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">📧</div>
+                        <div class="contact-label">Security Email</div>
+                        <div class="contact-value">security@company.com</div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">🆘</div>
+                        <div class="contact-label">Emergency Line</div>
+                        <div class="contact-value">+1 (555) 911-HELP</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="js/particles-config.js"></script>
+</body>
+</html>

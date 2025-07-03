@@ -1,0 +1,91 @@
+/* ==============================================
+   ОБЩИ СТИЛОВЕ ЗА ВСИЧКИ СТРАНИЦИ
+   ============================================== */
+
+/* Particles фон - ФУЛСКРИЙН НАВСЯКЪДЕ */
+#particles-js {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* Основни стилове за body */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+    color: #ffffff;
+    overflow-x: hidden;
+    position: relative;
+    z-index: 1;
+}
+
+/* Съдържанието винаги над particles */
+.content-wrapper {
+    position: relative;
+    z-index: 2;
+    min-height: 100vh;
+}
+
+/* Навигация винаги най-отгоре */
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background: rgba(10, 20, 30, 0.9);
+    backdrop-filter: blur(10px);
+    padding: 15px 0;
+}
+
+/* Back бутон за проектните страници */
+.back-btn {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background: rgba(0, 255, 238, 0.1);
+    border: 2px solid #00ffee;
+    color: #00ffee;
+    padding: 12px 24px;
+    border-radius: 25px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    z-index: 100;
+    font-size: 1rem;
+}
+
+.back-btn:hover {
+    background: rgba(0, 255, 238, 0.2);
+    box-shadow: 0 0 20px rgba(0, 255, 238, 0.5);
+    transform: translateY(-2px);
+}
+
+/* Заглавия */
+h1, h2, h3 {
+    font-family: 'Orbitron', monospace;
+    color: #00ffee;
+    text-shadow: 0 0 20px rgba(0, 255, 238, 0.3);
+}
+
+/* Секции */
+section {
+    position: relative;
+    z-index: 2;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .back-btn {
+        top: 10px;
+        left: 10px;
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+}

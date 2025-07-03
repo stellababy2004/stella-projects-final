@@ -1,1895 +1,1513 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Stella Barbarella SOC Analyst & Cybersecurity Portfolio</title>
-  <meta name="description" content="Cybersecurity Portfolio of Stella Barbarella – SOC Analyst, Threat Hunter & Cybersecurity Enthusiast." />
-  <meta name="keywords" content="SOC Analyst, Cybersecurity, Threat Hunting, Phishing Detector, Cyber Threat Map, Charts" />
-  <link rel="stylesheet" href="styles.css" />
-
- 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css" />
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-
-  <style>
-    /* Add smooth scrolling and offset for anchors */
-    html {
-      scroll-behavior: smooth;
-      scroll-padding-top: 80px; /* Offset for fixed headers */
-    }
-    
-    /* Ensure phishing detector is visible from top */
-    #phishing-detector {
-      scroll-margin-top: 20px;
-    }
-    
-    #particles-js {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      z-index: -1;
-      background: linear-gradient(135deg, #0a0a0a, #1a1a2e, #16213e);
-    }
-    
-    body {
-      overflow-x: hidden;
-    }
-    
-    .button {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 18px 24px;
-      font-size: 1.3em;
-      min-width: 220px;
-      min-height: 60px;
-      box-sizing: border-box;
-      line-height: 1.2;
-      white-space: normal; /* allows text wrapping */
-      word-break: break-word; /* better text wrapping */
-    }
-    .button span, .button strong {
-      display: block;
-      width: 100%;
-      text-align: center;
-    }
-    .button:hover {
-      background: rgba(0, 255, 255, 0.1);
-      color: #00ffee;
-      box-shadow: 0 0 10px #00ffee;
-      transition: all 0.3s ease;
-    }
-
-    .logo {
-      text-align: center;
-      margin: 20px 0;
-    }
-    .qr-code {
-      display: block;
-      margin: 20px auto;
-      max-width: 180px;
-      height: auto;
-    }
-    .section {
-      margin: 40px auto;
-      max-width: 900px;
-      padding: 32px 24px;
-      background: rgba(10, 20, 30, 0.92);
-      border-radius: 16px;
-      box-shadow: 0 0 24px #00ffee33;
-    }
-    header {
-      background: rgba(0, 0, 0, 0.85);
-      padding-bottom: 0;
-      border-bottom: 2px solid #00ffee;
-    }
-    nav ul {
-      list-style: none;
-      padding: 0;
-      margin: 0 0 10px 0;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-    }
-    nav ul.project-links {
-      margin-top: 10px;
-      margin-bottom: 0;
-      gap: 10px;
-    }
-    nav ul.project-links li {
-      display: inline-block;
-    }
-    @media (max-width: 700px) {
-      .section { padding: 18px 4px; }
-      .button { min-width: 120px; font-size: 1em; padding: 10px 8px; }
-      nav ul { flex-direction: column; gap: 4px; }
-    }
-
-    #map {
-      width: 100%;
-      height: 400px;
-      min-height: 300px;
-      border: 1px solid #0ff;
-      border-radius: 8px;
-      margin: 0 auto;
-      box-sizing: border-box;
-    }
-    .leaflet-container {
-      background: #101820 !important;
-      border-radius: 8px;
-    }
-
-    /* Contact Form Styles */
-    #contact-form {
-      margin-bottom: 30px;
-    }
-    .form-group {
-      margin-bottom: 15px;
-    }
-    .form-group.large {
-      margin-bottom: 20px;
-    }
-    .form-label {
-      display: block;
-      margin-bottom: 5px;
-      color: #00ffee;
-    }
-    .form-input, .form-textarea {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #00ffee;
-      background: rgba(10, 20, 30, 0.8);
-      color: #00ffee;
-      border-radius: 5px;
-      box-sizing: border-box;
-    }
-    .form-textarea {
-      resize: vertical;
-    }
-    .form-input:focus, .form-textarea:focus {
-      outline: none;
-      box-shadow: 0 0 5px #00ffee;
-    }
-    #contact-result {
-      margin-bottom: 20px;
-      font-weight: bold;
-      display: none;
-    }
-    .contact-buttons {
-      display: flex;
-      gap: 15px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    /* Attack Simulation Lab Styles */
-    #attack-sim {
-      position: relative;
-    }
-    
-    #attack-buttons {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 15px;
-      margin: 20px 0;
-    }
-    
-    .attack-button {
-      background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(0, 255, 255, 0.05));
-      border: 2px solid #00ffee;
-      color: #00ffee;
-      padding: 15px 20px;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .attack-button::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.3), transparent);
-      transition: left 0.5s ease;
-    }
-    
-    .attack-button:hover::before {
-      left: 100%;
-    }
-    
-    .attack-button:hover {
-      background: rgba(0, 255, 255, 0.2);
-      box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
-      transform: translateY(-2px);
-    }
-    
-    .attack-button.active {
-      background: rgba(0, 255, 255, 0.3);
-      box-shadow: 0 0 15px rgba(0, 255, 255, 0.7);
-    }
-    
-    #attack-result {
-      margin-top: 30px;
-      padding: 20px;
-      border-radius: 10px;
-      background: rgba(10, 20, 30, 0.8);
-      border: 1px solid #00ffee;
-      display: none;
-      animation: slideIn 0.5s ease;
-    }
-    
-    @keyframes slideIn {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    
-    .attack-steps {
-      margin-top: 20px;
-    }
-    
-    .attack-step {
-      display: flex;
-      align-items: center;
-      margin: 10px 0;
-      padding: 10px;
-      background: rgba(0, 255, 255, 0.05);
-      border-radius: 5px;
-      border-left: 3px solid #00ffee;
-      opacity: 0;
-      transform: translateX(-20px);
-      animation: stepFadeIn 0.5s ease forwards;
-    }
-    
-    .attack-step:nth-child(2) { animation-delay: 0.2s; }
-    .attack-step:nth-child(3) { animation-delay: 0.4s; }
-    .attack-step:nth-child(4) { animation-delay: 0.6s; }
-    .attack-step:nth-child(5) { animation-delay: 0.8s; }
-    
-    @keyframes stepFadeIn {
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
-    
-    .step-icon {
-      font-size: 1.5em;
-      margin-right: 15px;
-      color: #00ffee;
-      animation: pulse 2s infinite;
-    }
-    
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.5; }
-    }
-    
-    .step-text {
-      flex: 1;
-    }
-    
-    .step-status {
-      font-weight: bold;
-      padding: 5px 10px;
-      border-radius: 15px;
-      font-size: 0.8em;
-    }
-    
-    .status-detecting {
-      background: #ffea00;
-      color: #000;
-    }
-    
-    .status-blocking {
-      background: #ff9100;
-      color: #fff;
-    }
-    
-    .status-success {
-      background: #00e676;
-      color: #000;
-    }
-    
-    .status-alert {
-      background: #ff1744;
-      color: #fff;
-    }
-    
-    .progress-bar {
-      width: 100%;
-      height: 6px;
-      background: rgba(0, 255, 255, 0.2);
-      border-radius: 3px;
-      margin-top: 15px;
-      overflow: hidden;
-    }
-    
-    .progress-fill {
-      height: 100%;
-      background: linear-gradient(90deg, #00ffee, #00ff88);
-      border-radius: 3px;
-      width: 0%;
-      animation: progressFill 3s ease forwards;
-    }
-    
-    @keyframes progressFill {
-      to { width: 100%; }
-    }
-
-    .attack-icon {
-      font-size: 1.5em;
-      display: block;
-      margin-bottom: 5px;
-    }
-
-    /* Language Switcher Styles */
-    .language-switcher {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 1000;
-      background: rgba(10, 20, 30, 0.9);
-      border: 2px solid #00ffee;
-      border-radius: 10px;
-      padding: 10px;
-      backdrop-filter: blur(10px);
-    }
-    
-    .language-switcher select {
-      background: rgba(0, 255, 255, 0.1);
-      border: 1px solid #00ffee;
-      color: #00ffee;
-      padding: 8px 12px;
-      border-radius: 5px;
-      font-size: 0.9em;
-      cursor: pointer;
-      outline: none;
-    }
-    
-    .language-switcher select:hover {
-      background: rgba(0, 255, 255, 0.2);
-      box-shadow: 0 0 8px rgba(0, 255, 255, 0.5);
-    }
-    
-    .language-switcher select option {
-      background: #0a141e;
-      color: #00ffee;
-    }
-    
-    .language-switcher label {
-      color: #00ffee;
-      font-size: 0.8em;
-      margin-right: 8px;
-    }
-
-    /* AI Chat Styles */
-    #ai-chat {
-      position: relative;
-    }
-
-    #chat-container {
-      background: rgba(10, 20, 30, 0.9);
-      border: 2px solid #00ffee;
-      border-radius: 10px;
-      padding: 20px;
-      margin-top: 20px;
-    }
-
-    #chat-form {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 20px;
-      align-items: center;
-    }
-
-    #chat-prompt {
-      flex: 1;
-      background: rgba(0, 0, 0, 0.7);
-      border: 2px solid #00ffee;
-      color: #00ffee;
-      padding: 10px;
-      border-radius: 5px;
-      font-family: 'Courier New', monospace;
-      font-size: 14px;
-    }
-
-    #chat-prompt:focus {
-      outline: none;
-      box-shadow: 0 0 10px rgba(0, 255, 238, 0.5);
-    }
-
-    #chat-prompt::placeholder {
-      color: rgba(0, 255, 238, 0.5);
-    }
-
-    #chat-form button {
-      background: linear-gradient(45deg, #00ffee, #0066cc);
-      border: none;
-      color: #000;
-      padding: 10px 20px;
-      border-radius: 5px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: all 0.3s ease;
-      white-space: nowrap;
-    }
-
-    #chat-form button:hover {
-      background: linear-gradient(45deg, #00ff88, #0088ff);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 8px rgba(0, 255, 238, 0.3);
-    }
-
-    #chat-messages {
-      max-height: 400px;
-      overflow-y: auto;
-      background: rgba(0, 0, 0, 0.5);
-      border: 1px solid rgba(0, 255, 238, 0.3);
-      border-radius: 8px;
-      padding: 15px;
-    }
-
-    .chat-message {
-      margin: 10px 0;
-      padding: 10px;
-      border-radius: 8px;
-      background: rgba(0, 255, 238, 0.1);
-      border-left: 3px solid #00ffee;
-    }
-
-    .chat-message.user {
-      background: rgba(0, 255, 136, 0.1);
-      border-left-color: #00ff88;
-      margin-left: 20px;
-    }
-
-    .chat-message.assistant {
-      background: rgba(0, 255, 238, 0.1);
-      border-left-color: #00ffee;
-      margin-right: 20px;
-    }
-
-    .message-content {
-      font-family: 'Courier New', monospace;
-      line-height: 1.4;
-      white-space: pre-wrap;
-      color: #fff;
-    }
-
-    .message-header {
-      font-size: 0.8em;
-      color: #00ffee;
-      margin-bottom: 5px;
-      font-weight: bold;
-    }
-
-    .typing-indicator {
-      display: inline-block;
-      color: #ffea00;
-      animation: pulse 1.5s infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.5; }
-    }
-
-    @media (max-width: 600px) {
-      #chat-form {
-        flex-direction: column;
-        gap: 10px;
-      }
-      
-      #chat-form button {
-        width: 100%;
-      }
-    }
-  </style>
-</head>
-<body id="top">
-  <!-- Language Switcher -->
-  <div class="language-switcher">
-    <label for="language-select">🌍</label>
-    <select id="language-select">
-      <option value="en">English</option>
-      <option value="fr">Français</option>
-      <option value="bg">Български</option>
-    </select>
-  </div>
-  
-  <div id="particles-js"></div>
-  <header>
-    <nav>
-      <ul>
-        <li><a href="#about" class="button" data-translate="nav-about">About Me</a></li>
-        <li><a href="#projects" class="button" data-translate="nav-projects">Projects</a></li>
-        <li><a href="#chart" class="button" data-translate="nav-charts">Charts</a></li>
-        <li><a href="#ai-chat" class="button" data-translate="nav-aichat">🤖 AI Chat</a></li>
-        <li><a href="#attack-sim" class="button" data-translate="nav-attacksim">🔬 AttackSim</a></li>
-        <li><a href="#map-section" class="button" data-translate="nav-livemap">Live Map</a></li>
-        <li><a href="#testimonials" class="button" data-translate="nav-testimonials">Testimonials</a></li>
-        <li><a href="#contact" class="button" data-translate="nav-contact">Contact</a></li>
-      </ul>
-      <ul class="project-links">
-        <li>
-          <a class="button" href="penetration_test_report_acme_en.pdf" target="_blank" download>
-            <span data-translate="nav-report">📄 Report (EN – PDF)</span>
-          </a>
-        </li>
-        <li>
-          <a href="presentation.html" target="_blank" class="button">
-            <span data-translate="nav-presentation">📊 View Pentest Presentation</span>
-          </a>
-        </li>
-      </ul>
-      <div class="logo">
-        <img src="images/logo.png" alt="Stella Barbarella Logo" style="max-width:180px; height:auto;" />
-      </div>
-    </nav>
-  </header>
-
-  <main>
-    <!-- Move Phishing Detector to the very top -->
-    <section class="section" id="phishing-detector" style="margin-top: 20px;">
-      <h2>🛡️ <span data-translate="phishing-detector-title">Детектор за Фишинг</span></h2>
-      <p data-translate="phishing-detector-description">Усъвършенствана инструмент за откриване на фишинг атаки и злонамерено съдържание</p>
-      
-      <div class="phishing-detector-container" style="margin: 20px 0;">
-        <input type="url" id="url-input" placeholder="Въведете URL за проверка..." style="width: 70%; padding: 10px; border: 2px solid #00ffee; background: rgba(0,0,0,0.7); color: #00ffee; border-radius: 5px; margin-right: 10px;">
-        <button onclick="checkURL()" style="padding: 10px 20px; background: linear-gradient(45deg, #00ffee, #0066cc); border: none; color: #000; border-radius: 5px; cursor: pointer; font-weight: bold;" data-translate="phishing-check-btn">🔍 Провери URL</button>
-      </div>
-      
-      <div id="phishing-result" style="display: none; margin-top: 20px;">
-        <div class="result-container" style="padding: 20px; border-radius: 10px; border: 2px solid #00ffee; background: rgba(10,20,30,0.8);">
-          <div class="result-header" style="display: flex; align-items: center; margin-bottom: 15px;">
-            <span class="result-icon" style="font-size: 2em; margin-right: 15px;"></span>
-            <span class="result-text" style="font-size: 1.2em; font-weight: bold;"></span>
-          </div>
-          <div class="result-details" style="color: #00ddcc;"></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- About Me section moved down -->
-    <section class="section" id="about">
-      <h1>Stella Barbarella</h1>
-      <p data-translate="about-description">SOC Analyst | Cybersecurity Enthusiast | Threat Hunter</p>
-    </section>
-
-    <section class="section" id="projects">
-      <h2 data-translate="projects-title">Projects</h2>
-      <ul class="project-list">
-        <li><a href="cyber-threat-map.html" class="button" data-translate="project-threatmap">🔍 Cyber Threat Map</a></li>
-        <li><a href="phishing-check.html" class="button" data-translate="project-phishing">📧 Check for Phishing</a></li>
-        <li><a href="threat-hunting.html" class="button" data-translate="project-hunting">🧠 Threat Hunting</a></li>
-        <li><a href="#checkpoint-map" class="button" data-translate="project-live">🌐 Threat Live</a></li>
-        <li><a href="Stella_Barbarella_CV.odt" download class="button" data-translate="project-cv">📄 My CV</a></li>
-      </ul>
-    </section>
-
-    <section class="section" id="pentest-reports">
-      <h2>Pentest Reports</h2>
-      <p class="pentest-intro">
-        Explore real-world pentest deliverables from <strong>Stella Barbarella</strong>.
-      </p>
-      <ul>
-    
-      </ul>
-    </section>
-
-    <section class="section" id="log-analyzer">
-      <h2>Live Log Analyzer</h2>
-      <button id="toggle-logs">⏸ Pause Logs</button>
-      <pre id="log-output" style="background:#111; color:#00ffee; padding:10px; min-height:120px; border-radius:8px; margin-top:10px; max-height:200px; overflow:auto;"></pre>
-    </section>
-
-    <section class="section" id="attack-sim">
-      <h2 data-translate="lab-title">🔬 Attack Simulation Lab</h2>
-      <p data-translate="lab-description">Изберете тип атака за симулация и наблюдавайте как SOC екипът я открива и блокира:</p>
-      
-      <div id="attack-buttons">
-        <button class="attack-button" data-attack="phishing">
-          <span class="attack-icon">📧</span><br>
-          <strong>Phishing</strong><br>
-          <small data-translate="lab-phishing-desc">Фишинг атака</small>
-        </button>
-        <button class="attack-button" data-attack="brute-force">
-          <span class="attack-icon">🔓</span><br>
-          <strong>Brute Force</strong><br>
-          <small data-translate="lab-bruteforce-desc">Брут форс атака</small>
-        </button>
-        <button class="attack-button" data-attack="malware">
-          <span class="attack-icon">🦠</span><br>
-          <strong>Malware</strong><br>
-          <small data-translate="lab-malware-desc">Злонамерен софтуер</small>
-        </button>
-        <button class="attack-button" data-attack="ddos">
-          <span class="attack-icon">⚡</span><br>
-          <strong>DDoS</strong><br>
-          <small data-translate="lab-ddos-desc">Разпределена атака</small>
-        </button>
-      </div>
-      
-      <div id="attack-result">
-        <h3 id="attack-title"></h3>
-        <div id="attack-description"></div>
-        <div class="progress-bar">
-          <div class="progress-fill"></div>
-        </div>
-        <div class="attack-steps" id="attack-steps"></div>
-      </div>
-    </section>
-
-    <section class="section" id="ai-chat">
-      <h2 data-translate="aichat-title">🤖 CyberSec AI Chat</h2>
-      <p data-translate="aichat-description">Попитай нашия AI асистент за киберсигурност теми, заплахи и най-добри практики.</p>
-      
-      <div id="chat-container">
-        <form id="chat-form">
-          <input type="text" id="chat-prompt" placeholder="Ask something..." required />
-          <button type="submit" data-translate="aichat-send">Send</button>
-        </form>
-        
-        <div id="chat-messages">
-          <div id="chat-response" class="chat-message">
-            <div class="message-content">
-              <span data-translate="aichat-welcome">Ask our AI assistant about cybersecurity topics, threats, and best practices.</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="testimonials">
-      <h2>Testimonials</h2>
-      <p>"Stella's attention to detail and analytical skills are unmatched!" - <strong>John Doe, Cybersecurity Expert</strong></p>
-      <p>"Her passion for cybersecurity is evident in her work." - <strong>Jane Smith, SOC Manager</strong></p>
-    </section>
-
-    <section class="section" id="checkpoint-map">
-      <h2>Live Threat Map (Check Point)</h2>
-      <iframe 
-        src="https://threatmap.checkpoint.com/" 
-        width="100%" 
-        height="600" 
-        style="border:2px solid #00ffee; border-radius:10px; box-shadow:0 0 10px #00ffee; background-color: black;">
-      </iframe>
-    </section>
-
-    <section class="section" id="chart">
-      <h2>Cyber Threat Analysis</h2>
-      <div style="width:100%;max-width:800px;margin:auto;">
-        <canvas id="threatChart" height="200"></canvas>
-      </div>
-    </section>
-
-    <section class="section" id="map-section">
-      <h2>Global Threat Locations</h2>
-      <div id="map" style="height: 400px; border: 1px solid #0ff; border-radius: 8px;"></div>
-      <button id="clear-map">🧹 Clear Map</button>
-    </section>
-
-    <section class="section" id="contact">
-      <h2 data-translate="nav-contact">Contact</h2>
-      
-      <!-- Contact Form -->
-      <form id="contact-form">
-        <div class="form-group">
-          <label for="contact-name" class="form-label" data-translate="contact-name">Name:</label>
-          <input type="text" id="contact-name" name="name" required class="form-input" />
-        </div>
-        
-        <div class="form-group">
-          <label for="contact-email" class="form-label" data-translate="contact-email">Email:</label>
-          <input type="email" id="contact-email" name="email" required class="form-input" />
-        </div>
-        
-        <div class="form-group">
-          <label for="contact-subject" class="form-label" data-translate="contact-subject">Subject:</label>
-          <input type="text" id="contact-subject" name="subject" required class="form-input" />
-        </div>
-        
-        <div class="form-group large">
-          <label for="contact-message" class="form-label" data-translate="contact-message">Message:</label>
-          <textarea id="contact-message" name="message" rows="5" required class="form-textarea"></textarea>
-        </div>
-        
-        <button type="submit" class="button" data-translate="contact-send">
-          📧 Send Message
-        </button>
-      </form>
-      
-      <div id="contact-result"></div>
-      
-      <!-- Contact Buttons -->
-      <div class="contact-buttons">
-        <a href="portfolios Stella.docx" download class="button" data-translate="contact-download">📥 Download Portfolio</a>
-        <a href="https://www.linkedin.com/in/stella-s-95ba5683/" class="button" data-translate="contact-linkedin">🔗 LinkedIn</a>
-      </div>
-    </section>
-  </main>
-
-  <!-- Map initialization will be handled in main script section -->
-  <script>
-    (function () {
-  const logOutput = document.getElementById('log-output');
-  const toggleBtn = document.getElementById('toggle-logs');
-  let paused = false;
-  let logInterval;
-
-  const logs = [
-    "[INFO]  Connection from 192.168.1.10 accepted.",
-    "[ALERT]  Suspicious login attempt detected from 203.0.113.5.",
-    "[WARNING]  Multiple failed logins for user 'admin'.",
-    "[INFO]  Malware signature updated successfully.",
-    "[CRITICAL]  Ransomware activity detected on host 10.0.0.23.",
-    "[INFO]  Outbound traffic to 8.8.8.8 allowed.",
-    "[ALERT]  Phishing email detected and quarantined.",
-    "[INFO]  User 'stella' changed password.",
-    "[WARNING]  Unusual data transfer detected.",
-    "[INFO]  System scan completed. No threats found.",
-    "[NOTICE]  New device registered: 10.1.1.5.",
-    "[DEBUG]  Packet dropped due to invalid checksum.",
-    "[ERROR]  Failed to update antivirus definitions.",
-    "[SUCCESS]  Backup completed successfully.",
-    "[FAIL]  Backup failed: disk full.",
-    "[INFO]  User 'admin' logged out.",
-    "[ALERT]  Port scan detected from 185.23.44.12.",
-    "[CRITICAL]  Data exfiltration attempt blocked.",
-    "[WARNING]  High CPU usage detected on server01.",
-    "[NOTICE]  Scheduled maintenance started.",
-    "[SUCCESS]  Patch applied to all endpoints."
-  ];
-
-  function addLog() {
-    if (!paused) {
-      const log = logs[Math.floor(Math.random() * logs.length)];
-      const now = new Date().toLocaleTimeString();
-
-    
-      let color = "#00ffee";
-      if (log.includes("CRITICAL")) color = "#ff1744";
-      else if (log.includes("ALERT")) color = "#ffea00";
-      else if (log.includes("WARNING")) color = "#ff9100";
-      else if (log.includes("ERROR") || log.includes("FAIL")) color = "#ff1744";
-      else if (log.includes("SUCCESS")) color = "#00e676";
-      else if (log.includes("NOTICE")) color = "#00b0ff";
-      else if (log.includes("DEBUG")) color = "#bdbdbd";
-      else if (log.includes("INFO")) color = "#00ffee";
-
-     
-      const span = document.createElement('span');
-      span.textContent = `[${now}] ${log}\n`;
-      span.style.color = color;
-      logOutput.appendChild(span);
-      logOutput.scrollTop = logOutput.scrollHeight;
-    }
-  }
-
-  function startLogs() {
-    logInterval = setInterval(addLog, 1200);
-  }
-
-  function stopLogs() {
-    clearInterval(logInterval);
-  }
-
-  if (logOutput && toggleBtn) {
-    startLogs();
-    toggleBtn.addEventListener('click', function () {
-      paused = !paused;
-      if (paused) {
-        stopLogs();
-        toggleBtn.textContent = "▶ Resume Logs";
-      } else {
-        startLogs();
-        toggleBtn.textContent = "⏸ Pause Logs";
-      }
-    });
-  }
-})();
-  </script>
-
-  <script>
-// Enhanced Attack Simulation Lab
-document.addEventListener("DOMContentLoaded", function () {
-  const buttons = document.querySelectorAll('#attack-buttons .attack-button');
-  const resultDiv = document.getElementById('attack-result');
-  const titleDiv = document.getElementById('attack-title');
-  const descriptionDiv = document.getElementById('attack-description');
-  const stepsDiv = document.getElementById('attack-steps');
-  const logOutput = document.getElementById('log-output');
-  const threatChart = window.threatChartInstance;
-  const mapDiv = document.getElementById('map');
-
-  // Detailed attack scenarios by language
-  const attackScenarios = {
-    en: {
-      "phishing": {
-        title: "📧 Phishing Attack - Detection and Blocking",
-        description: "Malicious email attempts to extract sensitive information from employees",
-        steps: [
-          { icon: "📧", text: "Suspicious email with fake link received", status: "detecting", statusText: "DETECTING" },
-          { icon: "🔍", text: "Email Security Gateway scans content", status: "detecting", statusText: "ANALYSIS" },
-          { icon: "⚠️", text: "Phishing URL detected in email", status: "alert", statusText: "ALERT" },
-          { icon: "🚫", text: "Email automatically quarantined", status: "blocking", statusText: "BLOCKED" },
-          { icon: "✅", text: "SOC team notified and incident documented", status: "success", statusText: "PROTECTED" }
-        ],
-        logMessage: "[ALERT] Phishing email detected and quarantined by system",
-        location: [51.5, -0.09],
-        chartIndex: 0
-      },
-      "brute-force": {
-        title: "🔓 Brute Force Attack - Account Protection",
-        description: "Hacker attempts to crack passwords through multiple login attempts",
-        steps: [
-          { icon: "🔑", text: "Multiple failed login attempts detected", status: "detecting", statusText: "DETECTING" },
-          { icon: "📊", text: "Analysis of frequency and pattern of attempts", status: "detecting", statusText: "ANALYSIS" },
-          { icon: "🚨", text: "Brute force attack identified from IP: 185.23.44.12", status: "alert", statusText: "THREAT" },
-          { icon: "🛡️", text: "IP address temporarily blocked", status: "blocking", statusText: "BLOCKED" },
-          { icon: "✅", text: "Account locked and administrator notified", status: "success", statusText: "PROTECTED" }
-        ],
-        logMessage: "[WARNING] Brute force attack blocked - IP temporarily blocked",
-        location: [40.7, -74.0],
-        chartIndex: 4
-      },
-      "malware": {
-        title: "🦠 Malware Attack - Isolation and Removal",
-        description: "Malicious file attempts to infect the system",
-        steps: [
-          { icon: "📁", text: "File with suspicious signature uploaded", status: "detecting", statusText: "DETECTING" },
-          { icon: "🔬", text: "Antivirus system scans file", status: "detecting", statusText: "SCANNING" },
-          { icon: "☣️", text: "Malware detected - Trojan horse", status: "alert", statusText: "THREAT" },
-          { icon: "🔒", text: "File isolated in quarantine", status: "blocking", statusText: "ISOLATED" },
-          { icon: "✅", text: "System cleaned and protected", status: "success", statusText: "CLEANED" }
-        ],
-        logMessage: "[CRITICAL] Malware detected and isolated successfully",
-        location: [48.85, 2.35],
-        chartIndex: 1
-      },
-      "ddos": {
-        title: "⚡ DDoS Attack - Traffic Protection",
-        description: "Massive traffic attempts to overload servers",
-        steps: [
-          { icon: "📈", text: "Abnormally high traffic detected to server", status: "detecting", statusText: "DETECTING" },
-          { icon: "📊", text: "Traffic analysis and threat identification", status: "detecting", statusText: "ANALYSIS" },
-          { icon: "🌊", text: "DDoS attack confirmed from multiple IP addresses", status: "alert", statusText: "ATTACK" },
-          { icon: "🛡️", text: "DDoS protection activated - traffic filtering", status: "blocking", statusText: "PROTECTION" },
-          { icon: "✅", text: "Traffic normalized, services stable", status: "success", statusText: "STABLE" }
-        ],
-        logMessage: "[ALERT] DDoS attack neutralized - traffic filtered",
-        location: [35.68, 139.76],
-        chartIndex: 3
-      }
-    },
-    fr: {
-      "phishing": {
-        title: "📧 Attaque de Phishing - Détection et Blocage",
-        description: "Email malveillant tentant d'extraire des informations sensibles des employés",
-        steps: [
-          { icon: "📧", text: "Email suspect avec lien falsifié reçu", status: "detecting", statusText: "DÉTECTION" },
-          { icon: "🔍", text: "La passerelle de sécurité email analyse le contenu", status: "detecting", statusText: "ANALYSE" },
-          { icon: "⚠️", text: "URL de phishing détectée dans l'email", status: "alert", statusText: "ALERTE" },
-          { icon: "🚫", text: "Email automatiquement mis en quarantaine", status: "blocking", statusText: "BLOQUÉ" },
-          { icon: "✅", text: "Équipe SOC notifiée et incident documenté", status: "success", statusText: "PROTÉGÉ" }
-        ],
-        logMessage: "[ALERTE] Email de phishing détecté et mis en quarantaine",
-        location: [51.5, -0.09],
-        chartIndex: 0
-      },
-      "brute-force": {
-        title: "🔓 Attaque Brute Force - Protection des Comptes",
-        description: "Le pirate tente de casser les mots de passe par des tentatives multiples",
-        steps: [
-          { icon: "🔑", text: "Multiples tentatives de connexion échouées détectées", status: "detecting", statusText: "DÉTECTION" },
-          { icon: "📊", text: "Analyse de la fréquence et du motif des tentatives", status: "detecting", statusText: "ANALYSE" },
-          { icon: "🚨", text: "Attaque brute force identifiée depuis IP: 185.23.44.12", status: "alert", statusText: "MENACE" },
-          { icon: "🛡️", text: "Adresse IP temporairement bloquée", status: "blocking", statusText: "BLOQUÉ" },
-          { icon: "✅", text: "Compte verrouillé et administrateur notifié", status: "success", statusText: "PROTÉGÉ" }
-        ],
-        logMessage: "[AVERTISSEMENT] Attaque brute force bloquée - IP temporairement bloquée",
-        location: [40.7, -74.0],
-        chartIndex: 4
-      },
-      "malware": {
-        title: "🦠 Attaque Malware - Isolation et Suppression",
-        description: "Fichier malveillant tentанt d'infecter le système",
-        steps: [
-          { icon: "📁", text: "Fichier avec signature suspecte téléchargé", status: "detecting", statusText: "DÉTECTION" },
-          { icon: "🔬", text: "Le système antivirus analyse le fichier", status: "detecting", statusText: "ANALYSE" },
-          { icon: "☣️", text: "Malware détecté - Cheval de Troie", status: "alert", statusText: "MENACE" },
-          { icon: "🔒", text: "Fichier isolé en quarantaine", status: "blocking", statusText: "ISOLÉ" },
-          { icon: "✅", text: "Système nettoyé et protégé", status: "success", statusText: "NETTOYÉ" }
-        ],
-        logMessage: "[CRITIQUE] Malware détecté и изолирани успешно",
-        location: [48.85, 2.35],
-        chartIndex: 1
-      },
-      "ddos": {
-        title: "⚡ Attaque DDoS - Protection du Trafic",
-        description: "Trafic massif tentant de surcharger les serveurs",
-        steps: [
-          { icon: "📈", text: "Trafic anormalement élevé détecté vers le serveur", status: "detecting", statusText: "DÉTECTION" },
-          { icon: "📊", text: "Analyse du trafic et identification de la menace", status: "detecting", statusText: "ANALYSE" },
-          { icon: "🌊", text: "Attaque DDoS confirmée depuis plusieurs adresses IP", status: "alert", statusText: "ATTAQUE" },
-          { icon: "🛡️", text: "Protection DDoS activée - filtrage du trafic", status: "blocking", statusText: "PROTECTION" },
-          { icon: "✅", text: "Trafic normalisé, services stables", status: "success", statusText: "STABLE" }
-        ],
-        logMessage: "[ALERTE] Attaque DDoS neutralisée - trafic filtré",
-        location: [35.68, 139.76],
-        chartIndex: 3
-      }
-    },
-    bg: {
-      "phishing": {
-        title: "📧 Фишинг Атака - Детекция и Блокиране",
-        description: "Злонамерен имейл се опитва да извлече чувствителна информация от служители",
-        steps: [
-          { icon: "📧", text: "Получен подозрителен имейл с фалшива връзка", status: "detecting", statusText: "ДЕТЕКТИРАНЕ" },
-          { icon: "🔍", text: "Email Security Gateway сканира съдържанието", status: "detecting", statusText: "АНАЛИЗ" },
-          { icon: "⚠️", text: "Открит фишинг URL в имейла", status: "alert", statusText: "АЛАРМА" },
-          { icon: "🚫", text: "Имейлът е карантиниран автоматично", status: "blocking", statusText: "БЛОКИРАНЕ" },
-          { icon: "✅", text: "SOC екипът е уведомен и инцидентът е документиран", status: "success", statusText: "ЗАЩИТЕН" }
-        ],
-        logMessage: "[ALERT] Фишинг имейл детектиран и карантиниран от системата",
-        location: [51.5, -0.09],
-        chartIndex: 0
-      },
-      "brute-force": {
-        title: "🔓 Брут Форс Атака - Защита на Акаунти",
-        description: "Хакер се опитва да разбие пароли чрез множество опити за вход",
-        steps: [
-          { icon: "🔑", text: "Детектирани множество неуспешни опити за вход", status: "detecting", statusText: "ДЕТЕКТИРАНЕ" },
-          { icon: "📊", text: "Анализ на честотата и образеца на опитите", status: "detecting", statusText: "АНАЛИЗ" },
-          { icon: "🚨", text: "Идентифицирана брут форс атака от IP: 185.23.44.12", status: "alert", statusText: "ЗАПЛАХА" },
-          { icon: "🛡️", text: "IP адресът е блокиран временно", status: "blocking", statusText: "БЛОКИРАНЕ" },
-          { icon: "✅", text: "Акаунтът е заключен и администраторът е уведомен", status: "success", statusText: "ЗАЩИТЕН" }
-        ],
-        logMessage: "[WARNING] Брут форс атака блокирана - IP временно блокиран",
-        location: [40.7, -74.0],
-        chartIndex: 4
-      },
-      "malware": {
-        title: "🦠 Малуер Атака - Изолация и Премахване",
-        description: "Злонамерен файл се опитва да зарази системата",
-        steps: [
-          { icon: "📁", text: "Качен файл с подозрителна сигнатура", status: "detecting", statusText: "ДЕТЕКТИРАНЕ" },
-          { icon: "🔬", text: "Антивирусната система сканира файла", status: "detecting", statusText: "СКАНИРАНЕ" },
-          { icon: "☣️", text: "Открит малуер - Троянски кон", status: "alert", statusText: "ЗАПЛАХА" },
-          { icon: "🔒", text: "Файлът е изолиран в карантина", status: "blocking", statusText: "ИЗОЛАЦИЯ" },
-          { icon: "✅", text: "Системата е почистена и защитена", status: "success", statusText: "ОЧИСТЕНА" }
-        ],
-        logMessage: "[CRITICAL] Малуер детектиран и изолирани успешно",
-        location: [48.85, 2.35],
-        chartIndex: 1
-      },
-      "ddos": {
-        title: "⚡ DDoS Атака - Защита на Трафика",
-        description: "Масивен трафик се опитва да претовари сървърите",
-        steps: [
-          { icon: "📈", text: "Детектиран аномално висок трафик към сървъра", status: "detecting", statusText: "ДЕТЕКТИРАНЕ" },
-          { icon: "📊", text: "Анализ на трафика и идентификация на заплахата", status: "detecting", statusText: "АНАЛИЗ" },
-          { icon: "🌊", text: "Потвърдена DDoS атака от множество IP адреси", status: "alert", statusText: "АТАКА" },
-          { icon: "🛡️", text: "DDoS защитата активирана - филтриране на трафика", status: "blocking", statusText: "ЗАЩИТА" },
-          { icon: "✅", text: "Трафикът е нормализиран, услугите са стабилни", status: "success", statusText: "СТАБИЛНО" }
-        ],
-        logMessage: "[ALERT] DDoS атака неутрализирана - трафикът е филтриран",
-        location: [35.68, 139.76],
-        chartIndex: 3
-      }
-    }
-  };
-
-  let currentSimulation = null;
-
-  buttons.forEach(btn => {
-    btn.addEventListener('click', function () {
-      const attackType = btn.getAttribute('data-attack');
-      
-      // Remove active class from all buttons
-      buttons.forEach(b => b.classList.remove('active'));
-      // Add active class to clicked button
-      btn.classList.add('active');
-      
-      // Start simulation
-      startAttackSimulation(attackType);
-    });
-  });
-
-  function startAttackSimulation(attackType) {
-    const currentScenarios = attackScenarios[currentLanguage] || attackScenarios['en'];
-    const scenario = currentScenarios[attackType];
-    if (!scenario) return;
-
-    currentSimulation = attackType;
-    
-    // Show result container
-    resultDiv.style.display = 'block';
-    
-    // Set title and description
-    titleDiv.textContent = scenario.title;
-    descriptionDiv.innerHTML = `<p><strong>${currentLanguage === 'bg' ? 'Сценарий:' : currentLanguage === 'fr' ? 'Scénario:' : 'Scenario:'}</strong> ${scenario.description}</p>`;
-    
-    // Clear previous steps
-    stepsDiv.innerHTML = '';
-    
-    // Add steps with animation delay
-    scenario.steps.forEach((step, index) => {
-      setTimeout(() => {
-        const stepElement = document.createElement('div');
-        stepElement.className = 'attack-step';
-        stepElement.innerHTML = `
-          <div class="step-icon">${step.icon}</div>
-          <div class="step-text">${step.text}</div>
-          <div class="step-status status-${step.status}">${step.statusText}</div>
-        `;
-        stepsDiv.appendChild(stepElement);
-        
-        // Add to log
-        if (logOutput) {
-          const now = new Date().toLocaleTimeString();
-          const span = document.createElement('span');
-          span.textContent = `[${now}] ${step.text}\n`;
-          span.style.color = getStatusColor(step.status);
-          logOutput.appendChild(span);
-          logOutput.scrollTop = logOutput.scrollHeight;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stella Barbarella - SOC Analyst & Cybersecurity Specialist</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/common.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-      }, index * 800);
-    });
-    
-    // Add final log message
-    setTimeout(() => {
-      if (logOutput) {
-        const now = new Date().toLocaleTimeString();
-        const span = document.createElement('span');
-        span.textContent = `[${now}] ${scenario.logMessage}\n`;
-        span.style.color = '#00e676';
-        logOutput.appendChild(span);
-        logOutput.scrollTop = logOutput.scrollHeight;
-      }
-      
-      // Update chart
-      if (window.threatChartInstance && scenario.chartIndex !== undefined) {
-        window.threatChartInstance.data.datasets[0].data[scenario.chartIndex] += 1;
-        window.threatChartInstance.update();
-      }
-      
-      // Update map
-      if (mapDiv && window.L && scenario.location) {
-        if (!window.attackSimMap) {
-          window.attackSimMap = L.map('map').setView([42.7, 23.3], 3);
-          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 18,
-            attribution: '© OpenStreetMap contributors'
-          }).addTo(window.attackSimMap);
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            color: #ffffff;
+            overflow-x: hidden;
+            line-height: 1.6;
         }
-        
-        const popupText = currentLanguage === 'bg' ? `${attackType.charAt(0).toUpperCase() + attackType.slice(1)} атака блокирана` :
-                         currentLanguage === 'fr' ? `Attaque ${attackType} bloquée` :
-                         `${attackType.charAt(0).toUpperCase() + attackType.slice(1)} attack blocked`;
-        
-        L.marker(scenario.location).addTo(window.attackSimMap)
-          .bindPopup(popupText)
-          .openPopup();
-      }
-    }, scenario.steps.length * 800 + 1000);
-  }
 
-  function getStatusColor(status) {
-    switch(status) {
-      case 'detecting': return '#ffea00';
-      case 'blocking': return '#ff9100';
-      case 'success': return '#00e676';
-      case 'alert': return '#ff1744';
-      default: return '#00ffee';
-    }
-  }
-}); 
-  </script>
-
-  <script>
-document.addEventListener("DOMContentLoaded", function () {
-  const ctx = document.getElementById('threatChart').getContext('2d');
-  window.threatChartInstance = new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: ['Phishing', 'Malware', 'Ransomware', 'DDoS', 'Brute Force'],
-      datasets: [{
-        label: 'Detected Threats',
-        data: [12, 8, 4, 10, 6], 
-        backgroundColor: [
-          '#00ffeecc',
-          '#ff00ccbb',
-          '#ffaa00bb',
-          '#00ff88bb',
-          '#ffea00bb'
-        ],
-        borderColor: '#00ffee',
-        borderWidth: 2
-      }]
-    },
-    options: {
-      plugins: {
-        legend: { display: false }
-      },
-      scales: {
-        y: {
-          beginAtZero: true,
-          ticks: { color: '#00ffee' },
-          grid: { color: '#222' }
-        },
-        x: {
-          ticks: { color: '#00ffee' },
-          grid: { color: '#222' }
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
         }
-      }
-    }
-  });
-});
-</script>
-<script>
-let openPhishList = [];
 
-fetch('openphish.txt')
-  .then(res => res.text())
-  .then(text => {
-    openPhishList = text.split('\n').map(url => url.trim()).filter(Boolean);
-  });
-
-function normalizeUrl(url) {
-  return url.trim().replace(/^https?:\/\//i, '').replace(/\/$/, '').toLowerCase();
-}
-
-async function checkPhishing(url) {
-  const testUrl = normalizeUrl(url);
-  return openPhishList.some(phishUrl => normalizeUrl(phishUrl) === testUrl);
-}
-
-document.getElementById('phishing-form').addEventListener('submit', async function(e) {
-  e.preventDefault();
-  const url = document.getElementById('url').value;
-  const resultDiv = document.getElementById('phishing-result');
-  const translation = translations[currentLanguage] || translations['en'];
-  
-  resultDiv.textContent = translation['phishing-checking'] || 'Checking...';
-  const isPhishing = await checkPhishing(url);
-  if (isPhishing) {
-    resultDiv.textContent = translation['phishing-dangerous'] || '⚠️ Dangerous/phishing site!';
-    resultDiv.style.color = 'red';
-  } else {
-    resultDiv.textContent = translation['phishing-safe'] || '✅ The site appears safe.';
-    resultDiv.style.color = 'lime';
-  }
-});
-</script>
-<script>
-// Contact Form Handler with Multi-language Support and EmailJS
-document.addEventListener("DOMContentLoaded", function () {
-  // Initialize EmailJS
-  emailjs.init("YOUR_PUBLIC_KEY"); // Replace with your actual public key
-  
-  const contactForm = document.getElementById('contact-form');
-  const contactResult = document.getElementById('contact-result');
-  
-  if (contactForm && contactResult) {
-    contactForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      const translation = translations[currentLanguage] || translations['en'];
-      
-      // Show loading message
-      contactResult.style.display = 'block';
-      contactResult.textContent = translation['contact-sending'] || 'Sending message...';
-      contactResult.style.color = '#ffea00';
-      
-      // Get form data
-      const formData = new FormData(this);
-      const templateParams = {
-        from_name: formData.get('name'),
-        from_email: formData.get('email'),
-        message: formData.get('message'),
-        to_name: 'Stella Barbarella',
-        reply_to: formData.get('email')
-      };
-      
-      // Send email via EmailJS
-      emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
-        .then(function(response) {
-          console.log('Email sent successfully:', response);
-          contactResult.textContent = translation['contact-success'] || '✅ Message sent successfully! I will get back to you soon.';
-          contactResult.style.color = '#00e676';
-          
-          // Clear form
-          contactForm.reset();
-          
-          // Hide message after 5 seconds
-          setTimeout(() => {
-            contactResult.style.display = 'none';
-          }, 5000);
-        })
-        .catch(function(error) {
-          console.error('Failed to send email:', error);
-          contactResult.textContent = translation['contact-error'] || '❌ Failed to send message. Please try again or contact me directly.';
-          contactResult.style.color = '#ff5722';
-          
-          // Hide message after 8 seconds
-          setTimeout(() => {
-            contactResult.style.display = 'none';
-          }, 8000);
-        });
-    });
-  }
-});
-</script>
-<script>
-// Multi-language Support
-const translations = {
-  en: {
-    'nav-about': 'About Me',
-    'nav-projects': 'Projects',
-    'nav-charts': 'Charts',
-    'nav-aichat': '🤖 AI Chat',
-    'nav-attacksim': '🔬 AttackSim',
-    'nav-livemap': 'Live Map',
-    'nav-testimonials': 'Testimonials',
-    'nav-contact': 'Contact',
-    'nav-report': '📄 Report (EN – PDF)',
-    'nav-presentation': '📊 View Pentest Presentation',
-    'about-description': 'SOC Analyst | Cybersecurity Enthusiast | Threat Hunter',
-    'projects-title': 'Projects',
-    'project-threatmap': '🔍 Cyber Threat Map',
-    'project-phishing': '📧 Check for Phishing',
-    'project-hunting': '🧠 Threat Hunting',
-    'project-live': '🌐 Threat Live',
-    'project-cv': '📄 My CV',
-    'phishing-title': 'Phishing URL Checker',
-    'phishing-label': 'Enter URL to check:',
-    'phishing-button': 'Check',
-    'phishing-note': 'Note: This is a simulation and does not perform actual phishing detection.',
-    'phishing-checking': 'Checking...',
-    'phishing-dangerous': '⚠️ Dangerous/phishing site!',
-    'phishing-safe': '✅ The site appears safe.',
-    'contact-name': 'Name:',
-    'contact-email': 'Email:',
-    'contact-subject': 'Subject:',
-    'contact-message': 'Message:',
-    'contact-send': '📧 Send Message',
-    'contact-sending': 'Sending message...',
-    'contact-success': '✅ Message sent successfully! I will get back to you soon.',
-    'contact-error': '❌ Failed to send message. Please try again or contact me directly.',
-    'contact-download': '📥 Download Portfolio',
-    'contact-linkedin': '🔗 LinkedIn',
-    'lab-title': '🔬 Attack Simulation Lab',
-    'lab-description': 'Select an attack type to simulate and observe how the SOC team detects and blocks it:',
-    'lab-phishing-desc': 'Phishing Attack',
-    'lab-bruteforce-desc': 'Brute Force Attack',
-    'lab-malware-desc': 'Malware Attack',
-    'lab-ddos-desc': 'DDoS Attack',
-    'aichat-title': '🤖 CyberSec AI Chat',
-    'aichat-description': 'Ask our AI assistant about cybersecurity topics, threats, and best practices.',
-    'aichat-send': 'Send',
-    'aichat-welcome': 'Ask our AI assistant about cybersecurity topics, threats, and best practices.',
-    'phishing-detector-title': 'Phishing Detector',
-    'phishing-detector-description': 'Advanced tool for detecting phishing attacks and malicious content',
-    'phishing-check-btn': '🔍 Check URL',
-    'phishing-url-placeholder': 'Enter URL to check...',
-    'phishing-enter-url': 'Please enter URL to check',
-    'phishing-checking': 'Checking URL...',
-    'phishing-wait': 'Please wait while we analyze the URL address',
-    'phishing-dangerous-detected': 'DANGEROUS URL DETECTED!',
-    'phishing-safe-detected': 'URL appears safe',
-    'phishing-dangerous-details': `
-      <strong>Threats:</strong><br>
-      • Potential phishing site<br>
-      • May steal personal data<br>
-      • We recommend NOT visiting this site<br>
-      <br><strong>Recommendations:</strong><br>
-      • Do not enter personal data<br>
-      • Do not download files<br>
-      • Report to IT department
-    `,
-    'phishing-safe-details': `
-      <strong>Status:</strong> Safe<br>
-      • No detected threats<br>
-      • URL not in blacklist<br>
-      • You can visit the site<br>
-      <br><strong>Note:</strong><br>
-      Always be careful with personal data online
-    `
-  },
-  fr: {
-    'nav-about': 'À Propos',
-    'nav-projects': 'Projets',
-    'nav-charts': 'Graphiques',
-    'nav-aichat': '🤖 Chat IA',
-    'nav-attacksim': '🔬 Simulation',
-    'nav-livemap': 'Carte en Direct',
-    'nav-testimonials': 'Témoignages',
-    'nav-contact': 'Contact',
-    'nav-report': '📄 Rapport (FR – PDF)',
-    'nav-presentation': '📊 Voir Présentation Pentest',
-    'about-description': 'Analyste SOC | Passionnée de Cybersécurité | Chasseuse de Menaces',
-    'projects-title': 'Projets',
-    'project-threatmap': '🔍 Carte des Menaces Cyber',
-    'project-phishing': '📧 Vérifier le Phishing',
-    'project-hunting': '🧠 Chasse aux Menaces',
-    'project-live': '🌐 Menaces en Direct',
-    'project-cv': '📄 Mon CV',
-    'phishing-title': 'Vérificateur d\'URL de Phishing',
-    'phishing-label': 'Entrez l\'URL à vérifier:',
-    'phishing-button': 'Vérifier',
-    'phishing-note': 'Note: Ceci est une simulation et ne détecte pas réellement le phishing.',
-    'phishing-checking': 'Vérification...',
-    'phishing-dangerous': '⚠️ Site dangereux/phishing !',
-    'phishing-safe': '✅ Le site semble sûr.',
-    'contact-name': 'Nom:',
-    'contact-email': 'Email:',
-    'contact-subject': 'Sujet:',
-    'contact-message': 'Message:',
-    'contact-send': '📧 Envoyer Message',
-    'contact-sending': 'Envoi du message...',
-    'contact-success': '✅ Message envoyé avec succès! Je vous répondrai bientôt.',
-    'contact-error': '❌ Échec de l\'envoi du message. Veuillez réessayer ou me contacter directement.',
-    'contact-download': '📥 Télécharger Portfolio',
-    'contact-linkedin': '🔗 LinkedIn',
-    'lab-title': '🔬 Laboratoire de Simulation d\'Attaques',
-    'lab-description': 'Sélectionnez un type d\'attaque à simuler и observez comment l\'équipe SOC la détecte et la bloque:',
-    'lab-phishing-desc': 'Attaque de Phishing',
-    'lab-bruteforce-desc': 'Attaque Brute Force',
-    'lab-malware-desc': 'Attaque Malware',
-    'lab-ddos-desc': 'Attaque DDoS',
-    'aichat-title': '🤖 Chat IA CyberSec',
-    'aichat-description': 'Demandez à notre assistant IA sur les sujets de cybersécurité, menaces et meilleures pratiques.',
-    'aichat-send': 'Envoyer',
-    'aichat-welcome': 'Demandez à notre assistant IA sur les sujets de cybersécurité, menaces et meilleures pratiques.',
-    'phishing-detector-title': 'Détecteur de Phishing',
-    'phishing-detector-description': 'Outil avancé pour détecter les attaques de phishing et le contenu malveillant',
-    'phishing-check-btn': '🔍 Vérifier URL',
-    'phishing-url-placeholder': 'Entrez l\'URL à vérifier...',
-    'phishing-enter-url': 'Veuillez entrer l\'URL à vérifier',
-    'phishing-checking': 'Vérification de l\'URL...',
-    'phishing-wait': 'Veuillez patienter pendant que nous analysons l\'adresse URL',
-    'phishing-dangerous-detected': 'URL DANGEREUSE DÉTECTÉE !',
-    'phishing-safe-detected': 'L\'URL semble sûre'
-  },
-  bg: {
-    'nav-about': 'За Мен',
-    'nav-projects': 'Проекти',
-    'nav-charts': 'Графики',
-    'nav-aichat': '🤖 AI Чат',
-    'nav-attacksim': '🔬 Лаборатория',
-    'nav-livemap': 'Карта на Живо',
-    'nav-testimonials': 'Препоръки',
-    'nav-contact': 'Контакт',
-    'nav-report': '📄 Доклад (BG – PDF)',
-    'nav-presentation': '📊 Виж Pentest Презентация',
-    'about-description': 'SOC Анализатор | Ентусиаст по Киберсигурност | Ловец на Заплахи',
-    'projects-title': 'Проекти',
-    'project-threatmap': '🔍 Карта на Кибер Заплахи',
-    'project-phishing': '📧 Проверка за Фишинг',
-    'project-hunting': '🧠 Лов на Заплахи',
-    'project-live': '🌐 Заплахи на Живо',
-    'project-cv': '📄 Моето CV',
-    'phishing-title': 'Проверка за Фишинг URL',
-    'phishing-label': 'Въведете URL за проверка:',
-    'phishing-button': 'Провери',
-    'phishing-note': 'Забележка: Това е симулация и не прави реална детекция на фишинг.',
-    'phishing-checking': 'Проверявам...',
-    'phishing-dangerous': '⚠️ Опасен/фишинг сайт!',
-    'phishing-safe': '✅ Сайтът изглежда безопасен.',
-    'contact-name': 'Име:',
-    'contact-email': 'Имейл:',
-    'contact-subject': 'Тема:',
-    'contact-message': 'Съобщение:',
-    'contact-send': '📧 Изпрати Съобщение',
-    'contact-sending': 'Изпращане на съобщението...',
-    'contact-success': '✅ Съобщението е изпратено успешно! Ще се свържа с вас скоро.',
-    'contact-error': '❌ Неуспешно изпращане на съобщението. Моля опитайте отново или се свържете с мен директно.',
-    'contact-download': '📥 Изтегли Портфолио',
-    'contact-linkedin': '🔗 LinkedIn',
-    'lab-title': '🔬 Лаборатория за Симулация на Атаки',
-    'lab-description': 'Изберете тип атака за симулация и наблюдавайте как SOC екипът я открива и блокира:',
-    'lab-phishing-desc': 'Фишинг атака',
-    'lab-bruteforce-desc': 'Брут форс атака',
-    'lab-malware-desc': 'Злонамерен софтуер',
-    'lab-ddos-desc': 'Разпределена атака',
-    'aichat-title': '🤖 CyberSec AI Чат',
-    'aichat-description': 'Попитай нашия AI асистент за киберсигурност теми, заплахи и най-добри практики.',
-    'aichat-send': 'Изпрати',
-    'aichat-welcome': 'Попитай нашия AI асистент за киберсигурност теми, заплахи и най-добри практики.',
-    'phishing-detector-title': 'Детектор за Фишинг',
-    'phishing-detector-description': 'Усъвършенствана инструмент за откриване на фишинг атаки и злонамерено съдържание',
-    'phishing-check-btn': '🔍 Провери URL',
-    'phishing-url-placeholder': 'Въведете URL за проверка...',
-    'phishing-enter-url': 'Моля въведете URL за проверка',
-    'phishing-checking': 'Проверявам URL...',
-    'phishing-wait': 'Моля изчакайте докато анализираме URL адреса',
-    'phishing-dangerous-detected': 'ОПАСЕН URL ДЕТЕКТИРАН!',
-    'phishing-safe-detected': 'URL изглежда безопасен'
-  }
-};
-
-let currentLanguage = 'en';
-
-function translatePage(language) {
-  currentLanguage = language;
-  const translation = translations[language];
-  
-  // Update all elements with data-translate attribute
-  document.querySelectorAll('[data-translate]').forEach(element => {
-    const key = element.getAttribute('data-translate');
-    if (translation[key]) {
-      element.textContent = translation[key];
-    }
-  });
-  
-  // Update form placeholders and dynamic content
-  updateDynamicContent(language);
-  
-  // Save language preference
-  localStorage.setItem('preferredLanguage', language);
-}
-
-function updateDynamicContent(language) {
-  const translation = translations[language];
-  
-  // Update contact form button
-  const contactButton = document.querySelector('#contact-form button[type="submit"]');
-  if (contactButton && translation['contact-send']) {
-    contactButton.textContent = translation['contact-send'];
-  }
-  
-  // Update contact form labels
-  const nameLabel = document.querySelector('label[for="contact-name"]');
-  if (nameLabel && translation['contact-name']) {
-    nameLabel.textContent = translation['contact-name'];
-  }
-  
-  const emailLabel = document.querySelector('label[for="contact-email"]');
-  if (emailLabel && translation['contact-email']) {
-    emailLabel.textContent = translation['contact-email'];
-  }
-  
-  const subjectLabel = document.querySelector('label[for="contact-subject"]');
-  if (subjectLabel && translation['contact-subject']) {
-    subjectLabel.textContent = translation['contact-subject'];
-  }
-  
-  const messageLabel = document.querySelector('label[for="contact-message"]');
-  if (messageLabel && translation['contact-message']) {
-    messageLabel.textContent = translation['contact-message'];
-  }
-  
-  // Update contact buttons
-  const downloadBtn = document.querySelector('a[href*="Portfolio"]');
-  if (downloadBtn && translation['contact-download']) {
-    downloadBtn.textContent = translation['contact-download'];
-  }
-  
-  const linkedinBtn = document.querySelector('a[href*="linkedin"]');
-  if (linkedinBtn && translation['contact-linkedin']) {
-    linkedinBtn.textContent = translation['contact-linkedin'];
-  }
-}
-
-// Initialize language on page load
-document.addEventListener('DOMContentLoaded', function() {
-  const languageSelect = document.getElementById('language-select');
-  
-  // Load saved language preference or default to English
-  const savedLanguage = localStorage.getItem('preferredLanguage') || 'en';
-  languageSelect.value = savedLanguage;
-  translatePage(savedLanguage);
-  
-  // Language switcher event listener
-  languageSelect.addEventListener('change', function() {
-    translatePage(this.value);
-  });
-});
-
-// Update existing contact form handler to use translations
-function updateContactFormWithTranslations() {
-  const contactForm = document.getElementById('contact-form');
-  const contactResult = document.getElementById('contact-result');
-  
-  if (contactForm && contactResult) {
-    contactForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      const translation = translations[currentLanguage];
-      
-      // Show loading message
-      contactResult.style.display = 'block';
-      contactResult.textContent = translation['contact-sending'] || 'Sending message...';
-      contactResult.style.color = '#ffea00';
-      
-      // Simulate form submission
-      setTimeout(() => {
-        contactResult.textContent = translation['contact-success'] || '✅ Message sent successfully!';
-        contactResult.style.color = '#00e676';
-        
-        // Clear form
-        contactForm.reset();
-        
-        // Hide message after 5 seconds
-        setTimeout(() => {
-          contactResult.style.display = 'none';
-        }, 5000);
-      }, 1500);
-    });
-  }
-}
-
-// Update existing phishing checker to use translations
-function updatePhishingCheckerWithTranslations() {
-  const phishingForm = document.getElementById('phishing-form');
-  
-  if (phishingForm) {
-    phishingForm.addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const url = document.getElementById('url').value;
-      const resultDiv = document.getElementById('phishing-result');
-      const translation = translations[currentLanguage];
-      
-      resultDiv.textContent = translation['phishing-checking'] || 'Checking...';
-      
-      // Simulate checking (using existing logic)
-      const isPhishing = await checkPhishing(url);
-      if (isPhishing) {
-        resultDiv.textContent = translation['phishing-dangerous'] || '⚠️ Dangerous/phishing site!';
-        resultDiv.style.color = 'red';
-      } else {
-        resultDiv.textContent = translation['phishing-safe'] || '✅ The site appears safe.';
-        resultDiv.style.color = 'lime';
-      }
-    });
-  }
-}
-
-// AI Chat functionality with improved error handling
-function initializeAIChat() {
-  const chatForm = document.getElementById('chat-form');
-  const chatPrompt = document.getElementById('chat-prompt');
-  const chatMessages = document.getElementById('chat-messages');
-  
-  if (chatForm && chatPrompt && chatMessages) {
-    chatForm.addEventListener('submit', async function(e) {
-      e.preventDefault();
-      
-      const prompt = chatPrompt.value.trim();
-      if (!prompt) return;
-      
-      // Add user message
-      addMessage(prompt, 'user');
-      
-      // Clear input
-      chatPrompt.value = '';
-      
-      // Add typing indicator
-      const typingMsg = addMessage('Typing...', 'assistant', true);
-      
-      try {
-        // Try to connect to local AI server with timeout
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
-        
-        const response = await fetch('http://127.0.0.1:5000/generate', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ prompt }),
-          signal: controller.signal
-        });
-        
-        clearTimeout(timeoutId);
-        
-        if (!response.ok) {
-          throw new Error(`Server error: ${response.status}`);
+        .loading-content {
+            text-align: center;
+            color: #00ffee;
         }
-        
-        const data = await response.json();
-        
-        // Remove typing indicator
-        typingMsg.remove();
-        
-        // Add AI response
-        addMessage(data.response || 'No response received.', 'assistant');
-        
-      } catch (error) {
-        // Remove typing indicator
-        typingMsg.remove();
-        
-        // Provide fallback cybersecurity responses silently
-        const fallbackResponse = getCyberSecurityResponse(prompt);
-        addMessage(fallbackResponse, 'assistant');
-        
-        // Log error only in development mode (optional)
-        // console.debug('AI server not available, using fallback response');
-      }
-    });
-  }
-  
-  function addMessage(text, sender, isTyping = false) {
-    const messageDiv = document.createElement('div');
-    messageDiv.className = `chat-message ${sender}`;
-    
-    const headerDiv = document.createElement('div');
-    headerDiv.className = 'message-header';
-    headerDiv.textContent = sender === 'user' ? '👤 You' : '🤖 AI Assistant';
-    
-    const contentDiv = document.createElement('div');
-    contentDiv.className = 'message-content';
-    
-    if (isTyping) {
-      contentDiv.innerHTML = '<span class="typing-indicator">⌨️ Typing...</span>';
-    } else {
-      contentDiv.textContent = text;
-    }
-    
-    messageDiv.appendChild(headerDiv);
-    messageDiv.appendChild(contentDiv);
-    
-    chatMessages.appendChild(messageDiv);
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-    
-    return messageDiv;
-  }
-  
-  function getCyberSecurityResponse(prompt) {
-    const lowerPrompt = prompt.toLowerCase();
-    
-    if (lowerPrompt.includes('phishing') || lowerPrompt.includes('фишинг')) {
-      return `🎣 Phishing Protection Tips:
 
-• Always verify sender identity before clicking links
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 3px solid rgba(0, 255, 238, 0.3);
+            border-top: 3px solid #00ffee;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
 
-• Keep antivirus software updated and active
-• Regular system and software updates
-• Avoid suspicious downloads and email attachments
-• Use application whitelisting when possible
-• Enable real-time protection and behavioral analysis
-• Regular system backups to clean locations
-• Network segmentation to limit spread
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
 
-Prevention is better than cure!`;
-    }
-    
-    if (lowerPrompt.includes('password') || lowerPrompt.includes('парола')) {
-      return `🔐 Strong Password Guidelines:
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(10, 20, 30, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 15px 0;
+            transition: all 0.3s ease;
+        }
 
-• Minimum 12+ characters length
-• Mix uppercase, lowercase, numbers, symbols
-• Avoid dictionary words and personal info
-• Use unique passwords for each account
-• Enable multi-factor authentication (MFA)
-• Consider password managers
-• Regular password rotation for critical accounts
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
 
-A strong password is your first line of defense!`;
-    }
-    
-    if (lowerPrompt.includes('ddos') || lowerPrompt.includes('атака')) {
-      return `⚡ DDoS Attack Mitigation:
+        .logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #00ffee;
+            text-decoration: none;
+            text-shadow: 0 0 20px rgba(0, 255, 238, 0.5);
+        }
 
-• Implement rate limiting and traffic filtering
-• Use DDoS protection services (Cloudflare, AWS Shield)
-• Network redundancy and load balancing
-• Monitor traffic patterns for anomalies
-• Have incident response procedures ready
-• Consider CDN services for content delivery
-• Maintain updated blacklists
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
 
-Preparation and detection are key to defense!`;
-    }
-    
-    if (lowerPrompt.includes('soc') || lowerPrompt.includes('security operations')) {
-      return `🏢 SOC Best Practices:
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
 
-• 24/7 continuous monitoring and threat detection
-• SIEM integration for centralized log analysis
-• Incident response playbooks and procedures
-• Threat intelligence integration
-• Regular security awareness training
-• Automated response for common threats
-• Regular drills and tabletop exercises
+        .nav-links a:hover {
+            color: #00ffee;
+            text-shadow: 0 0 10px rgba(0, 255, 238, 0.5);
+        }
 
-A well-prepared SOC is a strong defense!`;
-    }
-    
-    // Default cybersecurity response
-    return `🛡️ Cybersecurity Guidance:
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(45deg, #00ffee, #00ff88);
+            transition: width 0.3s ease;
+        }
 
-I'm here to help with cybersecurity topics! You can ask me about:
+        .nav-links a:hover::after {
+            width: 100%;
+        }
 
-• Phishing detection and prevention
-• Malware protection strategies
-• Password security best practices
-• DDoS attack mitigation
-• SOC operations and procedures
-• Threat hunting techniques
-• Incident response planning
+        /* Language Selector */
+        .language-selector {
+            display: flex;
+            gap: 10px;
+            margin-left: 20px;
+        }
 
-What specific cybersecurity topic would you like to explore?
+        .lang-btn {
+            background: rgba(0, 255, 238, 0.1);
+            border: 1px solid #00ffee;
+            color: #00ffee;
+            padding: 5px 10px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
 
-Note: For advanced analysis, the AI server can be started locally.`;
-  }
-}
+        .lang-btn:hover, .lang-btn.active {
+            background: rgba(0, 255, 238, 0.3);
+            box-shadow: 0 0 10px rgba(0, 255, 238, 0.3);
+        }
 
-// Map initialization and other functionality
-document.addEventListener("DOMContentLoaded", function () {
-  // Initialize Leaflet map safely with extra protection
-  const mapDiv = document.getElementById('map');
-  if (mapDiv && !mapDiv._leaflet_id && !window.portfolioMapInitialized) {
-    try {
-      // Mark as initialized to prevent double initialization
-      window.portfolioMapInitialized = true;
-      
-      const map = L.map('map').setView([42.7, 23.3], 3);
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 18,
-        attribution: '© OpenStreetMap contributors'
-      }).addTo(map);
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
 
-      // Add markers
-      L.marker([42.7, 23.3]).addTo(map).bindPopup('Sofia, Bulgaria');
-      L.marker([51.5, -0.09]).addTo(map).bindPopup('London, UK');
-      L.marker([40.7, -74.0]).addTo(map).bindPopup('New York, USA');
-      L.marker([48.85, 2.35]).addTo(map).bindPopup('Paris, France');
-      L.marker([35.68, 139.76]).addTo(map).bindPopup('Tokyo, Japan');
-      L.marker([55.75, 37.62]).addTo(map).bindPopup('Moscow, Russia');
-      L.marker([52.52, 13.40]).addTo(map).bindPopup('Berlin, Germany');
-      L.marker([34.05, -118.24]).addTo(map).bindPopup('Los Angeles, USA');
-      L.marker([-33.87, 151.21]).addTo(map).bindPopup('Sydney, Australia');
-      L.marker([19.43, -99.13]).addTo(map).bindPopup('Mexico City, Mexico');
-      
-      // Clear map button functionality
-      const clearMapBtn = document.getElementById('clear-map');
-      if (clearMapBtn) {
-        clearMapBtn.addEventListener('click', function() {
-          map.eachLayer(function(layer) {
-            if (layer instanceof L.Marker) {
-              map.removeLayer(layer);
+        .mobile-menu span {
+            width: 25px;
+            height: 3px;
+            background: #00ffee;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 80px 20px 0;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .hero-text {
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 4rem;
+            font-weight: 900;
+            color: #00ffee;
+            text-shadow: 0 0 30px rgba(0, 255, 238, 0.5);
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: #00ddcc;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            color: #ffffff;
+            margin-bottom: 40px;
+            line-height: 1.8;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #00ffee, #00ff88);
+            color: #000000;
+            box-shadow: 0 5px 20px rgba(0, 255, 238, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 255, 238, 0.5);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #00ffee;
+            border: 2px solid #00ffee;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(0, 255, 238, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .hero-visual {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-image {
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #00ffee, #00ff88);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8rem;
+            color: #000000;
+            box-shadow: 0 0 50px rgba(0, 255, 238, 0.5);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Particles Background - FIXED FULLSCREEN */
+        #particles-js {
+            position: fixed !important;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Sections */
+        section {
+            padding: 100px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-family: 'Orbitron', monospace;
+            font-size: 3rem;
+            color: #00ffee;
+            text-align: center;
+            margin-bottom: 60px;
+            text-shadow: 0 0 20px rgba(0, 255, 238, 0.3);
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about-image {
+            width: 300px;
+            height: 300px;
+            border-radius: 20px;
+            background: linear-gradient(45deg, #00ffee, #00ff88);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 6rem;
+            color: #000000;
+            box-shadow: 0 20px 40px rgba(0, 255, 238, 0.3);
+            margin: 0 auto;
+        }
+
+        .about-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #ffffff;
+        }
+
+        /* Projects Section */
+        .projects-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .project-card {
+            background: rgba(0, 255, 238, 0.1);
+            border: 2px solid #00ffee;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 238, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .project-card:hover::before {
+            left: 100%;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 255, 238, 0.3);
+        }
+
+        .project-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .project-text {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #00ffee;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .skill-card {
+            background: rgba(0, 255, 238, 0.1);
+            border: 2px solid #00ffee;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 255, 238, 0.3);
+        }
+
+        .skill-icon {
+            font-size: 3rem;
+            color: #00ffee;
+            margin-bottom: 20px;
+        }
+
+        .skill-title {
+            font-size: 1.5rem;
+            color: #00ffee;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .skill-description {
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        /* Contact Section */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: start;
+        }
+
+        .contact-info {
+            background: rgba(0, 255, 238, 0.1);
+            border: 2px solid #00ffee;
+            border-radius: 20px;
+            padding: 40px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .contact-icon {
+            font-size: 2rem;
+            color: #00ffee;
+            margin-right: 20px;
+            width: 50px;
+        }
+
+        .contact-text {
+            font-size: 1.2rem;
+            color: #ffffff;
+        }
+
+        .contact-form {
+            background: rgba(0, 255, 238, 0.1);
+            border: 2px solid #00ffee;
+            border-radius: 20px;
+            padding: 40px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #00ffee;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #00ffee;
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            color: #ffffff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #00ff88;
+            box-shadow: 0 0 10px rgba(0, 255, 238, 0.3);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, #00ffee, #00ff88);
+            color: #000000;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 255, 238, 0.5);
+        }
+
+        /* Status Message */
+        .status-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 10px;
+            font-weight: 600;
+            z-index: 1001;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: all 0.3s ease;
+        }
+
+        .status-message.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .status-message.success {
+            background: #00ff88;
+            color: #000000;
+        }
+
+        .status-message.error {
+            background: #ff4444;
+            color: #ffffff;
+        }
+
+        /* Chatbot */
+        .chatbot-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .chatbot-toggle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #00ffee, #00ff88);
+            border: none;
+            font-size: 1.5rem;
+            color: #000000;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0, 255, 238, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .chatbot-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 30px rgba(0, 255, 238, 0.5);
+        }
+
+        .chatbot-window {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 350px;
+            height: 500px;
+            background: rgba(10, 20, 30, 0.95);
+            border: 2px solid #00ffee;
+            border-radius: 20px;
+            display: none;
+            flex-direction: column;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+        }
+
+        .chatbot-header {
+            padding: 20px;
+            border-bottom: 1px solid #00ffee;
+            text-align: center;
+        }
+
+        .chatbot-title {
+            color: #00ffee;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .chatbot-subtitle {
+            color: #00ddcc;
+            font-size: 0.9rem;
+        }
+
+        .chatbot-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .message {
+            padding: 12px 16px;
+            border-radius: 15px;
+            max-width: 85%;
+            word-wrap: break-word;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .message.user {
+            background: #00ffee;
+            color: #000000;
+            align-self: flex-end;
+            margin-left: auto;
+        }
+
+        .message.bot {
+            background: rgba(0, 255, 238, 0.1);
+            color: #ffffff;
+            border: 1px solid #00ffee;
+            align-self: flex-start;
+        }
+
+        .typing-indicator {
+            display: none;
+            padding: 12px 16px;
+            background: rgba(0, 255, 238, 0.1);
+            border: 1px solid #00ffee;
+            border-radius: 15px;
+            align-self: flex-start;
+            max-width: 85%;
+        }
+
+        .typing-dots {
+            display: flex;
+            gap: 4px;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #00ffee;
+            animation: typingDots 1.4s infinite;
+        }
+
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes typingDots {
+            0%, 60%, 100% { opacity: 0.3; }
+            30% { opacity: 1; }
+        }
+
+        .chatbot-input-container {
+            padding: 20px;
+            border-top: 1px solid #00ffee;
+        }
+
+        .chatbot-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #00ffee;
+            border-radius: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            color: #ffffff;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .chatbot-input:focus {
+            border-color: #00ff88;
+            box-shadow: 0 0 10px rgba(0, 255, 238, 0.3);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
             }
-          });
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-image {
+                width: 300px;
+                height: 300px;
+                font-size: 6rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+
+            .projects-container {
+                grid-template-columns: 1fr;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .chatbot-window {
+                width: 90%;
+                right: 5%;
+                left: 5%;
+                bottom: 90px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <h2>Loading Portfolio...</h2>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#home" class="logo" data-translate="name">Stella Barbarella</a>
+            <ul class="nav-links">
+                <li><a href="#home" data-translate="nav-home">Home</a></li>
+                <li><a href="#about" data-translate="nav-about">About</a></li>
+                <li><a href="#projects" data-translate="nav-projects">Projects</a></li>
+                <li><a href="#skills" data-translate="nav-skills">Skills</a></li>
+                <li><a href="#contact" data-translate="nav-contact">Contact</a></li>
+            </ul>
+            <div class="language-selector">
+                <button class="lang-btn active" id="lang-en" onclick="changeLanguage('en')">EN</button>
+                <button class="lang-btn" id="lang-fr" onclick="changeLanguage('fr')">FR</button>
+                <button class="lang-btn" id="lang-bg" onclick="changeLanguage('bg')">BG</button>
+            </div>
+            <div class="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div id="particles-js"></div>
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title" data-translate="hero-title">Stella Barbarella</h1>
+                <p class="hero-subtitle" data-translate="hero-subtitle">SOC Analyst & Cybersecurity Specialist</p>
+                <p class="hero-description" data-translate="hero-description">
+                    Professional threat hunting, incident response, and security analysis services
+                </p>
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn btn-primary">View My Work</a>
+                    <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-image">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2 data-translate="about-title">About Me</h2>
+        <div class="about-content">
+            <div class="about-image">
+                <i class="fas fa-user-shield"></i>
+            </div>
+            <div class="about-text">
+                <p data-translate="about-description">
+                    Experienced SOC Analyst specializing in threat detection, incident response, and cybersecurity analysis. 
+                    Passionate about proactive threat hunting and building robust security frameworks to protect organizations 
+                    from evolving cyber threats.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <h2 data-translate="projects-title">Projects</h2>
+        <div class="projects-container">
+            <div class="project-card" onclick="window.location.href='cyber-threat-map.html'">
+                <span class="project-icon">🌐</span>
+                <span class="project-text" data-translate="cyber-threat-map">Cyber Threat Map</span>
+            </div>
+            
+            <div class="project-card" onclick="window.location.href='phishing-check.html'">
+                <span class="project-icon">🛡️</span>
+                <span class="project-text" data-translate="phishing-checker">Check for Phishing</span>
+            </div>
+            
+            <div class="project-card" onclick="window.location.href='threat-hunting.html'">
+                <span class="project-icon">🔍</span>
+                <span class="project-text" data-translate="threat-hunting">Threat Hunting</span>
+            </div>
+
+            <div class="project-card" onclick="window.location.href='phishing-response-guide.html'">
+                <span class="project-icon">📚</span>
+                <span class="project-text" data-translate="phishing-response-guide">Phishing Response Guide</span>
+            </div>
+            
+            <div class="project-card" onclick="window.location.href='live-threats.html'">
+                <span class="project-icon">🌍</span>
+                <span class="project-text" data-translate="live-threats">Threat Live</span>
+            </div>
+            
+            <div class="project-card" onclick="window.location.href='cv.html'">
+                <span class="project-icon">📄</span>
+                <span class="project-text" data-translate="my-cv">My CV</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+        <h2 data-translate="skills-title">Skills & Expertise</h2>
+        <div class="skills-grid">
+            <div class="skill-card">
+                <div class="skill-icon">🎯</div>
+                <h3 class="skill-title" data-translate="skill-threat-hunting">Threat Hunting</h3>
+                <p class="skill-description" data-translate="skill-threat-hunting-desc">
+                    Advanced threat detection using MITRE ATT&CK framework
+                </p>
+            </div>
+            
+            <div class="skill-card">
+                <div class="skill-icon">🚨</div>
+                <h3 class="skill-title" data-translate="skill-incident-response">Incident Response</h3>
+                <p class="skill-description" data-translate="skill-incident-response-desc">
+                    Rapid incident containment and forensic analysis
+                </p>
+            </div>
+            
+            <div class="skill-card">
+                <div class="skill-icon">📊</div>
+                <h3 class="skill-title" data-translate="skill-siem">SIEM Analysis</h3>
+                <p class="skill-description" data-translate="skill-siem-desc">
+                    Expert in Splunk, QRadar, and log analysis
+                </p>
+            </div>
+            
+            <div class="skill-card">
+                <div class="skill-icon">🔧</div>
+                <h3 class="skill-title" data-translate="skill-security-tools">Security Tools</h3>
+                <p class="skill-description" data-translate="skill-security-tools-desc">
+                    Proficient in various cybersecurity platforms
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2 data-translate="contact-title">Contact Me</h2>
+        <div class="contact-container">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-envelope contact-icon"></i>
+                    <div>
+                        <h3 data-translate="contact-email-label">Email</h3>
+                        <p class="contact-text">stiliana.stoyanova@orange.fr</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <i class="fab fa-linkedin contact-icon"></i>
+                    <div>
+                        <h3 data-translate="contact-linkedin-label">LinkedIn</h3>
+                        <p class="contact-text">linkedin.com/in/stella-barbarella</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <i class="fas fa-globe contact-icon"></i>
+                    <div>
+                        <h3 data-translate="contact-website-label">Website</h3>
+                        <p class="contact-text">stella-barbarella.com</p>
+                    </div>
+                </div>
+            </div>
+            
+            <form class="contact-form" id="contact-form">
+                <div class="form-group">
+                    <label for="name" data-translate="contact-name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email" data-translate="contact-email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message" data-translate="contact-message">Message:</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+                
+                <button type="submit" class="submit-btn" data-translate="contact-send">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Status Message -->
+    <div id="status-message" class="status-message"></div>
+
+    <!-- Chatbot -->
+    <div class="chatbot-container">
+        <button class="chatbot-toggle" id="chatbot-toggle" onclick="toggleChatbot()">🤖</button>
+        
+        <div class="chatbot-window" id="chatbot-window">
+            <div class="chatbot-header">
+                <h3 class="chatbot-title" data-translate="chatbot-title">AI Security Assistant</h3>
+                <p class="chatbot-subtitle">Powered by AI</p>
+            </div>
+            
+            <div class="chatbot-messages" id="chatbot-messages">
+                <div class="message bot" data-translate="chatbot-welcome">
+                    Hi! I'm your AI Security Assistant. Ask me about cybersecurity, SOC analysis, threat hunting, or any security-related questions!
+                </div>
+            </div>
+            
+            <div class="typing-indicator" id="typing-indicator">
+                <div class="typing-dots">
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                </div>
+                <span style="margin-left: 10px; color: #00ffee;" data-translate="chatbot-typing">Typing</span>
+            </div>
+            
+            <div class="chatbot-input-container">
+                <input type="text" class="chatbot-input" id="chatbot-input" 
+                       data-translate-placeholder="chatbot-placeholder"
+                       placeholder="Ask me anything about cybersecurity..."
+                       onkeypress="if(event.key==='Enter') handleChatbotMessage()">
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script>
+        // ГЛОБАЛНИ ПРОМЕНЛИВИ
+        let currentLanguage = 'en';
+        let chatbotOpen = false;
+        let chatHistory = [];
+        
+        // Initialize particles inline
+        function initParticles() {
+            if (typeof particlesJS !== 'undefined') {
+                particlesJS('particles-js', {
+                    particles: {
+                        number: { value: 80, density: { enable: true, value_area: 800 } },
+                        color: { value: '#00ffee' },
+                        shape: { type: 'circle' },
+                        opacity: { value: 0.5, random: false },
+                        size: { value: 3, random: true },
+                        line_linked: { enable: true, distance: 150, color: '#00ffee', opacity: 0.4, width: 1 },
+                        move: { enable: true, speed: 6, direction: 'none', random: false, straight: false, out_mode: 'out', bounce: false }
+                    },
+                    interactivity: {
+                        detect_on: 'canvas',
+                        events: { onhover: { enable: true, mode: 'repulse' }, onclick: { enable: true, mode: 'push' }, resize: true },
+                        modes: { repulse: { distance: 100, duration: 0.4 }, push: { particles_nb: 4 } }
+                    },
+                    retina_detect: true
+                });
+            }
+        }
+        
+        // Language translations
+        const translations = {
+            en: {
+                'name': 'Stella Barbarella',
+                'nav-home': 'Home',
+                'nav-about': 'About',
+                'nav-projects': 'Projects',
+                'nav-skills': 'Skills',
+                'nav-contact': 'Contact',
+                'hero-title': 'Stella Barbarella',
+                'hero-subtitle': 'SOC Analyst & Cybersecurity Specialist',
+                'hero-description': 'Professional threat hunting, incident response, and security analysis services',
+                'about-title': 'About Me',
+                'about-description': 'Experienced SOC Analyst specializing in threat detection, incident response, and cybersecurity analysis. Passionate about proactive threat hunting and building robust security frameworks to protect organizations from evolving cyber threats.',
+                'projects-title': 'Projects',
+                'cyber-threat-map': 'Cyber Threat Map',
+                'phishing-checker': 'Check for Phishing',
+                'threat-hunting': 'Threat Hunting',
+                'phishing-response-guide': 'Phishing Response Guide',
+                'live-threats': 'Threat Live',
+                'my-cv': 'My CV',
+                'skills-title': 'Skills & Expertise',
+                'skill-threat-hunting': 'Threat Hunting',
+                'skill-threat-hunting-desc': 'Advanced threat detection using MITRE ATT&CK framework',
+                'skill-incident-response': 'Incident Response',
+                'skill-incident-response-desc': 'Rapid incident containment and forensic analysis',
+                'skill-siem': 'SIEM Analysis',
+                'skill-siem-desc': 'Expert in Splunk, QRadar, and log analysis',
+                'skill-security-tools': 'Security Tools',
+                'skill-security-tools-desc': 'Proficient in various cybersecurity platforms',
+                'contact-title': 'Contact Me',
+                'contact-name': 'Name:',
+                'contact-email': 'Email:',
+                'contact-message': 'Message:',
+                'contact-send': 'Send Message',
+                'contact-email-label': 'Email',
+                'contact-linkedin-label': 'LinkedIn',
+                'contact-website-label': 'Website',
+                'chatbot-title': 'AI Security Assistant',
+                'chatbot-welcome': 'Hi! I\'m your AI Security Assistant. Ask me about cybersecurity, SOC analysis, threat hunting, or any security-related questions!',
+                'chatbot-typing': 'Typing',
+                'chatbot-placeholder': 'Ask me anything about cybersecurity...'
+            },
+            fr: {
+                'name': 'Stella Barbarella',
+                'nav-home': 'Accueil',
+                'nav-about': 'À propos',
+                'nav-projects': 'Projets',
+                'nav-skills': 'Compétences',
+                'nav-contact': 'Contact',
+                'hero-title': 'Stella Barbarella',
+                'hero-subtitle': 'Analyste SOC et Spécialiste en Cybersécurité',
+                'hero-description': 'Services professionnels de chasse aux menaces, réponse aux incidents et analyse de sécurité',
+                'about-title': 'À propos de moi',
+                'about-description': 'Analyste SOC expérimentée spécialisée dans la détection des menaces, la réponse aux incidents et l\'analyse de cybersécurité. Passionnée par la chasse proactive aux menaces et la construction de cadres de sécurité robustes.',
+                'projects-title': 'Projets',
+                'cyber-threat-map': 'Carte des Menaces Cyber',
+                'phishing-checker': 'Vérifier le Phishing',
+                'threat-hunting': 'Chasse aux Menaces',
+                'phishing-response-guide': 'Guide de Réponse au Phishing',
+                'live-threats': 'Menaces en Direct',
+                'my-cv': 'Mon CV',
+                'skills-title': 'Compétences et Expertise',
+                'skill-threat-hunting': 'Chasse aux Menaces',
+                'skill-threat-hunting-desc': 'Détection avancée des menaces utilisant le framework MITRE ATT&CK',
+                'skill-incident-response': 'Réponse aux Incidents',
+                'skill-incident-response-desc': 'Confinement rapide des incidents et analyse forensique',
+                'skill-siem': 'Analyse SIEM',
+                'skill-siem-desc': 'Expert en Splunk, QRadar et analyse de logs',
+                'skill-security-tools': 'Outils de Sécurité',
+                'skill-security-tools-desc': 'Compétent dans diverses plateformes de cybersécurité',
+                'contact-title': 'Me Contacter',
+                'contact-name': 'Nom:',
+                'contact-email': 'Email:',
+                'contact-message': 'Message:',
+                'contact-send': 'Envoyer le Message',
+                'contact-email-label': 'Email',
+                'contact-linkedin-label': 'LinkedIn',
+                'contact-website-label': 'Site Web',
+                'chatbot-title': 'Assistant IA Sécurité',
+                'chatbot-welcome': 'Salut! Je suis votre Assistant IA Sécurité. Posez-moi des questions sur la cybersécurité, l\'analyse SOC, la chasse aux menaces ou toute question liée à la sécurité!',
+                'chatbot-typing': 'Écrit',
+                'chatbot-placeholder': 'Posez-moi une question sur la cybersécurité...'
+            },
+            bg: {
+                'name': 'Stella Barbarella',
+                'nav-home': 'Начало',
+                'nav-about': 'За мен',
+                'nav-projects': 'Проекти',
+                'nav-skills': 'Умения',
+                'nav-contact': 'Контакт',
+                'hero-title': 'Stella Barbarella',
+                'hero-subtitle': 'SOC Анализатор и Специалист по Киберсигурност',
+                'hero-description': 'Професионални услуги за лов на заплахи, реакция при инциденти и анализ на сигурността',
+                'about-title': 'За мен',
+                'about-description': 'Опитен SOC анализатор, специализиран в откриване на заплахи, реакция при инциденти и анализ на киберсигурността. Страстен към проактивния лов на заплахи и изграждането на здрави рамки за сигурност.',
+                'projects-title': 'Проекти',
+                'cyber-threat-map': 'Карта на Кибер Заплахи',
+                'phishing-checker': 'Проверка за Фишинг',
+                'threat-hunting': 'Лов на Заплахи',
+                'phishing-response-guide': 'Ръководство за Реакция при Фишинг',
+                'live-threats': 'Заплахи на Живо',
+                'my-cv': 'Моето CV',
+                'skills-title': 'Умения и Експертиза',
+                'skill-threat-hunting': 'Лов на Заплахи',
+                'skill-threat-hunting-desc': 'Разширено откриване на заплахи използвайки MITRE ATT&CK framework',
+                'skill-incident-response': 'Реакция при Инциденти',
+                'skill-incident-response-desc': 'Бързо ограничаване на инциденти и форензичен анализ',
+                'skill-siem': 'SIEM Анализ',
+                'skill-siem-desc': 'Експерт в Splunk, QRadar и анализ на логове',
+                'skill-security-tools': 'Инструменти за Сигурност',
+                'skill-security-tools-desc': 'Владеене на различни платформи за киберсигурност',
+                'contact-title': 'Свържете се с мен',
+                'contact-name': 'Име:',
+                'contact-email': 'Имейл:',
+                'contact-message': 'Съобщение:',
+                'contact-send': 'Изпрати Съобщение',
+                'contact-email-label': 'Имейл',
+                'contact-linkedin-label': 'LinkedIn',
+                'contact-website-label': 'Уебсайт',
+                'chatbot-title': 'AI Асистент за Сигурност',
+                'chatbot-welcome': 'Здравей! Аз съм вашият AI Асистент за Сигурност. Задавайте ми въпроси за киберсигурност, SOC анализ, лов на заплахи или всякакви въпроси свързани със сигурността!',
+                'chatbot-typing': 'Пише',
+                'chatbot-placeholder': 'Попитайте ме нещо за киберсигурността...'
+            }
+        };
+
+        // Chatbot Knowledge Base
+        const chatbotResponses = {
+            en: {
+                'cybersecurity|security|cyber': [
+                    'Cybersecurity is the practice of protecting systems, networks, and programs from digital attacks. Key areas include network security, application security, information security, and operational security.',
+                    'Modern cybersecurity focuses on threat prevention, detection, and response. This includes implementing security controls, monitoring systems, and having incident response procedures.',
+                    'The cybersecurity landscape is constantly evolving with new threats like ransomware, phishing, and advanced persistent threats (APTs).'
+                ],
+                'soc|security operations center': [
+                    'A Security Operations Center (SOC) is a centralized facility where security professionals monitor, detect, analyze, and respond to cybersecurity incidents.',
+                    'SOC analysts work in tiers: Tier 1 (monitoring and basic analysis), Tier 2 (investigation and containment), and Tier 3 (advanced analysis and threat hunting).',
+                    'Key SOC tools include SIEM platforms like Splunk, QRadar, and Sentinel for log analysis and threat detection.'
+                ],
+                'threat hunting|hunting': [
+                    'Threat hunting is the proactive search for cyber threats that are lurking undetected in a network. It involves hypothesis-driven investigation.',
+                    'The MITRE ATT&CK framework is essential for threat hunting, providing a knowledge base of adversary tactics, techniques, and procedures.',
+                    'Effective threat hunting combines automated tools with human expertise to find sophisticated threats that bypass traditional security controls.'
+                ],
+                'incident response|incident|response': [
+                    'Incident response follows a structured process: Preparation, Identification, Containment, Eradication, Recovery, and Lessons Learned.',
+                    'Quick response is crucial - the average time to contain a breach is 280 days, but faster response significantly reduces impact.',
+                    'Key steps include preserving evidence, containing the threat, removing malicious elements, and restoring normal operations.'
+                ],
+                'phishing|phish|email': [
+                    'Phishing is a social engineering attack where attackers impersonate legitimate entities to steal sensitive information.',
+                    'Common indicators include suspicious sender addresses, urgent language, spelling errors, and unexpected attachments or links.',
+                    'To prevent phishing: verify sender identity, check URLs carefully, don\'t click suspicious links, and report suspicious emails.'
+                ],
+                'siem|splunk|qradar': [
+                    'SIEM (Security Information and Event Management) tools collect, analyze, and correlate security data from multiple sources.',
+                    'Popular SIEM platforms include Splunk (excellent for log analysis), IBM QRadar (AI-powered), and Microsoft Sentinel (cloud-native).',
+                    'SIEM effectiveness depends on proper configuration, custom rules, and regular tuning to reduce false positives.'
+                ],
+                'malware|virus|ransomware': [
+                    'Malware includes viruses, worms, trojans, ransomware, and spyware. Each type has different behaviors and impact.',
+                    'Ransomware encrypts files and demands payment. Prevention includes regular backups, patching, and employee training.',
+                    'Advanced malware uses evasion techniques like polymorphism, encryption, and living-off-the-land tactics.'
+                ],
+                'default': [
+                    'I specialize in cybersecurity topics. Feel free to ask about SOC analysis, threat hunting, incident response, or any security-related questions!',
+                    'As a security expert, I can help with topics like SIEM, malware analysis, phishing detection, and security frameworks.',
+                    'What specific cybersecurity topic would you like to know more about? I can discuss anything from basic concepts to advanced techniques.'
+                ]
+            },
+            fr: {
+                'cybersécurité|sécurité|cyber': [
+                    'La cybersécurité est la pratique de protection des systèmes, réseaux et programmes contre les attaques numériques. Les domaines clés incluent la sécurité réseau, la sécurité applicative, la sécurité de l\'information et la sécurité opérationnelle.',
+                    'La cybersécurité moderne se concentre sur la prévention, la détection et la réponse aux menaces. Cela inclut l\'implémentation de contrôles de sécurité, la surveillance des systèmes et les procédures de réponse aux incidents.',
+                    'Le paysage de la cybersécurité évolue constamment avec de nouvelles menaces comme les ransomwares, le phishing et les menaces persistantes avancées (APT).'
+                ],
+                'soc|centre opérations sécurité': [
+                    'Un Centre d\'Opérations de Sécurité (SOC) est une installation centralisée où les professionnels de la sécurité surveillent, détectent, analysent et répondent aux incidents de cybersécurité.',
+                    'Les analystes SOC travaillent en niveaux : Niveau 1 (surveillance et analyse de base), Niveau 2 (investigation et confinement), et Niveau 3 (analyse avancée et chasse aux menaces).',
+                    'Les outils SOC clés incluent les plateformes SIEM comme Splunk, QRadar et Sentinel pour l\'analyse de logs et la détection de menaces.'
+                ],
+                'default': [
+                    'Je me spécialise dans les sujets de cybersécurité. N\'hésitez pas à poser des questions sur l\'analyse SOC, la chasse aux menaces, la réponse aux incidents ou toute question liée à la sécurité !',
+                    'En tant qu\'expert en sécurité, je peux aider avec des sujets comme SIEM, l\'analyse de malwares, la détection de phishing et les frameworks de sécurité.',
+                    'Sur quel sujet spécifique de cybersécurité aimeriez-vous en savoir plus ? Je peux discuter de tout, des concepts de base aux techniques avancées.'
+                ]
+            },
+            bg: {
+                'киберсигурност|сигурност|кибер': [
+                    'Киберсигурността е практиката за защита на системи, мрежи и програми от цифрови атаки. Ключовите области включват мрежова сигурност, сигурност на приложения, информационна сигурност и оперативна сигурност.',
+                    'Модерната киберсигурност се фокусира върху превенция, откриване и реакция на заплахи. Това включва внедряване на контроли за сигурност, мониторинг на системи и процедури за реакция при инциденти.',
+                    'Пейзажът на киберсигурността постоянно се развива с нови заплахи като ransomware, phishing и advanced persistent threats (APTs).'
+                ],
+                'default': [
+                    'Специализирам в теми по киберсигурност. Не се колебайте да задавате въпроси за SOC анализ, лов на заплахи, реакция при инциденти или всякакви въпроси свързани със сигурността!',
+                    'Като експерт по сигурност, мога да помогна с теми като SIEM, анализ на malware, откриване на phishing и рамки за сигурност.',
+                    'За коя конкретна тема по киберсигурност искате да научите повече? Мога да обсъждам всичко от основни концепции до напреднали техники.'
+                ]
+            }
+        };
+
+        // CHATBOT ФУНКЦИИ
+        function toggleChatbot() {
+            console.log('toggleChatbot called');
+            const chatbotWindow = document.getElementById('chatbot-window');
+            const chatbotToggle = document.getElementById('chatbot-toggle');
+            
+            if (!chatbotWindow || !chatbotToggle) {
+                console.error('Chatbot elements not found');
+                return;
+            }
+            
+            if (chatbotOpen) {
+                chatbotWindow.style.display = 'none';
+                chatbotToggle.textContent = '🤖';
+                chatbotOpen = false;
+            } else {
+                chatbotWindow.style.display = 'flex';
+                chatbotToggle.textContent = '💬';
+                chatbotOpen = true;
+                
+                // Focus on input
+                setTimeout(() => {
+                    const input = document.getElementById('chatbot-input');
+                    if (input) {
+                        input.focus();
+                    }
+                }, 100);
+            }
+        }
+
+        function addMessage(message, isUser = false) {
+            const messagesContainer = document.getElementById('chatbot-messages');
+            if (!messagesContainer) return;
+            
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${isUser ? 'user' : 'bot'}`;
+            messageDiv.textContent = message;
+            
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            
+            // Store in history
+            chatHistory.push({ message, isUser });
+        }
+
+        function showTypingIndicator() {
+            const typingIndicator = document.getElementById('typing-indicator');
+            if (typingIndicator) {
+                typingIndicator.style.display = 'block';
+                const messagesContainer = document.getElementById('chatbot-messages');
+                if (messagesContainer) {
+                    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                }
+            }
+        }
+
+        function hideTypingIndicator() {
+            const typingIndicator = document.getElementById('typing-indicator');
+            if (typingIndicator) {
+                typingIndicator.style.display = 'none';
+            }
+        }
+
+        function getBotResponse(userMessage) {
+            const responses = chatbotResponses[currentLanguage];
+            const lowerMessage = userMessage.toLowerCase();
+            
+            // Check for specific keywords
+            for (const [keywords, responseList] of Object.entries(responses)) {
+                if (keywords !== 'default') {
+                    const keywordList = keywords.split('|');
+                    if (keywordList.some(keyword => lowerMessage.includes(keyword))) {
+                        return responseList[Math.floor(Math.random() * responseList.length)];
+                    }
+                }
+            }
+            
+            // Default response
+            const defaultResponses = responses.default;
+            return defaultResponses[Math.floor(Math.random() * defaultResponses.length)];
+        }
+
+        function handleChatbotMessage() {
+            console.log('handleChatbotMessage called');
+            const input = document.getElementById('chatbot-input');
+            if (!input) return;
+            
+            const message = input.value.trim();
+            if (!message) return;
+            
+            // Add user message
+            addMessage(message, true);
+            input.value = '';
+            
+            // Show typing indicator
+            showTypingIndicator();
+            
+            // Simulate AI thinking time
+            setTimeout(() => {
+                hideTypingIndicator();
+                const response = getBotResponse(message);
+                addMessage(response);
+            }, 1000 + Math.random() * 2000);
+        }
+
+        // Change language function
+        function changeLanguage(lang) {
+            currentLanguage = lang;
+            
+            // Update active button
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            const langBtn = document.getElementById(`lang-${lang}`);
+            if (langBtn) {
+                langBtn.classList.add('active');
+            }
+            
+            // Update all translatable elements
+            updateTranslations();
+        }
+
+        // Update translations
+        function updateTranslations() {
+            const translation = translations[currentLanguage];
+            
+            document.querySelectorAll('[data-translate]').forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (translation[key]) {
+                    element.textContent = translation[key];
+                }
+            });
+            
+            // Update placeholders
+            document.querySelectorAll('[data-translate-placeholder]').forEach(element => {
+                const key = element.getAttribute('data-translate-placeholder');
+                if (translation[key]) {
+                    element.placeholder = translation[key];
+                }
+            });
+        }
+
+        // Show status message
+        function showStatusMessage(message, type) {
+            const statusDiv = document.getElementById('status-message');
+            if (!statusDiv) return;
+            
+            statusDiv.textContent = message;
+            statusDiv.className = `status-message ${type} show`;
+            
+            setTimeout(() => {
+                statusDiv.classList.remove('show');
+            }, 5000);
+        }
+
+        // Hide loading screen when page is fully loaded
+        window.addEventListener('load', function() {
+            const loadingScreen = document.getElementById('loading-screen');
+            if (loadingScreen) {
+                loadingScreen.style.opacity = '0';
+                loadingScreen.style.transition = 'opacity 0.5s ease';
+                setTimeout(() => {
+                    loadingScreen.style.display = 'none';
+                }, 500);
+            }
         });
-      }
-    } catch (error) {
-      console.warn('Map initialization error (this is normal if map already exists):', error.message);
-      // Reset the flag if initialization failed
-      window.portfolioMapInitialized = false;
-    }
-  }
-  
-  // Initialize AI Chat
-  initializeAIChat();
-  
-  // Initialize other components
-  updateContactFormWithTranslations();
-  updatePhishingCheckerWithTranslations();
-});
 
-// Particles.js configuration
-particlesJS('particles-js', {
-  particles: {
-    number: { value: 80, density: { enable: true, value_area: 800 } },
-    color: { value: '#00ffee' },
-    shape: { type: 'circle' },
-    opacity: { value: 0.5, random: false },
-    size: { value: 3, random: true },
-    line_linked: { enable: true, distance: 150, color: '#00ffee', opacity: 0.4, width: 1 },
-    move: { enable: true, speed: 6, direction: 'none', random: false, straight: false, out_mode: 'out', bounce: false }
-  },
-  interactivity: {
-    detect_on: 'canvas',
-    events: { onhover: { enable: true, mode: 'repulse' }, onclick: { enable: true, mode: 'push' }, resize: true },
-    modes: { grab: { distance: 400, line_linked: { opacity: 1 } }, bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 }, repulse: { distance: 200, duration: 0.4 }, push: { particles_nb: 4 }, remove: { particles_nb: 2 } }
-  },
-  retina_detect: true
-});
-</script>
-<script>
-// Phishing URL Checker Function
-function checkURL() {
-  const urlInput = document.getElementById('url-input');
-  const resultDiv = document.getElementById('phishing-result');
-  const resultIcon = document.querySelector('.result-icon');
-  const resultText = document.querySelector('.result-text');
-  const resultDetails = document.querySelector('.result-details');
-  
-  const url = urlInput.value.trim();
-  
-  if (!url) {
-    alert('Моля въведете URL за проверка');
-    return;
-  }
-  
-  // Show result container
-  resultDiv.style.display = 'block';
-  
-  // Show loading state
-  resultIcon.textContent = '⏳';
-  resultText.textContent = 'Проверявам URL...';
-  resultDetails.textContent = 'Моля изчакайте докато анализираме URL адреса';
-  
-  // Simulate checking process
-  setTimeout(() => {
-    // Simple URL analysis
-    const suspiciousPatterns = [
-      'bit.ly', 'tinyurl.com', 'short.link', 'suspicious.com',
-      'phishing', 'malware', 'virus', 'hack', 'fraud',
-      'paypal-security', 'bank-verify', 'account-suspended'
-    ];
-    
-    const isPhishing = suspiciousPatterns.some(pattern => 
-      url.toLowerCase().includes(pattern.toLowerCase())
-    );
-    
-    if (isPhishing) {
-      // Dangerous URL
-      resultIcon.textContent = '⚠️';
-      resultIcon.style.color = '#ff1744';
-      resultText.textContent = 'ОПАСЕН URL ДЕТЕКТИРАН!';
-      resultText.style.color = '#ff1744';
-      resultDetails.innerHTML = `
-        <strong>Заплахи:</strong><br>
-        • Потенциален фишинг сайт<br>
-        • Може да краде лични данни<br>
-        • Препоръчваме да НЕ посещавате този сайт<br>
-        <br><strong>Препоръки:</strong><br>
-        • Не въвеждайте лични данни<br>
-        • Не изтегляйте файлове<br>
-        • Докладвайте на IT отдела
-      `;
-    } else {
-      // Safe URL
-      resultIcon.textContent = '✅';
-      resultIcon.style.color = '#00e676';
-      resultText.textContent = 'URL изглежда безопасен';
-      resultText.style.color = '#00e676';
-      resultDetails.innerHTML = `
-        <strong>Статус:</strong> Безопасен<br>
-        • Няма детектирани заплахи<br>
-        • URL не е в черния списък<br>
-        • Можете да посетите сайта<br>
-        <br><strong>Внимание:</strong><br>
-        Винаги бъдете предпазливи с лични данни онлайн
-      `;
-    }
-  }, 2000);
-}
+        // Initialize when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded, initializing...');
+            
+            // Initialize particles.js using external config
+            if (typeof initParticlesJS === 'function') {
+                initParticlesJS();
+            } else {
+                console.warn('Particles config not loaded, using fallback');
+                // Fallback particles initialization
+                if (typeof particlesJS !== 'undefined') {
+                    particlesJS('particles-js', {
+                        particles: {
+                            number: { value: 80, density: { enable: true, value_area: 800 } },
+                            color: { value: '#00ffee' },
+                            shape: { type: 'circle' },
+                            opacity: { value: 0.5, random: false },
+                            size: { value: 3, random: true },
+                            line_linked: { enable: true, distance: 150, color: '#00ffee', opacity: 0.4, width: 1 },
+                            move: { enable: true, speed: 6, direction: 'none', random: false, straight: false, out_mode: 'out', bounce: false }
+                        },
+                        interactivity: {
+                            detect_on: 'canvas',
+                            events: { onhover: { enable: true, mode: 'repulse' }, onclick: { enable: true, mode: 'push' }, resize: true },
+                            modes: { repulse: { distance: 100, duration: 0.4 }, push: { particles_nb: 4 } }
+                        },
+                        retina_detect: true
+                    });
+                }
+            }
+            
+            // Set initial language
+            changeLanguage('en');
+            
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
 
-// Add Enter key support for URL input
-document.addEventListener('DOMContentLoaded', function() {
-  const urlInput = document.getElementById('url-input');
-  if (urlInput) {
-    urlInput.addEventListener('keypress', function(e) {
-      if (e.key === 'Enter') {
-        checkURL();
-      }
-    });
-  }
-});
-</script>
+            // Contact form handling
+            const contactForm = document.getElementById('contact-form');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const submitBtn = this.querySelector('.submit-btn');
+                    const originalText = submitBtn.textContent;
+                    
+                    submitBtn.textContent = 'Sending...';
+                    submitBtn.disabled = true;
+                    
+                    // Get form data
+                    const formData = {
+                        name: document.getElementById('name').value,
+                        email: document.getElementById('email').value,
+                        message: document.getElementById('message').value
+                    };
+                    
+                    // Validate form
+                    if (!formData.name || !formData.email || !formData.message) {
+                        showStatusMessage('Please fill in all fields', 'error');
+                        submitBtn.textContent = originalText;
+                        submitBtn.disabled = false;
+                        return;
+                    }
+                    
+                    // Email validation
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailRegex.test(formData.email)) {
+                        showStatusMessage('Please enter a valid email address', 'error');
+                        submitBtn.textContent = originalText;
+                        submitBtn.disabled = false;
+                        return;
+                    }
+                    
+                    // Simulate form submission
+                    setTimeout(() => {
+                        const subject = encodeURIComponent(`Portfolio Contact from ${formData.name}`);
+                        const body = encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`);
+                        
+                        const mailtoLink = `mailto:stiliana.stoyanova@orange.fr?subject=${subject}&body=${body}`;
+                        
+                        try {
+                            window.location.href = mailtoLink;
+                            showStatusMessage('Email client opened! Message prepared for sending.', 'success');
+                            submitBtn.textContent = 'Email Client Opened';
+                            
+                            setTimeout(() => {
+                                document.getElementById('contact-form').reset();
+                                submitBtn.textContent = originalText;
+                                submitBtn.disabled = false;
+                            }, 3000);
+                            
+                        } catch (error) {
+                            showStatusMessage('Could not open email client. Please contact directly.', 'error');
+                            submitBtn.textContent = originalText;
+                            submitBtn.disabled = false;
+                        }
+                    }, 1000);
+                });
+            }
+
+            console.log('Initialization complete');
+        });
+    </script>
 </body>
 </html>
