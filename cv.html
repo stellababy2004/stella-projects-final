@@ -102,14 +102,23 @@
     }
     
     .contact-item a {
-      color: #00ddcc;
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
-    
-    .contact-item a:hover {
       color: #00ffee;
-      text-shadow: 0 0 5px rgba(0, 255, 238, 0.3);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .contact-item a:hover {
+      color: #00ff88;
+      text-shadow: 0 0 10px rgba(0, 255, 238, 0.5);
+    }
+
+    .contact-item a:visited {
+      color: #00ffee;
+    }
+
+    .contact-item a:active {
+      color: #00ddcc;
     }
     
     .section {
@@ -492,7 +501,14 @@
         </div>
         <div class="contact-item">
           <i class="fab fa-linkedin"></i>
-          <span>https://www.linkedin.com/in/stella-s-95ba5683/</span>
+          <a href="https://www.linkedin.com/in/stella-s-95ba5683/" 
+             target="_blank" 
+             rel="noopener noreferrer"
+             style="color: #00ffee; text-decoration: none;"
+             onmouseover="this.style.color='#00ff88'"
+             onmouseout="this.style.color='#00ffee'">
+              https://www.linkedin.com/in/stella-s-95ba5683/
+          </a>
         </div>
         <div class="contact-item">
           <span>🌐</span>

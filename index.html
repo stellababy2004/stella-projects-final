@@ -787,7 +787,7 @@
                 <button class="lang-btn" id="lang-fr" onclick="changeLanguage('fr')">FR</button>
                 <button class="lang-btn" id="lang-bg" onclick="changeLanguage('bg')">BG</button>
             </div>
-            <div class="mobile-menu">
+            <div class="mobile-menu" id="mobile-menu">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -909,6 +909,7 @@
         </div>
     </section>
 
+
     <!-- Contact Section -->
     <section id="contact">
         <h2 data-translate="contact-title">Contact Me</h2>
@@ -918,7 +919,14 @@
                     <i class="fas fa-envelope contact-icon"></i>
                     <div>
                         <h3 data-translate="contact-email-label">Email</h3>
-                        <p class="contact-text">stiliana.stoyanova@orange.fr</p>
+                        <p class="contact-text">
+                            <a href="mailto:stiliana.stoyanova@orange.fr?subject=Portfolio Contact&body=Hello Stella," 
+                               style="color: #00ffee; text-decoration: none; cursor: pointer;"
+                               onmouseover="this.style.color='#00ff88'"
+                               onmouseout="this.style.color='#00ffee'">
+                                stiliana.stoyanova@orange.fr
+                            </a>
+                        </p>
                     </div>
                 </div>
                 
@@ -926,7 +934,16 @@
                     <i class="fab fa-linkedin contact-icon"></i>
                     <div>
                         <h3 data-translate="contact-linkedin-label">LinkedIn</h3>
-                        <p class="contact-text">linkedin.com/in/stella-barbarella</p>
+                        <p class="contact-text">
+                            <a href="https://www.linkedin.com/in/stella-s-95ba5683/" 
+                               target="_blank" 
+                               rel="noopener noreferrer"
+                               class="contact-link"
+                               onclick="window.open(this.href, '_blank'); return false;">
+                                <i class="fab fa-linkedin" style="margin-right: 8px;"></i>
+                                Stella Barbarella
+                            </a>
+                        </p>
                     </div>
                 </div>
                 
@@ -934,7 +951,17 @@
                     <i class="fas fa-globe contact-icon"></i>
                     <div>
                         <h3 data-translate="contact-website-label">Website</h3>
-                        <p class="contact-text">stella-barbarella.com</p>
+                        <p class="contact-text">
+                            <a href="https://stellabarbarella.com/" 
+                               target="_blank" 
+                               rel="noopener noreferrer"
+                               style="color: #00ffee; text-decoration: none; cursor: pointer;"
+                               onmouseover="this.style.color='#00ff88'"
+                               onmouseout="this.style.color='#00ffee'">
+                                <i class="fas fa-external-link-alt" style="margin-right: 8px;"></i>
+                                stellabarbarella.com
+                            </a>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -951,6 +978,11 @@
                 </div>
                 
                 <div class="form-group">
+                    <label for="subject" data-translate="contact-subject">Subject:</label>
+                    <input type="text" id="subject" name="subject" required>
+                </div>
+                
+                <div class="form-group">
                     <label for="message" data-translate="contact-message">Message:</label>
                     <textarea id="message" name="message" required></textarea>
                 </div>
@@ -959,10 +991,6 @@
             </form>
         </div>
     </section>
-
-    <!-- Status Message -->
-    <div id="status-message" class="status-message"></div>
-
     <!-- Chatbot -->
     <div class="chatbot-container">
         <button class="chatbot-toggle" id="chatbot-toggle" onclick="toggleChatbot()">🤖</button>
@@ -997,6 +1025,9 @@
         </div>
     </div>
 
+    <!-- Status Message -->
+    <div id="status-message" class="status-message"></div>
+
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script>
@@ -1004,29 +1035,6 @@
         let currentLanguage = 'en';
         let chatbotOpen = false;
         let chatHistory = [];
-        
-        // Initialize particles inline
-        function initParticles() {
-            if (typeof particlesJS !== 'undefined') {
-                particlesJS('particles-js', {
-                    particles: {
-                        number: { value: 80, density: { enable: true, value_area: 800 } },
-                        color: { value: '#00ffee' },
-                        shape: { type: 'circle' },
-                        opacity: { value: 0.5, random: false },
-                        size: { value: 3, random: true },
-                        line_linked: { enable: true, distance: 150, color: '#00ffee', opacity: 0.4, width: 1 },
-                        move: { enable: true, speed: 6, direction: 'none', random: false, straight: false, out_mode: 'out', bounce: false }
-                    },
-                    interactivity: {
-                        detect_on: 'canvas',
-                        events: { onhover: { enable: true, mode: 'repulse' }, onclick: { enable: true, mode: 'push' }, resize: true },
-                        modes: { repulse: { distance: 100, duration: 0.4 }, push: { particles_nb: 4 } }
-                    },
-                    retina_detect: true
-                });
-            }
-        }
         
         // Language translations
         const translations = {
@@ -1061,6 +1069,7 @@
                 'contact-title': 'Contact Me',
                 'contact-name': 'Name:',
                 'contact-email': 'Email:',
+                'contact-subject': 'Subject:',
                 'contact-message': 'Message:',
                 'contact-send': 'Send Message',
                 'contact-email-label': 'Email',
@@ -1102,6 +1111,7 @@
                 'contact-title': 'Me Contacter',
                 'contact-name': 'Nom:',
                 'contact-email': 'Email:',
+                'contact-subject': 'Sujet:',
                 'contact-message': 'Message:',
                 'contact-send': 'Envoyer le Message',
                 'contact-email-label': 'Email',
@@ -1143,6 +1153,7 @@
                 'contact-title': 'Свържете се с мен',
                 'contact-name': 'Име:',
                 'contact-email': 'Имейл:',
+                'contact-subject': 'Тема:',
                 'contact-message': 'Съобщение:',
                 'contact-send': 'Изпрати Съобщение',
                 'contact-email-label': 'Имейл',
@@ -1152,81 +1163,6 @@
                 'chatbot-welcome': 'Здравей! Аз съм вашият AI Асистент за Сигурност. Задавайте ми въпроси за киберсигурност, SOC анализ, лов на заплахи или всякакви въпроси свързани със сигурността!',
                 'chatbot-typing': 'Пише',
                 'chatbot-placeholder': 'Попитайте ме нещо за киберсигурността...'
-            }
-        };
-
-        // Chatbot Knowledge Base
-        const chatbotResponses = {
-            en: {
-                'cybersecurity|security|cyber': [
-                    'Cybersecurity is the practice of protecting systems, networks, and programs from digital attacks. Key areas include network security, application security, information security, and operational security.',
-                    'Modern cybersecurity focuses on threat prevention, detection, and response. This includes implementing security controls, monitoring systems, and having incident response procedures.',
-                    'The cybersecurity landscape is constantly evolving with new threats like ransomware, phishing, and advanced persistent threats (APTs).'
-                ],
-                'soc|security operations center': [
-                    'A Security Operations Center (SOC) is a centralized facility where security professionals monitor, detect, analyze, and respond to cybersecurity incidents.',
-                    'SOC analysts work in tiers: Tier 1 (monitoring and basic analysis), Tier 2 (investigation and containment), and Tier 3 (advanced analysis and threat hunting).',
-                    'Key SOC tools include SIEM platforms like Splunk, QRadar, and Sentinel for log analysis and threat detection.'
-                ],
-                'threat hunting|hunting': [
-                    'Threat hunting is the proactive search for cyber threats that are lurking undetected in a network. It involves hypothesis-driven investigation.',
-                    'The MITRE ATT&CK framework is essential for threat hunting, providing a knowledge base of adversary tactics, techniques, and procedures.',
-                    'Effective threat hunting combines automated tools with human expertise to find sophisticated threats that bypass traditional security controls.'
-                ],
-                'incident response|incident|response': [
-                    'Incident response follows a structured process: Preparation, Identification, Containment, Eradication, Recovery, and Lessons Learned.',
-                    'Quick response is crucial - the average time to contain a breach is 280 days, but faster response significantly reduces impact.',
-                    'Key steps include preserving evidence, containing the threat, removing malicious elements, and restoring normal operations.'
-                ],
-                'phishing|phish|email': [
-                    'Phishing is a social engineering attack where attackers impersonate legitimate entities to steal sensitive information.',
-                    'Common indicators include suspicious sender addresses, urgent language, spelling errors, and unexpected attachments or links.',
-                    'To prevent phishing: verify sender identity, check URLs carefully, don\'t click suspicious links, and report suspicious emails.'
-                ],
-                'siem|splunk|qradar': [
-                    'SIEM (Security Information and Event Management) tools collect, analyze, and correlate security data from multiple sources.',
-                    'Popular SIEM platforms include Splunk (excellent for log analysis), IBM QRadar (AI-powered), and Microsoft Sentinel (cloud-native).',
-                    'SIEM effectiveness depends on proper configuration, custom rules, and regular tuning to reduce false positives.'
-                ],
-                'malware|virus|ransomware': [
-                    'Malware includes viruses, worms, trojans, ransomware, and spyware. Each type has different behaviors and impact.',
-                    'Ransomware encrypts files and demands payment. Prevention includes regular backups, patching, and employee training.',
-                    'Advanced malware uses evasion techniques like polymorphism, encryption, and living-off-the-land tactics.'
-                ],
-                'default': [
-                    'I specialize in cybersecurity topics. Feel free to ask about SOC analysis, threat hunting, incident response, or any security-related questions!',
-                    'As a security expert, I can help with topics like SIEM, malware analysis, phishing detection, and security frameworks.',
-                    'What specific cybersecurity topic would you like to know more about? I can discuss anything from basic concepts to advanced techniques.'
-                ]
-            },
-            fr: {
-                'cybersécurité|sécurité|cyber': [
-                    'La cybersécurité est la pratique de protection des systèmes, réseaux et programmes contre les attaques numériques. Les domaines clés incluent la sécurité réseau, la sécurité applicative, la sécurité de l\'information et la sécurité opérationnelle.',
-                    'La cybersécurité moderne se concentre sur la prévention, la détection et la réponse aux menaces. Cela inclut l\'implémentation de contrôles de sécurité, la surveillance des systèmes et les procédures de réponse aux incidents.',
-                    'Le paysage de la cybersécurité évolue constamment avec de nouvelles menaces comme les ransomwares, le phishing et les menaces persistantes avancées (APT).'
-                ],
-                'soc|centre opérations sécurité': [
-                    'Un Centre d\'Opérations de Sécurité (SOC) est une installation centralisée où les professionnels de la sécurité surveillent, détectent, analysent et répondent aux incidents de cybersécurité.',
-                    'Les analystes SOC travaillent en niveaux : Niveau 1 (surveillance et analyse de base), Niveau 2 (investigation et confinement), et Niveau 3 (analyse avancée et chasse aux menaces).',
-                    'Les outils SOC clés incluent les plateformes SIEM comme Splunk, QRadar et Sentinel pour l\'analyse de logs et la détection de menaces.'
-                ],
-                'default': [
-                    'Je me spécialise dans les sujets de cybersécurité. N\'hésitez pas à poser des questions sur l\'analyse SOC, la chasse aux menaces, la réponse aux incidents ou toute question liée à la sécurité !',
-                    'En tant qu\'expert en sécurité, je peux aider avec des sujets comme SIEM, l\'analyse de malwares, la détection de phishing et les frameworks de sécurité.',
-                    'Sur quel sujet spécifique de cybersécurité aimeriez-vous en savoir plus ? Je peux discuter de tout, des concepts de base aux techniques avancées.'
-                ]
-            },
-            bg: {
-                'киберсигурност|сигурност|кибер': [
-                    'Киберсигурността е практиката за защита на системи, мрежи и програми от цифрови атаки. Ключовите области включват мрежова сигурност, сигурност на приложения, информационна сигурност и оперативна сигурност.',
-                    'Модерната киберсигурност се фокусира върху превенция, откриване и реакция на заплахи. Това включва внедряване на контроли за сигурност, мониторинг на системи и процедури за реакция при инциденти.',
-                    'Пейзажът на киберсигурността постоянно се развива с нови заплахи като ransomware, phishing и advanced persistent threats (APTs).'
-                ],
-                'default': [
-                    'Специализирам в теми по киберсигурност. Не се колебайте да задавате въпроси за SOC анализ, лов на заплахи, реакция при инциденти или всякакви въпроси свързани със сигурността!',
-                    'Като експерт по сигурност, мога да помогна с теми като SIEM, анализ на malware, откриване на phishing и рамки за сигурност.',
-                    'За коя конкретна тема по киберсигурност искате да научите повече? Мога да обсъждам всичко от основни концепции до напреднали техники.'
-                ]
             }
         };
 
@@ -1370,17 +1306,282 @@
             });
         }
 
-        // Show status message
-        function showStatusMessage(message, type) {
+        // Chatbot Knowledge Base
+        const chatbotResponses = {
+            en: {
+                'cybersecurity|security|cyber': [
+                    'Cybersecurity is the practice of protecting systems, networks, and programs from digital attacks. Key areas include network security, application security, information security, and operational security.',
+                    'Modern cybersecurity focuses on threat prevention, detection, and response. This includes implementing security controls, monitoring systems, and having incident response procedures.',
+                    'The cybersecurity landscape is constantly evolving with new threats like ransomware, phishing, and advanced persistent threats (APTs).'
+                ],
+                'soc|security operations center': [
+                    'A Security Operations Center (SOC) is a centralized facility where security professionals monitor, detect, analyze, and respond to cybersecurity incidents.',
+                    'SOC analysts work in tiers: Tier 1 (monitoring and basic analysis), Tier 2 (investigation and containment), and Tier 3 (advanced analysis and threat hunting).',
+                    'Key SOC tools include SIEM platforms like Splunk, QRadar, and Sentinel for log analysis and threat detection.'
+                ],
+                'threat hunting|hunting': [
+                    'Threat hunting is the proactive search for cyber threats that are lurking undetected in a network. It involves hypothesis-driven investigation.',
+                    'The MITRE ATT&CK framework is essential for threat hunting, providing a knowledge base of adversary tactics, techniques, and procedures.',
+                    'Effective threat hunting combines automated tools with human expertise to find sophisticated threats that bypass traditional security controls.'
+                ],
+                'incident response|incident|response': [
+                    'Incident response follows a structured process: Preparation, Identification, Containment, Eradication, Recovery, and Lessons Learned.',
+                    'Quick response is crucial - the average time to contain a breach is 280 days, but faster response significantly reduces impact.',
+                    'Key steps include preserving evidence, containing the threat, removing malicious elements, and restoring normal operations.'
+                ],
+                'phishing|phish|email': [
+                    'Phishing is a social engineering attack where attackers impersonate legitimate entities to steal sensitive information.',
+                    'Common indicators include suspicious sender addresses, urgent language, spelling errors, and unexpected attachments or links.',
+                    'To prevent phishing: verify sender identity, check URLs carefully, don\'t click suspicious links, and report suspicious emails.'
+                ],
+                'siem|splunk|qradar': [
+                    'SIEM (Security Information and Event Management) tools collect, analyze, and correlate security data from multiple sources.',
+                    'Popular SIEM platforms include Splunk (excellent for log analysis), IBM QRadar (AI-powered), and Microsoft Sentinel (cloud-native).',
+                    'SIEM effectiveness depends on proper configuration, custom rules, and regular tuning to reduce false positives.'
+                ],
+                'malware|virus|ransomware': [
+                    'Malware includes viruses, worms, trojans, ransomware, and spyware. Each type has different behaviors and impact.',
+                    'Ransomware encrypts files and demands payment. Prevention includes regular backups, patching, and employee training.',
+                    'Advanced malware uses evasion techniques like polymorphism, encryption, and living-off-the-land tactics.'
+                ],
+                'default': [
+                    'I specialize in cybersecurity topics. Feel free to ask about SOC analysis, threat hunting, incident response, or any security-related questions!',
+                    'As a security expert, I can help with topics like SIEM, malware analysis, phishing detection, and security frameworks.',
+                    'What specific cybersecurity topic would you like to know more about? I can discuss anything from basic concepts to advanced techniques.'
+                ]
+            },
+            fr: {
+                'cybersécurité|sécurité|cyber': [
+                    'La cybersécurité est la pratique de protection des systèmes, réseaux et programmes contre les attaques numériques. Les domaines clés incluent la sécurité réseau, la sécurité applicative, la sécurité de l\'information et la sécurité opérationnelle.',
+                    'La cybersécurité moderne se concentre sur la prévention, la détection et la réponse aux menaces. Cela inclut l\'implémentation de contrôles de sécurité, la surveillance des systèmes et les procédures de réponse aux incidents.',
+                    'Le paysage de la cybersécurité évolue constamment avec de nouvelles menaces comme les ransomwares, le phishing et les menaces persistantes avancées (APT).'
+                ],
+                'soc|centre opérations sécurité': [
+                    'Un Centre d\'Opérations de Sécurité (SOC) est une installation centralisée où les professionnels de la sécurité surveillent, détectent, analysent et répondent aux incidents de cybersécurité.',
+                    'Les analystes SOC travaillent en niveaux : Niveau 1 (surveillance et analyse de base), Niveau 2 (investigation et confinement), et Niveau 3 (analyse avancée et chasse aux menaces).',
+                    'Les outils SOC clés incluent les plateformes SIEM comme Splunk, QRadar et Sentinel pour l\'analyse de logs et la détection de menaces.'
+                ],
+                'default': [
+                    'Je me spécialise dans les sujets de cybersécurité. N\'hésitez pas à poser des questions sur l\'analyse SOC, la chasse aux menaces, la réponse aux incidents ou toute question liée à la sécurité !',
+                    'En tant qu\'expert en sécurité, je peux aider avec des sujets comme SIEM, l\'analyse de malwares, la détection de phishing et les frameworks de sécurité.',
+                    'Sur quel sujet spécifique de cybersécurité aimeriez-vous en savoir plus ? Je peux discuter de tout, des concepts de base aux techniques avancées.'
+                ]
+            },
+            bg: {
+                'киберсигурност|сигурност|кибер': [
+                    'Киберсигурността е практиката за защита на системи, мрежи и програми от цифрови атаки. Ключовите области включват мрежова сигурност, сигурност на приложения, информационна сигурност и оперативна сигурност.',
+                    'Модерната киберсигурност се фокусира върху превенция, откриване и реакция на заплахи. Това включва внедряване на контроли за сигурност, мониторинг на системи и процедури за реакция при инциденти.',
+                    'Пейзажът на киберсигурността постоянно се развива с нови заплахи като ransomware, phishing и advanced persistent threats (APTs).'
+                ],
+                'default': [
+                    'Специализирам в теми по киберсигурност. Не се колебайте да задавате въпроси за SOC анализ, лов на заплахи, реакция при инциденти или всякакви въпроси свързани със сигурността!',
+                    'Като експерт по сигурност, мога да помогна с теми като SIEM, анализ на malware, откриване на phishing и рамки за сигурност.',
+                    'За коя конкретна тема по киберсигурност искате да научите повече? Мога да обсъждам всичко от основни концепции до напреднали техники.'
+                ]
+            }
+        };
+
+        // Show Status Message Function
+        function showStatusMessage(message, type = 'info') {
             const statusDiv = document.getElementById('status-message');
             if (!statusDiv) return;
             
             statusDiv.textContent = message;
-            statusDiv.className = `status-message ${type} show`;
+            statusDiv.className = `status-message ${type}`;
+            statusDiv.classList.add('show');
             
+            // Auto hide after 5 seconds
             setTimeout(() => {
                 statusDiv.classList.remove('show');
             }, 5000);
+        }
+
+        // Enhanced Particles Configuration
+        function initParticles() {
+            console.log('Initializing particles...');
+            
+            // Check if particles.js is loaded
+            if (typeof particlesJS === 'undefined') {
+                console.error('Particles.js library not loaded');
+                return;
+            }
+            
+            try {
+                particlesJS('particles-js', {
+                    particles: {
+                        number: {
+                            value: 100,
+                            density: {
+                                enable: true,
+                                value_area: 800
+                            }
+                        },
+                        color: {
+                            value: '#00ffee'
+                        },
+                        shape: {
+                            type: 'circle'
+                        },
+                        opacity: {
+                            value: 0.6,
+                            random: true,
+                            anim: {
+                                enable: true,
+                                speed: 1,
+                                opacity_min: 0.1,
+                                sync: false
+                            }
+                        },
+                        size: {
+                            value: 3,
+                            random: true,
+                            anim: {
+                                enable: true,
+                                speed: 2,
+                                size_min: 0.1,
+                                sync: false
+                            }
+                        },
+                        line_linked: {
+                            enable: true,
+                            distance: 150,
+                            color: '#00ffee',
+                            opacity: 0.4,
+                            width: 1
+                        },
+                        move: {
+                            enable: true,
+                            speed: 3,
+                            direction: 'none',
+                            random: false,
+                            straight: false,
+                            out_mode: 'out',
+                            bounce: false,
+                            attract: {
+                                enable: false,
+                                rotateX: 600,
+                                rotateY: 1200
+                            }
+                        }
+                    },
+                    interactivity: {
+                        detect_on: 'canvas',
+                        events: {
+                            onhover: {
+                                enable: true,
+                                mode: 'repulse'
+                            },
+                            onclick: {
+                                enable: true,
+                                mode: 'push'
+                            },
+                            resize: true
+                        },
+                        modes: {
+                            grab: {
+                                distance: 400,
+                                line_linked: {
+                                    opacity: 1
+                                }
+                            },
+                            bubble: {
+                                distance: 400,
+                                size: 40,
+                                duration: 2,
+                                opacity: 8,
+                                speed: 3
+                            },
+                            repulse: {
+                                distance: 100,
+                                duration: 0.4
+                            },
+                            push: {
+                                particles_nb: 4
+                            },
+                            remove: {
+                                particles_nb: 2
+                            }
+                        }
+                    },
+                    retina_detect: true
+                });
+                
+                console.log('Particles initialized successfully!');
+                
+            } catch (error) {
+                console.error('Error initializing particles:', error);
+                // Fallback - create simple background
+                createFallbackBackground();
+            }
+        }
+
+        // Fallback background if particles fail
+        function createFallbackBackground() {
+            const canvas = document.createElement('canvas');
+            canvas.id = 'fallback-bg';
+            canvas.style.position = 'fixed';
+            canvas.style.top = '0';
+            canvas.style.left = '0';
+            canvas.style.width = '100%';
+            canvas.style.height = '100%';
+            canvas.style.zIndex = '-1';
+            canvas.style.pointerEvents = 'none';
+            
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            
+            // Simple animated grid
+            function drawGrid() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.strokeStyle = 'rgba(0, 255, 238, 0.1)';
+                ctx.lineWidth = 1;
+                
+                const gridSize = 50;
+                for (let x = 0; x <= canvas.width; x += gridSize) {
+                    ctx.beginPath();
+                    ctx.moveTo(x, 0);
+                    ctx.lineTo(x, canvas.height);
+                    ctx.stroke();
+                }
+                
+                for (let y = 0; y <= canvas.height; y += gridSize) {
+                    ctx.beginPath();
+                    ctx.moveTo(0, y);
+                    ctx.lineTo(canvas.width, y);
+                    ctx.stroke();
+                }
+            }
+            
+            document.body.appendChild(canvas);
+            drawGrid();
+            
+            window.addEventListener('resize', () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                drawGrid();
+            });
+        }
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            const mobileMenu = document.querySelector('.mobile-menu');
+            
+            if (navLinks && mobileMenu) {
+                navLinks.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+            }
+        }
+
+        // Status Message Container
+        function createStatusMessage() {
+            if (!document.getElementById('status-message')) {
+                const statusDiv = document.createElement('div');
+                statusDiv.id = 'status-message';
+                statusDiv.className = 'status-message';
+                document.body.appendChild(statusDiv);
+            }
         }
 
         // Hide loading screen when page is fully loaded
@@ -1399,113 +1600,39 @@
         document.addEventListener('DOMContentLoaded', function() {
             console.log('DOM loaded, initializing...');
             
-            // Initialize particles.js using external config
-            if (typeof initParticlesJS === 'function') {
-                initParticlesJS();
-            } else {
-                console.warn('Particles config not loaded, using fallback');
-                // Fallback particles initialization
-                if (typeof particlesJS !== 'undefined') {
-                    particlesJS('particles-js', {
-                        particles: {
-                            number: { value: 80, density: { enable: true, value_area: 800 } },
-                            color: { value: '#00ffee' },
-                            shape: { type: 'circle' },
-                            opacity: { value: 0.5, random: false },
-                            size: { value: 3, random: true },
-                            line_linked: { enable: true, distance: 150, color: '#00ffee', opacity: 0.4, width: 1 },
-                            move: { enable: true, speed: 6, direction: 'none', random: false, straight: false, out_mode: 'out', bounce: false }
-                        },
-                        interactivity: {
-                            detect_on: 'canvas',
-                            events: { onhover: { enable: true, mode: 'repulse' }, onclick: { enable: true, mode: 'push' }, resize: true },
-                            modes: { repulse: { distance: 100, duration: 0.4 }, push: { particles_nb: 4 } }
-                        },
-                        retina_detect: true
-                    });
-                }
-            }
+            // Create status message container
+            createStatusMessage();
+            
+            // Initialize particles with fallback
+            setTimeout(() => {
+                initParticles();
+            }, 100);
             
             // Set initial language
             changeLanguage('en');
             
-            // Smooth scrolling for navigation links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
+            // Mobile menu setup
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenu) {
+                mobileMenu.addEventListener('click', function() {
+                    console.log('Mobile menu clicked');
+                    toggleMobileMenu();
+                });
+            }
+            
+            // Close mobile menu when clicking nav links
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', function() {
+                    const navLinks = document.querySelector('.nav-links');
+                    const mobileMenu = document.querySelector('.mobile-menu');
+                    if (navLinks && mobileMenu) {
+                        navLinks.classList.remove('active');
+                        mobileMenu.classList.remove('active');
                     }
                 });
             });
-
-            // Contact form handling
-            const contactForm = document.getElementById('contact-form');
-            if (contactForm) {
-                contactForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    
-                    const submitBtn = this.querySelector('.submit-btn');
-                    const originalText = submitBtn.textContent;
-                    
-                    submitBtn.textContent = 'Sending...';
-                    submitBtn.disabled = true;
-                    
-                    // Get form data
-                    const formData = {
-                        name: document.getElementById('name').value,
-                        email: document.getElementById('email').value,
-                        message: document.getElementById('message').value
-                    };
-                    
-                    // Validate form
-                    if (!formData.name || !formData.email || !formData.message) {
-                        showStatusMessage('Please fill in all fields', 'error');
-                        submitBtn.textContent = originalText;
-                        submitBtn.disabled = false;
-                        return;
-                    }
-                    
-                    // Email validation
-                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                    if (!emailRegex.test(formData.email)) {
-                        showStatusMessage('Please enter a valid email address', 'error');
-                        submitBtn.textContent = originalText;
-                        submitBtn.disabled = false;
-                        return;
-                    }
-                    
-                    // Simulate form submission
-                    setTimeout(() => {
-                        const subject = encodeURIComponent(`Portfolio Contact from ${formData.name}`);
-                        const body = encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`);
-                        
-                        const mailtoLink = `mailto:stiliana.stoyanova@orange.fr?subject=${subject}&body=${body}`;
-                        
-                        try {
-                            window.location.href = mailtoLink;
-                            showStatusMessage('Email client opened! Message prepared for sending.', 'success');
-                            submitBtn.textContent = 'Email Client Opened';
-                            
-                            setTimeout(() => {
-                                document.getElementById('contact-form').reset();
-                                submitBtn.textContent = originalText;
-                                submitBtn.disabled = false;
-                            }, 3000);
-                            
-                        } catch (error) {
-                            showStatusMessage('Could not open email client. Please contact directly.', 'error');
-                            submitBtn.textContent = originalText;
-                            submitBtn.disabled = false;
-                        }
-                    }, 1000);
-                });
-            }
-
+            
+            // Continue with rest of initialization...
             console.log('Initialization complete');
         });
     </script>
