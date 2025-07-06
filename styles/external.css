@@ -1,0 +1,19 @@
+.contact-link {
+    color: #00ffee;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.contact-link:hover {
+    color: #00ff88;
+    text-shadow: 0 0 10px rgba(0, 255, 238, 0.5);
+}
+.contact-link:visited {
+    color: #00ffee;
+}
+.contact-link:active {
+    color: #00ddcc;
+}
+.typing-indicator {
+    display: none;
+}

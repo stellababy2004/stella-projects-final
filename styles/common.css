@@ -89,3 +89,13 @@ section {
         font-size: 0.9rem;
     }
 }
+
+/* Chatbot стилове */
+.chatbot-window.active {
+    display: flex !important;
+}
+
+.chatbot-toggle.active {
+    background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+    transform: rotate(45deg);
+}

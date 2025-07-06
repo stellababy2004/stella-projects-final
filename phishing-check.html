@@ -6,7 +6,7 @@
     <title>Phishing Check Tool - Stella Barbarella</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="styles/common.css">
+    <link rel="stylesheet" href="common.css">
     <style>
         .container {
             max-width: 1000px;
@@ -289,107 +289,227 @@
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-    <script src="js/particles-config.js"></script>
     
     <script>
+        // Single particles initialization
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof particlesJS !== 'undefined') {
+                particlesJS('particles-js', {
+                    particles: {
+                        number: {
+                            value: 60,
+                            density: {
+                                enable: true,
+                                value_area: 800
+                            }
+                        },
+                        color: {
+                            value: '#00ffee'
+                        },
+                        shape: {
+                            type: 'circle'
+                        },
+                        opacity: {
+                            value: 0.4,
+                            random: true
+                        },
+                        size: {
+                            value: 3,
+                            random: true
+                        },
+                        line_linked: {
+                            enable: true,
+                            distance: 150,
+                            color: '#00ffee',
+                            opacity: 0.3,
+                            width: 1
+                        },
+                        move: {
+                            enable: true,
+                            speed: 2,
+                            direction: 'none',
+                            random: false,
+                            straight: false,
+                            out_mode: 'out',
+                            bounce: false
+                        }
+                    },
+                    interactivity: {
+                        detect_on: 'canvas',
+                        events: {
+                            onhover: {
+                                enable: true,
+                                mode: 'repulse'
+                            },
+                            onclick: {
+                                enable: true,
+                                mode: 'push'
+                            },
+                            resize: true
+                        },
+                        modes: {
+                            repulse: {
+                                distance: 100,
+                                duration: 0.4
+                            },
+                            push: {
+                                particles_nb: 4
+                            }
+                        }
+                    },
+                    retina_detect: true
+                });
+                
+                console.log('Particles.js initialized successfully!');
+            } else {
+                console.error('Particles.js not loaded');
+            }
+        });
+
+        // Phishing check function
         function checkPhishing() {
-            const urlInput = document.getElementById('url-input').value;
-            const emailInput = document.getElementById('email-input').value;
-            const contentInput = document.getElementById('content-input').value;
+            const urlInput = document.getElementById('url-input').value.trim();
+            const emailInput = document.getElementById('email-input').value.trim();
+            const contentInput = document.getElementById('content-input').value.trim();
             const resultContainer = document.getElementById('result-container');
             const resultTitle = document.getElementById('result-title');
             const resultDetails = document.getElementById('result-details');
             
-            // Simple phishing detection logic
-            let riskLevel = 'safe';
-            let warnings = [];
-            
-            if (urlInput) {
-                // Check for suspicious URL patterns
-                const suspiciousPatterns = [
-                    /bit\.ly|tinyurl|goo\.gl|t\.co/i,
-                    /[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}/,
-                    /[a-z0-9-]+\.(tk|ml|ga|cf)/i,
-                    /paypal.*secure|amazon.*verify|microsoft.*login/i
-                ];
-                
-                suspiciousPatterns.forEach(pattern => {
-                    if (pattern.test(urlInput)) {
-                        riskLevel = 'warning';
-                        warnings.push('Suspicious URL pattern detected');
-                    }
-                });
+            // Validation
+            if (!urlInput && !emailInput && !contentInput) {
+                alert('⚠️ Please enter at least one field to analyze!');
+                return;
             }
             
-            if (emailInput) {
-                // Check for suspicious email patterns
-                const suspiciousEmailPatterns = [
-                    /noreply.*@.*\.tk|\.ml|\.ga|\.cf/i,
-                    /[0-9]{5,}@/,
-                    /admin.*@.*[0-9]/i
-                ];
-                
-                suspiciousEmailPatterns.forEach(pattern => {
-                    if (pattern.test(emailInput)) {
-                        riskLevel = 'warning';
-                        warnings.push('Suspicious email pattern detected');
-                    }
-                });
-            }
-            
-            if (contentInput) {
-                // Check for phishing keywords
-                const phishingKeywords = [
-                    /urgent.*action.*required/i,
-                    /verify.*account.*immediately/i,
-                    /suspended.*account/i,
-                    /click.*here.*now/i,
-                    /limited.*time.*offer/i,
-                    /confirm.*identity/i
-                ];
-                
-                phishingKeywords.forEach(keyword => {
-                    if (keyword.test(contentInput)) {
-                        riskLevel = 'danger';
-                        warnings.push('Phishing keywords detected in content');
-                    }
-                });
-            }
-            
-            // Display results
+            // Reset and show loading
             resultContainer.style.display = 'block';
-            resultContainer.className = `result-container result-${riskLevel}`;
+            resultContainer.className = 'result-container';
+            resultTitle.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Analyzing...';
+            resultDetails.innerHTML = 'Please wait while we analyze the provided information...';
             
-            let icon, title, details;
-            
-            switch(riskLevel) {
-                case 'safe':
-                    icon = '✅';
-                    title = 'Appears Safe';
-                    details = 'No obvious phishing indicators detected. However, always remain cautious and verify authenticity through official channels.';
-                    break;
-                case 'warning':
-                    icon = '⚠️';
-                    title = 'Potential Risk';
-                    details = `Warning signs detected: ${warnings.join(', ')}. Exercise caution and verify authenticity before proceeding.`;
-                    break;
-                case 'danger':
-                    icon = '🚨';
-                    title = 'High Risk - Likely Phishing';
-                    details = `Multiple red flags detected: ${warnings.join(', ')}. Do not click links or provide personal information.`;
-                    break;
-            }
-            
-            resultTitle.innerHTML = `<i class="fas fa-shield-alt"></i> ${icon} ${title}`;
-            resultDetails.innerHTML = details;
-            
-            // Smooth scroll to results
-            resultContainer.scrollIntoView({ behavior: 'smooth' });
+            // Simulate analysis delay
+            setTimeout(() => {
+                let riskLevel = 'safe';
+                let warnings = [];
+                let score = 0;
+                
+                // URL Analysis
+                if (urlInput) {
+                    const urlChecks = [
+                        { pattern: /bit\.ly|tinyurl|goo\.gl|t\.co|short\.link/i, warning: 'URL shortener detected', points: 2 },
+                        { pattern: /[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}/, warning: 'IP address instead of domain name', points: 3 },
+                        { pattern: /[a-z0-9-]+\.(tk|ml|ga|cf|pw)/i, warning: 'Suspicious free domain extension', points: 2 },
+                        { pattern: /paypal.*secure|amazon.*verify|microsoft.*login|apple.*id/i, warning: 'Potential brand impersonation', points: 3 },
+                        { pattern: /[0-9]{5,}/, warning: 'Suspicious random numbers in URL', points: 1 },
+                        { pattern: /urgent|immediate|expired|suspended|verify/i, warning: 'Urgent/threatening language in URL', points: 2 },
+                        { pattern: /https?:\/\/[^\/]*[^a-zA-Z0-9\-\.]/i, warning: 'Suspicious characters in domain', points: 2 }
+                    ];
+                    
+                    urlChecks.forEach(check => {
+                        if (check.pattern.test(urlInput)) {
+                            warnings.push(check.warning);
+                            score += check.points;
+                        }
+                    });
+                }
+                
+                // Email Analysis
+                if (emailInput) {
+                    const emailChecks = [
+                        { pattern: /noreply.*@.*(\.tk|\.ml|\.ga|\.cf)/i, warning: 'Suspicious free domain in email', points: 2 },
+                        { pattern: /[0-9]{5,}@/, warning: 'Random numbers in email address', points: 2 },
+                        { pattern: /admin.*@.*[0-9]/i, warning: 'Suspicious admin email with numbers', points: 2 },
+                        { pattern: /@.*[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}/, warning: 'Email from IP address', points: 3 },
+                        { pattern: /security@.*|support@.*|noreply@.*/, warning: 'Generic system email address', points: 1 }
+                    ];
+                    
+                    emailChecks.forEach(check => {
+                        if (check.pattern.test(emailInput)) {
+                            warnings.push(check.warning);
+                            score += check.points;
+                        }
+                    });
+                }
+                
+                // Content Analysis
+                if (contentInput) {
+                    const contentChecks = [
+                        { pattern: /urgent.*action.*required/i, warning: 'Urgent action required language', points: 2 },
+                        { pattern: /verify.*account.*immediately/i, warning: 'Account verification urgency', points: 2 },
+                        { pattern: /suspended.*account/i, warning: 'Account suspension threat', points: 3 },
+                        { pattern: /click.*here.*now/i, warning: 'Urgent click request', points: 2 },
+                        { pattern: /limited.*time.*offer/i, warning: 'Time pressure tactics', points: 2 },
+                        { pattern: /confirm.*identity/i, warning: 'Identity confirmation request', points: 2 },
+                        { pattern: /winner.*prize.*claim/i, warning: 'Fake prize/winner notification', points: 3 },
+                        { pattern: /tax.*refund.*claim/i, warning: 'Fake tax refund', points: 3 },
+                        { pattern: /dear.*customer|dear.*user/i, warning: 'Generic greeting (not personalized)', points: 1 },
+                        { pattern: /password.*expire|login.*credential/i, warning: 'Password/credential phishing', points: 3 }
+                    ];
+                    
+                    contentChecks.forEach(check => {
+                        if (check.pattern.test(contentInput)) {
+                            warnings.push(check.warning);
+                            score += check.points;
+                        }
+                    });
+                }
+                
+                // Determine risk level based on score
+                if (score === 0) {
+                    riskLevel = 'safe';
+                } else if (score <= 3) {
+                    riskLevel = 'warning';
+                } else {
+                    riskLevel = 'danger';
+                }
+                
+                // Display results
+                resultContainer.className = `result-container result-${riskLevel}`;
+                
+                let icon, title, details, recommendations;
+                
+                switch(riskLevel) {
+                    case 'safe':
+                        icon = '✅';
+                        title = 'Low Risk - Appears Safe';
+                        details = 'No obvious phishing indicators detected in the provided information.';
+                        recommendations = 'However, always remain cautious and verify authenticity through official channels.';
+                        break;
+                    case 'warning':
+                        icon = '⚠️';
+                        title = 'Medium Risk - Exercise Caution';
+                        details = `${warnings.length} warning sign(s) detected: ${warnings.join(', ')}.`;
+                        recommendations = 'Please verify authenticity through official channels before proceeding. Do not provide personal information.';
+                        break;
+                    case 'danger':
+                        icon = '🚨';
+                        title = 'High Risk - Likely Phishing';
+                        details = `${warnings.length} red flag(s) detected: ${warnings.join(', ')}.`;
+                        recommendations = 'DO NOT click links or provide personal information. Report this as suspicious to your IT department.';
+                        break;
+                }
+                
+                resultTitle.innerHTML = `<i class="fas fa-shield-alt"></i> ${icon} ${title}`;
+                resultDetails.innerHTML = `
+                    <div style="margin-bottom: 15px;"><strong>Analysis:</strong> ${details}</div>
+                    <div style="margin-bottom: 15px;"><strong>Risk Score:</strong> ${score}/10</div>
+                    <div><strong>Recommendation:</strong> ${recommendations}</div>
+                `;
+                
+                // Smooth scroll to results
+                resultContainer.scrollIntoView({ behavior: 'smooth' });
+            }, 1500);
         }
+
+        // Add Enter key support
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const activeElement = document.activeElement;
+                if (activeElement.id === 'url-input' || activeElement.id === 'email-input' || activeElement.id === 'content-input') {
+                    checkPhishing();
+                }
+            }
+        });
     </script>
 </body>
 </html>
-        particlesJS.load('particles-js', 'js/particles-config.json', function() {
-            console.log('Particles.js loaded');
-        });
-    </script>

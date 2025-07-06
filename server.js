@@ -4,25 +4,31 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Serve static files from the current directory
+app.use(express.static('.'));
+
 // Set proper MIME types
-app.use(express.static('.', {
-    setHeaders: (res, path) => {
-        if (path.endsWith('.js')) {
-            res.setHeader('Content-Type', 'application/javascript');
-        } else if (path.endsWith('.css')) {
-            res.setHeader('Content-Type', 'text/css');
-        } else if (path.endsWith('.html')) {
-            res.setHeader('Content-Type', 'text/html');
-        }
+app.use((req, res, next) => {
+    if (req.url.endsWith('.json')) {
+        res.setHeader('Content-Type', 'application/json');
+    } else if (req.url.endsWith('.js')) {
+        res.setHeader('Content-Type', 'application/javascript');
+    } else if (req.url.endsWith('.css')) {
+        res.setHeader('Content-Type', 'text/css');
+    } else if (req.url.endsWith('.html')) {
+        res.setHeader('Content-Type', 'text/html');
     }
-}));
+    next();
+});
 
-// Serve static files from current directory
-app.use(express.static(__dirname));
-
-// Serve index.html for root route
+// Root route
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+// Route for particles config
+app.get('/particles-config.json', (req, res) => {
+    res.sendFile(path.join(__dirname, 'particles-config.json'));
 });
 
 // Handle specific routes for project pages
@@ -88,7 +94,8 @@ app.get('/styles/common.css', (req, res) => {
 
 // Handle 404 errors
 app.use((req, res) => {
-    res.status(404).sendFile(path.join(__dirname, 'index.html'));
+    console.log('404 - File not found:', req.url);
+    res.status(404).send('File not found');
 });
 
 // Start server
