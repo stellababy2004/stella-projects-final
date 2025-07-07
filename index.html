@@ -519,15 +519,18 @@
         /* Status Message */
         .status-message {
             position: fixed;
-            top: 20px;
+            top: 100px;
             right: 20px;
-            padding: 15px 25px;
-            border-radius: 10px;
+            padding: 20px 30px;
+            border-radius: 15px;
             font-weight: 600;
             z-index: 1001;
             opacity: 0;
             transform: translateY(-20px);
             transition: all 0.3s ease;
+            max-width: 400px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 2px solid;
         }
 
         .status-message.show {
@@ -536,12 +539,32 @@
         }
 
         .status-message.success {
-            background: #00ff88;
+            background: linear-gradient(135deg, #00ff88, #00ffee);
             color: #000000;
+            border-color: #00ff88;
         }
 
         .status-message.error {
-            background: #ff4444;
+            background: linear-gradient(135deg, #ff4444, #ff6666);
+            color: #ffffff;
+            border-color: #ff4444;
+        }
+
+        .status-message.info {
+            background: linear-gradient(135deg, #00ffee, #00ddcc);
+            color: #000000;
+            border-color: #00ffee;
+        }
+
+        /* Form Submit Button States */
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .submit-btn.loading {
+            background: linear-gradient(45deg, #666, #888);
             color: #ffffff;
         }
 
@@ -909,6 +932,14 @@
             text-shadow: 0 0 10px rgba(0, 255, 238, 0.5) !important;
         }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script>
+        (function() {
+            emailjs.init("lAhCz4_o_eDCflnmP"); 
+        })();
+    </script>
+    <meta name="autocomplete" content="off">
+    <meta name="format-detection" content="telephone=no">
 </head>
 <body>
     <!-- Loading Screen -->
@@ -1104,22 +1135,22 @@
             <form class="contact-form" id="contact-form">
                 <div class="form-group">
                     <label for="name" data-translate="contact-name">Name:</label>
-                    <input type="text" id="name" name="name" required>
+                    <input type="text" id="name" name="name" required autocomplete="off">
                 </div>
                 
                 <div class="form-group">
                     <label for="email" data-translate="contact-email">Email:</label>
-                    <input type="email" id="email" name="email" required>
+                    <input type="email" id="email" name="email" required autocomplete="off">
                 </div>
                 
                 <div class="form-group">
                     <label for="subject" data-translate="contact-subject">Subject:</label>
-                    <input type="text" id="subject" name="subject" required>
+                    <input type="text" id="subject" name="subject" required autocomplete="off">
                 </div>
                 
                 <div class="form-group">
                     <label for="message" data-translate="contact-message">Message:</label>
-                    <textarea id="message" name="message" required></textarea>
+                    <textarea id="message" name="message" required autocomplete="off"></textarea>
                 </div>
                 
                 <button type="submit" class="submit-btn" data-translate="contact-send">Send Message</button>
@@ -1169,12 +1200,11 @@
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script>
-        // ГЛОБАЛНИ ПРОМЕНЛИВИ
+        
         let currentLanguage = 'en';
         let chatbotOpen = false;
         let chatHistory = [];
         
-        // Language translations
         const translations = {
             en: {
                 'name': 'Stella Barbarella',
@@ -1216,7 +1246,12 @@
                 'chatbot-title': 'AI Security Assistant',
                 'chatbot-welcome': 'Hi! I\'m your AI Security Assistant. Ask me about cybersecurity, SOC analysis, threat hunting, or any security-related questions!',
                 'chatbot-typing': 'Typing...',
-                'chatbot-placeholder': 'Ask me anything about cybersecurity...'
+                'chatbot-placeholder': 'Ask me anything about cybersecurity...',
+                'privacy-notice': '📋 Your data is used only for contact and is not stored by us.',
+                'form-validation-error': 'Please fill in all fields!',
+                'form-sending': 'Sending...',
+                'form-success': 'Message sent successfully!',
+                'form-error': 'Error sending message!'
             },
             fr: {
                 'name': 'Stella Barbarella',
@@ -1258,15 +1293,18 @@
                 'chatbot-title': 'Assistant IA Sécurité',
                 'chatbot-welcome': 'Salut! Je suis votre Assistant IA Sécurité. Posez-moi des questions sur la cybersécurité, l\'analyse SOC, la chasse aux menaces ou toute question liée à la sécurité!',
                 'chatbot-typing': 'Écrit',
-                'chatbot-placeholder': 'Posez-moi une question sur la cybersécurité...'
+                'chatbot-placeholder': 'Posez-moi une question sur la cybersécurité...',
+                'privacy-notice': '📋 Vos données sont utilisées uniquement pour le contact et ne sont pas stockées par nous.',
+                'form-validation-error': 'Veuillez remplir tous les champs!',
+                'form-sending': 'Envoi en cours...',
+                'form-success': 'Message envoyé avec succès!',
+                'form-error': 'Erreur lors de l\'envoi du message!'
             },
             bg: {
     'name': 'Stella Barbarella',
     'nav-home': 'Начало',
     'nav-about': 'За мен',
     'nav-projects': 'Проекти',
-    'nav-skills': 'Умения',
-    'nav-contact': 'Контакт',
     'hero-title': 'Stella Barbarella',
     'hero-subtitle': 'SOC Анализатор и Специалист по Киберсигурност',
     'hero-description': 'Професионални услуги за лов на заплахи, реакция при инциденти и анализ на сигурността',
@@ -1300,11 +1338,23 @@
     'chatbot-title': 'AI Асистент за Сигурност',
     'chatbot-welcome': 'Здравей! Аз съм вашият AI Асистент за Сигурност.',
     'chatbot-typing': 'Пише',
-    'chatbot-placeholder': 'Попитайте ме нещо за киберсигурността...'
+    'chatbot-placeholder': 'Попитайте ме нещо за киберсигурността...',
+    'privacy-notice': '📋 Вашите данни се използват само за контакт и не се съхраняват от нас.',
+    'form-validation-error': 'Моля, попълнете всички полета!',
+    'form-sending': 'Изпраща...',
+    'form-success': 'Съобщението е изпратено успешно!',
+    'form-error': 'Грешка при изпращане на съобщението!'
 }
         };
 
-        // INTELLIGENT CHATBOT RESPONSES
+        function changeLanguage(lang) {
+            currentLanguage = lang;
+            document.querySelectorAll('[data-translate]').forEach(el => {
+                const key = el.getAttribute('data-translate');
+                el.textContent = translations[lang][key] || key;
+            });
+            updateChatbotResponses();
+        }
         const chatbotResponses = {
             en: {
                 'hello|hi|hey|greetings': [
@@ -1589,6 +1639,74 @@
                 }, 1000);
             }
         });
+
+        // CONTACT FORM HANDLING
+document.addEventListener('DOMContentLoaded', function() {
+    const contactForm = document.getElementById('contact-form');
+    
+    if (contactForm) {
+        contactForm.addEventListener('submit', handleFormSubmit);
+    }
+});
+
+function handleFormSubmit(event) {
+    event.preventDefault();
+    
+    const form = event.target;
+    const formData = new FormData(form);
+    
+    const name = formData.get('name');
+    const email = formData.get('email');
+    const subject = formData.get('subject');
+    const message = formData.get('message');
+    
+    if (!name || !email || !subject || !message) {
+        alert('❌ Моля, попълнете всички полета!');
+        return;
+    }
+    
+    const mailtoLink = `mailto:stiliana.stoyanova@orange.fr?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(
+        `Име: ${name}\nИмейл: ${email}\n\nСъобщение:\n${message}`
+    )}`;
+    
+    // Покажете съобщение и отворете mailto
+    alert('✅ Отваряме имейл клиента за изпращане на съобщението!');
+    
+    setTimeout(() => {
+        window.location.href = mailtoLink;
+        document.getElementById('contact-form').reset();
+    }, 1000);
+}
+
+        // Status Message Function
+function showStatusMessage(message, type) {
+    const statusDiv = document.getElementById('status-message');
+    
+    if (!statusDiv) {
+        console.error('Status message div not found');
+        return;
+    }
+    
+    // Clear existing classes
+    statusDiv.className = 'status-message';
+    statusDiv.textContent = message;
+    
+    // Add type class
+    statusDiv.classList.add(type);
+    statusDiv.classList.add('show');
+    
+    // Auto-hide after 5 seconds
+    setTimeout(() => {
+        statusDiv.classList.remove('show');
+    }, 5000);
+}
     </script>
+
+    <div class="privacy-notice" style="margin-top: 15px; padding: 10px; background: rgba(255, 255, 0, 0.1); border-radius: 5px; font-size: 0.9rem;">
+        <p data-translate="privacy-notice">📋 Вашите данни се използват само за контакт и не се съхраняват от нас.</p>
+    </div>
+
+    <!-- Status Message Container -->
+    <div id="status-message" class="status-message"></div>
 </body>
 </html>

@@ -1,0 +1,54 @@
+function sendEmailWithEmailJS(name, email, subject, message) {
+    const templateParams = {
+        from_name: name,
+        from_email: email,
+        subject: subject,
+        message: message,
+        to_email: 'stiliana.stoyanova@orange.fr'
+    };
+    
+    // Без debug информация в production
+    emailjs.send('service_00hf8in', 'template_v0oqu3n', templateParams, 'lAhCz4_o_eDCflnmP')
+        .then(function(response) {
+            // Само status съобщение, БЕЗ лични данни
+            showStatusMessage('Съобщението е изпратено успешно!', 'success');
+            document.getElementById('contact-form').reset();
+        }, function(error) {
+            // Само generic error, БЕЗ подробности
+            showStatusMessage('Грешка при изпращане на съобщението!', 'error');
+        });
+}
+
+function handleFormSubmit(event) {
+    event.preventDefault();
+    
+    const form = event.target;
+    const formData = new FormData(form);
+    
+    // Get form values
+    const name = formData.get('name');
+    const email = formData.get('email');
+    const subject = formData.get('subject');
+    const message = formData.get('message');
+    
+    // Validation
+    if (!name || !email || !subject || !message) {
+        showStatusMessage('Моля, попълнете всички полета!', 'error');
+        return;
+    }
+    
+    // Show loading state
+    const submitBtn = form.querySelector('.submit-btn');
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = 'Изпраща...';
+    submitBtn.disabled = true;
+    
+    // Send email via EmailJS (БЕЗ debug информация)
+    sendEmailWithEmailJS(name, email, subject, message);
+    
+    // Reset button
+    setTimeout(() => {
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+    }, 3000);
+}
