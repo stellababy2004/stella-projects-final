@@ -68,9 +68,7 @@
     
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="styles/common.css">
-    <link rel="stylesheet" href="styles/external.css">
-    <link rel="stylesheet" href="styles/privacy-notice.css">
+     <link rel="stylesheet" href="common.css">
     <style>
         * {
             margin: 0;
@@ -412,6 +410,12 @@
             cursor: pointer;
             position: relative;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+            min-height: 280px;
         }
 
         .project-card::before {
@@ -436,14 +440,64 @@
 
         .project-icon {
             font-size: 4rem;
-            margin-bottom: 20px;
-            display: block;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover .project-icon {
+            transform: scale(1.1) rotate(5deg);
+            filter: drop-shadow(0 0 20px #00ffee);
         }
 
         .project-text {
             font-size: 1.3rem;
             font-weight: 600;
             color: #00ffee;
+        }
+
+        /* Enhanced Project Link Button */
+        .project-link {
+            display: inline-block !important;
+            background: #00ffee !important;
+            color: #000000 !important;
+            padding: 15px 30px;
+            text-decoration: none !important;
+            border-radius: 25px;
+            margin-top: 20px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .project-link:hover {
+            background: #00ff88 !important;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 255, 238, 0.3);
+        }
+
+        .project-link:visited {
+            color: #000000 !important;
+        }
+
+        .project-link:active {
+            color: #000000 !important;
+        }
+
+        /* Special styling for MITRE card */
+        .project-card[data-project="mitre-dashboard"] .project-link {
+            background: linear-gradient(45deg, #2a1a2e, #3a1f3e);
+            color: #ff6666;
+            border-color: #ff4444;
+        }
+
+        .project-card[data-project="mitre-dashboard"] .project-link::before {
+            background: linear-gradient(45deg, #ff4444, #ff6666);
+        }
+
+        .project-card[data-project="mitre-dashboard"] .project-link:hover {
+            color: #ffffff;
+            border-color: #ff6666;
         }
 
         /* Skills Section */
@@ -994,6 +1048,100 @@
             color: #00ff88 !important;
             text-shadow: 0 0 10px rgba(0, 255, 238, 0.5) !important;
         }
+
+        /* Working Project Card Styles */
+.project-card h3 {
+    color: #00ffee;
+    font-size: 1.5rem;
+    margin: 20px 0 15px 0;
+    font-weight: 600;
+}
+
+.project-card p {
+    color: #ffffff;
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+    opacity: 0.9;
+    line-height: 1.5;
+    flex-grow: 1;
+}
+
+/* Working Project Link Button */
+.project-link {
+    display: inline-block !important;
+    background: #00ffee !important;
+    color: #000000 !important;
+    padding: 15px 30px;
+    text-decoration: none !important;
+    border-radius: 25px;
+    margin-top: 20px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.project-link:hover {
+    background: #00ff88 !important;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 255, 238, 0.3);
+}
+
+.project-link:visited {
+    color: #000000 !important;
+}
+
+.project-link:active {
+    color: #000000 !important;
+}
+
+/* Back to Portfolio Button */
+.back-to-portfolio {
+    position: fixed;
+    top: 100px;
+    left: 20px;
+    z-index: 1000;
+    background: rgba(0, 20, 30, 0.9);
+    border: 2px solid #00ffee;
+    border-radius: 30px;
+    padding: 15px 25px;
+    color: #00ffee;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 5px 20px rgba(0, 255, 238, 0.3);
+}
+
+.back-to-portfolio:hover {
+    background: rgba(0, 255, 238, 0.1);
+    transform: translateX(5px);
+    box-shadow: 0 10px 30px rgba(0, 255, 238, 0.5);
+    border-color: #00ff88;
+}
+
+.back-to-portfolio:visited {
+    color: #00ffee;
+}
+
+.back-to-portfolio i {
+    font-size: 1.2rem;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .back-to-portfolio {
+        top: 80px;
+        left: 15px;
+        padding: 12px 20px;
+        font-size: 0.9rem;
+    }
+}
     </style>
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script>
@@ -1012,6 +1160,12 @@
             <h2>Loading Portfolio...</h2>
         </div>
     </div>
+
+    <!-- Back to Portfolio Button -->
+    <a href="#home" class="back-to-portfolio">
+        <i class="fas fa-arrow-left"></i>
+        <span data-translate="back-to-portfolio">Back to Portfolio</span>
+    </a>
 
     <!-- Navigation -->
     <nav>
@@ -1081,53 +1235,60 @@
     <section id="projects">
         <h2 data-translate="projects-title">Projects</h2>
         <div class="projects-container">
-            <div class="project-card" data-project="threat-map">
+            <div class="project-card">
             <div class="project-icon">🌍</div>
             <h3 data-translate="project-threat-map">Cyber Threat Map</h3>
             <p data-translate="project-threat-map-desc">Real-time global threat visualization</p>
-            <a href="interactive-threat-map.html" class="project-link" data-translate="view-project">View Project</a>
+            <a href="interactive-threat-map.html" class="project-link" target="_blank">VIEW PROJECT</a>
         </div>
         
-        <div class="project-card" data-project="phishing-check">
+        <div class="project-card">
             <div class="project-icon">🛡️</div>
             <h3 data-translate="phishing-checker">Check for Phishing</h3>
             <p data-translate="phishing-checker-desc">Advanced phishing detection tool</p>
-            <a href="phishing-check.html" class="project-link" data-translate="view-project">View Project</a>
+            <a href="phishing-check.html" class="project-link" target="_blank">VIEW PROJECT</a>
         </div>
         
-        <div class="project-card" data-project="threat-hunting">
+        <div class="project-card">
             <div class="project-icon">🔍</div>
             <h3 data-translate="threat-hunting">Threat Hunting</h3>
             <p data-translate="threat-hunting-desc">Advanced threat detection dashboard</p>
-            <a href="threat-hunting.html" class="project-link" data-translate="view-project">View Project</a>
+            <a href="threat-hunting.html" class="project-link" target="_blank">VIEW PROJECT</a>
         </div>
 
-        <div class="project-card" data-project="phishing-response">
+        <div class="project-card">
             <div class="project-icon">📚</div>
             <h3 data-translate="phishing-response-guide">Phishing Response Guide</h3>
             <p data-translate="phishing-response-desc">Comprehensive incident response guide</p>
-            <a href="phishing-response-guide.html" class="project-link" data-translate="view-project">View Project</a>
+            <a href="phishing-response-guide.html" class="project-link" target="_blank">VIEW PROJECT</a>
         </div>
         
-        <div class="project-card" data-project="live-threats">
+        <div class="project-card">
+            <div class="project-icon">📊</div>
+            <h3 data-translate="splunk-incident-response">Splunk Incident Response</h3>
+            <p data-translate="splunk-incident-response-desc">Reducing incident response time by 30% using Splunk automation</p>
+            <a href="splunk-incident-response.html" class="project-link" target="_blank">VIEW PROJECT</a>
+        </div>
+        
+        <div class="project-card">
             <div class="project-icon">🌍</div>
             <h3 data-translate="live-threats">Threat Live</h3>
             <p data-translate="live-threats-desc">Real-time threat monitoring</p>
-            <a href="live-threats.html" class="project-link" data-translate="view-project">View Project</a>
+            <a href="live-threats.html" class="project-link" target="_blank">VIEW PROJECT</a>
         </div>
         
-        <div class="project-card" data-project="cv">
+        <div class="project-card">
             <div class="project-icon">📄</div>
             <h3 data-translate="my-cv">My CV</h3>
             <p data-translate="my-cv-desc">Professional resume and background</p>
-            <a href="cv.html" class="project-link" data-translate="view-project">View Project</a>
+            <a href="cv.html" class="project-link" target="_blank">VIEW PROJECT</a>
         </div>
         
-        <div class="project-card" data-project="mitre-dashboard">
+        <div class="project-card">
             <div class="project-icon">🎯</div>
             <h3 data-translate="mitre-dashboard">MITRE ATT&CK Dashboard</h3>
             <p data-translate="mitre-dashboard-desc">Real-time threat intelligence analytics</p>
-            <a href="mitre-attack-dashboard.html" class="project-link" data-translate="view-project">View Project</a>
+            <a href="mitre-attack-dashboard.html" class="project-link" target="_blank">VIEW PROJECT</a>
         </div>
     </div>
     </section>
@@ -1336,12 +1497,6 @@
                 'form-error': 'Error sending message!',
                 'project-threat-map-desc': 'Real-time global threat visualization',
                 'phishing-checker-desc': 'Advanced phishing detection tool',
-                'threat-hunting-desc': 'Advanced threat detection dashboard',
-                'phishing-response-desc': 'Comprehensive incident response guide',
-                'live-threats-desc': 'Real-time threat monitoring',
-                'my-cv-desc': 'Professional resume and background',
-                'skills-title': 'Skills & Expertise',
-                'skill-threat-hunting': 'Threat Hunting',
                 'skill-threat-hunting-desc': 'Advanced threat detection using MITRE ATT&CK framework',
                 'skill-incident-response': 'Incident Response',
                 'skill-incident-response-desc': 'Rapid incident containment and forensic analysis',
@@ -1374,7 +1529,10 @@
                 'live-threats-desc': 'Real-time threat monitoring',
                 'my-cv-desc': 'Professional resume and background',
                 'mitre-dashboard-desc': 'Real-time threat intelligence analytics',
-                'view-project': 'View Project'
+                'view-project': 'View Project',
+                'splunk-incident-response': 'Splunk Incident Response',
+                'splunk-incident-response-desc': 'Reducing incident response time by 30% using Splunk automation',
+                'back-to-portfolio': 'Back to Portfolio'
             },
             fr: {
                 'name': 'Stella Barbarella',
@@ -1387,19 +1545,28 @@
                 'hero-subtitle': 'Analyste SOC et Spécialiste en Cybersécurité',
                 'hero-description': 'Services professionnels de chasse aux menaces, réponse aux incidents et analyse de sécurité',
                 'about-title': 'À propos de moi',
-                'about-description': 'Analyste SOC expérimentée spécialisée dans la détection des menaces, la réponse aux incidents et l\'analyse de cybersécurité. Passionnée par la chasse proactive aux menaces et la construction de cadres de sécurité robustes.',
+                'about-description': 'Analyste SOC expérimentée spécialisée dans la détection des menaces, la réponse aux incidents et l\'analyse de cybersécurité.',
                 'projects-title': 'Projets',
-                'cyber-threat-map': 'Carte des Menaces Cyber',
+                'project-threat-map': 'Carte des Menaces Cyber',
                 'phishing-checker': 'Vérifier le Phishing',
                 'threat-hunting': 'Chasse aux Menaces',
                 'phishing-response-guide': 'Guide de Réponse au Phishing',
                 'live-threats': 'Menaces en Direct',
                 'my-cv': 'Mon CV',
+                'mitre-dashboard': 'Tableau de Bord MITRE ATT&CK',
+                'project-threat-map-desc': 'Visualisation des menaces mondiales en temps réel',
+                'phishing-checker-desc': 'Outil de détection de phishing avancé',
+                'threat-hunting-desc': 'Tableau de bord de détection de menaces',
+                'phishing-response-desc': 'Guide complet de réponse aux incidents',
+                'live-threats-desc': 'Surveillance des menaces en temps réel',
+                'my-cv-desc': 'CV professionnel et expérience',
+                'mitre-dashboard-desc': 'Analyse en temps réel des menaces',
+                'view-project': 'Voir le Projet',
                 'skills-title': 'Compétences et Expertise',
                 'skill-threat-hunting': 'Chasse aux Menaces',
                 'skill-threat-hunting-desc': 'Détection avancée des menaces utilisant le framework MITRE ATT&CK',
                 'skill-incident-response': 'Réponse aux Incidents',
-                'skill-incident-response-desc': 'Confinement rapide des incidents et analyse forensique',
+                'skill-incident-response-desc': 'Confinement rapide des incidents и анализ форензик',
                 'skill-siem': 'Analyse SIEM',
                 'skill-siem-desc': 'Expert en Splunk, QRadar et analyse de logs',
                 'skill-security-tools': 'Outils de Sécurité',
@@ -1414,40 +1581,44 @@
                 'contact-linkedin-label': 'LinkedIn',
                 'contact-website-label': 'Site Web',
                 'chatbot-title': 'Assistant IA Sécurité',
-                'chatbot-welcome': 'Salut! Je suis votre Assistant IA Sécurité. Posez-moi des questions sur la cybersécurité, l\'analyse SOC, la chasse aux menaces ou toute question liée à la sécurité!',
-                'chatbot-typing': 'Écrit',
+                'chatbot-welcome': 'Salut! Je suis votre Assistant IA Sécurité. Posez-moi des questions sur la cybersécurité!',
+                'chatbot-typing': 'Écrit...',
                 'chatbot-placeholder': 'Posez-moi une question sur la cybersécurité...',
-                'privacy-notice': '📋 Vos données sont utilisées uniquement pour le contact et ne sont pas stockées par nous.',
+                'privacy-notice': '📋 Vos données sont utilisées uniquement pour le contact et ne sont pas stockées par нас.',
                 'form-validation-error': 'Veuillez remplir tous les champs!',
                 'form-sending': 'Envoi en cours...',
                 'form-success': 'Message envoyé avec succès!',
                 'form-error': 'Erreur lors de l\'envoi du message!',
-                'project-threat-map-desc': 'Visualisation des menaces mondiales en temps réel',
-                'phishing-checker-desc': 'Outil de détection de phishing avancé',
-                'threat-hunting-desc': 'Tableau de bord de détection de менaces',
-                'phishing-response-desc': 'Guide complet de réponse aux incidents',
-                'live-threats-desc': 'Surveillance des menaces en temps réel',
-                'my-cv-desc': 'CV professionnel et background',
-                'mitre-dashboard-desc': 'Анализ в реално време на заплахите',
-                'view-project': 'Voir le Projet'
+                'back-to-portfolio': 'Retour au Portfolio'
             },
             bg: {
     'name': 'Stella Barbarella',
     'nav-home': 'Начало',
     'nav-about': 'За мен',
     'nav-projects': 'Проекти',
+    'nav-skills': 'Умения',
+    'nav-contact': 'Контакт',
     'hero-title': 'Stella Barbarella',
     'hero-subtitle': 'SOC Анализатор и Специалист по Киберсигурност',
     'hero-description': 'Професионални услуги за лов на заплахи, реакция при инциденти и анализ на сигурността',
     'about-title': 'За мен',
     'about-description': 'Опитен SOC анализатор, специализиран в откриване на заплахи, реакция при инциденти и анализ на киберсигурността.',
     'projects-title': 'Проекти',
-    'cyber-threat-map': 'Карта на Кибер Заплахи',
+    'project-threat-map': 'Карта на Кибер Заплахи',
     'phishing-checker': 'Проверка за Фишинг',
     'threat-hunting': 'Лов на Заплахи',
     'phishing-response-guide': 'Ръководство за Реакция при Фишинг',
     'live-threats': 'Заплахи на Живо',
     'my-cv': 'Моето CV',
+    'mitre-dashboard': 'MITRE ATT&CK Табло',
+    'project-threat-map-desc': 'Визуализация на глобални заплахи в реално време',
+    'phishing-checker-desc': 'Разширен инструмент за откриване на фишинг',
+    'threat-hunting-desc': 'Табло за откриване на заплахи',
+    'phishing-response-desc': 'Изчерпателно ръководство за реакция при инциденти',
+    'live-threats-desc': 'Мониторинг на заплахи в реално време',
+    'my-cv-desc': 'Професионално CV и опит',
+    'mitre-dashboard-desc': 'Анализ на заплахи в реално време',
+    'view-project': 'Виж Проекта',
     'skills-title': 'Умения и Експертиза',
     'skill-threat-hunting': 'Лов на Заплахи',
     'skill-threat-hunting-desc': 'Разширено откриване на заплахи използвайки MITRE ATT&CK framework',
@@ -1475,14 +1646,9 @@
     'form-sending': 'Изпраща...',
     'form-success': 'Съобщението е изпратено успешно!',
     'form-error': 'Грешка при изпращане на съобщението!',
-    'project-threat-map-desc': 'Визуализация на глобални заплахи в реално време',
-    'phishing-checker-desc': 'Разширен инструмент за откриване на фишинг',
-    'threat-hunting-desc': 'Табло за откриване на заплахи',
-    'phishing-response-desc': 'Изчерпателно ръководство за реакция при инциденти',
-    'live-threats-desc': 'Мониторинг на заплахи в реално време',
-    'my-cv-desc': 'Професионално CV и опит',
-    'mitre-dashboard-desc': 'Анализ на заплахи в реално време',
-    'view-project': 'Виж Проекта'
+    'splunk-incident-response': 'Splunk Реакция при Инциденти',
+    'splunk-incident-response-desc': 'Намаляване на времето за реакция при инциденти с 30% използвайки Splunk автоматизация',
+    'back-to-portfolio': 'Назад към Портфолио'
 }
         };
 
@@ -1513,68 +1679,13 @@
                 ]
             },
             bg: {
-    'hello|hi|hey|greetings|здравей|здрасти|добър ден|здравейте|привет|здрасти|хей': [
-        'Здравей! Аз съм AI Асистентът за Сигурност на Stella. Как мога да ви помогна с киберсигурността днес?',
-        'Здрасти! Тук съм, за да помогна с всички ваши въпроси за киберсигурност. Какво искате да знаете?',
-        'Добър ден! Специализиран съм в киберсигурност, SOC анализ и лов на заплахи. Как мога да ви помогна?'
-    ],
-    'phishing|phish|email|фишинг|имейл|измама|измамни|фалшив|spam|спам': [
-        'Фишингът е основна заплаха! Ключови признаци: подозрителни адреси на подателя, спешен език, общи поздрави.',
-        'За откриване на фишинг: Проверете автентичността на подателя, търсете правописни грешки.',
-        'Фишинг атаките се насочват към човешката психология. Обучете служителите да разпознават тактики.'
-    ],
-    'siem|splunk|qradar|logs|логове|анализ|системи|мониторинг': [
-        'SIEM инструменти като Splunk и QRadar са основни за откриване на заплахи.',
-        'Ефективно SIEM управление: правилно събиране на логове, персонализирани корелационни правила.',
-        'SIEM добри практики: нормализиране на формати на логове, създаване на значещи табла.'
-    ],
-    'threat|hunting|mitre|attack|заплаха|лов|атака|заплахи|противник': [
-        'Ловът на заплахи използва MITRE ATT&CK рамката за проактивно търсене на заплахи.',
-        'Ефективен лов на заплахи: задълбочени знания за мрежово поведение, разбиране на TTP.',
-        'MITRE ATT&CK предоставя цялостна матрица на тактики и техники на противника.'
-    ],
-    'malware|virus|ransomware|зловреден|вирус|ransomware|криптовирус': [
-        'Откриването на зловреден софтуер изисква многослойна защита: защита на крайни точки, мрежов мониторинг.',
-        'Превенция на ransomware: редовни backup-и, мрежова сегментация, обучение на потребители.',
-        'Анализът на зловреден софтуер включва статичен и динамичен анализ.'
-    ],
-    'stella|barbarella|about|за|кой|коя|who|автор': [
-        'Stella Barbarella е опитен SOC анализатор и специалист по киберсигурност.',
-        'Stella има експертиза в SIEM платформи, разузнаване на заплахи, дигитална криминалистика.',
-        'Можете да се свържете със Stella на stiliana.stoyanova@orange.fr!'
-    ],
-    'contact|email|linkedin|контакт|имейл|връзка|свързване': [
-        'Можете да намерите Stella на stiliana.stoyanova@orange.fr за професионални запитвания.',
-        'Свържете се със Stella в LinkedIn: https://www.linkedin.com/in/stella-s-95ba5683/',
-        'За възможности за сътрудничество или консултации по киберсигурност, не се колебайте да се свържете.'
-    ],
-    'help|помощ|какво можеш|какво правиш|функции|умения': [
-        'Мога да ви помогна с въпроси за киберсигурност, SOC анализ, лов на заплахи, SIEM системи.',
-        'Специализиран съм в: откриване на заплахи, реакция при инциденти, анализ на зловреден софтуер.',
-        'Задавайте ми въпроси за: фишинг, SIEM анализ, penetration testing, форензичен анализ!'
-    ],
-    'what|whats|какво|какво е|обясни|explain|разкажи|кажи': [
-        'Какво искате да знаете за киберсигурността? Мога да обясня различни концепции и техники.',
-        'Попитайте ме за конкретни теми като фишинг, зловреден софтуер, SIEM анализ или лов на заплахи.',
-        'Готов съм да обясня всякакви концепции свързани с киберсигурността и информационната сигурност.'
-    ],
-    'security|soc|cybersecurity|сигурност|киберсигурност|безопасност': [
-        'Киберсигурността е от критично значение в днешния цифров свят. Защитата започва с добра хигиена.',
-        'SOC операторите са първата линия на защита срещу кибер заплахи. Те наблюдават, анализират и реагират.',
-        'Основни принципи: Defense in Depth, принцип на най-малкия привилегий, редовни актуализации.'
-    ],
-    'tools|software|platform|инструменти|софтуер|платформа|програми': [
-        'Популярни инструменти за киберсигурност: Splunk, QRadar, Wireshark, Metasploit, Nessus.',
-        'SIEM платформи: Splunk, QRadar, ArcSight, LogRhythm. EDR решения: CrowdStrike, Carbon Black.',
-        'Open-source инструменти: OSSEC, Suricata, Snort, OpenVAS, TheHive, MISP.'
-    ],
-    'default': [
-        'Тук съм, за да помогна с въпроси за киберсигурност! Попитайте ме за лов на заплахи, реакция при инциденти, SIEM анализ.',
-        'Мога да помогна с SOC операции, инструменти за сигурност, откриване на заплахи. Какво искате да знаете?',
-        'Не се колебайте да попитате за анализ на зловреден софтуер, управление на уязвимости, penetration testing!',
-        'Познавам добре рамките за киберсигурност, разузнаване на заплахи, дигитална криминалистика. Как мога да помогна?'
-    ]
-}
+                'hello|hi|hey|greetings|здравей|здрасти|добър ден': [
+                    'Здравей! Аз съм AI Асистентът за Сигурност на Stella. Как мога да ви помогна с киберсигурността днес?'
+                ],
+                'default': [
+                    'Тук съм, за да помогна с въпроси за киберсигурност! Попитайте ме за лов на заплахи, реакция при инциденти или друга тема.'
+                ]
+            }
         };
 
         function getIntelligentResponse(userMessage, language) {
@@ -1692,6 +1803,7 @@
 
         function hideTypingIndicator() {
             const typingIndicator = document.getElementById('typing-indicator');
+           
             typingIndicator.style.display = 'none';
         }
 
@@ -1839,13 +1951,33 @@ function showStatusMessage(message, type) {
         statusDiv.classList.remove('show');
     }, 5000);
 }
+
+/* Debug function for testing buttons */
+function testProjectLinks() {
+    document.querySelectorAll('.project-link').forEach((link, index) => {
+        console.log(`Link ${index}:`, link.href, link.textContent);
+        link.addEventListener('click', (e) => {
+            console.log('Button clicked:', e.target.href);
+            if (!e.target.href || e.target.href === '#') {
+                e.preventDefault();
+                alert('Link is not properly set!');
+            }
+        });
+    });
+}
+
+// Call after DOM loads
+document.addEventListener('DOMContentLoaded', testProjectLinks);
+
+// Test if common.css loaded
+console.log('🔍 Testing if common.css loaded...');
+const computedStyle = getComputedStyle(document.body);
+console.log('📊 Body background:', computedStyle.background);
+console.log('📊 Body font-family:', computedStyle.fontFamily);
     </script>
 
     <div class="privacy-notice">
         <p data-translate="privacy-notice">📋 Вашите данни се използват само за контакт и не се съхраняват от нас.</p>
     </div>
-
-    <!-- Status Message Container -->
-    <div id="status-message" class="status-message"></div>
 </body>
 </html>

@@ -1,0 +1,33 @@
+/* External CSS for additional styling */
+.status-message {
+    position: fixed;
+    top: 100px;
+    right: 20px;
+    padding: 20px 30px;
+    border-radius: 15px;
+    font-weight: 600;
+    z-index: 1001;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: all 0.3s ease;
+    max-width: 400px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border: 2px solid;
+}
+
+.status-message.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.status-message.success {
+    background: linear-gradient(135deg, #00ff88, #00ffee);
+    color: #000000;
+    border-color: #00ff88;
+}
+
+.status-message.error {
+    background: linear-gradient(135deg, #ff4444, #ff6666);
+    color: #ffffff;
+    border-color: #ff4444;
+}

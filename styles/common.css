@@ -114,3 +114,20 @@ section {
     border-radius: 5px;
     font-size: 0.9rem;
 }
+
+/* Project Card Content Styles */
+.project-card h3 {
+    color: #00ffee;
+    font-size: 1.5rem;
+    margin: 20px 0 15px 0;
+    font-weight: 600;
+}
+
+.project-card p {
+    color: #ffffff;
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+    opacity: 0.9;
+    line-height: 1.5;
+    flex-grow: 1;
+}
