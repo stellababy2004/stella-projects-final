@@ -70,7 +70,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="styles/common.css">
     <link rel="stylesheet" href="styles/external.css">
-    <link rel="stylesheet" href="styles/privacy-notice.css">
     <style>
         * {
             margin: 0;
@@ -1025,9 +1024,9 @@
                 <li><a href="#contact" data-translate="nav-contact">Contact</a></li>
             </ul>
             <div class="language-selector">
-                <button class="lang-btn active" id="lang-en" type="button" onclick="changeLanguage('en')">EN</button>
-                <button class="lang-btn" id="lang-fr" type="button" onclick="changeLanguage('fr')">FR</button>
-                <button class="lang-btn" id="lang-bg" type="button" onclick="changeLanguage('bg')">BG</button>
+                <button class="lang-btn active" id="lang-en" onclick="changeLanguage('en')">EN</button>
+                <button class="lang-btn" id="lang-fr" onclick="changeLanguage('fr')">FR</button>
+                <button class="lang-btn" id="lang-bg" onclick="changeLanguage('bg')">BG</button>
             </div>
             <div class="mobile-menu" id="mobile-menu">
                 <span></span>
@@ -1277,7 +1276,7 @@
     </div>
 
     <!-- Status Message -->
-    <div id="status-message-unique" class="status-message"></div>
+    <div id="status-message" class="status-message"></div>
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
@@ -1307,39 +1306,6 @@
                 'phishing-response-guide': 'Phishing Response Guide',
                 'live-threats': 'Threat Live',
                 'my-cv': 'My CV',
-                'skills-title': 'Skills & Expertise',
-                'skill-threat-hunting': 'Threat Hunting',
-                'skill-threat-hunting-desc': 'Advanced threat detection using MITRE ATT&CK framework',
-                'skill-incident-response': 'Incident Response',
-                'skill-incident-response-desc': 'Rapid incident containment and forensic analysis',
-                'skill-siem': 'SIEM Analysis',
-                'skill-siem-desc': 'Expert in Splunk, QRadar, and log analysis',
-                'skill-security-tools': 'Security Tools',
-                'skill-security-tools-desc': 'Proficient in various cybersecurity platforms',
-                'contact-title': 'Contact Me',
-                'contact-name': 'Name:',
-                'contact-email': 'Email:',
-                'contact-subject': 'Subject:',
-                'contact-message': 'Message:',
-                'contact-send': 'Send Message',
-                'contact-email-label': 'Email',
-                'contact-linkedin-label': 'LinkedIn',
-                'contact-website-label': 'Website',
-                'chatbot-title': 'AI Security Assistant',
-                'chatbot-welcome': 'Hi! I\'m your AI Security Assistant. Ask me about cybersecurity, SOC analysis, threat hunting, or any security-related questions!',
-                'chatbot-typing': 'Typing...',
-                'chatbot-placeholder': 'Ask me anything about cybersecurity...',
-                'privacy-notice': '📋 Your data is used only for contact and is not stored by us.',
-                'form-validation-error': 'Please fill in all fields!',
-                'form-sending': 'Sending...',
-                'form-success': 'Message sent successfully!',
-                'form-error': 'Error sending message!',
-                'project-threat-map-desc': 'Real-time global threat visualization',
-                'phishing-checker-desc': 'Advanced phishing detection tool',
-                'threat-hunting-desc': 'Advanced threat detection dashboard',
-                'phishing-response-desc': 'Comprehensive incident response guide',
-                'live-threats-desc': 'Real-time threat monitoring',
-                'my-cv-desc': 'Professional resume and background',
                 'skills-title': 'Skills & Expertise',
                 'skill-threat-hunting': 'Threat Hunting',
                 'skill-threat-hunting-desc': 'Advanced threat detection using MITRE ATT&CK framework',
@@ -1839,13 +1805,24 @@ function showStatusMessage(message, type) {
         statusDiv.classList.remove('show');
     }, 5000);
 }
-    </script>
 
-    <div class="privacy-notice">
-        <p data-translate="privacy-notice">📋 Вашите данни се използват само за контакт и не се съхраняват от нас.</p>
-    </div>
-
-    <!-- Status Message Container -->
-    <div id="status-message" class="status-message"></div>
-</body>
-</html>
+document.addEventListener('DOMContentLoaded', function() {
+    const statusMessage = document.getElementById('status-message-unique');
+    if (!statusMessage) {
+        console.error('Status message div not found');
+        return;
+    }
+    // Инициализация с английски
+    changeLanguage('en');
+    
+    // Скриване на екрана за зареждане
+    const loadingScreen = document.getElementById('loading-screen');
+    if (loadingScreen) {
+        setTimeout(() => {
+            loadingScreen.style.opacity = '0';
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+            }, 500);
+        }, 1000);
+    }
+});

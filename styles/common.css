@@ -40,6 +40,7 @@ nav {
     width: 100%;
     z-index: 1000;
     background: rgba(10, 20, 30, 0.9);
+    -webkit-backdrop-filter: blur(10px); /* Safari compatibility */
     backdrop-filter: blur(10px);
     padding: 15px 0;
 }
@@ -91,6 +92,11 @@ section {
 }
 
 /* Chatbot стилове */
+.chatbot-window {
+    -webkit-backdrop-filter: blur(10px); /* Safari compatibility */
+    backdrop-filter: blur(10px);
+}
+
 .chatbot-window.active {
     display: flex !important;
 }
@@ -98,4 +104,13 @@ section {
 .chatbot-toggle.active {
     background: linear-gradient(45deg, #ff6b6b, #ee5a52);
     transform: rotate(45deg);
+}
+
+/* Политика за поверителност */
+.privacy-notice {
+    margin-top: 15px;
+    padding: 10px;
+    background: rgba(255, 255, 0, 0.1);
+    border-radius: 5px;
+    font-size: 0.9rem;
 }
