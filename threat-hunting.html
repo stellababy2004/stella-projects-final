@@ -371,7 +371,7 @@
     </div>
     
     <script>
-        // Преводи за трите езика
+        // Оптимизирани преводи за трите езика
         let currentLanguage = 'en';
         
         const translations = {
@@ -467,22 +467,74 @@
             }
         };
 
-        function changeLanguage(lang) {
-            currentLanguage = lang;
-            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-            document.getElementById(`lang-${lang}`).classList.add('active');
-            
-            document.querySelectorAll('[data-translate]').forEach(element => {
-                const key = element.getAttribute('data-translate');
-                if (translations[lang] && translations[lang][key]) {
-                    element.textContent = translations[lang][key];
-                }
-            });
+        // Кеширане на елементите за по-бърза работа
+        let cachedElements = null;
+
+        function cacheElements() {
+            if (!cachedElements) {
+                cachedElements = document.querySelectorAll('[data-translate]');
+            }
+            return cachedElements;
         }
 
-        // Инициализация
+        // Оптимизирана функция за смяна на език
+        function changeLanguage(lang) {
+            // Ако езикът е същия, не правим нищо
+            if (currentLanguage === lang) return;
+            
+            currentLanguage = lang;
+            
+            // Бързо обновяване на активния бутон
+            const langButtons = document.querySelectorAll('.lang-btn');
+            langButtons.forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`lang-${lang}`).classList.add('active');
+            
+            // Използваме кеширани елементи за по-бърза работа
+            const elements = cacheElements();
+            const langTranslations = translations[lang];
+            
+            if (!langTranslations) return;
+            
+            // Batch update за по-добра производителност
+            elements.forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (langTranslations[key]) {
+                    element.textContent = langTranslations[key];
+                }
+            });
+            
+            // Запомни избрания език в localStorage
+            localStorage.setItem('selectedLanguage', lang);
+        }
+
+        // Инициализация с проверка за запомнен език
         document.addEventListener('DOMContentLoaded', () => {
-            changeLanguage('en'); // Задай английски по подразбиране
+            const savedLanguage = localStorage.getItem('selectedLanguage') || 'en';
+            changeLanguage(savedLanguage);
+        });
+
+        // Добавяме debounce за да избегнем множество бързи кликове
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
+        // Debounced версия на changeLanguage
+        const debouncedChangeLanguage = debounce(changeLanguage, 100);
+
+        // Използваме event delegation за по-добра производителност
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('lang-btn')) {
+                const lang = e.target.id.replace('lang-', '');
+                debouncedChangeLanguage(lang);
+            }
         });
     </script>
     

@@ -3,647 +3,913 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Live Threats Monitor - Stella Barbarella</title>
+    <meta name="description" content="Live Threats Monitor - Real-time cybersecurity threat intelligence by Stella Barbarella">
+    <title>Live Threats Monitor | Stella Barbarella</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="styles/common.css">
+    <link rel="stylesheet" href="common.css">
     <style>
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 100px 20px 50px;
+        body {
+            background-color: #0d0d0d;
+            color: #00ffff;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .back-to-portfolio {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: rgba(13, 13, 13, 0.9);
+            border: 2px solid #00ffee;
+            color: #00ffee;
+            padding: 12px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(0, 255, 238, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .back-to-portfolio:hover {
+            background: rgba(0, 255, 238, 0.1);
+            box-shadow: 0 0 30px rgba(0, 255, 238, 0.6);
+            color: #00ffee;
+            text-decoration: none;
+            transform: translateY(-2px);
+        }
+
+        /* Language Selector */
+        .language-selector {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            gap: 10px;
+        }
+
+        .lang-btn {
+            background: rgba(13, 13, 13, 0.9);
+            border: 2px solid #00ffee;
+            color: #00ffee;
+            padding: 8px 15px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.8rem;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+        }
+
+        .lang-btn:hover, .lang-btn.active {
+            background: rgba(0, 255, 238, 0.2);
+            box-shadow: 0 0 15px rgba(0, 255, 238, 0.3);
+        }
+
+        .monitor-container {
+            padding: 20px;
+            margin-top: 80px;
             position: relative;
-            z-index: 2;
+            z-index: 1;
         }
-        
-        .header {
+
+        .monitor-header {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
         }
-        
-        h1 {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            animation: glow 2s ease-in-out infinite alternate;
-        }
-        
-        @keyframes glow {
-            from { text-shadow: 0 0 20px rgba(0, 255, 238, 0.3); }
-            to { text-shadow: 0 0 30px rgba(0, 255, 238, 0.8); }
-        }
-        
-        .subtitle {
-            font-size: 1.3rem;
-            color: #00ddcc;
-            margin-bottom: 30px;
-        }
-        
+
         .status-indicator {
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            background: rgba(0, 255, 136, 0.1);
-            border: 2px solid #00ff88;
+            background: rgba(0, 255, 0, 0.2);
+            border: 2px solid #00ff00;
             border-radius: 25px;
-            padding: 10px 25px;
-            margin-bottom: 30px;
-            animation: pulse 2s infinite;
+            padding: 10px 20px;
+            margin-bottom: 20px;
+            font-weight: 600;
         }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-        
+
         .status-dot {
             width: 12px;
             height: 12px;
             border-radius: 50%;
-            background: #00ff88;
-            animation: blink 1s infinite;
+            background: #00ff00;
+            animation: pulse 2s infinite;
         }
-        
-        @keyframes blink {
-            0%, 50% { opacity: 1; }
-            51%, 100% { opacity: 0.3; }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
-        
-        .status-text {
-            color: #00ff88;
-            font-weight: 600;
-            font-size: 1.1rem;
+
+        .monitor-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 3rem;
+            color: #ff4757;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(255, 71, 87, 0.5);
         }
-        
-        .dashboard-grid {
+
+        .monitor-subtitle {
+            font-size: 1.3rem;
+            color: #00ffee;
+            margin-bottom: 40px;
+        }
+
+        .threats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-            margin-bottom: 50px;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
         }
-        
+
         .threat-card {
-            background: rgba(255, 68, 68, 0.1);
-            border: 2px solid #ff4444;
+            background: rgba(13, 13, 13, 0.95);
             border-radius: 20px;
             padding: 30px;
-            transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
-        
-        .threat-card.warning {
-            background: rgba(255, 170, 0, 0.1);
-            border-color: #ffaa00;
+
+        .threat-card.critical {
+            border: 2px solid #ff4757;
+            box-shadow: 0 0 30px rgba(255, 71, 87, 0.3);
         }
-        
-        .threat-card.info {
-            background: rgba(0, 255, 238, 0.1);
-            border-color: #00ffee;
+
+        .threat-card.high {
+            border: 2px solid #ffa502;
+            box-shadow: 0 0 30px rgba(255, 165, 2, 0.3);
         }
-        
-        .threat-card.success {
-            background: rgba(0, 255, 136, 0.1);
-            border-color: #00ff88;
+
+        .threat-card.medium {
+            border: 2px solid #00ffee;
+            box-shadow: 0 0 30px rgba(0, 255, 238, 0.3);
         }
-        
-        .threat-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 68, 68, 0.1), transparent);
-            transition: left 0.5s ease;
+
+        .threat-card.resolved {
+            border: 2px solid #2ed573;
+            box-shadow: 0 0 30px rgba(46, 213, 115, 0.3);
         }
-        
-        .threat-card.warning::before {
-            background: linear-gradient(90deg, transparent, rgba(255, 170, 0, 0.1), transparent);
-        }
-        
-        .threat-card.info::before {
-            background: linear-gradient(90deg, transparent, rgba(0, 255, 238, 0.1), transparent);
-        }
-        
-        .threat-card.success::before {
-            background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.1), transparent);
-        }
-        
-        .threat-card:hover::before {
-            left: 100%;
-        }
-        
+
         .threat-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(255, 68, 68, 0.3);
+            transform: translateY(-5px);
         }
-        
-        .threat-card.warning:hover {
-            box-shadow: 0 20px 40px rgba(255, 170, 0, 0.3);
-        }
-        
-        .threat-card.info:hover {
-            box-shadow: 0 20px 40px rgba(0, 255, 238, 0.3);
-        }
-        
-        .threat-card.success:hover {
-            box-shadow: 0 20px 40px rgba(0, 255, 136, 0.3);
-        }
-        
+
         .threat-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
         }
-        
+
         .threat-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: #ff4444;
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 5px;
         }
-        
-        .threat-card.warning .threat-title {
-            color: #ffaa00;
-        }
-        
-        .threat-card.info .threat-title {
-            color: #00ffee;
-        }
-        
-        .threat-card.success .threat-title {
-            color: #00ff88;
-        }
-        
+
         .threat-level {
-            background: rgba(255, 68, 68, 0.2);
-            color: #ff4444;
             padding: 5px 15px;
             border-radius: 15px;
-            font-size: 0.9rem;
-            font-weight: 600;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
-        
-        .threat-card.warning .threat-level {
-            background: rgba(255, 170, 0, 0.2);
-            color: #ffaa00;
+
+        .threat-level.critical {
+            background: #ff4757;
+            color: #ffffff;
         }
-        
-        .threat-card.info .threat-level {
-            background: rgba(0, 255, 238, 0.2);
-            color: #00ffee;
+
+        .threat-level.high {
+            background: #ffa502;
+            color: #000000;
         }
-        
-        .threat-card.success .threat-level {
-            background: rgba(0, 255, 136, 0.2);
-            color: #00ff88;
+
+        .threat-level.medium {
+            background: #00ffee;
+            color: #000000;
         }
-        
+
+        .threat-level.resolved {
+            background: #2ed573;
+            color: #000000;
+        }
+
         .threat-description {
+            color: #ffffff;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .threat-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .detail-item {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            border-left: 4px solid #00ffee;
+        }
+
+        .detail-label {
+            font-size: 0.9rem;
+            color: #00ffee;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .detail-value {
+            font-size: 1.1rem;
+            color: #ffffff;
+            font-weight: 500;
+        }
+
+        .neutralized-section {
+            margin-top: 40px;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 2rem;
+            color: #2ed573;
+            text-align: center;
+            margin-bottom: 30px;
+            text-shadow: 0 0 15px rgba(46, 213, 115, 0.5);
+        }
+
+        .neutralized-card {
+            background: rgba(46, 213, 115, 0.1);
+            border: 2px solid #2ed573;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 20px;
+        }
+
+        .neutralized-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.3rem;
+            color: #2ed573;
+            margin-bottom: 15px;
+        }
+
+        .neutralized-description {
             color: #ffffff;
             line-height: 1.6;
             margin-bottom: 20px;
         }
-        
-        .threat-details {
+
+        .neutralized-details {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 15px;
-            margin-top: 20px;
         }
-        
-        .threat-detail {
-            background: rgba(0, 0, 0, 0.3);
-            padding: 15px;
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .detail-label {
-            color: #999999;
-            font-size: 0.9rem;
-            margin-bottom: 5px;
-        }
-        
-        .detail-value {
-            color: #ffffff;
-            font-weight: 600;
-        }
-        
-        .threat-timeline {
-            background: rgba(0, 255, 238, 0.1);
+
+        /* Нови стилове за логове */
+        .live-logs-section {
+            margin-top: 40px;
+            background: rgba(13, 13, 13, 0.95);
             border: 2px solid #00ffee;
             border-radius: 20px;
-            padding: 40px;
-            margin-top: 50px;
+            padding: 30px;
+            backdrop-filter: blur(15px);
         }
         
-        .timeline-title {
-            font-size: 2rem;
+        .logs-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        
+        .logs-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.8rem;
             color: #00ffee;
-            margin-bottom: 30px;
+            text-shadow: 0 0 15px rgba(0, 255, 238, 0.5);
+        }
+        
+        .auto-refresh {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #00ff00;
+            font-size: 0.9rem;
+        }
+        
+        .refresh-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #00ff00;
+            animation: pulse 1s infinite;
+        }
+        
+        .logs-container {
+            max-height: 400px;
+            overflow-y: auto;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            padding: 20px;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .log-entry {
+            display: flex;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(0, 255, 238, 0.1);
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        .log-entry:last-child {
+            border-bottom: none;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .log-time {
+            color: #00ffee;
+            font-weight: bold;
+            min-width: 80px;
+            font-size: 0.9rem;
+        }
+        
+        .log-severity {
+            padding: 2px 8px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin: 0 10px;
+            min-width: 80px;
             text-align: center;
         }
         
-        .timeline-items {
-            position: relative;
-            padding-left: 40px;
-        }
-        
-        .timeline-items::before {
-            content: '';
-            position: absolute;
-            left: 20px;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: linear-gradient(180deg, #00ffee, #00ff88);
-        }
-        
-        .timeline-item {
-            position: relative;
-            margin-bottom: 40px;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 25px;
-            border-radius: 15px;
-            border: 1px solid rgba(0, 255, 238, 0.3);
-        }
-        
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -34px;
-            top: 25px;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: #00ffee;
-            border: 3px solid #1a1a2e;
-        }
-        
-        .timeline-time {
-            color: #00ffee;
-            font-size: 0.9rem;
-            margin-bottom: 10px;
-            font-weight: 600;
-        }
-        
-        .timeline-title-item {
+        .log-severity.critical {
+            background: #ff4757;
             color: #ffffff;
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-            font-weight: 600;
         }
         
-        .timeline-description {
-            color: #cccccc;
-            line-height: 1.6;
+        .log-severity.high {
+            background: #ffa502;
+            color: #000000;
         }
         
-        .stats-grid {
+        .log-severity.medium {
+            background: #00ffee;
+            color: #000000;
+        }
+        
+        .log-severity.low {
+            background: #2ed573;
+            color: #000000;
+        }
+        
+        .log-location {
+            color: #ffa502;
+            font-weight: bold;
+            min-width: 100px;
+            margin-right: 15px;
+        }
+        
+        .log-message {
+            color: #ffffff;
+            flex: 1;
+            font-size: 0.9rem;
+        }
+        
+        .log-ip {
+            color: #ff6b6b;
+            font-weight: bold;
+        }
+        
+        .threat-stats {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 20px;
-            margin-top: 50px;
+            margin-top: 30px;
         }
         
         .stat-card {
-            background: rgba(0, 0, 0, 0.5);
-            border: 2px solid #00ffee;
-            border-radius: 15px;
-            padding: 30px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid #00ffee;
+            border-radius: 10px;
+            padding: 20px;
             text-align: center;
-            transition: all 0.3s ease;
-        }
-        
-        .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 255, 238, 0.3);
         }
         
         .stat-number {
-            font-size: 3rem;
-            font-weight: bold;
-            color: #00ffee;
-            margin-bottom: 10px;
             font-family: 'Orbitron', monospace;
+            font-size: 2rem;
+            color: #00ffee;
+            font-weight: bold;
+            margin-bottom: 5px;
         }
         
         .stat-label {
             color: #ffffff;
-            font-size: 1.1rem;
-            font-weight: 600;
+            font-size: 0.9rem;
         }
-        
-        .refresh-indicator {
-            position: fixed;
-            top: 100px;
-            right: 30px;
-            background: rgba(0, 255, 238, 0.1);
-            border: 2px solid #00ffee;
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            z-index: 100;
-        }
-        
-        .refresh-indicator:hover {
-            background: rgba(0, 255, 238, 0.2);
-            transform: scale(1.1);
-        }
-        
-        .refresh-icon {
-            color: #00ffee;
-            font-size: 1.5rem;
-            animation: spin 2s linear infinite;
-        }
-        
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-        
+
         @media (max-width: 768px) {
-            .container {
-                padding: 80px 15px 30px;
-            }
-            
-            h1 {
+            .monitor-title {
                 font-size: 2rem;
             }
-            
-            .dashboard-grid {
+
+            .threats-grid {
                 grid-template-columns: 1fr;
             }
-            
+
             .threat-details {
                 grid-template-columns: 1fr;
             }
-            
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
+
+            .language-selector {
+                top: 15px;
+                right: 15px;
             }
-            
-            .refresh-indicator {
-                right: 20px;
-                width: 50px;
-                height: 50px;
+
+            .lang-btn {
+                padding: 6px 12px;
+                font-size: 0.7rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Particles Background -->
-    <div id="particles-js"></div>
-    
-    <!-- Content Wrapper -->
-    <div class="content-wrapper">
-        <a href="index.html" class="back-btn">← Back to Portfolio</a>
-        
-        <!-- Refresh Indicator -->
-        <div class="refresh-indicator" onclick="refreshThreats()">
-            <i class="fas fa-sync-alt refresh-icon"></i>
+    <!-- Унифициран анимиран фон -->
+    <div class="animated-grid" id="animatedGrid"></div>
+
+    <!-- Back to Portfolio Button -->
+    <a href="index.html#projects" class="back-to-portfolio">
+        <i class="fas fa-arrow-left"></i>
+        <span data-translate="back-to-portfolio">Back to Portfolio</span>
+    </a>
+
+    <!-- Language Selector -->
+    <div class="language-selector">
+        <button class="lang-btn active" id="lang-en" onclick="changeLanguage('en')">EN</button>
+        <button class="lang-btn" id="lang-fr" onclick="changeLanguage('fr')">FR</button>
+        <button class="lang-btn" id="lang-bg" onclick="changeLanguage('bg')">BG</button>
+    </div>
+
+    <!-- Main Content -->
+    <div class="monitor-container">
+        <div class="monitor-header">
+            <div class="status-indicator">
+                <div class="status-dot"></div>
+                <span data-translate="status-active">LIVE MONITORING ACTIVE</span>
+            </div>
+            <h1 class="monitor-title" data-translate="monitor-title">Live Threats Monitor</h1>
+            <p class="monitor-subtitle" data-translate="monitor-subtitle">Real-time global cybersecurity threat intelligence</p>
         </div>
-        
-        <div class="container">
-            <div class="header">
-                <h1>🔴 Live Threats Monitor</h1>
-                <p class="subtitle">Real-time global cybersecurity threat intelligence</p>
-                
-                <div class="status-indicator">
-                    <div class="status-dot"></div>
-                    <span class="status-text">LIVE MONITORING ACTIVE</span>
-                </div>
-            </div>
-            
-            <div class="dashboard-grid">
-                <div class="threat-card">
-                    <div class="threat-header">
-                        <div class="threat-title">Advanced Persistent Threat</div>
-                        <div class="threat-level">CRITICAL</div>
-                    </div>
-                    <div class="threat-description">
-                        Sophisticated APT group targeting financial institutions with custom malware and zero-day exploits.
-                    </div>
-                    <div class="threat-details">
-                        <div class="threat-detail">
-                            <div class="detail-label">Origin</div>
-                            <div class="detail-value">Eastern Europe</div>
-                        </div>
-                        <div class="threat-detail">
-                            <div class="detail-label">Targets</div>
-                            <div class="detail-value">Banking Sector</div>
-                        </div>
-                        <div class="threat-detail">
-                            <div class="detail-label">First Seen</div>
-                            <div class="detail-value">2 hours ago</div>
-                        </div>
-                        <div class="threat-detail">
-                            <div class="detail-label">Affected</div>
-                            <div class="detail-value">15 Organizations</div>
-                        </div>
+
+        <div class="threats-grid">
+            <!-- Critical Threat -->
+            <div class="threat-card critical">
+                <div class="threat-header">
+                    <div>
+                        <h3 class="threat-title" data-translate="threat1-title">Advanced Persistent Threat</h3>
+                        <span class="threat-level critical" data-translate="level-critical">CRITICAL</span>
                     </div>
                 </div>
-                
-                <div class="threat-card warning">
-                    <div class="threat-header">
-                        <div class="threat-title">Ransomware Campaign</div>
-                        <div class="threat-level">HIGH</div>
+                <p class="threat-description" data-translate="threat1-desc">
+                    Sophisticated APT group targeting financial institutions with custom malware and zero-day exploits.
+                </p>
+                <div class="threat-details">
+                    <div class="detail-item">
+                        <div class="detail-label" data-translate="origin-label">Origin</div>
+                        <div class="detail-value">Eastern Europe</div>
                     </div>
-                    <div class="threat-description">
-                        New ransomware variant spreading through phishing emails, targeting healthcare and education sectors.
+                    <div class="detail-item">
+                        <div class="detail-label" data-translate="targets-label">Targets</div>
+                        <div class="detail-value">Banking Sector</div>
                     </div>
-                    <div class="threat-details">
-                        <div class="threat-detail">
-                            <div class="detail-label">Variant</div>
-                            <div class="detail-value">LockBit 3.0</div>
-                        </div>
-                        <div class="threat-detail">
-                            <div class="detail-label">Vector</div>
-                            <div class="detail-value">Email Phishing</div>
-                        </div>
-                        <div class="threat-detail">
-                            <div class="detail-label">Encryption</div>
-                            <div class="detail-value">AES-256</div>
-                        </div>
-                        <div class="threat-detail">
-                            <div class="detail-label">Ransom</div>
-                            <div class="detail-value">$500K - $2M</div>
-                        </div>
+                    <div class="detail-item">
+                        <div class="detail-label" data-translate="first-seen-label">First Seen</div>
+                        <div class="detail-value">2 hours ago</div>
                     </div>
-                </div>
-                
-                <div class="threat-card info">
-                    <div class="threat-header">
-                        <div class="threat-title">Botnet Activity</div>
-                        <div class="threat-level">MEDIUM</div>
-                    </div>
-                    <div class="threat-description">
-                        Increased activity detected from Emotet botnet with new command and control infrastructure.
-                    </div>
-                    <div class="threat-details">
-                        <div class="threat-detail">
-                            <div class="detail-label">Botnet</div>
-                            <div class="detail-value">Emotet</div>
-                        </div>
-                        <div class="threat-detail">
-                            <div class="detail-label">Bots</div>
-                            <div class="detail-value">~50,000</div>
-                        </div>
-                        <div class="threat-detail">
-                            <div class="detail-label">C&C Servers</div>
-                            <div class="detail-value">12 Active</div>
-                        </div>
-                        <div class="threat-detail">
-                            <div class="detail-label">Purpose</div>
-                            <div class="detail-value">Credential Theft</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="threat-card success">
-                    <div class="threat-header">
-                        <div class="threat-title">Threat Neutralized</div>
-                        <div class="threat-level">RESOLVED</div>
-                    </div>
-                    <div class="threat-description">
-                        Coordinated takedown of major phishing infrastructure affecting multiple cryptocurrency exchanges.
-                    </div>
-                    <div class="threat-details">
-                        <div class="threat-detail">
-                            <div class="detail-label">Operation</div>
-                            <div class="detail-value">CryptoShield</div>
-                        </div>
-                        <div class="threat-detail">
-                            <div class="detail-label">Domains</div>
-                            <div class="detail-value">247 Blocked</div>
-                        </div>
-                        <div class="threat-detail">
-                            <div class="detail-label">Arrests</div>
-                            <div class="detail-value">8 Suspects</div>
-                        </div>
-                        <div class="threat-detail">
-                            <div class="detail-label">Assets</div>
-                            <div class="detail-value">$12M Seized</div>
-                        </div>
+                    <div class="detail-item">
+                        <div class="detail-label" data-translate="affected-label">Affected</div>
+                        <div class="detail-value">15 Organizations</div>
                     </div>
                 </div>
             </div>
-            
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-number">1,247</div>
-                    <div class="stat-label">Active Threats</div>
+
+            <!-- High Threat -->
+            <div class="threat-card high">
+                <div class="threat-header">
+                    <div>
+                        <h3 class="threat-title" data-translate="threat2-title">Ransomware Campaign</h3>
+                        <span class="threat-level high" data-translate="level-high">HIGH</span>
+                    </div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-number">89</div>
-                    <div class="stat-label">Blocked Today</div>
+                <p class="threat-description" data-translate="threat2-desc">
+                    New ransomware variant spreading through phishing emails, targeting healthcare and education sectors.
+                </p>
+                <div class="threat-details">
+                    <div class="detail-item">
+                        <div class="detail-label" data-translate="variant-label">Variant</div>
+                        <div class="detail-value">LockBit 3.0</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label" data-translate="vector-label">Vector</div>
+                        <div class="detail-value">Email Phishing</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label" data-translate="encryption-label">Encryption</div>
+                        <div class="detail-value">AES-256</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label" data-translate="ransom-label">Ransom</div>
+                        <div class="detail-value">$500K - $2M</div>
+                    </div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-number">3.2M</div>
-                    <div class="stat-label">IOCs Tracked</div>
+            </div>
+
+            <!-- Medium Threat -->
+            <div class="threat-card medium">
+                <div class="threat-header">
+                    <div>
+                        <h3 class="threat-title" data-translate="threat3-title">Botnet Activity</h3>
+                        <span class="threat-level medium" data-translate="level-medium">MEDIUM</span>
+                    </div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-number">156</div>
-                    <div class="stat-label">Countries</div>
+                <p class="threat-description" data-translate="threat3-desc">
+                    Increased activity detected from Emotet botnet with new command and control infrastructure.
+                </p>
+                <div class="threat-details">
+                    <div class="detail-item">
+                        <div class="detail-label" data-translate="botnet-label">Botnet</div>
+                        <div class="detail-value">Emotet</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label" data-translate="bots-label">Bots</div>
+                        <div class="detail-value">~50,000</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label" data-translate="cac-servers-label">C&C Servers</div>
+                        <div class="detail-value">12 Active</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label" data-translate="purpose-label">Purpose</div>
+                        <div class="detail-value">Credential Theft</div>
+                    </div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-number">24/7</div>
-                    <div class="stat-label">Monitoring</div>
+            </div>
+        </div>
+
+        <!-- Neutralized Threats Section -->
+        <div class="neutralized-section">
+            <h2 class="section-title" data-translate="neutralized-title">Threat Neutralized</h2>
+            <div class="neutralized-card">
+                <h3 class="neutralized-title" data-translate="neutralized-threat-title">Coordinated Takedown Successful</h3>
+                <p class="neutralized-description" data-translate="neutralized-threat-desc">
+                    Coordinated takedown of major phishing infrastructure affecting multiple cryptocurrency exchanges.
+                </p>
+                <div class="neutralized-details">
+                    <div class="detail-item">
+                        <div class="detail-label" data-translate="operation-label">Operation</div>
+                        <div class="detail-value">PhishNet-2024</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label" data-translate="domains-label">Domains</div>
+                        <div class="detail-value">247 Seized</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label" data-translate="arrests-label">Arrests</div>
+                        <div class="detail-value">8 Suspects</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label" data-translate="impact-label">Impact</div>
+                        <div class="detail-value">$15M Prevented</div>
+                    </div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-number">15s</div>
-                    <div class="stat-label">Avg Response</div>
+            </div>
+        </div>
+
+        <!-- Секция за живи логове -->
+        <div class="live-logs-section">
+            <div class="logs-header">
+                <h3 class="logs-title" data-translate="live-logs-title">Live Threat Logs</h3>
+                <div class="auto-refresh">
+                    <div class="refresh-dot"></div>
+                    <span data-translate="auto-refresh">Auto-refresh: ON</span>
                 </div>
             </div>
             
-            <div class="threat-timeline">
-                <h2 class="timeline-title">Recent Threat Activity</h2>
-                <div class="timeline-items">
-                    <div class="timeline-item">
-                        <div class="timeline-time">14:23 UTC</div>
-                        <div class="timeline-title-item">New APT Infrastructure Detected</div>
-                        <div class="timeline-description">
-                            Advanced persistent threat group established new command and control servers in Eastern Europe targeting financial institutions.
-                        </div>
-                    </div>
-                    
-                    <div class="timeline-item">
-                        <div class="timeline-time">13:45 UTC</div>
-                        <div class="timeline-title-item">Ransomware Campaign Surge</div>
-                        <div class="timeline-description">
-                            Significant increase in ransomware deployment across healthcare sector, 47 new infections detected in the last hour.
-                        </div>
-                    </div>
-                    
-                    <div class="timeline-item">
-                        <div class="timeline-time">12:15 UTC</div>
-                        <div class="timeline-title-item">Phishing Domain Takedown</div>
-                        <div class="timeline-description">
-                            Coordinated takedown of 23 phishing domains impersonating major cryptocurrency exchanges, preventing estimated $2.3M in losses.
-                        </div>
-                    </div>
-                    
-                    <div class="timeline-item">
-                        <div class="timeline-time">11:30 UTC</div>
-                        <div class="timeline-title-item">Zero-Day Exploit Discovered</div>
-                        <div class="timeline-description">
-                            New zero-day vulnerability found in popular VPN software, affecting approximately 50,000 corporate installations worldwide.
-                        </div>
-                    </div>
+            <div class="logs-container" id="logsContainer">
+                <!-- Логовете ще се добавят динамично тук -->
+            </div>
+            
+            <!-- Статистики за заплахи -->
+            <div class="threat-stats">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalThreats">1,247</div>
+                    <div class="stat-label" data-translate="total-threats">Total Threats Today</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="blockedAttacks">89</div>
+                    <div class="stat-label" data-translate="blocked-attacks">Blocked Attacks</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="activeThreats">23</div>
+                    <div class="stat-label" data-translate="active-threats">Active Threats</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="countriesAffected">45</div>
+                    <div class="stat-label" data-translate="countries-affected">Countries Affected</div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-    <script src="js/particles-config.js"></script>
-    
     <script>
-        function refreshThreats() {
-            console.log('Refreshing threat data...');
+        // Преводи за трите езика
+        let currentLanguage = 'en';
+        
+        const translations = {
+            en: {
+                'back-to-portfolio': 'Back to Portfolio',
+                'status-active': 'LIVE MONITORING ACTIVE',
+                'monitor-title': 'Live Threats Monitor',
+                'monitor-subtitle': 'Real-time global cybersecurity threat intelligence',
+                'threat1-title': 'Advanced Persistent Threat',
+                'threat1-desc': 'Sophisticated APT group targeting financial institutions with custom malware and zero-day exploits.',
+                'threat2-title': 'Ransomware Campaign',
+                'threat2-desc': 'New ransomware variant spreading through phishing emails, targeting healthcare and education sectors.',
+                'threat3-title': 'Botnet Activity',
+                'threat3-desc': 'Increased activity detected from Emotet botnet with new command and control infrastructure.',
+                'level-critical': 'CRITICAL',
+                'level-high': 'HIGH',
+                'level-medium': 'MEDIUM',
+                'origin-label': 'Origin',
+                'targets-label': 'Targets',
+                'first-seen-label': 'First Seen',
+                'affected-label': 'Affected',
+                'variant-label': 'Variant',
+                'vector-label': 'Vector',
+                'encryption-label': 'Encryption',
+                'ransom-label': 'Ransom',
+                'botnet-label': 'Botnet',
+                'bots-label': 'Bots',
+                'cac-servers-label': 'C&C Servers',
+                'purpose-label': 'Purpose',
+                'neutralized-title': 'Threat Neutralized',
+                'neutralized-threat-title': 'Coordinated Takedown Successful',
+                'neutralized-threat-desc': 'Coordinated takedown of major phishing infrastructure affecting multiple cryptocurrency exchanges.',
+                'operation-label': 'Operation',
+                'domains-label': 'Domains',
+                'arrests-label': 'Arrests',
+                'impact-label': 'Impact',
+                'live-logs-title': 'Live Threat Logs',
+                'auto-refresh': 'Auto-refresh: ON',
+                'total-threats': 'Total Threats Today',
+                'blocked-attacks': 'Blocked Attacks',
+                'active-threats': 'Active Threats',
+                'countries-affected': 'Countries Affected'
+            },
+            fr: {
+                'back-to-portfolio': 'Retour au Portfolio',
+                'status-active': 'SURVEILLANCE EN DIRECT ACTIVE',
+                'monitor-title': 'Moniteur de Menaces en Direct',
+                'monitor-subtitle': 'Renseignement sur les menaces de cybersécurité mondiale en temps réel',
+                'threat1-title': 'Menace Persistante Avancée',
+                'threat1-desc': 'Groupe APT sophistiqué ciblant les institutions financières avec des malwares personnalisés и des exploits zero-day.',
+                'threat2-title': 'Campagne de Ransomware',
+                'threat2-desc': 'Nouvelle variante de ransomware se propageant par emails de phishing, ciblant les secteurs de la santé et de l\'éducation.',
+                'threat3-title': 'Activité de Botnet',
+                'threat3-desc': 'Activité accrue détectée du botnet Emotet avec une nouvelle infrastructure de commande et contrôle.',
+                'level-critical': 'CRITIQUE',
+                'level-high': 'ÉLEVÉ',
+                'level-medium': 'MOYEN',
+                'origin-label': 'Origine',
+                'targets-label': 'Cibles',
+                'first-seen-label': 'Premier Vu',
+                'affected-label': 'Affecté',
+                'variant-label': 'Variante',
+                'vector-label': 'Vecteur',
+                'encryption-label': 'Chiffrement',
+                'ransom-label': 'Rançon',
+                'botnet-label': 'Botnet',
+                'bots-label': 'Bots',
+                'cac-servers-label': 'Serveurs C&C',
+                'purpose-label': 'Objectif',
+                'neutralized-title': 'Menace Neutralisée',
+                'neutralized-threat-title': 'Démantèlement Coordonné Réussi',
+                'neutralized-threat-desc': 'Démantèlement coordonné d\'une infrastructure de phishing majeure affectant plusieurs échanges de cryptomonnaies.',
+                'operation-label': 'Opération',
+                'domains-label': 'Domaines',
+                'arrests-label': 'Arrestations',
+                'impact-label': 'Impact',
+                'live-logs-title': 'Journaux de Menaces en Direct',
+                'auto-refresh': 'Actualisation auto: ON',
+                'total-threats': 'Total des Menaces Aujourd\'hui',
+                'blocked-attacks': 'Attaques Bloquées',
+                'active-threats': 'Menaces Actives',
+                'countries-affected': 'Pays Affectés'
+            },
+            bg: {
+                'back-to-portfolio': 'Назад към Портфолио',
+                'status-active': 'НАБЛЮДЕНИЕ НА ЖИВО АКТИВНО',
+                'monitor-title': 'Монитор на Заплахи на Живо',
+                'monitor-subtitle': 'Разузнаване на глобални киберзаплахи в реално време',
+                'threat1-title': 'Усъвършенствана Устойчива Заплаха',
+                'threat1-desc': 'Софистицирана APT група насочена към финансови институции с персонализиран злонамерен софтуер и zero-day експлойти.',
+                'threat2-title': 'Кампания с Ransomware',
+                'threat2-desc': 'Нов вариант на ransomware разпространяващ се чрез фишинг имейли, насочен към здравеопазването и образованието.',
+                'threat3-title': 'Дейност на Ботнет',
+                'threat3-desc': 'Засилена активност открита от Emotet ботнет с нова инфраструктура за команда и контрол.',
+                'level-critical': 'КРИТИЧНО',
+                'level-high': 'ВИСОКО',
+                'level-medium': 'СРЕДНО',
+                'origin-label': 'Произход',
+                'targets-label': 'Цели',
+                'first-seen-label': 'Първо Видяно',
+                'affected-label': 'Засегнати',
+                'variant-label': 'Вариант',
+                'vector-label': 'Вектор',
+                'encryption-label': 'Шифроване',
+                'ransom-label': 'Откуп',
+                'botnet-label': 'Ботнет',
+                'bots-label': 'Ботове',
+                'cac-servers-label': 'C&C Сървъри',
+                'purpose-label': 'Цел',
+                'neutralized-title': 'Заплаха Неутрализирана',
+                'neutralized-threat-title': 'Координирано Премахване Успешно',
+                'neutralized-threat-desc': 'Координирано премахване на основна фишинг инфраструктура засягаща множество криптовалутни борси.',
+                'operation-label': 'Операция',
+                'domains-label': 'Домейни',
+                'arrests-label': 'Арести',
+                'impact-label': 'Въздействие',
+                'live-logs-title': 'Логове на Заплахи на Живо',
+                'auto-refresh': 'Авто-обновяване: ВКЛ',
+                'total-threats': 'Общо Заплахи Днес',
+                'blocked-attacks': 'Блокирани Атаки',
+                'active-threats': 'Активни Заплахи',
+                'countries-affected': 'Засегнати Страни'
+            }
+        };
+
+        function changeLanguage(lang) {
+            currentLanguage = lang;
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`lang-${lang}`).classList.add('active');
             
-            // Simulate refresh
-            const refreshIcon = document.querySelector('.refresh-icon');
-            refreshIcon.style.animation = 'spin 1s linear infinite';
-            
-            setTimeout(() => {
-                // Update random statistics
-                const statNumbers = document.querySelectorAll('.stat-number');
-                statNumbers.forEach(stat => {
-                    if (stat.textContent.includes(',')) {
-                        const baseNum = parseInt(stat.textContent.replace(/,/g, ''));
-                        const newNum = baseNum + Math.floor(Math.random() * 50);
-                        stat.textContent = newNum.toLocaleString();
-                    }
-                });
-                
-                // Update timestamp
-                const timeElements = document.querySelectorAll('.timeline-time');
-                const now = new Date();
-                const timeString = now.toLocaleTimeString('en-US', { 
-                    hour12: false, 
-                    timeZone: 'UTC' 
-                }) + ' UTC';
-                
-                if (timeElements.length > 0) {
-                    timeElements[0].textContent = timeString;
+            document.querySelectorAll('[data-translate]').forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (translations[lang] && translations[lang][key]) {
+                    element.textContent = translations[lang][key];
                 }
-                
-                refreshIcon.style.animation = 'spin 2s linear infinite';
-                console.log('Threat data refreshed');
-            }, 1000);
+            });
+        }
+
+        // Инициализация
+        document.addEventListener('DOMContentLoaded', () => {
+            changeLanguage('en');
+        });
+    </script>
+
+    <!-- Унифициран JS скрипт -->
+    <script src="animated-background.js"></script>
+
+    <script>
+        // Данни за симулация на логове
+        const threatTypes = [
+            'Malware Detection', 'Phishing Attempt', 'DDoS Attack', 'SQL Injection', 
+            'Brute Force', 'Ransomware', 'APT Activity', 'Data Exfiltration',
+            'Port Scan', 'Credential Theft', 'Zero-day Exploit', 'Botnet Communication'
+        ];
+        
+        const locations = [
+            'Moscow, RU', 'Beijing, CN', 'Lagos, NG', 'São Paulo, BR', 'Mumbai, IN',
+            'Bangkok, TH', 'Cairo, EG', 'Istanbul, TR', 'Tehran, IR', 'Karachi, PK',
+            'Jakarta, ID', 'Manila, PH', 'Ho Chi Minh, VN', 'Dhaka, BD', 'Kiev, UA'
+        ];
+        
+        const severityLevels = ['critical', 'high', 'medium', 'low'];
+        const severityWeights = [0.1, 0.3, 0.5, 0.1]; // По-рядко критични
+        
+        // Генериране на случайни IP адреси
+        function generateRandomIP() {
+            return `${Math.floor(Math.random() * 256)}.${Math.floor(Math.random() * 256)}.${Math.floor(Math.random() * 256)}.${Math.floor(Math.random() * 256)}`;
         }
         
-        // Auto-refresh every 30 seconds
-        setInterval(refreshThreats, 30000);
+        // Избор на severity базиран на тежести
+        function getRandomSeverity() {
+            const random = Math.random();
+            let cumulative = 0;
+            for (let i = 0; i < severityWeights.length; i++) {
+                cumulative += severityWeights[i];
+                if (random <= cumulative) {
+                    return severityLevels[i];
+                }
+            }
+            return 'medium';
+        }
+        
+        // Генериране на лог запис
+        function generateLogEntry() {
+            const now = new Date();
+            const time = now.toTimeString().slice(0, 8);
+            const threat = threatTypes[Math.floor(Math.random() * threatTypes.length)];
+            const location = locations[Math.floor(Math.random() * locations.length)];
+            const severity = getRandomSeverity();
+            const ip = generateRandomIP();
+            
+            return {
+                time: time,
+                severity: severity,
+                location: location,
+                message: `${threat} detected from IP <span class="log-ip">${ip}</span>`,
+                timestamp: now.getTime()
+            };
+        }
+        
+        // Добавяне на лог запис в контейнера
+        function addLogEntry(logEntry) {
+            const logsContainer = document.getElementById('logsContainer');
+            const logElement = document.createElement('div');
+            logElement.className = 'log-entry';
+            
+            logElement.innerHTML = `
+                <div class="log-time">${logEntry.time}</div>
+                <div class="log-severity ${logEntry.severity}">${logEntry.severity.toUpperCase()}</div>
+                <div class="log-location">${logEntry.location}</div>
+                <div class="log-message">${logEntry.message}</div>
+            `;
+            
+            // Добави в началото
+            logsContainer.insertBefore(logElement, logsContainer.firstChild);
+            
+            // Ограничи броя на логовете (запази само последните 20)
+            const logs = logsContainer.querySelectorAll('.log-entry');
+            if (logs.length > 20) {
+                logsContainer.removeChild(logs[logs.length - 1]);
+            }
+        }
+        
+        // Обновяване на статистиките
+        function updateStats() {
+            document.getElementById('totalThreats').textContent = Math.floor(Math.random() * 500) + 1000;
+            document.getElementById('blockedAttacks').textContent = Math.floor(Math.random() * 50) + 50;
+            document.getElementById('activeThreats').textContent = Math.floor(Math.random() * 30) + 10;
+            document.getElementById('countriesAffected').textContent = Math.floor(Math.random() * 20) + 30;
+        }
+        
+        // Започни симулацията на логове
+        function startLogSimulation() {
+            // Генерирай първоначални логове
+            for (let i = 0; i < 8; i++) {
+                setTimeout(() => {
+                    addLogEntry(generateLogEntry());
+                }, i * 200);
+            }
+            
+            // Продължи да добавяш нови логове на случаен интервал
+            setInterval(() => {
+                if (Math.random() < 0.7) { // 70% шанс за нов лог
+                    addLogEntry(generateLogEntry());
+                }
+            }, 2000 + Math.random() * 3000); // Между 2-5 секунди
+            
+            // Обновявай статистиките на всеки 10 секунди
+            setInterval(updateStats, 10000);
+        }
+        
+        // Започни симулацията след зареждане
+        document.addEventListener('DOMContentLoaded', () => {
+            changeLanguage('en');
+            startLogSimulation();
+        });
     </script>
 </body>
 </html>

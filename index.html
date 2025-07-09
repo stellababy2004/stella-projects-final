@@ -5,11 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stella Barbarella | SOC Analyst & Cybersecurity Portfolio</title>
     
-    <!-- Намалени Meta Tags - само най-важните -->
     <meta name="description" content="SOC Analyst & Cybersecurity Specialist - Threat hunting, incident response, SIEM analysis">
     <meta name="keywords" content="threat hunting, cybersecurity, SOC analyst, SIEM, Stella Barbarella">
     
-    <!-- Оптимизирани шрифтове - само нужните weights -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="common.css">
@@ -23,16 +21,12 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background: #0d0d0d; /* Опростен фон */
+            background: #0d0d0d;
             color: #ffffff;
             overflow-x: hidden;
             line-height: 1.6;
         }
 
-        /* ПРЕМАХНЕТЕ particles.js стиловете */
-        /* #particles-js { display: none; } */
-
-        /* Оптимизиран Loading Screen */
         .loading-screen {
             position: fixed;
             top: 0;
@@ -61,7 +55,6 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* Опростена Navigation */
         nav {
             position: fixed;
             top: 0;
@@ -110,7 +103,6 @@
             text-shadow: 0 0 10px rgba(0, 255, 238, 0.5);
         }
 
-        /* Language Selector */
         .language-selector {
             display: flex;
             gap: 10px;
@@ -132,7 +124,6 @@
             box-shadow: 0 0 10px rgba(0, 255, 238, 0.3);
         }
 
-        /* Hero Section */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -241,7 +232,6 @@
             50% { transform: translateY(-20px); }
         }
 
-        /* Sections */
         section {
             padding: 100px 20px;
             max-width: 1200px;
@@ -259,7 +249,6 @@
             text-shadow: 0 0 20px rgba(0, 255, 238, 0.3);
         }
 
-        /* About Section */
         .about-content {
             display: grid;
             grid-template-columns: 1fr 2fr;
@@ -287,7 +276,6 @@
             color: #ffffff;
         }
 
-        /* Projects Section */
         .projects-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -364,7 +352,6 @@
             box-shadow: 0 10px 20px rgba(0, 255, 238, 0.3);
         }
 
-        /* Skills Section */
         .skills-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -404,7 +391,6 @@
             line-height: 1.6;
         }
 
-        /* Contact Section */
         .contact-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -503,7 +489,6 @@
             box-shadow: 0 10px 30px rgba(0, 255, 238, 0.5);
         }
 
-        /* Responsive Design */
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
@@ -536,23 +521,15 @@
             }
         }
     </style>
-    
-    <!-- Премахнете EmailJS - зарежда бавно -->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script> -->
 </head>
 <body>
-    <!-- Опростен Loading Screen -->
     <div id="loading-screen" class="loading-screen">
         <div class="loading-spinner"></div>
     </div>
 
-    <!-- Унифициран анимиран фон -->
-    <div class="animated-grid" id="animatedGrid"></div>
-    
-    <!-- Navigation -->
     <nav>
         <div class="nav-container">
-            <a href="#home" class="logo" data-translate="name">Stella Barbarella</a>
+            <a href="#home" class="logo" data-translate="nav-logo">STELLA</a>
             <ul class="nav-links">
                 <li><a href="#home" data-translate="nav-home">Home</a></li>
                 <li><a href="#about" data-translate="nav-about">About</a></li>
@@ -568,18 +545,15 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
     <section id="home" class="hero">
         <div class="hero-content">
             <div class="hero-text">
                 <h1 class="hero-title" data-translate="hero-title">Stella Barbarella</h1>
                 <p class="hero-subtitle" data-translate="hero-subtitle">SOC Analyst & Cybersecurity Specialist</p>
-                <p class="hero-description" data-translate="hero-description">
-                    Professional threat hunting, incident response, and security analysis services
-                </p>
+                <p class="hero-description" data-translate="hero-description">Professional threat hunting, incident response, and security analysis services</p>
                 <div class="hero-buttons">
-                    <a href="#projects" class="btn btn-primary">View My Work</a>
-                    <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+                    <a href="#projects" class="btn btn-primary" data-translate="btn-view-work">View My Work</a>
+                    <a href="#contact" class="btn btn-secondary" data-translate="btn-get-in-touch">Get In Touch</a>
                 </div>
             </div>
             <div class="hero-visual">
@@ -590,7 +564,6 @@
         </div>
     </section>
 
-    <!-- About Section -->
     <section id="about">
         <h2 data-translate="about-title">About Me</h2>
         <div class="about-content">
@@ -598,178 +571,293 @@
                 <i class="fas fa-user-shield"></i>
             </div>
             <div class="about-text">
-                <p data-translate="about-description">
-                    Experienced SOC Analyst specializing in threat detection, incident response, and cybersecurity analysis. 
-                    Passionate about proactive threat hunting and building robust security frameworks.
+                <p data-translate="about-text">
+                    As a dedicated SOC Analyst and Cybersecurity Specialist, I bring expertise in threat hunting, 
+                    incident response, and security analysis. My passion lies in protecting organizations from 
+                    evolving cyber threats through proactive monitoring, advanced analytics, and comprehensive 
+                    security frameworks.
                 </p>
             </div>
         </div>
     </section>
 
-    <!-- Projects Section -->
     <section id="projects">
-        <h2 data-translate="projects-title">Projects</h2>
+        <h2 data-translate="projects-title">Featured Projects</h2>
         <div class="projects-container">
             <div class="project-card">
-                <div class="project-icon">🌍</div>
-                <h3>Cyber Threat Map</h3>
-                <p>Real-time global threat visualization</p>
-                <a href="interactive-threat-map.html" class="project-link">VIEW PROJECT</a>
-            </div>
-            
-            <div class="project-card">
-                <div class="project-icon">🛡️</div>
-                <h3>Check for Phishing</h3>
-                <p>Advanced phishing detection tool</p>
-                <a href="phishing-check.html" class="project-link">VIEW PROJECT</a>
-            </div>
-            
-            <div class="project-card">
-                <div class="project-icon">🔍</div>
-                <h3>Threat Hunting</h3>
-                <p>Advanced threat detection dashboard</p>
-                <a href="threat-hunting.html" class="project-link">VIEW PROJECT</a>
+                <div class="project-icon">
+                    <i class="fas fa-search" style="color: #ff6b6b;"></i>
+                </div>
+                <h3 data-translate="project1-title">Threat Hunting Dashboard</h3>
+                <p data-translate="project1-desc">Advanced threat hunting platform using MITRE ATT&CK framework</p>
+                <a href="threat-hunting.html" class="project-link" data-translate="project-link">View Project</a>
             </div>
 
             <div class="project-card">
-                <div class="project-icon">📚</div>
-                <h3>Phishing Response Guide</h3>
-                <p>Comprehensive incident response guide</p>
-                <a href="phishing-response-guide.html" class="project-link">VIEW PROJECT</a>
+                <div class="project-icon">
+                    <i class="fas fa-globe" style="color: #4ecdc4;"></i>
+                </div>
+                <h3 data-translate="project2-title">Interactive Threat Map</h3>
+                <p data-translate="project2-desc">Real-time global cybersecurity threat visualization</p>
+                <a href="interactive-threat-map.html" class="project-link" data-translate="project-link">View Project</a>
             </div>
-            
+
             <div class="project-card">
-                <div class="project-icon">📊</div>
-                <h3>Splunk Incident Response</h3>
-                <p>Reducing incident response time by 30%</p>
-                <a href="splunk-incident-response.html" class="project-link">VIEW PROJECT</a>
+                <div class="project-icon">
+                    <i class="fas fa-fish" style="color: #f9ca24;"></i>
+                </div>
+                <h3 data-translate="project3-title">Phishing Analysis Tool</h3>
+                <p data-translate="project3-desc">Comprehensive phishing detection and analysis platform</p>
+                <a href="phishing-check.html" class="project-link" data-translate="project-link">View Project</a>
             </div>
-            
+
             <div class="project-card">
-                <div class="project-icon">🌍</div>
-                <h3>Threat Live</h3>
-                <p>Real-time threat monitoring</p>
-                <a href="live-threats.html" class="project-link">VIEW PROJECT</a>
+                <div class="project-icon">
+                    <i class="fas fa-clipboard-list" style="color: #ff6348;"></i>
+                </div>
+                <h3 data-translate="project4-title">Incident Response Guide</h3>
+                <p data-translate="project4-desc">Step-by-step cybersecurity incident response procedures</p>
+                <a href="phishing-response-guide.html" class="project-link" data-translate="project-link">View Project</a>
+            </div>
+
+            <div class="project-card">
+                <div class="project-icon">
+                    <i class="fas fa-chart-line" style="color: #2ecc71;"></i>
+                </div>
+                <h3 data-translate="project5-title">SIEM Analytics Dashboard</h3>
+                <p data-translate="project5-desc">Splunk-based security information and event management</p>
+                <a href="splunk-incident-response.html" class="project-link" data-translate="project-link">View Project</a>
+            </div>
+
+            <div class="project-card">
+                <div class="project-icon">
+                    <i class="fas fa-exclamation-triangle" style="color: #e74c3c;"></i>
+                </div>
+                <h3 data-translate="project6-title">Live Threats Monitor</h3>
+                <p data-translate="project6-desc">Real-time cybersecurity threat intelligence platform</p>
+                <a href="live-threats.html" class="project-link" data-translate="project-link">View Project</a>
             </div>
         </div>
     </section>
 
-    <!-- Skills Section -->
     <section id="skills">
-        <h2>Skills & Expertise</h2>
+        <h2 data-translate="skills-title">Core Skills</h2>
         <div class="skills-grid">
             <div class="skill-card">
-                <div class="skill-icon">🎯</div>
-                <h3 class="skill-title">Threat Hunting</h3>
-                <p class="skill-description">Advanced threat detection using MITRE ATT&CK framework</p>
+                <div class="skill-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+                <h3 class="skill-title" data-translate="skill1-title">Threat Hunting</h3>
+                <p class="skill-description" data-translate="skill1-desc">Proactive threat detection using MITRE ATT&CK framework</p>
             </div>
-            
+
             <div class="skill-card">
-                <div class="skill-icon">🚨</div>
-                <h3 class="skill-title">Incident Response</h3>
-                <p class="skill-description">Rapid incident containment and forensic analysis</p>
+                <div class="skill-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3 class="skill-title" data-translate="skill2-title">Incident Response</h3>
+                <p class="skill-description" data-translate="skill2-desc">Rapid containment and recovery from security incidents</p>
             </div>
-            
+
             <div class="skill-card">
-                <div class="skill-icon">📊</div>
-                <h3 class="skill-title">SIEM Analysis</h3>
-                <p class="skill-description">Expert in Splunk, QRadar, and log analysis</p>
+                <div class="skill-icon">
+                    <i class="fas fa-chart-bar"></i>
+                </div>
+                <h3 class="skill-title" data-translate="skill3-title">SIEM Analysis</h3>
+                <p class="skill-description" data-translate="skill3-desc">Advanced log analysis and correlation using Splunk</p>
             </div>
-            
+
             <div class="skill-card">
-                <div class="skill-icon">🔧</div>
-                <h3 class="skill-title">Security Tools</h3>
-                <p class="skill-description">Proficient in various cybersecurity platforms</p>
+                <div class="skill-icon">
+                    <i class="fas fa-bug"></i>
+                </div>
+                <h3 class="skill-title" data-translate="skill4-title">Malware Analysis</h3>
+                <p class="skill-description" data-translate="skill4-desc">Static and dynamic analysis of malicious software</p>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
     <section id="contact">
-        <h2>Contact Me</h2>
+        <h2 data-translate="contact-title">Get In Touch</h2>
         <div class="contact-container">
             <div class="contact-info">
                 <div class="contact-item">
-                    <i class="fas fa-envelope contact-icon"></i>
-                    <div>
-                        <h3>Email</h3>
-                        <p class="contact-text">
-                            <a href="mailto:stiliana.stoyanova@orange.fr" class="contact-link">stiliana.stoyanova@orange.fr</a>
-                        </p>
+                    <i class="contact-icon fas fa-envelope"></i>
+                    <div class="contact-text">
+                        <a href="mailto:stella@cybersec.com" class="contact-link">stella@cybersec.com</a>
                     </div>
                 </div>
-                
                 <div class="contact-item">
-                    <i class="fab fa-linkedin contact-icon"></i>
-                    <div>
-                        <h3>LinkedIn</h3>
-                        <p class="contact-text">
-                            <a href="https://www.linkedin.com/in/stella-s-95ba5683/" target="_blank" class="contact-link">Stella Barbarella</a>
-                        </p>
+                    <i class="contact-icon fab fa-linkedin"></i>
+                    <div class="contact-text">
+                        <a href="#" class="contact-link">LinkedIn Profile</a>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <i class="contact-icon fab fa-github"></i>
+                    <div class="contact-text">
+                        <a href="#" class="contact-link">GitHub Portfolio</a>
                     </div>
                 </div>
             </div>
-            
-            <form class="contact-form" onsubmit="return false;">
-                <div class="form-group">
-                    <label for="name">Name:</label>
-                    <input type="text" id="name" name="name" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="subject">Subject:</label>
-                    <input type="text" id="subject" name="subject" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="message">Message:</label>
-                    <textarea id="message" name="message" required></textarea>
-                </div>
-                
-                <button type="button" class="submit-btn" onclick="openMailClient()">Send Message</button>
-            </form>
+            <div class="contact-form">
+                <form>
+                    <div class="form-group">
+                        <label data-translate="form-name">Name</label>
+                        <input type="text" required>
+                    </div>
+                    <div class="form-group">
+                        <label data-translate="form-email">Email</label>
+                        <input type="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label data-translate="form-message">Message</label>
+                        <textarea rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn" data-translate="form-submit">Send Message</button>
+                </form>
+            </div>
         </div>
     </section>
 
-    <!-- Оптимизирани Scripts -->
+    <!-- Унифициран анимиран фон -->
+    <div class="animated-grid" id="animatedGrid"></div>
+    
     <script>
-        // Бързо зареждане без particles.js
-        let currentLanguage = 'en';
-        
+        // Преводи
         const translations = {
             en: {
+                'nav-logo': 'STELLA',
+                'nav-home': 'Home',
+                'nav-about': 'About',
+                'nav-projects': 'Projects',
+                'nav-skills': 'Skills',
+                'nav-contact': 'Contact',
                 'hero-title': 'Stella Barbarella',
                 'hero-subtitle': 'SOC Analyst & Cybersecurity Specialist',
                 'hero-description': 'Professional threat hunting, incident response, and security analysis services',
+                'btn-view-work': 'View My Work',
+                'btn-get-in-touch': 'Get In Touch',
                 'about-title': 'About Me',
-                'about-description': 'Experienced SOC Analyst specializing in threat detection, incident response, and cybersecurity analysis.',
-                'projects-title': 'Projects'
+                'about-text': 'As a dedicated SOC Analyst and Cybersecurity Specialist, I bring expertise in threat hunting, incident response, and security analysis. My passion lies in protecting organizations from evolving cyber threats through proactive monitoring, advanced analytics, and comprehensive security frameworks.',
+                'projects-title': 'Featured Projects',
+                'project1-title': 'Threat Hunting Dashboard',
+                'project1-desc': 'Advanced threat hunting platform using MITRE ATT&CK framework',
+                'project2-title': 'Interactive Threat Map',
+                'project2-desc': 'Real-time global cybersecurity threat visualization',
+                'project3-title': 'Phishing Analysis Tool',
+                'project3-desc': 'Comprehensive phishing detection and analysis platform',
+                'project4-title': 'Incident Response Guide',
+                'project4-desc': 'Step-by-step cybersecurity incident response procedures',
+                'project5-title': 'SIEM Analytics Dashboard',
+                'project5-desc': 'Splunk-based security information and event management',
+                'project6-title': 'Live Threats Monitor',
+                'project6-desc': 'Real-time cybersecurity threat intelligence platform',
+                'project-link': 'View Project',
+                'skills-title': 'Core Skills',
+                'skill1-title': 'Threat Hunting',
+                'skill1-desc': 'Proactive threat detection using MITRE ATT&CK framework',
+                'skill2-title': 'Incident Response',
+                'skill2-desc': 'Rapid containment and recovery from security incidents',
+                'skill3-title': 'SIEM Analysis',
+                'skill3-desc': 'Advanced log analysis and correlation using Splunk',
+                'skill4-title': 'Malware Analysis',
+                'skill4-desc': 'Static and dynamic analysis of malicious software',
+                'contact-title': 'Get In Touch',
+                'form-name': 'Name',
+                'form-email': 'Email',
+                'form-message': 'Message',
+                'form-submit': 'Send Message'
             },
             fr: {
+                'nav-logo': 'STELLA',
+                'nav-home': 'Accueil',
+                'nav-about': 'À propos',
+                'nav-projects': 'Projets',
+                'nav-skills': 'Compétences',
+                'nav-contact': 'Contact',
                 'hero-title': 'Stella Barbarella',
                 'hero-subtitle': 'Analyste SOC et Spécialiste en Cybersécurité',
-                'hero-description': 'Services professionnels de chasse aux menaces и analyse de sécurité',
-                'about-title': 'À propos de moi',
-                'about-description': 'Analyste SOC expérimentée spécialisée dans la détection des menaces.',
-                'projects-title': 'Projets'
+                'hero-description': 'Services professionnels de chasse aux menaces, réponse aux incidents et analyse de sécurité',
+                'btn-view-work': 'Voir Mon Travail',
+                'btn-get-in-touch': 'Contactez-moi',
+                'about-title': 'À Propos de Moi',
+                'about-text': 'En tant qu\'analyste SOC et spécialiste en cybersécurité dédiée, j\'apporte une expertise en chasse aux menaces, réponse aux incidents et analyse de sécurité. Ma passion réside dans la protection des organisations contre les cybermenaces en évolution grâce à une surveillance proactive, des analyses avancées et des frameworks de sécurité complets.',
+                'projects-title': 'Projets Phares',
+                'project1-title': 'Tableau de Chasse aux Menaces',
+                'project1-desc': 'Plateforme avancée de chasse aux menaces utilisant le framework MITRE ATT&CK',
+                'project2-title': 'Carte Interactive des Menaces',
+                'project2-desc': 'Visualisation en temps réel des menaces de cybersécurité mondiales',
+                'project3-title': 'Outil d\'Analyse de Phishing',
+                'project3-desc': 'Plateforme complète de détection et d\'analyse de phishing',
+                'project4-title': 'Guide de Réponse aux Incidents',
+                'project4-desc': 'Procédures étape par étape de réponse aux incidents de cybersécurité',
+                'project5-title': 'Tableau de Bord Analytique SIEM',
+                'project5-desc': 'Gestion des informations et événements de sécurité basée sur Splunk',
+                'project6-title': 'Moniteur de Menaces en Direct',
+                'project6-desc': 'Plateforme de renseignement sur les menaces de cybersécurité en temps réel',
+                'project-link': 'Voir le Projet',
+                'skills-title': 'Compétences Clés',
+                'skill1-title': 'Chasse aux Menaces',
+                'skill1-desc': 'Détection proactive des menaces utilisant le framework MITRE ATT&CK',
+                'skill2-title': 'Réponse aux Incidents',
+                'skill2-desc': 'Confinement rapide et récupération des incidents de sécurité',
+                'skill3-title': 'Analyse SIEM',
+                'skill3-desc': 'Analyse et corrélation avancées de logs utilisant Splunk',
+                'skill4-title': 'Analyse de Malware',
+                'skill4-desc': 'Analyse statique et dynamique de logiciels malveillants',
+                'contact-title': 'Contactez-moi',
+                'form-name': 'Nom',
+                'form-email': 'Email',
+                'form-message': 'Message',
+                'form-submit': 'Envoyer le Message'
             },
             bg: {
-                'hero-title': 'Stella Barbarella',
+                'nav-logo': 'СТЕЛА',
+                'nav-home': 'Начало',
+                'nav-about': 'За мен',
+                'nav-projects': 'Проекти',
+                'nav-skills': 'Умения',
+                'nav-contact': 'Контакт',
+                'hero-title': 'Стела Барбарела',
                 'hero-subtitle': 'SOC Анализатор и Специалист по Киберсигурност',
-                'hero-description': 'Професионални услуги за лов на заплахи и анализ на сигурността',
-                'about-title': 'За мен',
-                'about-description': 'Опитен SOC анализатор, специализиран в откриване на заплахи.',
-                'projects-title': 'Проекти'
+                'hero-description': 'Професионални услуги за лов на заплахи, реагиране на инциденти и анализ на сигурността',
+                'btn-view-work': 'Виж Работата Ми',
+                'btn-get-in-touch': 'Свържи се с мен',
+                'about-title': 'За Мен',
+                'about-text': 'Като отдаден SOC анализатор и специалист по киберсигурност, аз предлагам експертиза в лов на заплахи, реагиране на инциденти и анализ на сигурността. Моята страст е да защитавам организации от развиващи се киберзаплахи чрез проактивно наблюдение, усъвършенствани анализи и цялостни рамки за сигурност.',
+                'projects-title': 'Избрани Проекти',
+                'project1-title': 'Табло за Лов на Заплахи',
+                'project1-desc': 'Усъвършенствана платформа за лов на заплахи използваща MITRE ATT&CK framework',
+                'project2-title': 'Интерактивна Карта на Заплахи',
+                'project2-desc': 'Визуализация в реално време на глобални киберзаплахи',
+                'project3-title': 'Инструмент за Анализ на Фишинг',
+                'project3-desc': 'Цялостна платформа за откриване и анализ на фишинг',
+                'project4-title': 'Ръководство за Реагиране на Инциденти',
+                'project4-desc': 'Стъпка по стъпка процедури за реагиране на киберсигурностни инциденти',
+                'project5-title': 'SIEM Аналитично Табло',
+                'project5-desc': 'Управление на информация и събития за сигурност базирано на Splunk',
+                'project6-title': 'Монитор на Заплахи на Живо',
+                'project6-desc': 'Платформа за разузнаване на киберзаплахи в реално време',
+                'project-link': 'Виж Проекта',
+                'skills-title': 'Основни Умения',
+                'skill1-title': 'Лов на Заплахи',
+                'skill1-desc': 'Проактивно откриване на заплахи използвайки MITRE ATT&CK framework',
+                'skill2-title': 'Реагиране на Инциденти',
+                'skill2-desc': 'Бързо овладяване и възстановяване от сигурностни инциденти',
+                'skill3-title': 'SIEM Анализ',
+                'skill3-desc': 'Усъвършенстван анализ и корелация на логове използвайки Splunk',
+                'skill4-title': 'Анализ на Малуер',
+                'skill4-desc': 'Статичен и динамичен анализ на злонамерен софтуер',
+                'contact-title': 'Свържи се с мен',
+                'form-name': 'Име',
+                'form-email': 'Имейл',
+                'form-message': 'Съобщение',
+                'form-submit': 'Изпрати Съобщение'
             }
         };
 
         function changeLanguage(lang) {
-            currentLanguage = lang;
             document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
             document.getElementById(`lang-${lang}`).classList.add('active');
             
@@ -781,37 +869,27 @@
             });
         }
 
-        function openMailClient() {
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const subject = document.getElementById('subject').value;
-            const message = document.getElementById('message').value;
-            
-            if (!name || !email || !subject || !message) {
-                alert('Моля, попълнете всички полета!');
-                return;
-            }
-            
-            const mailtoLink = `mailto:stiliana.stoyanova@orange.fr?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(
-                `Име: ${name}\nИмейл: ${email}\n\nСъобщение:\n${message}`
-            )}`;
-            
-            window.location.href = mailtoLink;
-        }
-
-        // Бързо зареждане
-        document.addEventListener('DOMContentLoaded', () => {
-            // Скрий loading screen веднага
+        // Скрий loading screen
+        window.addEventListener('load', () => {
             setTimeout(() => {
-                const loadingScreen = document.getElementById('loading-screen');
-                loadingScreen.style.opacity = '0';
-                setTimeout(() => loadingScreen.style.display = 'none', 300);
-            }, 500);
-            
-            changeLanguage('en');
+                document.getElementById('loading-screen').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('loading-screen').style.display = 'none';
+                }, 300);
+            }, 1000);
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
         });
     </script>
-
+    
     <!-- Унифициран JS скрипт -->
     <script src="animated-background.js"></script>
 </body>
