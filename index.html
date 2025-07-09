@@ -5,70 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stella Barbarella | SOC Analyst & Cybersecurity Portfolio</title>
     
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="Професионални услуги за лов на заплахи и киберсигурност от Stella Barbarella. Експертиза в SIEM анализ, detection engineering, MITRE ATT&CK framework и проактивно откриване на заплахи.">
-    <meta name="keywords" content="threat hunting, лов на заплахи, киберсигурност, cybersecurity, SOC analyst, SIEM, detection engineering, MITRE ATT&CK, Splunk, KQL, incident response, Stella Barbarella">
-    <meta name="author" content="Stella Barbarella">
-    <meta name="robots" content="index, follow">
-    <meta name="language" content="bg">
-    <meta name="revisit-after" content="7 days">
+    <!-- Намалени Meta Tags - само най-важните -->
+    <meta name="description" content="SOC Analyst & Cybersecurity Specialist - Threat hunting, incident response, SIEM analysis">
+    <meta name="keywords" content="threat hunting, cybersecurity, SOC analyst, SIEM, Stella Barbarella">
     
-    <!-- Open Graph Meta Tags (за Facebook, LinkedIn и др.) -->
-    <meta property="og:title" content="Stella Barbarella | SOC Analyst & Cybersecurity Portfolio">
-    <meta property="og:description" content="Професионални услуги за лов на заплахи и киберсигурност. Експертиза в SIEM анализ, detection engineering и проактивно откриване на заплахи.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://stellabarbarella.com/index.html">
-    <meta property="og:image" content="https://stellabarbarella.com/images/portfolio-preview.jpg">
-    <meta property="og:site_name" content="Stella Barbarella - Cybersecurity Portfolio">
-    <meta property="og:locale" content="bg_BG">
-    
-    <!-- Twitter Card Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Stella Barbarella | SOC Analyst & Cybersecurity Portfolio">
-    <meta name="twitter:description" content="Професионални услуги за лов на заплахи и киберсигурност">
-    <meta name="twitter:image" content="https://stellabarbarella.com/images/portfolio-preview.jpg">
-    <meta name="twitter:site" content="@stellabarbarella">
-    
-    <!-- Canonical URL -->
-    <link rel="canonical" href="https://stellabarbarella.com/index.html">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    
-    <!-- Additional SEO -->
-    <link rel="alternate" hreflang="en" href="https://stellabarbarella.com/threat-hunting.html?lang=en">
-    <link rel="alternate" hreflang="fr" href="https://stellabarbarella.com/threat-hunting.html?lang=fr">
-    <link rel="alternate" hreflang="bg" href="https://stellabarbarella.com/threat-hunting.html?lang=bg">
-    
-    <!-- Structured Data -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Stella Barbarella",
-      "jobTitle": "SOC Analyst & Cybersecurity Specialist",
-      "description": "Професионални услуги за лов на заплахи и киберсигурност",
-      "url": "https://stellabarbarella.com",
-      "sameAs": [
-        "https://www.linkedin.com/in/stella-s-95ba5683/"
-      ],
-      "knowsAbout": [
-        "Threat Hunting",
-        "Cybersecurity",
-        "SIEM Analysis",
-        "Detection Engineering",
-        "MITRE ATT&CK",
-        "Incident Response"
-      ]
-    }
-    </script>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Оптимизирани шрифтове - само нужните weights -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-     <link rel="stylesheet" href="common.css">
+    <link rel="stylesheet" href="common.css">
+    
     <style>
         * {
             margin: 0;
@@ -78,40 +23,37 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            background: #0d0d0d; /* Опростен фон */
             color: #ffffff;
             overflow-x: hidden;
             line-height: 1.6;
         }
 
-        /* Loading Screen */
+        /* ПРЕМАХНЕТЕ particles.js стиловете */
+        /* #particles-js { display: none; } */
+
+        /* Оптимизиран Loading Screen */
         .loading-screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            background: #0d0d0d;
             display: flex;
             align-items: center;
             justify-content: center;
             z-index: 9999;
-            transition: opacity 0.5s ease;
-        }
-
-        .loading-content {
-            text-align: center;
-            color: #00ffee;
+            transition: opacity 0.3s ease;
         }
 
         .loading-spinner {
-            width: 60px;
-            height: 60px;
-            border: 3px solid rgba(0, 255, 238, 0.3);
-            border-top: 3px solid #00ffee;
+            width: 40px;
+            height: 40px;
+            border: 2px solid rgba(0, 255, 238, 0.3);
+            border-top: 2px solid #00ffee;
             border-radius: 50%;
             animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
         }
 
         @keyframes spin {
@@ -119,15 +61,14 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* Navigation */
+        /* Опростена Navigation */
         nav {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            background: rgba(10, 20, 30, 0.9);
+            background: rgba(13, 13, 13, 0.95);
             backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px); /* Safari compatibility */
             z-index: 1000;
             padding: 15px 0;
             transition: all 0.3s ease;
@@ -160,9 +101,8 @@
         .nav-links a {
             color: #ffffff;
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
             transition: all 0.3s ease;
-            position: relative;
         }
 
         .nav-links a:hover {
@@ -170,26 +110,10 @@
             text-shadow: 0 0 10px rgba(0, 255, 238, 0.5);
         }
 
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(45deg, #00ffee, #00ff88);
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
         /* Language Selector */
         .language-selector {
             display: flex;
             gap: 10px;
-            margin-left: 20px;
         }
 
         .lang-btn {
@@ -206,21 +130,6 @@
         .lang-btn:hover, .lang-btn.active {
             background: rgba(0, 255, 238, 0.3);
             box-shadow: 0 0 10px rgba(0, 255, 238, 0.3);
-        }
-
-        /* Mobile Menu */
-        .mobile-menu {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-        }
-
-        .mobile-menu span {
-            width: 25px;
-            height: 3px;
-            background: #00ffee;
-            margin: 3px 0;
-            transition: 0.3s;
         }
 
         /* Hero Section */
@@ -240,10 +149,6 @@
             grid-template-columns: 1fr 1fr;
             gap: 50px;
             align-items: center;
-        }
-
-        .hero-text {
-            z-index: 2;
         }
 
         .hero-title {
@@ -312,7 +217,6 @@
         }
 
         .hero-visual {
-            position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -337,22 +241,13 @@
             50% { transform: translateY(-20px); }
         }
 
-        /* Particles Background - FIXED FULLSCREEN */
-        #particles-js {
-            position: fixed !important;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            pointer-events: none;
-        }
-
         /* Sections */
         section {
             padding: 100px 20px;
             max-width: 1200px;
             margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
 
         h2 {
@@ -414,23 +309,7 @@
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
-            text-align: center;
             min-height: 280px;
-        }
-
-        .project-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 255, 238, 0.1), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .project-card:hover::before {
-            left: 100%;
         }
 
         .project-card:hover {
@@ -445,17 +324,26 @@
         }
 
         .project-card:hover .project-icon {
-            transform: scale(1.1) rotate(5deg);
+            transform: scale(1.1);
             filter: drop-shadow(0 0 20px #00ffee);
         }
 
-        .project-text {
-            font-size: 1.3rem;
-            font-weight: 600;
+        .project-card h3 {
             color: #00ffee;
+            font-size: 1.5rem;
+            margin: 20px 0 15px 0;
+            font-weight: 600;
         }
 
-        /* Enhanced Project Link Button */
+        .project-card p {
+            color: #ffffff;
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            opacity: 0.9;
+            line-height: 1.5;
+            flex-grow: 1;
+        }
+
         .project-link {
             display: inline-block !important;
             background: #00ffee !important;
@@ -474,30 +362,6 @@
             background: #00ff88 !important;
             transform: translateY(-3px);
             box-shadow: 0 10px 20px rgba(0, 255, 238, 0.3);
-        }
-
-        .project-link:visited {
-            color: #000000 !important;
-        }
-
-        .project-link:active {
-            color: #000000 !important;
-        }
-
-        /* Special styling for MITRE card */
-        .project-card[data-project="mitre-dashboard"] .project-link {
-            background: linear-gradient(45deg, #2a1a2e, #3a1f3e);
-            color: #ff6666;
-            border-color: #ff4444;
-        }
-
-        .project-card[data-project="mitre-dashboard"] .project-link::before {
-            background: linear-gradient(45deg, #ff4444, #ff6666);
-        }
-
-        .project-card[data-project="mitre-dashboard"] .project-link:hover {
-            color: #ffffff;
-            border-color: #ff6666;
         }
 
         /* Skills Section */
@@ -573,6 +437,17 @@
             color: #ffffff;
         }
 
+        .contact-link {
+            color: #00ffee !important;
+            text-decoration: none !important;
+            transition: all 0.3s ease !important;
+        }
+
+        .contact-link:hover {
+            color: #00ff88 !important;
+            text-shadow: 0 0 10px rgba(0, 255, 238, 0.5) !important;
+        }
+
         .contact-form {
             background: rgba(0, 255, 238, 0.1);
             border: 2px solid #00ffee;
@@ -610,11 +485,6 @@
             box-shadow: 0 0 10px rgba(0, 255, 238, 0.3);
         }
 
-        .form-group textarea {
-            resize: vertical;
-            min-height: 120px;
-        }
-
         .submit-btn {
             width: 100%;
             padding: 15px;
@@ -633,328 +503,10 @@
             box-shadow: 0 10px 30px rgba(0, 255, 238, 0.5);
         }
 
-        /* Status Message */
-        .status-message {
-            position: fixed;
-            top: 100px;
-            right: 20px;
-            padding: 20px 30px;
-            border-radius: 15px;
-            font-weight: 600;
-            z-index: 1001;
-            opacity: 0;
-            transform: translateY(-20px);
-            transition: all 0.3s ease;
-            max-width: 400px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            border: 2px solid;
-        }
-
-        .status-message.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .status-message.success {
-            background: linear-gradient(135deg, #00ff88, #00ffee);
-            color: #000000;
-            border-color: #00ff88;
-        }
-
-        .status-message.error {
-            background: linear-gradient(135deg, #ff4444, #ff6666);
-            color: #ffffff;
-            border-color: #ff4444;
-        }
-
-        .status-message.info {
-            background: linear-gradient(135deg, #00ffee, #00ddcc);
-            color: #000000;
-            border-color: #00ffee;
-        }
-
-        /* Form Submit Button States */
-        .submit-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none !important;
-        }
-
-        .submit-btn.loading {
-            background: linear-gradient(45deg, #666, #888);
-            color: #ffffff;
-        }
-
-        /* Chatbot */
-        .chatbot-container {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1000;
-        }
-
-        .chatbot-toggle {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, #00ffee, #00ff88);
-            border: none;
-            font-size: 1.5rem;
-            color: #000000;
-            cursor: pointer;
-            box-shadow: 0 5px 20px rgba(0, 255, 238, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .chatbot-toggle:hover {
-            transform: scale(1.1);
-            box-shadow: 0 10px 30px rgba(0, 255, 238, 0.5);
-        }
-
-        .chatbot-window {
-            position: fixed;
-            bottom: 90px;
-            right: 20px;
-            width: 350px;
-            height: 500px;
-            background: rgba(10, 20, 30, 0.95);
-            border: 2px solid #00ffee;
-            border-radius: 20px;
-            display: none;
-            flex-direction: column;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px); /* Safari compatibility */
-        }
-
-        .chatbot-window.active {
-            display: flex !important;
-        }
-
-        .chatbot-toggle.active {
-            background: linear-gradient(45deg, #ff6b6b, #ee5a52) !important;
-            transform: rotate(45deg) !important;
-        }
-
-        .chatbot-header {
-            padding: 20px;
-            border-bottom: 1px solid #00ffee;
-            text-align: center;
-        }
-
-        .chatbot-title {
-            color: #00ffee;
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-
-        .chatbot-subtitle {
-            color: #00ddcc;
-            font-size: 0.9rem;
-        }
-
-        .chatbot-messages {
-            flex: 1;
-            padding: 20px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .message {
-            padding: 12px 16px;
-            border-radius: 15px;
-            max-width: 85%;
-            word-wrap: break-word;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .message.user {
-            background: #00ffee;
-            color: #000000;
-            align-self: flex-end;
-            margin-left: auto;
-        }
-
-        .message.bot {
-            background: rgba(0, 255, 238, 0.1);
-            color: #ffffff;
-            border: 1px solid #00ffee;
-            align-self: flex-start;
-        }
-
-        .chatbot-input-container {
-            padding: 15px;
-            border-top: 1px solid rgba(0, 255, 238, 0.2);
-            background: rgba(15, 25, 35, 0.9);
-        }
-
-        .chatbot-form {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-
-        .chatbot-input {
-            flex: 1;
-            padding: 12px 15px;
-            border: 1px solid rgba(0, 255, 238, 0.3);
-            border-radius: 25px;
-            background: rgba(20, 30, 40, 0.8);
-            color: #ffffff;
-            font-size: 14px;
-            outline: none;
-            transition: all 0.3s ease;
-        }
-
-        .chatbot-input:focus {
-            border-color: #00ffee;
-            box-shadow: 0 0 10px rgba(0, 255, 238, 0.3);
-        }
-
-        .chatbot-input::placeholder {
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        .chatbot-send-btn {
-            width: 45px;
-            height: 45px;
-            border: none;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #00ffee, #00ccaa);
-            color: #0a1420;
-            font-size: 16px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 2px 10px rgba(0, 255, 238, 0.3);
-        }
-
-        .chatbot-send-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 4px 20px rgba(0, 255, 238, 0.5);
-        }
-
-        .chatbot-send-btn:active {
-            transform: scale(0.95);
-        }
-
-        .chatbot-send-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        /* Chatbot Close Button */
-        .chatbot-close {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            width: 30px;
-            height: 30px;
-            border: none;
-            background: rgba(255, 255, 255, 0.1);
-            color: #ffffff;
-            font-size: 18px;
-            cursor: pointer;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-
-        .chatbot-close:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: scale(1.1);
-        }
-
-        /* Typing Indicator */
-        .typing-indicator {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 15px;
-            background: rgba(0, 255, 238, 0.1);
-            border-radius: 15px;
-            margin: 10px 0;
-        }
-
-        .typing-dots {
-            display: flex;
-            gap: 3px;
-        }
-
-        .typing-dots span {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: #00ffee;
-            animation: typing 1.4s infinite;
-        }
-
-        .typing-dots span:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-
-        .typing-dots span:nth-child(3) {
-            animation-delay: 0.4s;
-        }
-
-        @keyframes typing {
-            0%, 60%, 100% {
-                transform: translateY(0);
-                opacity: 0.4;
-            }
-            30% {
-                transform: translateY(-10px);
-                opacity: 1;
-            }
-        }
-
-        .typing-text {
-            color: #00ffee;
-            font-size: 12px;
-            opacity: 0.8;
-        }
-
-        /* Mobile Chatbot Adjustments */
-        @media (max-width: 768px) {
-            .chatbot-window {
-                width: 95%;
-                height: 80vh;
-                bottom: 80px;
-                right: 2.5%;
-            }
-
-            .chatbot-input-container {
-                padding: 10px;
-            }
-
-            .chatbot-input {
-                padding: 10px 12px;
-                font-size: 16px; /* Prevents zoom on iOS */
-            }
-
-            .chatbot-send-btn {
-                width: 40px;
-                height: 40px;
-                font-size: 14px;
-            }
-        }
-
         /* Responsive Design */
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
-            }
-
-            .mobile-menu {
-                display: flex;
             }
 
             .hero-content {
@@ -964,12 +516,6 @@
 
             .hero-title {
                 font-size: 2.5rem;
-            }
-
-            .hero-image {
-                width: 300px;
-                height: 300px;
-                font-size: 6rem;
             }
 
             .about-content {
@@ -988,185 +534,21 @@
             .skills-grid {
                 grid-template-columns: 1fr;
             }
-
-            .chatbot-window {
-                width: 90%;
-                right: 5%;
-                left: 5%;
-                bottom: 90px;
-            }
         }
-
-        @media (max-width: 480px) {
-            .hero-title {
-                font-size: 2rem;
-            }
-
-            .hero-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .btn {
-                width: 100%;
-                max-width: 250px;
-            }
-        }
-
-        /* Contact Links Enhancement */
-        .contact-link {
-            color: #00ffee !important;
-            text-decoration: none !important;
-            cursor: pointer !important;
-            transition: all 0.3s ease !important;
-            display: inline-block !important;
-        }
-
-        .contact-link:hover {
-            color: #00ff88 !important;
-            text-shadow: 0 0 10px rgba(0, 255, 238, 0.5) !important;
-            transform: translateX(5px) !important;
-        }
-
-        .contact-link:visited {
-            color: #00ffee !important;
-        }
-
-        .contact-link:active {
-            color: #00ddcc !important;
-        }
-
-        /* Ensure all contact links work */
-        .contact-text a {
-            color: #00ffee !important;
-            text-decoration: none !important;
-            cursor: pointer !important;
-            transition: all 0.3s ease !important;
-        }
-
-        .contact-text a:hover {
-            color: #00ff88 !important;
-            text-shadow: 0 0 10px rgba(0, 255, 238, 0.5) !important;
-        }
-
-        /* Working Project Card Styles */
-.project-card h3 {
-    color: #00ffee;
-    font-size: 1.5rem;
-    margin: 20px 0 15px 0;
-    font-weight: 600;
-}
-
-.project-card p {
-    color: #ffffff;
-    font-size: 1.1rem;
-    margin-bottom: 25px;
-    opacity: 0.9;
-    line-height: 1.5;
-    flex-grow: 1;
-}
-
-/* Working Project Link Button */
-.project-link {
-    display: inline-block !important;
-    background: #00ffee !important;
-    color: #000000 !important;
-    padding: 15px 30px;
-    text-decoration: none !important;
-    border-radius: 25px;
-    margin-top: 20px;
-    font-weight: bold;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.project-link:hover {
-    background: #00ff88 !important;
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(0, 255, 238, 0.3);
-}
-
-.project-link:visited {
-    color: #000000 !important;
-}
-
-.project-link:active {
-    color: #000000 !important;
-}
-
-/* Back to Portfolio Button */
-.back-to-portfolio {
-    position: fixed;
-    top: 100px;
-    left: 20px;
-    z-index: 1000;
-    background: rgba(0, 20, 30, 0.9);
-    border: 2px solid #00ffee;
-    border-radius: 30px;
-    padding: 15px 25px;
-    color: #00ffee;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 1rem;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    box-shadow: 0 5px 20px rgba(0, 255, 238, 0.3);
-}
-
-.back-to-portfolio:hover {
-    background: rgba(0, 255, 238, 0.1);
-    transform: translateX(5px);
-    box-shadow: 0 10px 30px rgba(0, 255, 238, 0.5);
-    border-color: #00ff88;
-}
-
-.back-to-portfolio:visited {
-    color: #00ffee;
-}
-
-.back-to-portfolio i {
-    font-size: 1.2rem;
-}
-
-/* Mobile adjustments */
-@media (max-width: 768px) {
-    .back-to-portfolio {
-        top: 80px;
-        left: 15px;
-        padding: 12px 20px;
-        font-size: 0.9rem;
-    }
-}
     </style>
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <script>
-        (function() {
-            emailjs.init("lAhCz4_o_eDCflnmP"); 
-        })();
-    </script>
-    <meta name="autocomplete" content="off">
-    <meta name="format-detection" content="telephone=no">
+    
+    <!-- Премахнете EmailJS - зарежда бавно -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script> -->
 </head>
 <body>
-    <!-- Loading Screen -->
+    <!-- Опростен Loading Screen -->
     <div id="loading-screen" class="loading-screen">
-        <div class="loading-content">
-            <div class="loading-spinner"></div>
-            <h2>Loading Portfolio...</h2>
-        </div>
+        <div class="loading-spinner"></div>
     </div>
 
-    <!-- Back to Portfolio Button -->
-    <a href="#home" class="back-to-portfolio">
-        <i class="fas fa-arrow-left"></i>
-        <span data-translate="back-to-portfolio">Back to Portfolio</span>
-    </a>
-
+    <!-- Унифициран анимиран фон -->
+    <div class="animated-grid" id="animatedGrid"></div>
+    
     <!-- Navigation -->
     <nav>
         <div class="nav-container">
@@ -1179,21 +561,15 @@
                 <li><a href="#contact" data-translate="nav-contact">Contact</a></li>
             </ul>
             <div class="language-selector">
-                <button class="lang-btn active" id="lang-en" type="button" onclick="changeLanguage('en')">EN</button>
-                <button class="lang-btn" id="lang-fr" type="button" onclick="changeLanguage('fr')">FR</button>
-                <button class="lang-btn" id="lang-bg" type="button" onclick="changeLanguage('bg')">BG</button>
-            </div>
-            <div class="mobile-menu" id="mobile-menu">
-                <span></span>
-                <span></span>
-                <span></span>
+                <button class="lang-btn active" id="lang-en" onclick="changeLanguage('en')">EN</button>
+                <button class="lang-btn" id="lang-fr" onclick="changeLanguage('fr')">FR</button>
+                <button class="lang-btn" id="lang-bg" onclick="changeLanguage('bg')">BG</button>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
     <section id="home" class="hero">
-        <div id="particles-js"></div>
         <div class="hero-content">
             <div class="hero-text">
                 <h1 class="hero-title" data-translate="hero-title">Stella Barbarella</h1>
@@ -1224,8 +600,7 @@
             <div class="about-text">
                 <p data-translate="about-description">
                     Experienced SOC Analyst specializing in threat detection, incident response, and cybersecurity analysis. 
-                    Passionate about proactive threat hunting and building robust security frameworks to protect organizations 
-                    from evolving cyber threats.
+                    Passionate about proactive threat hunting and building robust security frameworks.
                 </p>
             </div>
         </div>
@@ -1236,113 +611,90 @@
         <h2 data-translate="projects-title">Projects</h2>
         <div class="projects-container">
             <div class="project-card">
-            <div class="project-icon">🌍</div>
-            <h3 data-translate="project-threat-map">Cyber Threat Map</h3>
-            <p data-translate="project-threat-map-desc">Real-time global threat visualization</p>
-            <a href="interactive-threat-map.html" class="project-link" target="_blank">VIEW PROJECT</a>
-        </div>
-        
-        <div class="project-card">
-            <div class="project-icon">🛡️</div>
-            <h3 data-translate="phishing-checker">Check for Phishing</h3>
-            <p data-translate="phishing-checker-desc">Advanced phishing detection tool</p>
-            <a href="phishing-check.html" class="project-link" target="_blank">VIEW PROJECT</a>
-        </div>
-        
-        <div class="project-card">
-            <div class="project-icon">🔍</div>
-            <h3 data-translate="threat-hunting">Threat Hunting</h3>
-            <p data-translate="threat-hunting-desc">Advanced threat detection dashboard</p>
-            <a href="threat-hunting.html" class="project-link" target="_blank">VIEW PROJECT</a>
-        </div>
+                <div class="project-icon">🌍</div>
+                <h3>Cyber Threat Map</h3>
+                <p>Real-time global threat visualization</p>
+                <a href="interactive-threat-map.html" class="project-link">VIEW PROJECT</a>
+            </div>
+            
+            <div class="project-card">
+                <div class="project-icon">🛡️</div>
+                <h3>Check for Phishing</h3>
+                <p>Advanced phishing detection tool</p>
+                <a href="phishing-check.html" class="project-link">VIEW PROJECT</a>
+            </div>
+            
+            <div class="project-card">
+                <div class="project-icon">🔍</div>
+                <h3>Threat Hunting</h3>
+                <p>Advanced threat detection dashboard</p>
+                <a href="threat-hunting.html" class="project-link">VIEW PROJECT</a>
+            </div>
 
-        <div class="project-card">
-            <div class="project-icon">📚</div>
-            <h3 data-translate="phishing-response-guide">Phishing Response Guide</h3>
-            <p data-translate="phishing-response-desc">Comprehensive incident response guide</p>
-            <a href="phishing-response-guide.html" class="project-link" target="_blank">VIEW PROJECT</a>
+            <div class="project-card">
+                <div class="project-icon">📚</div>
+                <h3>Phishing Response Guide</h3>
+                <p>Comprehensive incident response guide</p>
+                <a href="phishing-response-guide.html" class="project-link">VIEW PROJECT</a>
+            </div>
+            
+            <div class="project-card">
+                <div class="project-icon">📊</div>
+                <h3>Splunk Incident Response</h3>
+                <p>Reducing incident response time by 30%</p>
+                <a href="splunk-incident-response.html" class="project-link">VIEW PROJECT</a>
+            </div>
+            
+            <div class="project-card">
+                <div class="project-icon">🌍</div>
+                <h3>Threat Live</h3>
+                <p>Real-time threat monitoring</p>
+                <a href="live-threats.html" class="project-link">VIEW PROJECT</a>
+            </div>
         </div>
-        
-        <div class="project-card">
-            <div class="project-icon">📊</div>
-            <h3 data-translate="splunk-incident-response">Splunk Incident Response</h3>
-            <p data-translate="splunk-incident-response-desc">Reducing incident response time by 30% using Splunk automation</p>
-            <a href="splunk-incident-response.html" class="project-link" target="_blank">VIEW PROJECT</a>
-        </div>
-        
-        <div class="project-card">
-            <div class="project-icon">🌍</div>
-            <h3 data-translate="live-threats">Threat Live</h3>
-            <p data-translate="live-threats-desc">Real-time threat monitoring</p>
-            <a href="live-threats.html" class="project-link" target="_blank">VIEW PROJECT</a>
-        </div>
-        
-        <div class="project-card">
-            <div class="project-icon">📄</div>
-            <h3 data-translate="my-cv">My CV</h3>
-            <p data-translate="my-cv-desc">Professional resume and background</p>
-            <a href="cv.html" class="project-link" target="_blank">VIEW PROJECT</a>
-        </div>
-        
-        <div class="project-card">
-            <div class="project-icon">🎯</div>
-            <h3 data-translate="mitre-dashboard">MITRE ATT&CK Dashboard</h3>
-            <p data-translate="mitre-dashboard-desc">Real-time threat intelligence analytics</p>
-            <a href="mitre-attack-dashboard.html" class="project-link" target="_blank">VIEW PROJECT</a>
-        </div>
-    </div>
     </section>
 
     <!-- Skills Section -->
     <section id="skills">
-        <h2 data-translate="skills-title">Skills & Expertise</h2>
+        <h2>Skills & Expertise</h2>
         <div class="skills-grid">
             <div class="skill-card">
                 <div class="skill-icon">🎯</div>
-                <h3 class="skill-title" data-translate="skill-threat-hunting">Threat Hunting</h3>
-                <p class="skill-description" data-translate="skill-threat-hunting-desc">
-                    Advanced threat detection using MITRE ATT&CK framework
-                </p>
+                <h3 class="skill-title">Threat Hunting</h3>
+                <p class="skill-description">Advanced threat detection using MITRE ATT&CK framework</p>
             </div>
             
             <div class="skill-card">
                 <div class="skill-icon">🚨</div>
-                <h3 class="skill-title" data-translate="skill-incident-response">Incident Response</h3>
-                <p class="skill-description" data-translate="skill-incident-response-desc">
-                    Rapid incident containment and forensic analysis
-                </p>
+                <h3 class="skill-title">Incident Response</h3>
+                <p class="skill-description">Rapid incident containment and forensic analysis</p>
             </div>
             
             <div class="skill-card">
                 <div class="skill-icon">📊</div>
-                <h3 class="skill-title" data-translate="skill-siem">SIEM Analysis</h3>
-                <p class="skill-description" data-translate="skill-siem-desc">
-                    Expert in Splunk, QRadar, and log analysis
-                </p>
+                <h3 class="skill-title">SIEM Analysis</h3>
+                <p class="skill-description">Expert in Splunk, QRadar, and log analysis</p>
             </div>
             
             <div class="skill-card">
                 <div class="skill-icon">🔧</div>
-                <h3 class="skill-title" data-translate="skill-security-tools">Security Tools</h3>
-                <p class="skill-description" data-translate="skill-security-tools-desc">
-                    Proficient in various cybersecurity platforms
-                </p>
+                <h3 class="skill-title">Security Tools</h3>
+                <p class="skill-description">Proficient in various cybersecurity platforms</p>
             </div>
         </div>
     </section>
 
-
     <!-- Contact Section -->
     <section id="contact">
-        <h2 data-translate="contact-title">Contact Me</h2>
+        <h2>Contact Me</h2>
         <div class="contact-container">
             <div class="contact-info">
                 <div class="contact-item">
                     <i class="fas fa-envelope contact-icon"></i>
                     <div>
-                        <h3 data-translate="contact-email-label">Email</h3>
+                        <h3>Email</h3>
                         <p class="contact-text">
-                            <a href="mailto:stiliana.stoyanova@orange.fr?subject=Portfolio Contact&body=Hello Stella," class="contact-link">stiliana.stoyanova@orange.fr</a>
+                            <a href="mailto:stiliana.stoyanova@orange.fr" class="contact-link">stiliana.stoyanova@orange.fr</a>
                         </p>
                     </div>
                 </div>
@@ -1350,634 +702,117 @@
                 <div class="contact-item">
                     <i class="fab fa-linkedin contact-icon"></i>
                     <div>
-                        <h3 data-translate="contact-linkedin-label">LinkedIn</h3>
+                        <h3>LinkedIn</h3>
                         <p class="contact-text">
-                            <a href="https://www.linkedin.com/in/stella-s-95ba5683/" 
-                               target="_blank" 
-                               rel="noopener noreferrer"
-                               class="contact-link"
-                               onclick="window.open(this.href, '_blank'); return false;">
-                                <i class="fab fa-linkedin"></i>
-                                Stella Barbarella
-                            </a>
-                        </p>
-                    </div>
-                </div>
-                
-                <div class="contact-item">
-                    <i class="fas fa-globe contact-icon"></i>
-                    <div>
-                        <h3 data-translate="contact-website-label">Website</h3>
-                        <p class="contact-text">
-                            <a href="https://stellabarbarella.com/" class="contact-link">stellabarbarella.com</a>
+                            <a href="https://www.linkedin.com/in/stella-s-95ba5683/" target="_blank" class="contact-link">Stella Barbarella</a>
                         </p>
                     </div>
                 </div>
             </div>
             
-            <form class="contact-form" id="contact-form">
+            <form class="contact-form" onsubmit="return false;">
                 <div class="form-group">
-                    <label for="name" data-translate="contact-name">Name:</label>
-                    <input type="text" id="name" name="name" required autocomplete="off">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="email" data-translate="contact-email">Email:</label>
-                    <input type="email" id="email" name="email" required autocomplete="off">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="subject" data-translate="contact-subject">Subject:</label>
-                    <input type="text" id="subject" name="subject" required autocomplete="off">
+                    <label for="subject">Subject:</label>
+                    <input type="text" id="subject" name="subject" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="message" data-translate="contact-message">Message:</label>
-                    <textarea id="message" name="message" required autocomplete="off"></textarea>
+                    <label for="message">Message:</label>
+                    <textarea id="message" name="message" required></textarea>
                 </div>
                 
-                <button type="submit" class="submit-btn" data-translate="contact-send">Send Message</button>
+                <button type="button" class="submit-btn" onclick="openMailClient()">Send Message</button>
             </form>
         </div>
     </section>
-    <!-- Chatbot -->
-    <div class="chatbot-container">
-        <button type="button" class="chatbot-toggle" id="chatbot-toggle" onclick="toggleChatbot()">🤖</button>
-        
-        <div class="chatbot-window" id="chatbot-window">
-            <div class="chatbot-header">
-                <h3 class="chatbot-title" data-translate="chatbot-title">AI Security Assistant</h3>
-                <p class="chatbot-subtitle">Powered by AI</p>
-                <button type="button" class="chatbot-close" onclick="toggleChatbot()">×</button>
-            </div>
-            
-            <div class="chatbot-messages" id="chatbot-messages">
-                <div class="message bot" data-translate="chatbot-welcome">
-                    Hi! I'm your AI Security Assistant. Ask me about cybersecurity, SOC analysis, threat hunting, or any security-related questions!
-                </div>
-                
-                <!-- Typing indicator -->
-                <div class="typing-indicator" id="typing-indicator"></div>
-            </div>
-            
-            <div class="chatbot-input-container">
-                <form class="chatbot-form" id="chatbot-form">
-                    <input type="text" 
-                           class="chatbot-input" 
-                           id="chatbot-input" 
-                           data-translate="chatbot-placeholder" 
-                           placeholder="Ask me anything about cybersecurity..."
-                           autocomplete="off"
-                           maxlength="500">
-                    <button type="submit" class="chatbot-send-btn" id="chatbot-send-btn">
-                        <i class="fas fa-paper-plane"></i>
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
 
-    <!-- Status Message -->
-    <div id="status-message-unique" class="status-message"></div>
-
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <!-- Оптимизирани Scripts -->
     <script>
-        
+        // Бързо зареждане без particles.js
         let currentLanguage = 'en';
-        let chatbotOpen = false;
-        let chatHistory = [];
         
         const translations = {
             en: {
-                'name': 'Stella Barbarella',
-                'nav-home': 'Home',
-                'nav-about': 'About',
-                'nav-projects': 'Projects',
-                'nav-skills': 'Skills',
-                'nav-contact': 'Contact',
                 'hero-title': 'Stella Barbarella',
                 'hero-subtitle': 'SOC Analyst & Cybersecurity Specialist',
                 'hero-description': 'Professional threat hunting, incident response, and security analysis services',
                 'about-title': 'About Me',
-                'about-description': 'Experienced SOC Analyst specializing in threat detection, incident response, and cybersecurity analysis. Passionate about proactive threat hunting and building robust security frameworks to protect organizations from evolving cyber threats.',
-                'projects-title': 'Projects',
-                'cyber-threat-map': 'Cyber Threat Map',
-                'phishing-checker': 'Check for Phishing',
-                'threat-hunting': 'Threat Hunting',
-                'phishing-response-guide': 'Phishing Response Guide',
-                'live-threats': 'Threat Live',
-                'my-cv': 'My CV',
-                'skills-title': 'Skills & Expertise',
-                'skill-threat-hunting': 'Threat Hunting',
-                'skill-threat-hunting-desc': 'Advanced threat detection using MITRE ATT&CK framework',
-                'skill-incident-response': 'Incident Response',
-                'skill-incident-response-desc': 'Rapid incident containment and forensic analysis',
-                'skill-siem': 'SIEM Analysis',
-                'skill-siem-desc': 'Expert in Splunk, QRadar, and log analysis',
-                'skill-security-tools': 'Security Tools',
-                'skill-security-tools-desc': 'Proficient in various cybersecurity platforms',
-                'contact-title': 'Contact Me',
-                'contact-name': 'Name:',
-                'contact-email': 'Email:',
-                'contact-subject': 'Subject:',
-                'contact-message': 'Message:',
-                'contact-send': 'Send Message',
-                'contact-email-label': 'Email',
-                'contact-linkedin-label': 'LinkedIn',
-                'contact-website-label': 'Website',
-                'chatbot-title': 'AI Security Assistant',
-                'chatbot-welcome': 'Hi! I\'m your AI Security Assistant. Ask me about cybersecurity, SOC analysis, threat hunting, or any security-related questions!',
-                'chatbot-typing': 'Typing...',
-                'chatbot-placeholder': 'Ask me anything about cybersecurity...',
-                'privacy-notice': '📋 Your data is used only for contact and is not stored by us.',
-                'form-validation-error': 'Please fill in all fields!',
-                'form-sending': 'Sending...',
-                'form-success': 'Message sent successfully!',
-                'form-error': 'Error sending message!',
-                'project-threat-map-desc': 'Real-time global threat visualization',
-                'phishing-checker-desc': 'Advanced phishing detection tool',
-                'skill-threat-hunting-desc': 'Advanced threat detection using MITRE ATT&CK framework',
-                'skill-incident-response': 'Incident Response',
-                'skill-incident-response-desc': 'Rapid incident containment and forensic analysis',
-                'skill-siem': 'SIEM Analysis',
-                'skill-siem-desc': 'Expert in Splunk, QRadar, and log analysis',
-                'skill-security-tools': 'Security Tools',
-                'skill-security-tools-desc': 'Proficient in various cybersecurity platforms',
-                'contact-title': 'Contact Me',
-                'contact-name': 'Name:',
-                'contact-email': 'Email:',
-                'contact-subject': 'Subject:',
-                'contact-message': 'Message:',
-                'contact-send': 'Send Message',
-                'contact-email-label': 'Email',
-                'contact-linkedin-label': 'LinkedIn',
-                'contact-website-label': 'Website',
-                'chatbot-title': 'AI Security Assistant',
-                'chatbot-welcome': 'Hi! I\'m your AI Security Assistant. Ask me about cybersecurity, SOC analysis, threat hunting, or any security-related questions!',
-                'chatbot-typing': 'Typing...',
-                'chatbot-placeholder': 'Ask me anything about cybersecurity...',
-                'privacy-notice': '📋 Your data is used only for contact and is not stored by us.',
-                'form-validation-error': 'Please fill in all fields!',
-                'form-sending': 'Sending...',
-                'form-success': 'Message sent successfully!',
-                'form-error': 'Error sending message!',
-                'project-threat-map-desc': 'Real-time global threat visualization',
-                'phishing-checker-desc': 'Advanced phishing detection tool',
-                'threat-hunting-desc': 'Advanced threat detection dashboard',
-                'phishing-response-desc': 'Comprehensive incident response guide',
-                'live-threats-desc': 'Real-time threat monitoring',
-                'my-cv-desc': 'Professional resume and background',
-                'mitre-dashboard-desc': 'Real-time threat intelligence analytics',
-                'view-project': 'View Project',
-                'splunk-incident-response': 'Splunk Incident Response',
-                'splunk-incident-response-desc': 'Reducing incident response time by 30% using Splunk automation',
-                'back-to-portfolio': 'Back to Portfolio'
+                'about-description': 'Experienced SOC Analyst specializing in threat detection, incident response, and cybersecurity analysis.',
+                'projects-title': 'Projects'
             },
             fr: {
-                'name': 'Stella Barbarella',
-                'nav-home': 'Accueil',
-                'nav-about': 'À propos',
-                'nav-projects': 'Projets',
-                'nav-skills': 'Compétences',
-                'nav-contact': 'Contact',
                 'hero-title': 'Stella Barbarella',
                 'hero-subtitle': 'Analyste SOC et Spécialiste en Cybersécurité',
-                'hero-description': 'Services professionnels de chasse aux menaces, réponse aux incidents et analyse de sécurité',
+                'hero-description': 'Services professionnels de chasse aux menaces и analyse de sécurité',
                 'about-title': 'À propos de moi',
-                'about-description': 'Analyste SOC expérimentée spécialisée dans la détection des menaces, la réponse aux incidents et l\'analyse de cybersécurité.',
-                'projects-title': 'Projets',
-                'project-threat-map': 'Carte des Menaces Cyber',
-                'phishing-checker': 'Vérifier le Phishing',
-                'threat-hunting': 'Chasse aux Menaces',
-                'phishing-response-guide': 'Guide de Réponse au Phishing',
-                'live-threats': 'Menaces en Direct',
-                'my-cv': 'Mon CV',
-                'mitre-dashboard': 'Tableau de Bord MITRE ATT&CK',
-                'project-threat-map-desc': 'Visualisation des menaces mondiales en temps réel',
-                'phishing-checker-desc': 'Outil de détection de phishing avancé',
-                'threat-hunting-desc': 'Tableau de bord de détection de menaces',
-                'phishing-response-desc': 'Guide complet de réponse aux incidents',
-                'live-threats-desc': 'Surveillance des menaces en temps réel',
-                'my-cv-desc': 'CV professionnel et expérience',
-                'mitre-dashboard-desc': 'Analyse en temps réel des menaces',
-                'view-project': 'Voir le Projet',
-                'skills-title': 'Compétences et Expertise',
-                'skill-threat-hunting': 'Chasse aux Menaces',
-                'skill-threat-hunting-desc': 'Détection avancée des menaces utilisant le framework MITRE ATT&CK',
-                'skill-incident-response': 'Réponse aux Incidents',
-                'skill-incident-response-desc': 'Confinement rapide des incidents и анализ форензик',
-                'skill-siem': 'Analyse SIEM',
-                'skill-siem-desc': 'Expert en Splunk, QRadar et analyse de logs',
-                'skill-security-tools': 'Outils de Sécurité',
-                'skill-security-tools-desc': 'Compétent dans diverses plateformes de cybersécurité',
-                'contact-title': 'Me Contacter',
-                'contact-name': 'Nom:',
-                'contact-email': 'Email:',
-                'contact-subject': 'Sujet:',
-                'contact-message': 'Message:',
-                'contact-send': 'Envoyer le Message',
-                'contact-email-label': 'Email',
-                'contact-linkedin-label': 'LinkedIn',
-                'contact-website-label': 'Site Web',
-                'chatbot-title': 'Assistant IA Sécurité',
-                'chatbot-welcome': 'Salut! Je suis votre Assistant IA Sécurité. Posez-moi des questions sur la cybersécurité!',
-                'chatbot-typing': 'Écrit...',
-                'chatbot-placeholder': 'Posez-moi une question sur la cybersécurité...',
-                'privacy-notice': '📋 Vos données sont utilisées uniquement pour le contact et ne sont pas stockées par нас.',
-                'form-validation-error': 'Veuillez remplir tous les champs!',
-                'form-sending': 'Envoi en cours...',
-                'form-success': 'Message envoyé avec succès!',
-                'form-error': 'Erreur lors de l\'envoi du message!',
-                'back-to-portfolio': 'Retour au Portfolio'
+                'about-description': 'Analyste SOC expérimentée spécialisée dans la détection des menaces.',
+                'projects-title': 'Projets'
             },
             bg: {
-    'name': 'Stella Barbarella',
-    'nav-home': 'Начало',
-    'nav-about': 'За мен',
-    'nav-projects': 'Проекти',
-    'nav-skills': 'Умения',
-    'nav-contact': 'Контакт',
-    'hero-title': 'Stella Barbarella',
-    'hero-subtitle': 'SOC Анализатор и Специалист по Киберсигурност',
-    'hero-description': 'Професионални услуги за лов на заплахи, реакция при инциденти и анализ на сигурността',
-    'about-title': 'За мен',
-    'about-description': 'Опитен SOC анализатор, специализиран в откриване на заплахи, реакция при инциденти и анализ на киберсигурността.',
-    'projects-title': 'Проекти',
-    'project-threat-map': 'Карта на Кибер Заплахи',
-    'phishing-checker': 'Проверка за Фишинг',
-    'threat-hunting': 'Лов на Заплахи',
-    'phishing-response-guide': 'Ръководство за Реакция при Фишинг',
-    'live-threats': 'Заплахи на Живо',
-    'my-cv': 'Моето CV',
-    'mitre-dashboard': 'MITRE ATT&CK Табло',
-    'project-threat-map-desc': 'Визуализация на глобални заплахи в реално време',
-    'phishing-checker-desc': 'Разширен инструмент за откриване на фишинг',
-    'threat-hunting-desc': 'Табло за откриване на заплахи',
-    'phishing-response-desc': 'Изчерпателно ръководство за реакция при инциденти',
-    'live-threats-desc': 'Мониторинг на заплахи в реално време',
-    'my-cv-desc': 'Професионално CV и опит',
-    'mitre-dashboard-desc': 'Анализ на заплахи в реално време',
-    'view-project': 'Виж Проекта',
-    'skills-title': 'Умения и Експертиза',
-    'skill-threat-hunting': 'Лов на Заплахи',
-    'skill-threat-hunting-desc': 'Разширено откриване на заплахи използвайки MITRE ATT&CK framework',
-    'skill-incident-response': 'Реакция при Инциденти',
-    'skill-incident-response-desc': 'Бързо ограничаване на инциденти и форензичен анализ',
-    'skill-siem': 'SIEM Анализ',
-    'skill-siem-desc': 'Експерт в Splunk, QRadar и анализ на логове',
-    'skill-security-tools': 'Инструменти за Сигурност',
-    'skill-security-tools-desc': 'Владеене на различни платформи за киберсигурност',
-    'contact-title': 'Свържете се с мен',
-    'contact-name': 'Име:',
-    'contact-email': 'Имейл:',
-    'contact-subject': 'Тема:',
-    'contact-message': 'Съобщение:',
-    'contact-send': 'Изпрати Съобщение',
-    'contact-email-label': 'Имейл',
-    'contact-linkedin-label': 'LinkedIn',
-    'contact-website-label': 'Уебсайт',
-    'chatbot-title': 'AI Асистент за Сигурност',
-    'chatbot-welcome': 'Здравей! Аз съм вашият AI Асистент за Сигурност.',
-    'chatbot-typing': 'Пише',
-    'chatbot-placeholder': 'Попитайте ме нещо за киберсигурността...',
-    'privacy-notice': '📋 Вашите данни се използват само за контакт и не се съхраняват от нас.',
-    'form-validation-error': 'Моля, попълнете всички полета!',
-    'form-sending': 'Изпраща...',
-    'form-success': 'Съобщението е изпратено успешно!',
-    'form-error': 'Грешка при изпращане на съобщението!',
-    'splunk-incident-response': 'Splunk Реакция при Инциденти',
-    'splunk-incident-response-desc': 'Намаляване на времето за реакция при инциденти с 30% използвайки Splunk автоматизация',
-    'back-to-portfolio': 'Назад към Портфолио'
-}
+                'hero-title': 'Stella Barbarella',
+                'hero-subtitle': 'SOC Анализатор и Специалист по Киберсигурност',
+                'hero-description': 'Професионални услуги за лов на заплахи и анализ на сигурността',
+                'about-title': 'За мен',
+                'about-description': 'Опитен SOC анализатор, специализиран в откриване на заплахи.',
+                'projects-title': 'Проекти'
+            }
         };
 
         function changeLanguage(lang) {
             currentLanguage = lang;
-            document.querySelectorAll('[data-translate]').forEach(el => {
-                const key = el.getAttribute('data-translate');
-                el.textContent = translations[lang][key] || key;
-            });
-            updateChatbotResponses();
-        }
-        const chatbotResponses = {
-            en: {
-                'hello|hi|hey|greetings': [
-                    'Hello! I\'m Stella\'s AI Security Assistant. How can I help you with cybersecurity today?',
-                    'Hi there! I\'m here to help with all your cybersecurity questions. What would you like to know?'
-                ],
-                'default': [
-                    'I\'m here to help with cybersecurity questions! Ask me about threat hunting, incident response, or security topics.'
-                ]
-            },
-            fr: {
-                'hello|hi|hey|greetings|salut|bonjour': [
-                    'Bonjour! Je suis l\'Assistant IA Sécurité de Stella. Comment puis-je vous aider?'
-                ],
-                'default': [
-                    'Je suis ici pour vous aider avec les questions de cybersécurité!'
-                ]
-            },
-            bg: {
-                'hello|hi|hey|greetings|здравей|здрасти|добър ден': [
-                    'Здравей! Аз съм AI Асистентът за Сигурност на Stella. Как мога да ви помогна с киберсигурността днес?'
-                ],
-                'default': [
-                    'Тук съм, за да помогна с въпроси за киберсигурност! Попитайте ме за лов на заплахи, реакция при инциденти или друга тема.'
-                ]
-            }
-        };
-
-        function getIntelligentResponse(userMessage, language) {
-            console.log('🎯 Getting response for:', userMessage, 'in language:', language);
-            
-            const responses = chatbotResponses[language];
-            if (!responses) {
-                console.error('❌ No responses for language:', language);
-                return 'I\'m here to help with cybersecurity questions!';
-            }
-            
-            const lowerMessage = userMessage.toLowerCase();
-            console.log('🔍 Searching in message:', lowerMessage);
-            
-            // Check for specific topics
-            for (const [keywords, responseArray] of Object.entries(responses)) {
-                if (keywords !== 'default') {
-                    const keywordList = keywords.split('|');
-                    console.log('🔑 Checking keywords:', keywordList);
-                    
-                    for (const keyword of keywordList) {
-                        if (lowerMessage.includes(keyword.toLowerCase())) {
-                            console.log('✅ Found keyword match:', keyword);
-                            const selectedResponse = responseArray[Math.floor(Math.random() * responseArray.length)];
-                            console.log('📤 Selected response:', selectedResponse);
-                            return selectedResponse;
-                        }
-                    }
-                }
-            }
-            
-            // Default response
-            console.log('🔄 Using default response');
-            const defaultResponse = responses.default[Math.floor(Math.random() * responses.default.length)];
-            console.log('📤 Default response:', defaultResponse);
-            return defaultResponse;
-        }
-
-        function handleChatbotSubmit(event) {
-            event.preventDefault();
-            
-            const input = document.getElementById('chatbot-input');
-            const sendBtn = document.getElementById('chatbot-send-btn');
-            const userInput = input.value.trim();
-            
-            if (!userInput) return;
-            
-            console.log('🔍 User input:', userInput);
-            console.log('🌐 Current language:', currentLanguage);
-            console.log('📝 Available responses:', Object.keys(chatbotResponses[currentLanguage] || {}));
-            
-            // Disable send button temporarily
-            sendBtn.disabled = true;
-            
-            // Add user message to chat
-            addMessage(userInput, true);
-            input.value = '';
-            
-            // Show typing indicator
-            showTypingIndicator();
-            
-            // Generate intelligent response
-            setTimeout(() => {
-                hideTypingIndicator();
-                
-                const response = getIntelligentResponse(userInput, currentLanguage);
-                console.log('💬 Generated response:', response);
-                addMessage(response, false);
-                
-                // Re-enable send button
-                sendBtn.disabled = false;
-                input.focus();
-            }, 1000 + Math.random() * 2000);
-        }
-
-        // CHATBOT FUNCTIONS
-        function toggleChatbot() {
-            const chatbotWindow = document.getElementById('chatbot-window');
-            const chatbotToggle = document.getElementById('chatbot-toggle');
-            
-            chatbotOpen = !chatbotOpen;
-            
-            if (chatbotOpen) {
-                chatbotWindow.classList.add('active');
-                chatbotToggle.classList.add('active');
-                document.getElementById('chatbot-input').focus();
-            } else {
-                chatbotWindow.classList.remove('active');
-                chatbotToggle.classList.remove('active');
-            }
-        }
-
-        function addMessage(message, isUser) {
-            const messagesContainer = document.getElementById('chatbot-messages');
-            const messageDiv = document.createElement('div');
-            messageDiv.className = `message ${isUser ? 'user' : 'bot'}`;
-            messageDiv.textContent = message;
-            
-            messagesContainer.appendChild(messageDiv);
-            messagesContainer.scrollTop = messagesContainer.scrollHeight;
-        }
-
-        function showTypingIndicator() {
-            const typingIndicator = document.getElementById('typing-indicator');
-            typingIndicator.innerHTML = `
-                <div class="typing-dots">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-                <span class="typing-text">Пише...</span>
-            `;
-            typingIndicator.style.display = 'flex';
-        }
-
-        function hideTypingIndicator() {
-            const typingIndicator = document.getElementById('typing-indicator');
-           
-            typingIndicator.style.display = 'none';
-        }
-
-        function changeLanguage(lang) {
-            currentLanguage = lang;
-            
-            // Update active language button
-            document.querySelectorAll('.lang-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
             document.getElementById(`lang-${lang}`).classList.add('active');
             
-            // Update all translatable elements
             document.querySelectorAll('[data-translate]').forEach(element => {
                 const key = element.getAttribute('data-translate');
                 if (translations[lang] && translations[lang][key]) {
-                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-                        element.placeholder = translations[lang][key];
-                    } else {
-                        element.textContent = translations[lang][key];
-                    }
+                    element.textContent = translations[lang][key];
                 }
             });
         }
 
-        // ИНИЦИАЛИЗАЦИЯ
-        document.addEventListener('DOMContentLoaded', () => {
-            // Particles.js initialization
-            if (typeof particlesJS !== 'undefined') {
-                try {
-                    particlesJS.load('particles-js', 'particles.json', function() {
-                        console.log('✅ Particles.js loaded successfully!');
-                    });
-                } catch (error) {
-                    console.log('Using fallback particles config');
-                    particlesJS('particles-js', {
-                        particles: {
-                            number: { value: 80, density: { enable: true, value_area: 800 } },
-                            color: { value: '#00ffee' },
-                            shape: { type: 'circle' },
-                            opacity: { value: 0.5, random: true },
-                            size: { value: 3, random: true },
-                            line_linked: { enable: true, distance: 150, color: '#00ffee', opacity: 0.4, width: 1 },
-                            move: { enable: true, speed: 3, direction: 'none', random: false, straight: false, out_mode: 'out', bounce: false }
-                        },
-                        interactivity: {
-                            detect_on: 'canvas',
-                            events: { onhover: { enable: true, mode: 'repulse' }, onclick: { enable: true, mode: 'push' }, resize: true },
-                            modes: { repulse: { distance: 100, duration: 0.4 }, push: { particles_nb: 4 } }
-                        },
-                        retina_detect: true
-                    });
-                }
-            }
-
-            // Chatbot form handling
-            const chatbotForm = document.getElementById('chatbot-form');
-            if (chatbotForm) {
-                chatbotForm.addEventListener('submit', handleChatbotSubmit);
-            }
-
-            // Chatbot input enter key
-            const chatbotInput = document.getElementById('chatbot-input');
-            if (chatbotInput) {
-                chatbotInput.addEventListener('keypress', function(e) {
-                    if (e.key === 'Enter' && !e.shiftKey) {
-                        e.preventDefault();
-                        handleChatbotSubmit(e);
-                    }
-                });
-            }
-
-            // Initialize with English
-            changeLanguage('en');
+        function openMailClient() {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
             
-            // Hide loading screen
-            const loadingScreen = document.getElementById('loading-screen');
-            if (loadingScreen) {
-                setTimeout(() => {
-                    loadingScreen.style.opacity = '0';
-                    setTimeout(() => {
-                        loadingScreen.style.display = 'none';
-                    }, 500);
-                }, 1000);
+            if (!name || !email || !subject || !message) {
+                alert('Моля, попълнете всички полета!');
+                return;
             }
+            
+            const mailtoLink = `mailto:stiliana.stoyanova@orange.fr?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(
+                `Име: ${name}\nИмейл: ${email}\n\nСъобщение:\n${message}`
+            )}`;
+            
+            window.location.href = mailtoLink;
+        }
+
+        // Бързо зареждане
+        document.addEventListener('DOMContentLoaded', () => {
+            // Скрий loading screen веднага
+            setTimeout(() => {
+                const loadingScreen = document.getElementById('loading-screen');
+                loadingScreen.style.opacity = '0';
+                setTimeout(() => loadingScreen.style.display = 'none', 300);
+            }, 500);
+            
+            changeLanguage('en');
         });
-
-        // CONTACT FORM HANDLING
-document.addEventListener('DOMContentLoaded', function() {
-    const contactForm = document.getElementById('contact-form');
-    
-    if (contactForm) {
-        contactForm.addEventListener('submit', handleFormSubmit);
-    }
-});
-
-function handleFormSubmit(event) {
-    event.preventDefault();
-    
-    const form = event.target;
-    const formData = new FormData(form);
-    
-    const name = formData.get('name');
-    const email = formData.get('email');
-    const subject = formData.get('subject');
-    const message = formData.get('message');
-    
-    if (!name || !email || !subject || !message) {
-        alert('❌ Моля, попълнете всички полета!');
-        return;
-    }
-    
-    const mailtoLink = `mailto:stiliana.stoyanova@orange.fr?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(
-        `Име: ${name}\nИмейл: ${email}\n\nСъобщение:\n${message}`
-    )}`;
-    
-    // Покажете съобщение и отворете mailto
-    alert('✅ Отваряме имейл клиента за изпращане на съобщението!');
-    
-    setTimeout(() => {
-        window.location.href = mailtoLink;
-        document.getElementById('contact-form').reset();
-    }, 1000);
-}
-
-        // Status Message Function
-function showStatusMessage(message, type) {
-    const statusDiv = document.getElementById('status-message');
-    
-    if (!statusDiv) {
-        console.error('Status message div not found');
-        return;
-    }
-    
-    // Clear existing classes
-    statusDiv.className = 'status-message';
-    statusDiv.textContent = message;
-    
-    // Add type class
-    statusDiv.classList.add(type);
-    statusDiv.classList.add('show');
-    
-    // Auto-hide after 5 seconds
-    setTimeout(() => {
-        statusDiv.classList.remove('show');
-    }, 5000);
-}
-
-/* Debug function for testing buttons */
-function testProjectLinks() {
-    document.querySelectorAll('.project-link').forEach((link, index) => {
-        console.log(`Link ${index}:`, link.href, link.textContent);
-        link.addEventListener('click', (e) => {
-            console.log('Button clicked:', e.target.href);
-            if (!e.target.href || e.target.href === '#') {
-                e.preventDefault();
-                alert('Link is not properly set!');
-            }
-        });
-    });
-}
-
-// Call after DOM loads
-document.addEventListener('DOMContentLoaded', testProjectLinks);
-
-// Test if common.css loaded
-console.log('🔍 Testing if common.css loaded...');
-const computedStyle = getComputedStyle(document.body);
-console.log('📊 Body background:', computedStyle.background);
-console.log('📊 Body font-family:', computedStyle.fontFamily);
     </script>
 
-    <div class="privacy-notice">
-        <p data-translate="privacy-notice">📋 Вашите данни се използват само за контакт и не се съхраняват от нас.</p>
-    </div>
+    <!-- Унифициран JS скрипт -->
+    <script src="animated-background.js"></script>
 </body>
 </html>

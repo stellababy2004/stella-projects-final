@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Threat Hunting Dashboard | Stella Barbarella</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="common.css">
+    <style>
+        body {
+            background-color: #0d0d0d;
+            color: #00ffff;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        
+        .back-to-portfolio {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: rgba(13, 13, 13, 0.9);
+            border: 2px solid #00ffee;
+            color: #00ffee;
+            padding: 12px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(0, 255, 238, 0.3);
+            backdrop-filter: blur(10px);
+        }
+        
+        .back-to-portfolio:hover {
+            background: rgba(0, 255, 238, 0.1);
+            box-shadow: 0 0 30px rgba(0, 255, 238, 0.6);
+            color: #00ffee;
+            text-decoration: none;
+            transform: translateY(-2px);
+        }
+        
+        /* Language Selector */
+        .language-selector {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .lang-btn {
+            background: rgba(13, 13, 13, 0.9);
+            border: 2px solid #00ffee;
+            color: #00ffee;
+            padding: 8px 15px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.8rem;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+        }
+        
+        .lang-btn:hover, .lang-btn.active {
+            background: rgba(0, 255, 238, 0.2);
+            box-shadow: 0 0 15px rgba(0, 255, 238, 0.3);
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 100px 20px 50px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .dashboard-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 3rem;
+            color: #00ffee;
+            margin-bottom: 15px;
+            text-shadow: 0 0 20px rgba(0, 255, 238, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .title-icon {
+            font-size: 3.5rem;
+            color: #00ffee;
+        }
+        
+        .dashboard-subtitle {
+            font-size: 1.3rem;
+            color: #00ddcc;
+            margin-bottom: 30px;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+        
+        .feature-card {
+            background: rgba(13, 13, 13, 0.8);
+            border: 2px solid #00ffee;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 255, 238, 0.3);
+        }
+        
+        .feature-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: #00ffee;
+        }
+        
+        .feature-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.4rem;
+            color: #00ffee;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .feature-description {
+            color: #ffffff;
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+        
+        .mitre-section {
+            background: rgba(0, 255, 238, 0.1);
+            border: 2px solid #00ffee;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+            backdrop-filter: blur(10px);
+        }
+        
+        .mitre-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5rem;
+            color: #00ffee;
+            text-align: center;
+            margin-bottom: 40px;
+            text-shadow: 0 0 20px rgba(0, 255, 238, 0.5);
+        }
+        
+        .tactics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .tactic-card {
+            background: rgba(13, 13, 13, 0.9);
+            border: 2px solid #00ffee;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .tactic-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 30px rgba(0, 255, 238, 0.4);
+        }
+        
+        .tactic-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.2rem;
+            color: #00ffee;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .tactic-description {
+            color: #ffffff;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+        
+        .capabilities-section {
+            background: rgba(13, 13, 13, 0.5);
+            border: 1px solid #00ffee;
+            border-radius: 15px;
+            padding: 40px;
+            margin: 40px 0;
+        }
+        
+        .capabilities-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 2rem;
+            color: #00ffee;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .capabilities-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+        
+        .capability-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 20px;
+            background: rgba(0, 255, 238, 0.05);
+            border: 1px solid rgba(0, 255, 238, 0.3);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .capability-item:hover {
+            background: rgba(0, 255, 238, 0.1);
+            transform: translateX(10px);
+        }
+        
+        .capability-icon {
+            color: #00ff88;
+            font-size: 1.5rem;
+            margin-top: 3px;
+            flex-shrink: 0;
+        }
+        
+        .capability-content {
+            flex: 1;
+        }
+        
+        .capability-name {
+            font-weight: 600;
+            color: #00ffee;
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+        
+        .capability-desc {
+            color: #ffffff;
+            line-height: 1.5;
+            font-size: 0.95rem;
+        }
+        
+        .stats-section {
+            background: rgba(0, 255, 136, 0.1);
+            border: 2px solid #00ff88;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+            text-align: center;
+        }
+        
+        .stats-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 2rem;
+            color: #00ff88;
+            margin-bottom: 30px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+        
+        .stat-item {
+            background: rgba(13, 13, 13, 0.7);
+            border: 2px solid #00ff88;
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+        
+        .stat-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 255, 136, 0.3);
+        }
+        
+        .stat-number {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #00ff88;
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard-title {
+                font-size: 2.2rem;
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .title-icon {
+                font-size: 2.5rem;
+            }
+            
+            .language-selector {
+                top: 15px;
+                right: 15px;
+            }
+            
+            .lang-btn {
+                padding: 6px 12px;
+                font-size: 0.7rem;
+            }
+            
+            .container {
+                padding: 80px 15px 30px;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .tactics-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .capabilities-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Унифициран анимиран фон -->
+    <div class="animated-grid" id="animatedGrid"></div>
+    
+    <!-- Back to Portfolio Button -->
+    <a href="index.html#projects" class="back-to-portfolio">
+        <i class="fas fa-arrow-left"></i>
+        <span data-translate="back-to-portfolio">Back to Portfolio</span>
+    </a>
+
+    <!-- Language Selector -->
+    <div class="language-selector">
+        <button class="lang-btn active" id="lang-en" onclick="changeLanguage('en')">EN</button>
+        <button class="lang-btn" id="lang-fr" onclick="changeLanguage('fr')">FR</button>
+        <button class="lang-btn" id="lang-bg" onclick="changeLanguage('bg')">BG</button>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="dashboard-header">
+            <h1 class="dashboard-title">
+                <i class="title-icon fas fa-search"></i>
+                <span data-translate="dashboard-title">Threat Hunting Dashboard</span>
+            </h1>
+            <p class="dashboard-subtitle" data-translate="dashboard-subtitle">Proactive threat detection using MITRE ATT&CK framework</p>
+        </div>
+
+        <!-- Features -->
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-crosshairs" style="color: #ff6b6b;"></i>
+                </div>
+                <h3 class="feature-title" data-translate="feature1-title">Hunt Methodology</h3>
+                <p class="feature-description" data-translate="feature1-desc">
+                    Systematic approach to proactive threat detection using hypothesis-driven investigation and behavioral analysis.
+                </p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-chart-bar" style="color: #4ecdc4;"></i>
+                </div>
+                <h3 class="feature-title" data-translate="feature2-title">Data Analysis</h3>
+                <p class="feature-description" data-translate="feature2-desc">
+                    Advanced analytics on network traffic, endpoint telemetry, and user behavior patterns to identify anomalies.
+                </p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt" style="color: #45b7d1;"></i>
+                </div>
+                <h3 class="feature-title" data-translate="feature3-title">Continuous Monitoring</h3>
+                <p class="feature-description" data-translate="feature3-desc">
+                    24/7 monitoring with automated detection rules and real-time alerting for suspicious activities.
+                </p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-brain" style="color: #f9ca24;"></i>
+                </div>
+                <h3 class="feature-title" data-translate="feature4-title">Threat Intelligence</h3>
+                <p class="feature-description" data-translate="feature4-desc">
+                    Integration with global threat intelligence feeds and IOC databases for enhanced detection capabilities.
+                </p>
+            </div>
+        </div>
+
+        <!-- MITRE ATT&CK Tactics -->
+        <div class="mitre-section">
+            <h2 class="mitre-title" data-translate="mitre-title">MITRE ATT&CK Tactics</h2>
+            
+            <div class="tactics-grid">
+                <div class="tactic-card">
+                    <h4 class="tactic-title" data-translate="tactic1-title">Initial Access</h4>
+                    <p class="tactic-description" data-translate="tactic1-desc">Spear phishing, exploit public-facing applications</p>
+                </div>
+                
+                <div class="tactic-card">
+                    <h4 class="tactic-title" data-translate="tactic2-title">Execution</h4>
+                    <p class="tactic-description" data-translate="tactic2-desc">PowerShell, command line interface, scheduled tasks</p>
+                </div>
+                
+                <div class="tactic-card">
+                    <h4 class="tactic-title" data-translate="tactic3-title">Persistence</h4>
+                    <p class="tactic-description" data-translate="tactic3-desc">Registry modifications, startup items, services</p>
+                </div>
+                
+                <div class="tactic-card">
+                    <h4 class="tactic-title" data-translate="tactic4-title">Privilege Escalation</h4>
+                    <p class="tactic-description" data-translate="tactic4-desc">Token manipulation, UAC bypass, exploitation</p>
+                </div>
+                
+                <div class="tactic-card">
+                    <h4 class="tactic-title" data-translate="tactic5-title">Defense Evasion</h4>
+                    <p class="tactic-description" data-translate="tactic5-desc">Process injection, obfuscated files</p>
+                </div>
+                
+                <div class="tactic-card">
+                    <h4 class="tactic-title" data-translate="tactic6-title">Credential Access</h4>
+                    <p class="tactic-description" data-translate="tactic6-desc">Credential dumping, brute force attacks</p>
+                </div>
+                
+                <div class="tactic-card">
+                    <h4 class="tactic-title" data-translate="tactic7-title">Discovery</h4>
+                    <p class="tactic-description" data-translate="tactic7-desc">Network discovery, system information</p>
+                </div>
+                
+                <div class="tactic-card">
+                    <h4 class="tactic-title" data-translate="tactic8-title">Lateral Movement</h4>
+                    <p class="tactic-description" data-translate="tactic8-desc">Remote services, pass-the-hash</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Capabilities -->
+        <div class="capabilities-section">
+            <h3 class="capabilities-title" data-translate="capabilities-title">Key Hunting Capabilities</h3>
+            <div class="capabilities-list">
+                <div class="capability-item">
+                    <i class="capability-icon fas fa-search-plus"></i>
+                    <div class="capability-content">
+                        <div class="capability-name" data-translate="cap1-name">Behavioral Analytics</div>
+                        <div class="capability-desc" data-translate="cap1-desc">Machine learning-based anomaly detection for user and entity behavior</div>
+                    </div>
+                </div>
+                
+                <div class="capability-item">
+                    <i class="capability-icon fas fa-network-wired"></i>
+                    <div class="capability-content">
+                        <div class="capability-name" data-translate="cap2-name">Network Traffic Analysis</div>
+                        <div class="capability-desc" data-translate="cap2-desc">Deep packet inspection and flow analysis for suspicious communications</div>
+                    </div>
+                </div>
+                
+                <div class="capability-item">
+                    <i class="capability-icon fas fa-desktop"></i>
+                    <div class="capability-content">
+                        <div class="capability-name" data-translate="cap3-name">Endpoint Telemetry</div>
+                        <div class="capability-desc" data-translate="cap3-desc">Process monitoring, file system changes, and registry modifications</div>
+                    </div>
+                </div>
+                
+                <div class="capability-item">
+                    <i class="capability-icon fas fa-database"></i>
+                    <div class="capability-content">
+                        <div class="capability-name" data-translate="cap4-name">Threat Intelligence Integration</div>
+                        <div class="capability-desc" data-translate="cap4-desc">Real-time IOC matching and threat actor TTPs correlation</div>
+                    </div>
+                </div>
+                
+                <div class="capability-item">
+                    <i class="capability-icon fas fa-chart-line"></i>
+                    <div class="capability-content">
+                        <div class="capability-name" data-translate="cap5-name">Advanced Hunting Queries</div>
+                        <div class="capability-desc" data-translate="cap5-desc">Custom KQL and SPL queries for hypothesis-driven investigations</div>
+                    </div>
+                </div>
+                
+                <div class="capability-item">
+                    <i class="capability-icon fas fa-clock"></i>
+                    <div class="capability-content">
+                        <div class="capability-name" data-translate="cap6-name">Timeline Analysis</div>
+                        <div class="capability-desc" data-translate="cap6-desc">Event correlation and attack chain reconstruction capabilities</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Performance Stats -->
+        <div class="stats-section">
+            <h3 class="stats-title" data-translate="stats-title">Hunting Performance</h3>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">95%</div>
+                    <div class="stat-label" data-translate="stat1-label">Threat Detection Rate</div>
+                </div>
+                
+                <div class="stat-item">
+                    <div class="stat-number">15min</div>
+                    <div class="stat-label" data-translate="stat2-label">Average Hunt Time</div>
+                </div>
+                
+                <div class="stat-item">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label" data-translate="stat3-label">Continuous Monitoring</div>
+                </div>
+                
+                <div class="stat-item">
+                    <div class="stat-number">1000+</div>
+                    <div class="stat-label" data-translate="stat4-label">IOCs Tracked</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Преводи за трите езика
+        let currentLanguage = 'en';
+        
+        const translations = {
+            en: {
+                'back-to-portfolio': 'Back to Portfolio',
+                'dashboard-title': 'Threat Hunting Dashboard',
+                'dashboard-subtitle': 'Proactive threat detection using MITRE ATT&CK framework',
+                'feature1-title': 'Hunt Methodology',
+                'feature1-desc': 'Systematic approach to proactive threat detection using hypothesis-driven investigation and behavioral analysis.',
+                'feature2-title': 'Data Analysis',
+                'feature2-desc': 'Advanced analytics on network traffic, endpoint telemetry, and user behavior patterns to identify anomalies.',
+                'feature3-title': 'Continuous Monitoring',
+                'feature3-desc': '24/7 monitoring with automated detection rules and real-time alerting for suspicious activities.',
+                'feature4-title': 'Threat Intelligence',
+                'feature4-desc': 'Integration with global threat intelligence feeds and IOC databases for enhanced detection capabilities.',
+                'mitre-title': 'MITRE ATT&CK Tactics',
+                'tactic1-title': 'Initial Access',
+                'tactic1-desc': 'Spear phishing, exploit public-facing applications',
+                'tactic2-title': 'Execution',
+                'tactic2-desc': 'PowerShell, command line interface, scheduled tasks',
+                'tactic3-title': 'Persistence',
+                'tactic3-desc': 'Registry modifications, startup items, services',
+                'tactic4-title': 'Privilege Escalation',
+                'tactic4-desc': 'Token manipulation, UAC bypass, exploitation',
+                'tactic5-title': 'Defense Evasion',
+                'tactic5-desc': 'Process injection, obfuscated files',
+                'tactic6-title': 'Credential Access',
+                'tactic6-desc': 'Credential dumping, brute force attacks',
+                'tactic7-title': 'Discovery',
+                'tactic7-desc': 'Network discovery, system information',
+                'tactic8-title': 'Lateral Movement',
+                'tactic8-desc': 'Remote services, pass-the-hash',
+                'capabilities-title': 'Key Hunting Capabilities',
+                'cap1-name': 'Behavioral Analytics',
+                'cap1-desc': 'Machine learning-based anomaly detection for user and entity behavior',
+                'cap2-name': 'Network Traffic Analysis',
+                'cap2-desc': 'Deep packet inspection and flow analysis for suspicious communications',
+                'cap3-name': 'Endpoint Telemetry',
+                'cap3-desc': 'Process monitoring, file system changes, and registry modifications',
+                'cap4-name': 'Threat Intelligence Integration',
+                'cap4-desc': 'Real-time IOC matching and threat actor TTPs correlation',
+                'cap5-name': 'Advanced Hunting Queries',
+                'cap5-desc': 'Custom KQL and SPL queries for hypothesis-driven investigations',
+                'cap6-name': 'Timeline Analysis',
+                'cap6-desc': 'Event correlation and attack chain reconstruction capabilities',
+                'stats-title': 'Hunting Performance',
+                'stat1-label': 'Threat Detection Rate',
+                'stat2-label': 'Average Hunt Time',
+                'stat3-label': 'Continuous Monitoring',
+                'stat4-label': 'IOCs Tracked'
+            },
+            fr: {
+                'back-to-portfolio': 'Retour au Portfolio',
+                'dashboard-title': 'Tableau de Chasse aux Menaces',
+                'dashboard-subtitle': 'Détection proactive des menaces utilisant le framework MITRE ATT&CK',
+                'feature1-title': 'Méthodologie de Chasse',
+                'feature1-desc': 'Approche systématique pour la détection proactive des menaces utilisant des investigations basées sur des hypothèses и des analyses comportementales.',
+                'feature2-title': 'Analyse de Données',
+                'feature2-desc': 'Analyses avancées du trafic réseau, télémétrie des endpoints et patterns de comportement utilisateur pour identifier les anomalies.',
+                'feature3-title': 'Surveillance Continue',
+                'feature3-desc': 'Surveillance 24/7 avec règles de détection automatisées et alertes en temps réel pour les activités suspectes.',
+                'feature4-title': 'Renseignement sur les Menaces',
+                'feature4-desc': 'Intégration avec les flux de renseignement global sur les menaces et bases de données IOC pour des capacités de détection améliorées.',
+                'mitre-title': 'Tactiques MITRE ATT&CK',
+                'tactic1-title': 'Accès Initial',
+                'tactic1-desc': 'Hameçonnage ciblé, експлоатация на публични приложения',
+                'tactic2-title': 'Exécution',
+                'tactic2-desc': 'PowerShell, интерфейс на командния ред, планирани задачи',
+                'tactic3-title': 'Persistance',
+                'tactic3-desc': 'Промени в регистъра, стартиращи елементи, услуги',
+                'tactic4-title': 'Escalade de Privilèges',
+                'tactic4-desc': 'Манипулация на токени, заобикаляне на UAC, експлоатация',
+                'tactic5-title': 'Évasion de Défense',
+                'tactic5-desc': 'Инжектиране на процеси, обфускирани файлове',
+                'tactic6-title': 'Accès aux Identifiants',
+                'tactic6-desc': 'Извличане на идентификационни данни, атаки с груба сила',
+                'tactic7-title': 'Découverte',
+                'tactic7-desc': 'Мрежово откриване, системна информация',
+                'tactic8-title': 'Mouvement Latéral',
+                'tactic8-desc': 'Отдалечени услуги, pass-the-hash',
+                'capabilities-title': 'Capacités Clés de Chasse',
+                'cap1-name': 'Поведенчески Анализи',
+                'cap1-desc': 'Откриване на аномалии базирано на машинно обучение за поведение на потребители и обекти',
+                'cap2-name': 'Анализ на Мрежов Трафик',
+                'cap2-desc': 'Дълбока инспекция на пакети и анализ на потоци за подозрителни комуникации',
+                'cap3-name': 'Телеметрия на Крайни Точки',
+                'cap3-desc': 'Наблюдение на процеси, промени в файловата система и модификации на регистъра',
+                'cap4-name': 'Интеграция на Разузнаване за Заплахи',
+                'cap4-desc': 'Съпоставяне на IOC в реално време и корелация на TTPs на заплашителни актьори',
+                'cap5-name': 'Усъвършенствани Заявки за Лов',
+                'cap5-desc': 'Персонализирани KQL и SPL заявки за разследвания базирани на хипотези',
+                'cap6-name': 'Анализ на Времева Линия',
+                'cap6-desc': 'Корелация на събития и възможности за реконструкция на атакуваща верига',
+                'stats-title': 'Производителност на Лова',
+                'stat1-label': 'Процент Откриване на Заплахи',
+                'stat2-label': 'Средно Време за Лов',
+                'stat3-label': 'Непрекъснато Наблюдение',
+                'stat4-label': 'Проследени IOCs'
+            },
+            bg: {
+                'back-to-portfolio': 'Назад към Портфолио',
+                'dashboard-title': 'Табло за Лов на Заплахи',
+                'dashboard-subtitle': 'Проактивно откриване на заплахи използвайки MITRE ATT&CK framework',
+                'feature1-title': 'Методология за Лов',
+                'feature1-desc': 'Систематичен подход за проактивно откриване на заплахи използвайки разследвания базирани на хипотези и поведенчески анализи.',
+                'feature2-title': 'Анализ на Данни',
+                'feature2-desc': 'Усъвършенствани анализи на мрежов трафик, телеметрия на крайни точки и модели на потребителско поведение за идентифициране на аномалии.',
+                'feature3-title': 'Непрекъснато Наблюдение',
+                'feature3-desc': '24/7 наблюдение с автоматизирани правила за откриване и сигнали в реално време за подозрителни дейности.',
+                'feature4-title': 'Разузнаване за Заплахи',
+                'feature4-desc': 'Интеграция с глобални канали за разузнаване на заплахи и IOC бази данни за подобрени възможности за откриване.',
+                'mitre-title': 'MITRE ATT&CK Тактики',
+                'tactic1-title': 'Първоначален Достъп',
+                'tactic1-desc': 'Целенасочен фишинг, експлоатация на публични приложения',
+                'tactic2-title': 'Изпълнение',
+                'tactic2-desc': 'PowerShell, команден интерфейс, планирани задачи',
+                'tactic3-title': 'Устойчивост',
+                'tactic3-desc': 'Модификации на регистъра, стартови елементи, услуги',
+                'tactic4-title': 'Ескалация на Привилегии',
+                'tactic4-desc': 'Манипулация на токени, заобикаляне на UAC, експлоатация',
+                'tactic5-title': 'Заобикаляне на Защитата',
+                'tactic5-desc': 'Инжектиране на процеси, обфускирани файлове',
+                'tactic6-title': 'Достъп до Идентификационни Данни',
+                'tactic6-desc': 'Извличане на идентификационни данни, атаки с груба сила',
+                'tactic7-title': 'Откриване',
+                'tactic7-desc': 'Мрежово откриване, системна информация',
+                'tactic8-title': 'Странично Движение',
+                'tactic8-desc': 'Отдалечени услуги, pass-the-hash',
+                'capabilities-title': 'Ключови Възможности за Лов',
+                'cap1-name': 'Поведенчески Анализи',
+                'cap1-desc': 'Откриване на аномалии базирано на машинно обучение за поведение на потребители и обекти',
+                'cap2-name': 'Анализ на Мрежов Трафик',
+                'cap2-desc': 'Дълбока инспекция на пакети и анализ на потоци за подозрителни комуникации',
+                'cap3-name': 'Телеметрия на Крайни Точки',
+                'cap3-desc': 'Наблюдение на процеси, промени в файловата система и модификации на регистъра',
+                'cap4-name': 'Интеграция на Разузнаване за Заплахи',
+                'cap4-desc': 'Съпоставяне на IOC в реално време и корелация на TTPs на заплашителни актьори',
+                'cap5-name': 'Усъвършенствани Заявки за Лов',
+                'cap5-desc': 'Персонализирани KQL и SPL заявки за разследвания базирани на хипотези',
+                'cap6-name': 'Анализ на Времева Линия',
+                'cap6-desc': 'Корелация на събития и възможности за реконструкция на атакуваща верига',
+                'stats-title': 'Производителност на Лова',
+                'stat1-label': 'Процент Откриване на Заплахи',
+                'stat2-label': 'Средно Време за Лов',
+                'stat3-label': 'Непрекъснато Наблюдение',
+                'stat4-label': 'Проследени IOCs'
+            }
+        };
+
+        function changeLanguage(lang) {
+            currentLanguage = lang;
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`lang-${lang}`).classList.add('active');
+            
+            document.querySelectorAll('[data-translate]').forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (translations[lang] && translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+        }
+
+        // Инициализация
+        document.addEventListener('DOMContentLoaded', () => {
+            changeLanguage('en'); // Задай английски по подразбиране
+        });
+    </script>
+
+    <!-- Унифициран JS скрипт -->
+    <script src="animated-background.js"></script>
+</body>
+</html>

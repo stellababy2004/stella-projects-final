@@ -1,26 +1,31 @@
-<<<<<<< HEAD
-=======
-
->>>>>>> 44c69972f6399d0d2bfd1b1ced014ff7f5374221
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-<<<<<<< HEAD
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Splunk Incident Response | Stella Barbarella</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="common.css">
     <style>
-        /* Стил за Back to Portfolio бутона */
+        body {
+            background-color: #0d0d0d;
+            color: #00ffff;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        
         .back-to-portfolio {
             position: fixed;
             top: 20px;
             left: 20px;
             z-index: 1000;
-            background: linear-gradient(135deg, #ff6b35, #f7931e);
-            color: white;
+            background: rgba(13, 13, 13, 0.9);
+            border: 2px solid #00ffee;
+            color: #00ffee;
             padding: 12px 20px;
             border-radius: 50px;
             text-decoration: none;
@@ -30,108 +35,130 @@
             align-items: center;
             gap: 8px;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+            box-shadow: 0 0 20px rgba(0, 255, 238, 0.3);
+            backdrop-filter: blur(10px);
         }
         
         .back-to-portfolio:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.5);
-            color: white;
+            background: rgba(0, 255, 238, 0.1);
+            box-shadow: 0 0 30px rgba(0, 255, 238, 0.6);
+            color: #00ffee;
             text-decoration: none;
+            transform: translateY(-2px);
         }
         
-        .back-to-portfolio i {
-            font-size: 1rem;
+        /* Language Selector */
+        .language-selector {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            gap: 10px;
         }
         
-        /* Responsive за мобилни устройства */
-        @media (max-width: 768px) {
-            .back-to-portfolio {
-                top: 15px;
-                left: 15px;
-                padding: 10px 16px;
-                font-size: 0.8rem;
-            }
+        .lang-btn {
+            background: rgba(13, 13, 13, 0.9);
+            border: 2px solid #00ffee;
+            color: #00ffee;
+            padding: 8px 15px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.8rem;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
         }
-
-        /* Уникален стил за Splunk проекта */
-        .splunk-container {
+        
+        .lang-btn:hover, .lang-btn.active {
+            background: rgba(0, 255, 238, 0.2);
+            box-shadow: 0 0 15px rgba(0, 255, 238, 0.3);
+        }
+        
+        .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 120px 20px 60px;
+            padding: 100px 20px 50px;
+            position: relative;
+            z-index: 1;
         }
         
-        .splunk-header {
+        .project-header {
             text-align: center;
             margin-bottom: 60px;
         }
         
-        .splunk-title {
+        .project-title {
             font-family: 'Orbitron', monospace;
             font-size: 3rem;
-            color: #ff6b35;
-            margin-bottom: 20px;
-            text-shadow: 0 0 20px rgba(255, 107, 53, 0.5);
+            color: #00ffee;
+            margin-bottom: 15px;
+            text-shadow: 0 0 20px rgba(0, 255, 238, 0.5);
         }
         
-        .splunk-subtitle {
-            font-size: 1.5rem;
-            color: #00ffee;
+        .project-subtitle {
+            font-size: 1.3rem;
+            color: #00ddcc;
             margin-bottom: 30px;
         }
         
-        .splunk-content {
-            background: rgba(255, 107, 53, 0.1);
-            border: 2px solid #ff6b35;
+        .project-overview {
+            background: rgba(0, 255, 238, 0.1);
+            border: 2px solid #00ffee;
             border-radius: 20px;
             padding: 40px;
             margin-bottom: 40px;
+            backdrop-filter: blur(10px);
         }
         
-        .splunk-description {
-            font-size: 1.2rem;
+        .overview-text {
+            font-size: 1.1rem;
             line-height: 1.8;
             color: #ffffff;
-            margin-bottom: 30px;
-        }
-        
-        .splunk-features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
-        
-        .feature-card {
-            background: rgba(255, 107, 53, 0.1);
-            border: 1px solid #ff6b35;
-            border-radius: 15px;
-            padding: 30px;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(255, 107, 53, 0.3);
-        }
-        
-        .feature-icon {
-            font-size: 3rem;
-            color: #ff6b35;
             margin-bottom: 20px;
         }
         
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .feature-card {
+            background: rgba(13, 13, 13, 0.7);
+            border: 2px solid #00ffee;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 255, 238, 0.3);
+        }
+        
+        .feature-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: #00ffee;
+        }
+        
         .feature-title {
+            font-family: 'Orbitron', monospace;
             font-size: 1.5rem;
-            color: #ff6b35;
+            color: #00ffee;
             margin-bottom: 15px;
-            font-weight: 600;
+            font-weight: 700;
         }
         
         .feature-description {
             color: #ffffff;
             line-height: 1.6;
+            font-size: 1rem;
         }
         
         .results-section {
@@ -139,7 +166,8 @@
             border: 2px solid #00ffee;
             border-radius: 20px;
             padding: 40px;
-            margin-top: 40px;
+            margin: 40px 0;
+            backdrop-filter: blur(10px);
         }
         
         .results-title {
@@ -147,214 +175,384 @@
             font-size: 2.5rem;
             color: #00ffee;
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
+            text-shadow: 0 0 20px rgba(0, 255, 238, 0.5);
         }
         
-        .results-stats {
+        .results-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 30px;
-            margin-top: 30px;
         }
         
-        .stat-card {
-            text-align: center;
-            background: rgba(0, 255, 238, 0.1);
-            border: 1px solid #00ffee;
+        .result-card {
+            background: rgba(13, 13, 13, 0.8);
+            border: 2px solid #00ffee;
             border-radius: 15px;
-            padding: 25px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
         }
         
-        .stat-number {
-            font-size: 3rem;
+        .result-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 30px rgba(0, 255, 238, 0.4);
+        }
+        
+        .result-number {
+            font-family: 'Orbitron', monospace;
+            font-size: 4rem;
             font-weight: 900;
             color: #00ffee;
             margin-bottom: 10px;
+            text-shadow: 0 0 30px rgba(0, 255, 238, 0.8);
         }
         
-        .stat-label {
-            font-size: 1.1rem;
+        .result-label {
+            font-size: 1.2rem;
             color: #ffffff;
-            font-weight: 500;
+            font-weight: 600;
         }
         
-        @media (max-width: 1200px) {
-            .splunk-container {
-                padding: 80px 20px 40px;
-            }
-            
-            .splunk-title {
-                font-size: 2.5rem;
-            }
-            
-            .splunk-subtitle {
-                font-size: 1.2rem;
-            }
-            
-            .splunk-content {
-                padding: 30px;
-            }
-            
-            .feature-card {
-                padding: 20px;
-            }
+        .technical-details {
+            background: rgba(13, 13, 13, 0.5);
+            border: 1px solid #00ffee;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 40px 0;
         }
+        
+        .details-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 2rem;
+            color: #00ffee;
+            margin-bottom: 25px;
+        }
+        
+        .details-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .details-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(0, 255, 238, 0.2);
+        }
+        
+        .details-item:last-child {
+            border-bottom: none;
+        }
+        
+        .details-icon {
+            color: #00ff88;
+            font-size: 1.3rem;
+            margin-top: 3px;
+            flex-shrink: 0;
+        }
+        
+        .details-text {
+            color: #ffffff;
+            line-height: 1.6;
+            font-size: 1.1rem;
+        }
+        
+        .impact-section {
+            background: rgba(0, 255, 136, 0.1);
+            border: 2px solid #00ff88;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+            text-align: center;
+        }
+        
+        .impact-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 2rem;
+            color: #00ff88;
+            margin-bottom: 20px;
+        }
+        
+        .impact-text {
+            font-size: 1.2rem;
+            color: #ffffff;
+            line-height: 1.8;
+        }
+        
         @media (max-width: 768px) {
-            .splunk-title {
-                font-size: 2rem;
+            .project-title {
+                font-size: 2.2rem;
             }
             
-            .splunk-container {
-                padding: 100px 15px 40px;
+            .language-selector {
+                top: 15px;
+                right: 15px;
             }
             
-            .splunk-content {
+            .lang-btn {
+                padding: 6px 12px;
+                font-size: 0.7rem;
+            }
+            
+            .container {
+                padding: 80px 15px 30px;
+            }
+            
+            .project-overview {
                 padding: 25px;
             }
-=======
-    <title>Incident Response Optimization with Splunk</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="How I reduced incident response time by 30% using Splunk.">
-    <style>
-        body {
-            background-color: #0d0d0d;
-            color: #00ffff;
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            padding: 2rem;
-        }
-        h1 {
-            color: #00ffcc;
-        }
-        a {
-            color: #00ffff;
->>>>>>> 44c69972f6399d0d2bfd1b1ced014ff7f5374221
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-<<<<<<< HEAD
-    <!-- Navigation -->
-    <nav>
-        <div class="nav-container">
-            <a href="index.html" class="logo">Stella Barbarella</a>
-            <div class="nav-links">
-                <a href="index.html">Home</a>
-                <a href="index.html#about">About</a>
-                <a href="index.html#projects">Projects</a>
-                <a href="index.html#contact">Contact</a>
-            </div>
-        </div>
-    </nav>
-
+    <!-- Унифициран анимиран фон -->
+    <div class="animated-grid" id="animatedGrid"></div>
+    
     <!-- Back to Portfolio Button -->
     <a href="index.html#projects" class="back-to-portfolio">
         <i class="fas fa-arrow-left"></i>
-        <span>Back to Portfolio</span>
+        <span data-translate="back-to-portfolio">Back to Portfolio</span>
     </a>
 
-    <!-- Main Content -->
-    <div class="splunk-container">
-        <div class="splunk-header">
-            <h1 class="splunk-title">Splunk Incident Response</h1>
-            <p class="splunk-subtitle">Reducing Incident Response Time by 30%</p>
+    <!-- Language Selector -->
+    <div class="language-selector">
+        <button class="lang-btn active" id="lang-en" onclick="changeLanguage('en')">EN</button>
+        <button class="lang-btn" id="lang-fr" onclick="changeLanguage('fr')">FR</button>
+        <button class="lang-btn" id="lang-bg" onclick="changeLanguage('bg')">BG</button>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="project-header">
+            <h1 class="project-title" data-translate="project-title">Splunk Incident Response</h1>
+            <p class="project-subtitle" data-translate="project-subtitle">Reducing Incident Response Time by 30%</p>
         </div>
 
-        <div class="splunk-content">
-            <p class="splunk-description">
+        <!-- Project Overview -->
+        <div class="project-overview">
+            <p class="overview-text" data-translate="overview-text1">
                 In this project, I focused on improving the efficiency of security incident response processes using Splunk. 
                 By streamlining detection, triage, and escalation workflows, and developing custom correlation rules, 
                 I successfully reduced incident response time by 30%.
             </p>
-            
-            <p class="splunk-description">
+            <p class="overview-text" data-translate="overview-text2">
                 Additionally, I implemented automated reporting workflows, contributing to improved operational risk management 
                 and a stronger overall security posture.
             </p>
         </div>
 
-        <div class="splunk-features">
+        <!-- Features -->
+        <div class="features-grid">
             <div class="feature-card">
                 <div class="feature-icon">
                     <i class="fas fa-search"></i>
                 </div>
-                <h3 class="feature-title">Advanced Detection</h3>
-                <p class="feature-description">
+                <h3 class="feature-title" data-translate="feature1-title">Advanced Detection</h3>
+                <p class="feature-description" data-translate="feature1-desc">
                     Developed custom correlation rules and search queries to identify security incidents faster and more accurately.
                 </p>
             </div>
-
+            
             <div class="feature-card">
                 <div class="feature-icon">
                     <i class="fas fa-cogs"></i>
                 </div>
-                <h3 class="feature-title">Workflow Automation</h3>
-                <p class="feature-description">
+                <h3 class="feature-title" data-translate="feature2-title">Workflow Automation</h3>
+                <p class="feature-description" data-translate="feature2-desc">
                     Streamlined detection, triage, and escalation workflows to reduce manual intervention and response time.
                 </p>
             </div>
-
+            
             <div class="feature-card">
                 <div class="feature-icon">
                     <i class="fas fa-chart-line"></i>
                 </div>
-                <h3 class="feature-title">Automated Reporting</h3>
-                <p class="feature-description">
+                <h3 class="feature-title" data-translate="feature3-title">Automated Reporting</h3>
+                <p class="feature-description" data-translate="feature3-desc">
                     Implemented automated reporting workflows for improved operational risk management and compliance.
                 </p>
             </div>
         </div>
 
+        <!-- Key Results -->
         <div class="results-section">
-            <h2 class="results-title">Key Results</h2>
-            <div class="results-stats">
-                <div class="stat-card">
-                    <div class="stat-number">30%</div>
-                    <div class="stat-label">Faster Response Time</div>
+            <h2 class="results-title" data-translate="results-title">Key Results</h2>
+            <div class="results-grid">
+                <div class="result-card">
+                    <div class="result-number">30%</div>
+                    <div class="result-label" data-translate="result1-label">Faster Response Time</div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-number">50%</div>
-                    <div class="stat-label">Reduced Manual Work</div>
+                
+                <div class="result-card">
+                    <div class="result-number">50%</div>
+                    <div class="result-label" data-translate="result2-label">Reduced Manual Work</div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-number">100%</div>
-                    <div class="stat-label">Automated Reporting</div>
+                
+                <div class="result-card">
+                    <div class="result-number">100%</div>
+                    <div class="result-label" data-translate="result3-label">Automated Reporting</div>
                 </div>
             </div>
         </div>
+
+        <!-- Technical Details -->
+        <div class="technical-details">
+            <h3 class="details-title" data-translate="technical-details">Technical Implementation</h3>
+            <ul class="details-list">
+                <li class="details-item">
+                    <i class="details-icon fas fa-check-circle"></i>
+                    <span class="details-text" data-translate="detail1">Custom SPL (Search Processing Language) queries for threat detection</span>
+                </li>
+                <li class="details-item">
+                    <i class="details-icon fas fa-check-circle"></i>
+                    <span class="details-text" data-translate="detail2">Automated alert correlation and prioritization system</span>
+                </li>
+                <li class="details-item">
+                    <i class="details-icon fas fa-check-circle"></i>
+                    <span class="details-text" data-translate="detail3">Integration with SOAR platforms for workflow automation</span>
+                </li>
+                <li class="details-item">
+                    <i class="details-icon fas fa-check-circle"></i>
+                    <span class="details-text" data-translate="detail4">Real-time dashboards for security operations center monitoring</span>
+                </li>
+                <li class="details-item">
+                    <i class="details-icon fas fa-check-circle"></i>
+                    <span class="details-text" data-translate="detail5">Custom scheduled reports for compliance and risk management</span>
+                </li>
+                <li class="details-item">
+                    <i class="details-icon fas fa-check-circle"></i>
+                    <span class="details-text" data-translate="detail6">Machine learning models for anomaly detection and false positive reduction</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Impact -->
+        <div class="impact-section">
+            <h3 class="impact-title" data-translate="impact-title">Business Impact</h3>
+            <p class="impact-text" data-translate="impact-text">
+                This implementation significantly enhanced our security operations capability, reducing mean time to detection (MTTD) 
+                and mean time to response (MTTR). The automated workflows freed up analyst time for more strategic tasks, 
+                while comprehensive reporting improved our compliance posture and risk visibility.
+            </p>
+        </div>
     </div>
 
-    <!-- Particles Background -->
-    <div id="particles-js"></div>
-    
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
-        // Particles.js configuration
-        particlesJS('particles-js', {
-            particles: {
-                number: { value: 80, density: { enable: true, value_area: 800 } },
-                color: { value: '#ff6b35' },
-                shape: { type: 'circle' },
-                opacity: { value: 0.5, random: true },
-                size: { value: 3, random: true },
-                line_linked: { enable: true, distance: 150, color: '#ff6b35', opacity: 0.4, width: 1 },
-                move: { enable: true, speed: 2, direction: 'none', random: false, straight: false, out_mode: 'out', bounce: false }
+        // Преводи за трите езика
+        let currentLanguage = 'en';
+        
+        const translations = {
+            en: {
+                'back-to-portfolio': 'Back to Portfolio',
+                'project-title': 'Splunk Incident Response',
+                'project-subtitle': 'Reducing Incident Response Time by 30%',
+                'overview-text1': 'In this project, I focused on improving the efficiency of security incident response processes using Splunk. By streamlining detection, triage, and escalation workflows, and developing custom correlation rules, I successfully reduced incident response time by 30%.',
+                'overview-text2': 'Additionally, I implemented automated reporting workflows, contributing to improved operational risk management and a stronger overall security posture.',
+                'feature1-title': 'Advanced Detection',
+                'feature1-desc': 'Developed custom correlation rules and search queries to identify security incidents faster and more accurately.',
+                'feature2-title': 'Workflow Automation',
+                'feature2-desc': 'Streamlined detection, triage, and escalation workflows to reduce manual intervention and response time.',
+                'feature3-title': 'Automated Reporting',
+                'feature3-desc': 'Implemented automated reporting workflows for improved operational risk management and compliance.',
+                'results-title': 'Key Results',
+                'result1-label': 'Faster Response Time',
+                'result2-label': 'Reduced Manual Work',
+                'result3-label': 'Automated Reporting',
+                'technical-details': 'Technical Implementation',
+                'detail1': 'Custom SPL (Search Processing Language) queries for threat detection',
+                'detail2': 'Automated alert correlation and prioritization system',
+                'detail3': 'Integration with SOAR platforms for workflow automation',
+                'detail4': 'Real-time dashboards for security operations center monitoring',
+                'detail5': 'Custom scheduled reports for compliance and risk management',
+                'detail6': 'Machine learning models for anomaly detection and false positive reduction',
+                'impact-title': 'Business Impact',
+                'impact-text': 'This implementation significantly enhanced our security operations capability, reducing mean time to detection (MTTD) and mean time to response (MTTR). The automated workflows freed up analyst time for more strategic tasks, while comprehensive reporting improved our compliance posture and risk visibility.'
             },
-            interactivity: {
-                detect_on: 'canvas',
-                events: { onhover: { enable: true, mode: 'repulse' }, onclick: { enable: true, mode: 'push' }, resize: true },
-                modes: { repulse: { distance: 100, duration: 0.4 }, push: { particles_nb: 4 } }
+            fr: {
+                'back-to-portfolio': 'Retour au Portfolio',
+                'project-title': 'Réponse aux Incidents Splunk',
+                'project-subtitle': 'Réduction du Temps de Réponse aux Incidents de 30%',
+                'overview-text1': 'Dans ce projet, je me suis concentrée sur l\'amélioration de l\'efficacité des processus de réponse aux incidents de sécurité en utilisant Splunk. En rationalisant les flux de détection, de triage et d\'escalade, et en développant des règles de corrélation personnalisées, j\'ai réussi à réduire le temps de réponse aux incidents de 30%.',
+                'overview-text2': 'De plus, j\'ai mis en place des flux de rapports automatisés, contribuant à une meilleure gestion des risques opérationnels et à une posture de sécurité globale renforcée.',
+                'feature1-title': 'Détection Avancée',
+                'feature1-desc': 'Développement de règles de corrélation personnalisées et de requêtes de recherche pour identifier les incidents de sécurité plus rapidement et avec plus de précision.',
+                'feature2-title': 'Automatisation des Flux',
+                'feature2-desc': 'Rationalisation des flux de détection, de triage et d\'escalade pour réduire l\'intervention manuelle et le temps de réponse.',
+                'feature3-title': 'Rapports Automatisés',
+                'feature3-desc': 'Mise en place de flux de rapports automatisés pour une meilleure gestion des risques opérationnels et de la conformité.',
+                'results-title': 'Résultats Clés',
+                'result1-label': 'Temps de Réponse Plus Rapide',
+                'result2-label': 'Travail Manuel Réduit',
+                'result3-label': 'Rapports Automatisés',
+                'technical-details': 'Implémentation Technique',
+                'detail1': 'Requêtes SPL (Search Processing Language) personnalisées pour la détection des menaces',
+                'detail2': 'Système de corrélation et de priorisation d\'alertes automatisé',
+                'detail3': 'Intégration avec les plateformes SOAR pour l\'automatisation des flux',
+                'detail4': 'Tableaux de bord en temps réel pour la surveillance du centre d\'opérations de sécurité',
+                'detail5': 'Rapports planifiés personnalisés pour la conformité et la gestion des risques',
+                'detail6': 'Modèles d\'apprentissage automatique pour la détection d\'anomalies et la réduction des faux positifs',
+                'impact-title': 'Impact Commercial',
+                'impact-text': 'Cette implémentation a considérablement amélioré notre capacité d\'opérations de sécurité, réduisant le temps moyen de détection (MTTD) et le temps moyen de réponse (MTTR). Les flux automatisés ont libéré du temps d\'analyste pour des tâches plus stratégiques, tandis que les rapports complets ont amélioré notre posture de conformité et notre visibilité des risques.'
             },
-            retina_detect: true
+            bg: {
+                'back-to-portfolio': 'Назад към Портфолио',
+                'project-title': 'Splunk Отговор на Инциденти',
+                'project-subtitle': 'Намаляване на Времето за Отговор на Инциденти с 30%',
+                'overview-text1': 'В този проект се фокусирах върху подобряването на ефективността на процесите за отговор на инциденти по сигурност, използвайки Splunk. Чрез оптимизиране на работните потоци за откриване, триаж и ескалация, и разработването на персонализирани правила за корелация, успешно намалих времето за отговор на инциденти с 30%.',
+                'overview-text2': 'Освен това внедрих автоматизирани работни потоци за отчитане, допринасящи за подобрено управление на оперативния риск и по-силна обща позиция по сигурност.',
+                'feature1-title': 'Усъвършенствано Откриване',
+                'feature1-desc': 'Разработих персонализирани правила за корелация и заявки за търсене за по-бързо и точно идентифициране на инциденти по сигурност.',
+                'feature2-title': 'Автоматизация на Работни Потоци',
+                'feature2-desc': 'Оптимизирах работните потоци за откриване, триаж и ескалация за намаляване на ръчната намеса и времето за отговор.',
+                'feature3-title': 'Автоматизирано Отчитане',
+                'feature3-desc': 'Внедрих автоматизирани работни потоци за отчитане за подобрено управление на оперативния риск и съответствие.',
+                'results-title': 'Ключови Резултати',
+                'result1-label': 'По-бързо Време за Отговор',
+                'result2-label': 'Намалена Ръчна Работа',
+                'result3-label': 'Автоматизирано Отчитане',
+                'technical-details': 'Техническа Реализация',
+                'detail1': 'Персонализирани SPL (Search Processing Language) заявки за откриване на заплахи',
+                'detail2': 'Автоматизирана система за корелация и приоритизиране на сигнали',
+                'detail3': 'Интеграция с SOAR платформи за автоматизация на работни потоци',
+                'detail4': 'Табла за управление в реално време за наблюдение на центъра за операции по сигурност',
+                'detail5': 'Персонализирани планирани отчети за съответствие и управление на риска',
+                'detail6': 'Модели за машинно обучение за откриване на аномалии и намаляване на фалшивите положителни резултати',
+                'impact-title': 'Бизнес Въздействие',
+                'impact-text': 'Тази реализация значително подобри способността ни за операции по сигурност, намалявайки средното време за откриване (MTTD) и средното време за отговор (MTTR). Автоматизираните работни потоци освободиха време на анализаторите за по-стратегически задачи, докато цялостното отчитане подобри позицията ни по съответствие и видимостта на риска.'
+            }
+        };
+
+        function changeLanguage(lang) {
+            currentLanguage = lang;
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`lang-${lang}`).classList.add('active');
+            
+            document.querySelectorAll('[data-translate]').forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (translations[lang] && translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+        }
+
+        // Инициализация
+        document.addEventListener('DOMContentLoaded', () => {
+            changeLanguage('en'); // Задай английски по подразбиране
         });
     </script>
-=======
-    <h1>Reducing Incident Response Time by 30% Using Splunk</h1>
-    <p>In this project, I focused on improving the efficiency of security incident response processes using Splunk.</p>
-    <p>By streamlining detection, triage, and escalation workflows, and developing custom correlation rules, I successfully reduced incident response time by 30%.</p>
-    <p>Additionally, I implemented automated reporting workflows, contributing to improved operational risk management and a stronger overall security posture.</p>
-    <p><a href="https://www.stellabarbarella.com">Return to Portfolio</a></p>
->>>>>>> 44c69972f6399d0d2bfd1b1ced014ff7f5374221
+
+    <!-- Унифициран JS скрипт -->
+    <script src="animated-background.js"></script>
 </body>
 </html>

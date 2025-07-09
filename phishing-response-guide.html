@@ -3,19 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phishing Response Guide - Stella Barbarella</title>
+    <title>Phishing Response Guide | Stella Barbarella</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="styles/common.css">
+    <link rel="stylesheet" href="common.css">
     <style>
         body {
+            background-color: #0d0d0d;
+            color: #00ffff;
             font-family: 'Inter', sans-serif;
             line-height: 1.6;
             margin: 0;
             padding: 0;
-            background: linear-gradient(135deg, #0a0a0a, #1a1a2e, #16213e);
-            color: #fff;
-            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .back-to-portfolio {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: rgba(13, 13, 13, 0.9);
+            border: 2px solid #00ffee;
+            color: #00ffee;
+            padding: 12px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(0, 255, 238, 0.3);
+            backdrop-filter: blur(10px);
+        }
+        
+        .back-to-portfolio:hover {
+            background: rgba(0, 255, 238, 0.1);
+            box-shadow: 0 0 30px rgba(0, 255, 238, 0.6);
+            color: #00ffee;
+            text-decoration: none;
+            transform: translateY(-2px);
+        }
+        
+        /* Language Selector */
+        .language-selector {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .lang-btn {
+            background: rgba(13, 13, 13, 0.9);
+            border: 2px solid #00ffee;
+            color: #00ffee;
+            padding: 8px 15px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.8rem;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+        }
+        
+        .lang-btn:hover, .lang-btn.active {
+            background: rgba(0, 255, 238, 0.2);
+            box-shadow: 0 0 15px rgba(0, 255, 238, 0.3);
         }
         
         .container {
@@ -23,57 +80,39 @@
             margin: 0 auto;
             padding: 100px 20px 50px;
             position: relative;
-            z-index: 2;
+            z-index: 1;
         }
         
-        .header {
+        .guide-header {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 60px;
         }
         
-        h1 {
+        .guide-title {
+            font-family: 'Orbitron', monospace;
             font-size: 3rem;
-            margin-bottom: 20px;
-            animation: glow 2s ease-in-out infinite alternate;
+            color: #00ffee;
+            margin-bottom: 15px;
+            text-shadow: 0 0 20px rgba(0, 255, 238, 0.5);
         }
         
-        @keyframes glow {
-            from { text-shadow: 0 0 20px rgba(0, 255, 238, 0.3); }
-            to { text-shadow: 0 0 30px rgba(0, 255, 238, 0.8); }
-        }
-        
-        .subtitle {
+        .guide-subtitle {
             font-size: 1.3rem;
             color: #00ddcc;
             margin-bottom: 30px;
         }
         
-        .guide-section {
+        .response-section {
             background: rgba(0, 255, 238, 0.1);
             border: 2px solid #00ffee;
             border-radius: 20px;
             padding: 40px;
             margin-bottom: 40px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .guide-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 255, 238, 0.05), transparent);
-            transition: left 0.5s ease;
-        }
-        
-        .guide-section:hover::before {
-            left: 100%;
+            backdrop-filter: blur(10px);
         }
         
         .section-title {
+            font-family: 'Orbitron', monospace;
             font-size: 2rem;
             color: #00ffee;
             margin-bottom: 30px;
@@ -89,37 +128,38 @@
         .steps-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 30px;
+            gap: 25px;
+            margin-bottom: 30px;
         }
         
         .step-card {
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(13, 13, 13, 0.7);
             border: 2px solid #00ffee;
             border-radius: 15px;
-            padding: 30px;
+            padding: 25px;
             text-align: center;
             transition: all 0.3s ease;
             position: relative;
+            overflow: hidden;
         }
         
         .step-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 255, 238, 0.3);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 255, 238, 0.3);
         }
         
         .step-number {
-            background: linear-gradient(45deg, #00ffee, #00ff88);
+            background: #00ffee;
             color: #000000;
-            width: 50px;
-            height: 50px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin: 0 auto 20px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin: 0 auto 15px;
         }
         
         .step-title {
@@ -132,364 +172,478 @@
         .step-description {
             color: #ffffff;
             line-height: 1.6;
+            font-size: 1rem;
         }
         
         .checklist {
-            background: rgba(0, 255, 136, 0.1);
-            border: 2px solid #00ff88;
+            background: rgba(13, 13, 13, 0.5);
+            border: 1px solid #00ffee;
             border-radius: 15px;
-            padding: 30px;
+            padding: 25px;
             margin-top: 30px;
         }
         
         .checklist-title {
             font-size: 1.5rem;
-            color: #00ff88;
+            color: #00ffee;
             margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            font-weight: 600;
         }
         
         .checklist-items {
-            list-style: none;
-            padding: 0;
+            display: grid;
+            gap: 15px;
         }
         
         .checklist-item {
             display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-            padding: 10px;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 10px;
-            transition: all 0.3s ease;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(0, 255, 238, 0.2);
         }
         
-        .checklist-item:hover {
-            background: rgba(0, 255, 136, 0.1);
+        .checklist-item:last-child {
+            border-bottom: none;
         }
         
         .checklist-icon {
             color: #00ff88;
             font-size: 1.2rem;
-            margin-right: 15px;
+            margin-top: 2px;
+            flex-shrink: 0;
         }
         
         .checklist-text {
             color: #ffffff;
-            font-size: 1.1rem;
+            line-height: 1.5;
         }
         
         .warning-box {
             background: rgba(255, 68, 68, 0.1);
             border: 2px solid #ff4444;
             border-radius: 15px;
-            padding: 30px;
+            padding: 25px;
             margin: 30px 0;
-            text-align: center;
         }
         
         .warning-title {
-            font-size: 1.5rem;
-            color: #ff4444;
-            margin-bottom: 20px;
             display: flex;
             align-items: center;
-            justify-content: center;
             gap: 10px;
+            color: #ff4444;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 15px;
         }
         
         .warning-text {
+            color: #ffffff;
+            line-height: 1.6;
+        }
+        
+        .info-box {
+            background: rgba(0, 136, 255, 0.1);
+            border: 2px solid #0088ff;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .info-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #0088ff;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .info-text {
+            color: #ffffff;
+            line-height: 1.6;
+        }
+        
+        .contact-info {
+            background: rgba(0, 255, 136, 0.1);
+            border: 2px solid #00ff88;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+        }
+        
+        .contact-title {
+            font-size: 1.5rem;
+            color: #00ff88;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .contact-details {
             color: #ffffff;
             font-size: 1.1rem;
             line-height: 1.6;
         }
         
-        .contact-section {
-            background: rgba(0, 255, 238, 0.1);
-            border: 2px solid #00ffee;
-            border-radius: 20px;
-            padding: 40px;
-            text-align: center;
-            margin-top: 50px;
-        }
-        
-        .contact-title {
-            font-size: 2rem;
-            color: #00ffee;
-            margin-bottom: 20px;
-        }
-        
-        .contact-info {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-top: 30px;
-        }
-        
-        .contact-item {
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid #00ffee;
-            border-radius: 10px;
-            padding: 20px;
-            text-align: center;
-        }
-        
-        .contact-icon {
-            font-size: 2rem;
-            color: #00ffee;
-            margin-bottom: 10px;
-        }
-        
-        .contact-label {
-            color: #00ffee;
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-        
-        .contact-value {
-            color: #ffffff;
-            font-size: 1.1rem;
-        }
-        
         @media (max-width: 768px) {
+            .guide-title {
+                font-size: 2.2rem;
+            }
+            
+            .language-selector {
+                top: 15px;
+                right: 15px;
+            }
+            
+            .lang-btn {
+                padding: 6px 12px;
+                font-size: 0.7rem;
+            }
+            
             .container {
                 padding: 80px 15px 30px;
             }
             
-            h1 {
-                font-size: 2rem;
+            .response-section {
+                padding: 25px;
             }
             
             .steps-grid {
                 grid-template-columns: 1fr;
             }
             
-            .contact-info {
-                grid-template-columns: 1fr;
+            .section-title {
+                font-size: 1.6rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Particles Background -->
-    <div id="particles-js"></div>
+    <!-- Унифициран анимиран фон -->
+    <div class="animated-grid" id="animatedGrid"></div>
     
-    <!-- Content Wrapper -->
-    <div class="content-wrapper">
-        <a href="index.html" class="back-btn">← Back to Portfolio</a>
-        
-        <div class="container">
-            <div class="header">
-                <h1>📚 Phishing Response Guide</h1>
-                <p class="subtitle">Complete incident response guide for phishing attacks</p>
-            </div>
+    <!-- Back to Portfolio Button -->
+    <a href="index.html#projects" class="back-to-portfolio">
+        <i class="fas fa-arrow-left"></i>
+        <span data-translate="back-to-portfolio">Back to Portfolio</span>
+    </a>
+
+    <!-- Language Selector -->
+    <div class="language-selector">
+        <button class="lang-btn active" id="lang-en" onclick="changeLanguage('en')">EN</button>
+        <button class="lang-btn" id="lang-fr" onclick="changeLanguage('fr')">FR</button>
+        <button class="lang-btn" id="lang-bg" onclick="changeLanguage('bg')">BG</button>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="guide-header">
+            <h1 class="guide-title" data-translate="guide-title">🛡️ Phishing Response Guide</h1>
+            <p class="guide-subtitle" data-translate="guide-subtitle">Complete incident response guide for phishing attacks</p>
+        </div>
+
+        <!-- Immediate Response Steps -->
+        <div class="response-section">
+            <h2 class="section-title">
+                <i class="section-icon fas fa-exclamation-triangle" style="color: #ff4444;"></i>
+                <span data-translate="immediate-response">Immediate Response Steps</span>
+            </h2>
             
-            <div class="guide-section">
-                <h2 class="section-title">
-                    <span class="section-icon">🚨</span>
-                    Immediate Response Steps
-                </h2>
-                
-                <div class="steps-grid">
-                    <div class="step-card">
-                        <div class="step-number">1</div>
-                        <div class="step-title">Don't Panic</div>
-                        <div class="step-description">
-                            Stay calm and avoid clicking any links or downloading attachments from the suspicious email.
-                        </div>
-                    </div>
-                    
-                    <div class="step-card">
-                        <div class="step-number">2</div>
-                        <div class="step-title">Isolate the Threat</div>
-                        <div class="step-description">
-                            Disconnect from the network if you suspect compromise. Do not delete the email yet.
-                        </div>
-                    </div>
-                    
-                    <div class="step-card">
-                        <div class="step-number">3</div>
-                        <div class="step-title">Document Evidence</div>
-                        <div class="step-description">
-                            Take screenshots of the email, headers, and any suspicious activities before taking action.
-                        </div>
-                    </div>
-                    
-                    <div class="step-card">
-                        <div class="step-number">4</div>
-                        <div class="step-title">Report Incident</div>
-                        <div class="step-description">
-                            Immediately notify your IT security team or incident response team.
-                        </div>
-                    </div>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3 class="step-title" data-translate="step1-title">Don't Panic</h3>
+                    <p class="step-description" data-translate="step1-desc">Stay calm and avoid clicking any links or downloading attachments from the suspicious email.</p>
                 </div>
-            </div>
-            
-            <div class="guide-section">
-                <h2 class="section-title">
-                    <span class="section-icon">🔍</span>
-                    Investigation Phase
-                </h2>
                 
-                <div class="checklist">
-                    <h3 class="checklist-title">
-                        <i class="fas fa-clipboard-check"></i>
-                        Investigation Checklist
-                    </h3>
-                    <ul class="checklist-items">
-                        <li class="checklist-item">
-                            <i class="fas fa-check checklist-icon"></i>
-                            <span class="checklist-text">Analyze email headers for authenticity</span>
-                        </li>
-                        <li class="checklist-item">
-                            <i class="fas fa-check checklist-icon"></i>
-                            <span class="checklist-text">Check sender reputation and domain</span>
-                        </li>
-                        <li class="checklist-item">
-                            <i class="fas fa-check checklist-icon"></i>
-                            <span class="checklist-text">Examine URLs and attachments (in safe environment)</span>
-                        </li>
-                        <li class="checklist-item">
-                            <i class="fas fa-check checklist-icon"></i>
-                            <span class="checklist-text">Review similar emails in the organization</span>
-                        </li>
-                        <li class="checklist-item">
-                            <i class="fas fa-check checklist-icon"></i>
-                            <span class="checklist-text">Check for compromised accounts</span>
-                        </li>
-                        <li class="checklist-item">
-                            <i class="fas fa-check checklist-icon"></i>
-                            <span class="checklist-text">Analyze network traffic for suspicious activity</span>
-                        </li>
-                    </ul>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3 class="step-title" data-translate="step2-title">Isolate the Threat</h3>
+                    <p class="step-description" data-translate="step2-desc">Disconnect from the network if you suspect compromise. Do not delete the email yet.</p>
                 </div>
-            </div>
-            
-            <div class="guide-section">
-                <h2 class="section-title">
-                    <span class="section-icon">🛡️</span>
-                    Containment & Eradication
-                </h2>
                 
-                <div class="steps-grid">
-                    <div class="step-card">
-                        <div class="step-number">1</div>
-                        <div class="step-title">Block Threats</div>
-                        <div class="step-description">
-                            Update email filters, block malicious domains, and quarantine suspicious emails.
-                        </div>
-                    </div>
-                    
-                    <div class="step-card">
-                        <div class="step-number">2</div>
-                        <div class="step-title">Password Reset</div>
-                        <div class="step-description">
-                            Force password reset for potentially compromised accounts.
-                        </div>
-                    </div>
-                    
-                    <div class="step-card">
-                        <div class="step-number">3</div>
-                        <div class="step-title">System Scan</div>
-                        <div class="step-description">
-                            Perform comprehensive malware scans on affected systems.
-                        </div>
-                    </div>
-                    
-                    <div class="step-card">
-                        <div class="step-number">4</div>
-                        <div class="step-title">Update Security</div>
-                        <div class="step-description">
-                            Update security controls and add new indicators of compromise.
-                        </div>
-                    </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3 class="step-title" data-translate="step3-title">Document Evidence</h3>
+                    <p class="step-description" data-translate="step3-desc">Take screenshots of the email, headers, and any suspicious activities before taking action.</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h3 class="step-title" data-translate="step4-title">Report Incident</h3>
+                    <p class="step-description" data-translate="step4-desc">Immediately notify your IT security team or incident response team.</p>
                 </div>
             </div>
             
             <div class="warning-box">
-                <h3 class="warning-title">
+                <div class="warning-title">
                     <i class="fas fa-exclamation-triangle"></i>
-                    Critical Warning
-                </h3>
-                <p class="warning-text">
-                    Never forward suspicious emails to colleagues or attempt to "test" malicious links. 
-                    Always use isolated environments and proper security tools for analysis.
-                </p>
-            </div>
-            
-            <div class="guide-section">
-                <h2 class="section-title">
-                    <span class="section-icon">📈</span>
-                    Recovery & Lessons Learned
-                </h2>
-                
-                <div class="checklist">
-                    <h3 class="checklist-title">
-                        <i class="fas fa-clipboard-check"></i>
-                        Recovery Checklist
-                    </h3>
-                    <ul class="checklist-items">
-                        <li class="checklist-item">
-                            <i class="fas fa-check checklist-icon"></i>
-                            <span class="checklist-text">Verify system integrity and functionality</span>
-                        </li>
-                        <li class="checklist-item">
-                            <i class="fas fa-check checklist-icon"></i>
-                            <span class="checklist-text">Monitor for recurring threats</span>
-                        </li>
-                        <li class="checklist-item">
-                            <i class="fas fa-check checklist-icon"></i>
-                            <span class="checklist-text">Update incident response procedures</span>
-                        </li>
-                        <li class="checklist-item">
-                            <i class="fas fa-check checklist-icon"></i>
-                            <span class="checklist-text">Conduct user awareness training</span>
-                        </li>
-                        <li class="checklist-item">
-                            <i class="fas fa-check checklist-icon"></i>
-                            <span class="checklist-text">Document lessons learned</span>
-                        </li>
-                        <li class="checklist-item">
-                            <i class="fas fa-check checklist-icon"></i>
-                            <span class="checklist-text">Share threat intelligence with community</span>
-                        </li>
-                    </ul>
+                    <span data-translate="warning-title">Critical Warning</span>
                 </div>
+                <p class="warning-text" data-translate="warning-text">Never provide credentials, personal information, or financial details in response to suspicious emails. When in doubt, verify through official channels.</p>
             </div>
+        </div>
+
+        <!-- Investigation Phase -->
+        <div class="response-section">
+            <h2 class="section-title">
+                <i class="section-icon fas fa-search" style="color: #0088ff;"></i>
+                <span data-translate="investigation-phase">Investigation Phase</span>
+            </h2>
             
-            <div class="contact-section">
-                <h2 class="contact-title">Emergency Contacts</h2>
-                <p style="color: #00ddcc; font-size: 1.1rem; margin-bottom: 20px;">
-                    In case of suspected phishing incident, contact immediately:
-                </p>
-                
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <div class="contact-icon">📞</div>
-                        <div class="contact-label">IT Security Team</div>
-                        <div class="contact-value">+1 (555) 123-4567</div>
+            <div class="checklist">
+                <h3 class="checklist-title" data-translate="investigation-checklist">Investigation Checklist</h3>
+                <div class="checklist-items">
+                    <div class="checklist-item">
+                        <i class="checklist-icon fas fa-check-circle"></i>
+                        <span class="checklist-text" data-translate="check1">Analyze email headers for sender verification</span>
                     </div>
-                    
-                    <div class="contact-item">
-                        <div class="contact-icon">📧</div>
-                        <div class="contact-label">Security Email</div>
-                        <div class="contact-value">security@company.com</div>
+                    <div class="checklist-item">
+                        <i class="checklist-icon fas fa-check-circle"></i>
+                        <span class="checklist-text" data-translate="check2">Check for suspicious URLs and attachments</span>
                     </div>
-                    
-                    <div class="contact-item">
-                        <div class="contact-icon">🆘</div>
-                        <div class="contact-label">Emergency Line</div>
-                        <div class="contact-value">+1 (555) 911-HELP</div>
+                    <div class="checklist-item">
+                        <i class="checklist-icon fas fa-check-circle"></i>
+                        <span class="checklist-text" data-translate="check3">Verify sender through alternative communication</span>
+                    </div>
+                    <div class="checklist-item">
+                        <i class="checklist-icon fas fa-check-circle"></i>
+                        <span class="checklist-text" data-translate="check4">Check for similar emails across the organization</span>
+                    </div>
+                    <div class="checklist-item">
+                        <i class="checklist-icon fas fa-check-circle"></i>
+                        <span class="checklist-text" data-translate="check5">Review security logs for unusual activity</span>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- Containment and Recovery -->
+        <div class="response-section">
+            <h2 class="section-title">
+                <i class="section-icon fas fa-shield-alt" style="color: #00ff88;"></i>
+                <span data-translate="containment-recovery">Containment & Recovery</span>
+            </h2>
+            
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3 class="step-title" data-translate="contain1-title">Block Malicious Content</h3>
+                    <p class="step-description" data-translate="contain1-desc">Update email filters to block similar phishing attempts across the organization.</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3 class="step-title" data-translate="contain2-title">Password Reset</h3>
+                    <p class="step-description" data-translate="contain2-desc">Reset passwords for potentially compromised accounts and enable MFA.</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3 class="step-title" data-translate="contain3-title">System Scan</h3>
+                    <p class="step-description" data-translate="contain3-desc">Perform full antivirus and malware scans on affected systems.</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h3 class="step-title" data-translate="contain4-title">Monitor Activity</h3>
+                    <p class="step-description" data-translate="contain4-desc">Enhanced monitoring for suspicious activities and potential data exfiltration.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Prevention -->
+        <div class="response-section">
+            <h2 class="section-title">
+                <i class="section-icon fas fa-lock" style="color: #ffaa00;"></i>
+                <span data-translate="prevention">Prevention Measures</span>
+            </h2>
+            
+            <div class="info-box">
+                <div class="info-title">
+                    <i class="fas fa-info-circle"></i>
+                    <span data-translate="prevention-tips">Prevention Tips</span>
+                </div>
+                <div class="info-text">
+                    <ul>
+                        <li data-translate="tip1">Implement regular security awareness training</li>
+                        <li data-translate="tip2">Deploy advanced email filtering solutions</li>
+                        <li data-translate="tip3">Enable multi-factor authentication (MFA)</li>
+                        <li data-translate="tip4">Keep systems and software updated</li>
+                        <li data-translate="tip5">Establish clear incident reporting procedures</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Emergency Contacts -->
+        <div class="contact-info">
+            <h3 class="contact-title" data-translate="emergency-contacts">Emergency Contacts</h3>
+            <div class="contact-details">
+                <p><strong data-translate="it-security">IT Security Team:</strong> ext. 911</p>
+                <p><strong data-translate="incident-response">Incident Response:</strong> security@company.com</p>
+                <p><strong data-translate="management">Management:</strong> escalation@company.com</p>
+            </div>
+        </div>
     </div>
 
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-    <script src="js/particles-config.js"></script>
+    <script>
+        // Преводи за трите езика
+        let currentLanguage = 'en';
+        
+        const translations = {
+            en: {
+                'back-to-portfolio': 'Back to Portfolio',
+                'guide-title': '🛡️ Phishing Response Guide',
+                'guide-subtitle': 'Complete incident response guide for phishing attacks',
+                'immediate-response': 'Immediate Response Steps',
+                'step1-title': "Don't Panic",
+                'step1-desc': 'Stay calm and avoid clicking any links or downloading attachments from the suspicious email.',
+                'step2-title': 'Isolate the Threat',
+                'step2-desc': 'Disconnect from the network if you suspect compromise. Do not delete the email yet.',
+                'step3-title': 'Document Evidence',
+                'step3-desc': 'Take screenshots of the email, headers, and any suspicious activities before taking action.',
+                'step4-title': 'Report Incident',
+                'step4-desc': 'Immediately notify your IT security team or incident response team.',
+                'warning-title': 'Critical Warning',
+                'warning-text': 'Never provide credentials, personal information, or financial details in response to suspicious emails. When in doubt, verify through official channels.',
+                'investigation-phase': 'Investigation Phase',
+                'investigation-checklist': 'Investigation Checklist',
+                'check1': 'Analyze email headers for sender verification',
+                'check2': 'Check for suspicious URLs and attachments',
+                'check3': 'Verify sender through alternative communication',
+                'check4': 'Check for similar emails across the organization',
+                'check5': 'Review security logs for unusual activity',
+                'containment-recovery': 'Containment & Recovery',
+                'contain1-title': 'Block Malicious Content',
+                'contain1-desc': 'Update email filters to block similar phishing attempts across the organization.',
+                'contain2-title': 'Password Reset',
+                'contain2-desc': 'Reset passwords for potentially compromised accounts and enable MFA.',
+                'contain3-title': 'System Scan',
+                'contain3-desc': 'Perform full antivirus and malware scans on affected systems.',
+                'contain4-title': 'Monitor Activity',
+                'contain4-desc': 'Enhanced monitoring for suspicious activities and potential data exfiltration.',
+                'prevention': 'Prevention Measures',
+                'prevention-tips': 'Prevention Tips',
+                'tip1': 'Implement regular security awareness training',
+                'tip2': 'Deploy advanced email filtering solutions',
+                'tip3': 'Enable multi-factor authentication (MFA)',
+                'tip4': 'Keep systems and software updated',
+                'tip5': 'Establish clear incident reporting procedures',
+                'emergency-contacts': 'Emergency Contacts',
+                'it-security': 'IT Security Team:',
+                'incident-response': 'Incident Response:',
+                'management': 'Management:'
+            },
+            fr: {
+                'back-to-portfolio': 'Retour au Portfolio',
+                'guide-title': '🛡️ Guide de Réponse au Phishing',
+                'guide-subtitle': 'Guide complet de réponse aux incidents pour les attaques de phishing',
+                'immediate-response': 'Étapes de Réponse Immédiate',
+                'step1-title': 'Ne Paniquez Pas',
+                'step1-desc': 'Restez calme et évitez de cliquer sur des liens ou de télécharger des pièces jointes de l\'email suspect.',
+                'step2-title': 'Isoler la Menace',
+                'step2-desc': 'Déconnectez-vous du réseau si vous suspectez une compromission. Ne supprimez pas encore l\'email.',
+                'step3-title': 'Documenter les Preuves',
+                'step3-desc': 'Prenez des captures d\'écran de l\'email, des en-têtes et de toute activité suspecte avant d\'agir.',
+                'step4-title': 'Signaler l\'Incident',
+                'step4-desc': 'Notifiez immédiatement votre équipe de sécurité IT ou équipe de réponse aux incidents.',
+                'warning-title': 'Avertissement Critique',
+                'warning-text': 'Ne fournissez jamais d\'identifiants, d\'informations personnelles ou financières en réponse à des emails suspects. En cas de doute, vérifiez par les canaux officiels.',
+                'investigation-phase': 'Phase d\'Investigation',
+                'investigation-checklist': 'Liste de Vérification d\'Investigation',
+                'check1': 'Analyser les en-têtes d\'email pour vérifier l\'expéditeur',
+                'check2': 'Vérifier les URLs et pièces jointes suspectes',
+                'check3': 'Vérifier l\'expéditeur par communication alternative',
+                'check4': 'Vérifier les emails similaires dans l\'organisation',
+                'check5': 'Examiner les journaux de sécurité pour activité inhabituelle',
+                'containment-recovery': 'Confinement et Récupération',
+                'contain1-title': 'Bloquer le Contenu Malveillant',
+                'contain1-desc': 'Mettre à jour les filtres email pour bloquer les tentatives de phishing similaires.',
+                'contain2-title': 'Réinitialiser les Mots de Passe',
+                'contain2-desc': 'Réinitialiser les mots de passe des comptes potentiellement compromis et activer MFA.',
+                'contain3-title': 'Analyse du Système',
+                'contain3-desc': 'Effectuer des analyses complètes antivirus et malware sur les systèmes affectés.',
+                'contain4-title': 'Surveiller l\'Activité',
+                'contain4-desc': 'Surveillance renforcée pour activités suspectes et exfiltration de données potentielle.',
+                'prevention': 'Mesures de Prévention',
+                'prevention-tips': 'Conseils de Prévention',
+                'tip1': 'Implémenter une formation régulière de sensibilisation à la sécurité',
+                'tip2': 'Déployer des solutions avancées de filtrage d\'emails',
+                'tip3': 'Activer l\'authentification multi-facteurs (MFA)',
+                'tip4': 'Maintenir les systèmes et logiciels à jour',
+                'tip5': 'Établir des procédures claires de signalement d\'incidents',
+                'emergency-contacts': 'Contacts d\'Urgence',
+                'it-security': 'Équipe Sécurité IT:',
+                'incident-response': 'Réponse aux Incidents:',
+                'management': 'Direction:'
+            },
+            bg: {
+                'back-to-portfolio': 'Назад към Портфолио',
+                'guide-title': '🛡️ Ръководство за Отговор на Фишинг',
+                'guide-subtitle': 'Пълно ръководство за отговор на инциденти при фишинг атаки',
+                'immediate-response': 'Стъпки за Незабавен Отговор',
+                'step1-title': 'Не Паникувайте',
+                'step1-desc': 'Останете спокойни и избягвайте кликването на връзки или изтеглянето на прикачени файлове от подозрителния имейл.',
+                'step2-title': 'Изолирайте Заплахата',
+                'step2-desc': 'Прекъснете връзката с мрежата, ако подозирате компрометиране. Не изтривайте имейла засега.',
+                'step3-title': 'Документирайте Доказателствата',
+                'step3-desc': 'Направете екранни снимки на имейла, заглавките и всякакви подозрителни дейности преди да предприемете действие.',
+                'step4-title': 'Докладвайте Инцидента',
+                'step4-desc': 'Незабавно уведомете екипа си за IT сигурност или екипа за отговор на инциденти.',
+                'warning-title': 'Критично Предупреждение',
+                'warning-text': 'Никога не предоставяйте идентификационни данни, лична информация или финансови детайли в отговор на подозрителни имейли. При съмнение проверете чрез официални канали.',
+                'investigation-phase': 'Фаза на Разследване',
+                'investigation-checklist': 'Контролен Списък за Разследване',
+                'check1': 'Анализирайте заглавките на имейла за проверка на подателя',
+                'check2': 'Проверете за подозрителни URL адреси и прикачени файлове',
+                'check3': 'Проверете подателя чрез алтернативна комуникация',
+                'check4': 'Проверете за подобни имейли в организацията',
+                'check5': 'Прегледайте журналите за сигурност за необичайна активност',
+                'containment-recovery': 'Ограничаване и Възстановяване',
+                'contain1-title': 'Блокирайте Злонамереното Съдържание',
+                'contain1-desc': 'Актуализирайте филтрите за имейл, за да блокирате подобни фишинг опити в организацията.',
+                'contain2-title': 'Нулиране на Паролите',
+                'contain2-desc': 'Нулирайте паролите за потенциално компрометирани акаунти и активирайте MFA.',
+                'contain3-title': 'Сканиране на Системата',
+                'contain3-desc': 'Извършете пълно антивирусно и антималуер сканиране на засегнатите системи.',
+                'contain4-title': 'Наблюдавайте Активността',
+                'contain4-desc': 'Засилено наблюдение за подозрителни дейности и потенциална кражба на данни.',
+                'prevention': 'Превантивни Мерки',
+                'prevention-tips': 'Съвети за Превенция',
+                'tip1': 'Внедрете редовно обучение за осведоменост за сигурността',
+                'tip2': 'Разгърнете усъвършенствани решения за филтриране на имейли',
+                'tip3': 'Активирайте многофакторна автентификация (MFA)',
+                'tip4': 'Поддържайте системите и софтуера актуални',
+                'tip5': 'Установете ясни процедури за докладване на инциденти',
+                'emergency-contacts': 'Спешни Контакти',
+                'it-security': 'Екип за IT Сигурност:',
+                'incident-response': 'Отговор на Инциденти:',
+                'management': 'Мениджмънт:'
+            }
+        };
+
+        function changeLanguage(lang) {
+            currentLanguage = lang;
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`lang-${lang}`).classList.add('active');
+            
+            document.querySelectorAll('[data-translate]').forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (translations[lang] && translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+        }
+
+        // Инициализация
+        document.addEventListener('DOMContentLoaded', () => {
+            changeLanguage('en'); // Задай английски по подразбиране
+        });
+    </script>
+
+    <!-- Унифициран JS скрипт -->
+    <script src="animated-background.js"></script>
 </body>
 </html>

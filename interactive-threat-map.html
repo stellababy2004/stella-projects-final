@@ -1,289 +1,746 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <title>Interactive Threat Map - Stella Barbarella</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <link rel="stylesheet" href="common.css">
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
-      font-family: 'Orbitron', monospace;
-      overflow: hidden;
-    }
-
-    .threat-header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 1000;
-      background: rgba(0, 0, 0, 0.9);
-      backdrop-filter: blur(10px);
-      padding: 20px;
-      text-align: center;
-      border-bottom: 2px solid #00ffee;
-    }
-
-    .threat-title {
-      color: #00ffee;
-      font-size: 2.5rem;
-      margin: 0;
-      text-shadow: 0 0 10px #00ffee;
-    }
-
-    .status-indicator {
-      display: inline-block;
-      padding: 5px 15px;
-      background: #ff4444;
-      color: white;
-      border-radius: 20px;
-      font-size: 0.8rem;
-      margin-top: 10px;
-      animation: pulse 2s infinite;
-    }
-
-    .stats-bar {
-      display: flex;
-      justify-content: space-around;
-      margin-top: 15px;
-      flex-wrap: wrap;
-    }
-
-    .stat-item {
-      text-align: center;
-      color: #00ffee;
-    }
-
-    .stat-number {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: #ffffff;
-    }
-
-    .stat-label {
-      font-size: 0.8rem;
-      opacity: 0.8;
-    }
-
-    #map { 
-      height: 100vh; 
-      background-color: #000;
-      padding-top: 180px;
-    }
-
-    .threat-marker {
-      border-radius: 50%;
-      border: 2px solid rgba(255, 255, 255, 0.5);
-    }
-
-    .blinking {
-      animation: threatPulse 1.5s infinite;
-    }
-
-    @keyframes threatPulse {
-      0% { 
-        transform: scale(0.8); 
-        opacity: 0.6;
-        box-shadow: 0 0 0 0 rgba(255, 68, 68, 0.7);
-      }
-      50% { 
-        transform: scale(1.2); 
-        opacity: 1;
-        box-shadow: 0 0 0 10px rgba(255, 68, 68, 0);
-      }
-      100% { 
-        transform: scale(0.8); 
-        opacity: 0.6;
-        box-shadow: 0 0 0 0 rgba(255, 68, 68, 0);
-      }
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.5; }
-    }
-
-    .back-button {
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      z-index: 1001;
-      background: rgba(0, 255, 238, 0.2);
-      color: #00ffee;
-      border: 2px solid #00ffee;
-      padding: 10px 20px;
-      border-radius: 5px;
-      text-decoration: none;
-      transition: all 0.3s ease;
-    }
-
-    .back-button:hover {
-      background: rgba(0, 255, 238, 0.4);
-      box-shadow: 0 0 15px #00ffee;
-    }
-
-    @media (max-width: 768px) {
-      .threat-title {
-        font-size: 1.8rem;
-      }
-      
-      .stats-bar {
-        flex-direction: column;
-        gap: 10px;
-      }
-      
-      #map {
-        padding-top: 220px;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Threat Map | Stella Barbarella</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="common.css">
+    <style>
+        body {
+            background-color: #0d0d0d;
+            color: #00ffff;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        
+        .back-to-portfolio {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: rgba(13, 13, 13, 0.9);
+            border: 2px solid #00ffee;
+            color: #00ffee;
+            padding: 12px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(0, 255, 238, 0.3);
+            backdrop-filter: blur(10px);
+        }
+        
+        .back-to-portfolio:hover {
+            background: rgba(0, 255, 238, 0.1);
+            box-shadow: 0 0 30px rgba(0, 255, 238, 0.6);
+            color: #00ffee;
+            text-decoration: none;
+            transform: translateY(-2px);
+        }
+        
+        /* Language Selector */
+        .language-selector {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .lang-btn {
+            background: rgba(13, 13, 13, 0.9);
+            border: 2px solid #00ffee;
+            color: #00ffee;
+            padding: 8px 15px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.8rem;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+        }
+        
+        .lang-btn:hover, .lang-btn.active {
+            background: rgba(0, 255, 238, 0.2);
+            box-shadow: 0 0 15px rgba(0, 255, 238, 0.3);
+        }
+        
+        .threat-map-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            background: #0d0d0d;
+            overflow: hidden;
+        }
+        
+        .map-header {
+            position: absolute;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            text-align: center;
+        }
+        
+        .map-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5rem;
+            color: #00ffee;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(0, 255, 238, 0.5);
+        }
+        
+        .map-subtitle {
+            font-size: 1.2rem;
+            color: #00ddcc;
+            margin-bottom: 20px;
+        }
+        
+        .world-map {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            height: 70%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 500"><g fill="none" stroke="%2300ffee" stroke-width="1" opacity="0.4"><path d="M150 100 C200 80 300 85 400 90 C500 95 600 85 700 90 C750 92 800 88 850 100 L850 120 C800 115 750 118 700 110 C600 115 500 105 400 115 C300 110 200 125 150 120 Z"/><path d="M50 150 L950 150 L950 350 L50 350 Z"/><path d="M100 200 Q150 180 200 200 Q250 220 300 200 Q350 180 400 200"/><path d="M500 180 Q550 200 600 180 Q650 160 700 180 Q750 200 800 180"/><path d="M120 250 Q170 230 220 250 Q270 270 320 250"/><path d="M400 240 Q450 220 500 240 Q550 260 600 240"/><path d="M650 230 Q700 250 750 230 Q800 210 850 230"/></g></svg>');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        
+        .attack-point {
+            position: absolute;
+            cursor: pointer;
+            z-index: 10;
+        }
+        
+        .attack-pulse {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            position: relative;
+            animation: pulse 2s infinite;
+        }
+        
+        .attack-pulse::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: pulseRing 2s infinite;
+        }
+        
+        .malware { 
+            background: #ff4444; 
+        }
+        .malware::before { 
+            border: 2px solid #ff4444; 
+        }
+        
+        .phishing { 
+            background: #ff8800; 
+        }
+        .phishing::before { 
+            border: 2px solid #ff8800; 
+        }
+        
+        .ddos { 
+            background: #8844ff; 
+        }
+        .ddos::before { 
+            border: 2px solid #8844ff; 
+        }
+        
+        .ransomware { 
+            background: #ff0066; 
+        }
+        .ransomware::before { 
+            border: 2px solid #ff0066; 
+        }
+        
+        .botnet { 
+            background: #00ff88; 
+        }
+        .botnet::before { 
+            border: 2px solid #00ff88; 
+        }
+        
+        .data-breach { 
+            background: #ffff00; 
+        }
+        .data-breach::before { 
+            border: 2px solid #ffff00; 
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(0.8);
+                box-shadow: 0 0 10px currentColor;
+            }
+            50% {
+                transform: scale(1.2);
+                box-shadow: 0 0 20px currentColor;
+            }
+        }
+        
+        @keyframes pulseRing {
+            0% {
+                transform: scale(0.8);
+                opacity: 0.8;
+            }
+            100% {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+        
+        .tooltip {
+            position: absolute;
+            background: rgba(13, 13, 13, 0.95);
+            border: 2px solid #00ffee;
+            border-radius: 15px;
+            padding: 20px;
+            color: #ffffff;
+            font-size: 0.9rem;
+            min-width: 250px;
+            z-index: 1000;
+            box-shadow: 0 10px 30px rgba(0, 255, 238, 0.3);
+            backdrop-filter: blur(15px);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+        
+        .tooltip.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .tooltip-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .tooltip-icon {
+            font-size: 1.5rem;
+            margin-right: 10px;
+        }
+        
+        .tooltip-city {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #00ffee;
+        }
+        
+        .tooltip-country {
+            font-size: 0.9rem;
+            color: #00ddcc;
+            margin-bottom: 10px;
+        }
+        
+        .tooltip-attack-type {
+            background: rgba(0, 255, 238, 0.2);
+            border: 1px solid #00ffee;
+            border-radius: 20px;
+            padding: 5px 15px;
+            display: inline-block;
+            margin-bottom: 10px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .tooltip-description {
+            line-height: 1.4;
+            margin-bottom: 10px;
+        }
+        
+        .tooltip-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            font-size: 0.8rem;
+        }
+        
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .detail-label {
+            color: #00ddcc;
+        }
+        
+        .detail-value {
+            color: #ffffff;
+            font-weight: 600;
+        }
+        
+        .legend {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            background: rgba(13, 13, 13, 0.95);
+            border: 2px solid #00ffee;
+            border-radius: 20px;
+            padding: 25px;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 10px 30px rgba(0, 255, 238, 0.3);
+        }
+        
+        .legend-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.2rem;
+            color: #00ffee;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .legend-items {
+            display: grid;
+            gap: 10px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .legend-color {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        
+        .legend-label {
+            font-size: 0.9rem;
+            color: #ffffff;
+        }
+        
+        .stats-panel {
+            position: absolute;
+            top: 200px;
+            left: 30px;
+            background: rgba(13, 13, 13, 0.95);
+            border: 2px solid #00ffee;
+            border-radius: 20px;
+            padding: 25px;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 10px 30px rgba(0, 255, 238, 0.3);
+            min-width: 200px;
+        }
+        
+        .stats-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.2rem;
+            color: #00ffee;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding: 5px 0;
+            border-bottom: 1px solid rgba(0, 255, 238, 0.2);
+        }
+        
+        .stat-label {
+            color: #00ddcc;
+            font-size: 0.9rem;
+        }
+        
+        .stat-value {
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .map-title {
+                font-size: 2rem;
+            }
+            
+            .language-selector {
+                top: 15px;
+                right: 15px;
+            }
+            
+            .lang-btn {
+                padding: 6px 12px;
+                font-size: 0.7rem;
+            }
+            
+            .legend {
+                bottom: 20px;
+                right: 20px;
+                padding: 15px;
+            }
+            
+            .stats-panel {
+                top: 150px;
+                left: 20px;
+                padding: 15px;
+            }
+            
+            .tooltip {
+                min-width: 200px;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
 </head>
 <body>
-  <a href="index.html" class="back-button">← Back to Portfolio</a>
-  
-  <div class="threat-header">
-    <h1 class="threat-title">🌍 Interactive Threat Map</h1>
-    <div class="status-indicator">🔴 LIVE MONITORING ACTIVE</div>
+    <!-- Унифициран анимиран фон -->
+    <div class="animated-grid" id="animatedGrid"></div>
     
-    <div class="stats-bar">
-      <div class="stat-item">
-        <div class="stat-number" id="attack-count">8,359,364</div>
-        <div class="stat-label">Attacks Today</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number" id="malware-count">1,247</div>
-        <div class="stat-label">Malware Detected</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number" id="phishing-count">3,891</div>
-        <div class="stat-label">Phishing Attempts</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number" id="ddos-count">156</div>
-        <div class="stat-label">DDoS Attacks</div>
-      </div>
+    <!-- Back to Portfolio Button -->
+    <a href="index.html#projects" class="back-to-portfolio">
+        <i class="fas fa-arrow-left"></i>
+        <span data-translate="back-to-portfolio">Back to Portfolio</span>
+    </a>
+
+    <!-- Language Selector -->
+    <div class="language-selector">
+        <button class="lang-btn active" id="lang-en" onclick="changeLanguage('en')">EN</button>
+        <button class="lang-btn" id="lang-fr" onclick="changeLanguage('fr')">FR</button>
+        <button class="lang-btn" id="lang-bg" onclick="changeLanguage('bg')">BG</button>
     </div>
-  </div>
 
-  <div id="map"></div>
-
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script>
-    // Инициализация на картата
-    var map = L.map('map', {
-      center: [20, 0],
-      zoom: 2,
-      zoomControl: false,
-      attributionControl: false
-    });
-
-    // Тъмна тема за картата
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-      attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
-      subdomains: 'abcd',
-      maxZoom: 19
-    }).addTo(map);
-
-    // Данни за заплахи
-    const threatData = [
-      { coords: [40.7128, -74.0060], type: "DDoS", severity: "high", country: "USA" },
-      { coords: [48.8566, 2.3522], type: "Malware", severity: "medium", country: "France" },
-      { coords: [35.6762, 139.6503], type: "Phishing", severity: "low", country: "Japan" },
-      { coords: [55.7558, 37.6176], type: "Ransomware", severity: "high", country: "Russia" },
-      { coords: [39.9042, 116.4074], type: "APT", severity: "high", country: "China" },
-      { coords: [51.5074, -0.1278], type: "Botnet", severity: "medium", country: "UK" },
-      { coords: [52.5200, 13.4050], type: "Malware", severity: "low", country: "Germany" },
-      { coords: [-33.8688, 151.2093], type: "Phishing", severity: "medium", country: "Australia" },
-      { coords: [19.4326, -99.1332], type: "DDoS", severity: "high", country: "Mexico" },
-      { coords: [28.6139, 77.2090], type: "Malware", severity: "medium", country: "India" }
-    ];
-
-    // Функция за получаване на цвят според severity
-    function getThreatColor(severity) {
-      switch(severity) {
-        case 'high': return '#ff4444';
-        case 'medium': return '#ffaa00';
-        case 'low': return '#44ff44';
-        default: return '#00ffee';
-      }
-    }
-
-    // Функция за получаване на размер според severity
-    function getThreatSize(severity) {
-      switch(severity) {
-        case 'high': return 15;
-        case 'medium': return 10;
-        case 'low': return 7;
-        default: return 8;
-      }
-    }
-
-    // Добавяне на маркери за заплахи
-    threatData.forEach(threat => {
-      const marker = L.circleMarker([threat.coords[0], threat.coords[1]], {
-        radius: getThreatSize(threat.severity),
-        fillColor: getThreatColor(threat.severity),
-        color: getThreatColor(threat.severity),
-        weight: 2,
-        opacity: 0.8,
-        fillOpacity: 0.6,
-        className: 'blinking threat-marker'
-      }).addTo(map);
-
-      // Popup с информация
-      marker.bindPopup(`
-        <div style="background: #000; color: #00ffee; padding: 10px; border-radius: 5px;">
-          <h3 style="margin: 0; color: ${getThreatColor(threat.severity)};">${threat.type}</h3>
-          <p><strong>Country:</strong> ${threat.country}</p>
-          <p><strong>Severity:</strong> ${threat.severity.toUpperCase()}</p>
-          <p><strong>Status:</strong> Active</p>
+    <!-- Main Container -->
+    <div class="threat-map-container">
+        <!-- Header -->
+        <div class="map-header">
+            <h1 class="map-title" data-translate="map-title">Global Cyber Threat Map</h1>
+            <p class="map-subtitle" data-translate="map-subtitle">Real-time threat intelligence visualization</p>
         </div>
-      `);
-    });
 
-    // Симулация на real-time данни
-    setInterval(() => {
-      document.getElementById('attack-count').textContent = 
-        (8359364 + Math.floor(Math.random() * 1000)).toLocaleString();
-      document.getElementById('malware-count').textContent = 
-        (1247 + Math.floor(Math.random() * 50)).toLocaleString();
-      document.getElementById('phishing-count').textContent = 
-        (3891 + Math.floor(Math.random() * 100)).toLocaleString();
-      document.getElementById('ddos-count').textContent = 
-        (156 + Math.floor(Math.random() * 10)).toLocaleString();
-    }, 3000);
+        <!-- World Map -->
+        <div class="world-map" id="worldMap">
+            <!-- Attack Points will be dynamically added here -->
+        </div>
 
-    // Добавяне на нови заплахи на случаен принцип
-    setInterval(() => {
-      const randomLat = (Math.random() - 0.5) * 180;
-      const randomLng = (Math.random() - 0.5) * 360;
-      const threats = ['DDoS', 'Malware', 'Phishing', 'Ransomware'];
-      const severities = ['high', 'medium', 'low'];
-      
-      const newThreat = {
-        type: threats[Math.floor(Math.random() * threats.length)],
-        severity: severities[Math.floor(Math.random() * severities.length)]
-      };
+        <!-- Tooltip -->
+        <div id="tooltip" class="tooltip">
+            <div class="tooltip-header">
+                <i class="tooltip-icon"></i>
+                <div>
+                    <div class="tooltip-city"></div>
+                    <div class="tooltip-country"></div>
+                </div>
+            </div>
+            <div class="tooltip-attack-type"></div>
+            <div class="tooltip-description"></div>
+            <div class="tooltip-details">
+                <div class="detail-item">
+                    <span class="detail-label" data-translate="severity">Severity:</span>
+                    <span class="detail-value severity"></span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label" data-translate="targets">Targets:</span>
+                    <span class="detail-value targets"></span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label" data-translate="status">Status:</span>
+                    <span class="detail-value status"></span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label" data-translate="time">Time:</span>
+                    <span class="detail-value time"></span>
+                </div>
+            </div>
+        </div>
 
-      const newMarker = L.circleMarker([randomLat, randomLng], {
-        radius: getThreatSize(newThreat.severity),
-        fillColor: getThreatColor(newThreat.severity),
-        color: getThreatColor(newThreat.severity),
-        weight: 2,
-        opacity: 0.8,
-        fillOpacity: 0.6,
-        className: 'blinking threat-marker'
-      }).addTo(map);
+        <!-- Stats Panel -->
+        <div class="stats-panel">
+            <div class="stats-title" data-translate="live-stats">Live Statistics</div>
+            <div class="stat-item">
+                <span class="stat-label" data-translate="active-threats">Active Threats:</span>
+                <span class="stat-value" id="activeThreatCount">0</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label" data-translate="countries-affected">Countries Affected:</span>
+                <span class="stat-value" id="countriesCount">0</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label" data-translate="high-severity">High Severity:</span>
+                <span class="stat-value" id="highSeverityCount">0</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label" data-translate="last-update">Last Update:</span>
+                <span class="stat-value" id="lastUpdate">--:--</span>
+            </div>
+        </div>
 
-      // Премахване на маркера след 10 секунди
-      setTimeout(() => {
-        map.removeLayer(newMarker);
-      }, 10000);
-    }, 5000);
-  </script>
+        <!-- Legend -->
+        <div class="legend">
+            <div class="legend-title" data-translate="attack-types">Attack Types</div>
+            <div class="legend-items">
+                <div class="legend-item">
+                    <div class="legend-color malware"></div>
+                    <span class="legend-label" data-translate="malware">Malware</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color phishing"></div>
+                    <span class="legend-label" data-translate="phishing">Phishing</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color ddos"></div>
+                    <span class="legend-label" data-translate="ddos">DDoS</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color ransomware"></div>
+                    <span class="legend-label" data-translate="ransomware">Ransomware</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color botnet"></div>
+                    <span class="legend-label" data-translate="botnet">Botnet</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color data-breach"></div>
+                    <span class="legend-label" data-translate="data-breach">Data Breach</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Преводи за трите езика
+        let currentLanguage = 'en';
+        
+        const translations = {
+            en: {
+                'back-to-portfolio': 'Back to Portfolio',
+                'map-title': 'Global Cyber Threat Map',
+                'map-subtitle': 'Real-time threat intelligence visualization',
+                'severity': 'Severity:',
+                'targets': 'Targets:',
+                'status': 'Status:',
+                'time': 'Time:',
+                'live-stats': 'Live Statistics',
+                'active-threats': 'Active Threats:',
+                'countries-affected': 'Countries Affected:',
+                'high-severity': 'High Severity:',
+                'last-update': 'Last Update:',
+                'attack-types': 'Attack Types',
+                'malware': 'Malware',
+                'phishing': 'Phishing',
+                'ddos': 'DDoS',
+                'ransomware': 'Ransomware',
+                'botnet': 'Botnet',
+                'data-breach': 'Data Breach',
+                'active': 'Active'
+            },
+            fr: {
+                'back-to-portfolio': 'Retour au Portfolio',
+                'map-title': 'Carte Mondiale des Cybermenaces',
+                'map-subtitle': 'Visualisation en temps réel de renseignements sur les menaces',
+                'severity': 'Gravité:',
+                'targets': 'Cibles:',
+                'status': 'Statut:',
+                'time': 'Heure:',
+                'live-stats': 'Statistiques en Direct',
+                'active-threats': 'Menaces Actives:',
+                'countries-affected': 'Pays Affectés:',
+                'high-severity': 'Gravité Élevée:',
+                'last-update': 'Dernière Mise à Jour:',
+                'attack-types': 'Types d\'Attaques',
+                'malware': 'Logiciel Malveillant',
+                'phishing': 'Hameçonnage',
+                'ddos': 'DDoS',
+                'ransomware': 'Rançongiciel',
+                'botnet': 'Botnet',
+                'data-breach': 'Violation de Données',
+                'active': 'Actif'
+            },
+            bg: {
+                'back-to-portfolio': 'Назад към Портфолио',
+                'map-title': 'Глобална Карта на Киберзаплахите',
+                'map-subtitle': 'Визуализация на заплахи в реално време',
+                'severity': 'Сериозност:',
+                'targets': 'Цели:',
+                'status': 'Статус:',
+                'time': 'Време:',
+                'live-stats': 'Статистики на Живо',
+                'active-threats': 'Активни Заплахи:',
+                'countries-affected': 'Засегнати Страни:',
+                'high-severity': 'Висока Сериозност:',
+                'last-update': 'Последна Актуализация:',
+                'attack-types': 'Типове Атаки',
+                'malware': 'Зловреден Софтуер',
+                'phishing': 'Фишинг',
+                'ddos': 'DDoS',
+                'ransomware': 'Рансъмуер',
+                'botnet': 'Ботнет',
+                'data-breach': 'Нарушение на Данни',
+                'active': 'Активен'
+            }
+        };
+
+        function changeLanguage(lang) {
+            currentLanguage = lang;
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`lang-${lang}`).classList.add('active');
+            
+            document.querySelectorAll('[data-translate]').forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (translations[lang] && translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+        }
+
+        // Симулирани данни за кибер атаки
+        const threatData = [
+            // Европа
+            { city: "London", country: "United Kingdom", lat: 51.5074, lng: -0.1278, type: "malware", severity: "High", targets: "Financial", icon: "fas fa-virus", description: "Advanced persistent threat targeting banking infrastructure" },
+            { city: "Paris", country: "France", lat: 48.8566, lng: 2.3522, type: "phishing", severity: "Medium", targets: "Government", icon: "fas fa-fish", description: "Sophisticated phishing campaign against government officials" },
+            { city: "Berlin", country: "Germany", lat: 52.5200, lng: 13.4050, type: "ransomware", severity: "Critical", targets: "Healthcare", icon: "fas fa-lock", description: "Ransomware attack on hospital systems" },
+            { city: "Rome", country: "Italy", lat: 41.9028, lng: 12.4964, type: "ddos", severity: "Medium", targets: "Infrastructure", icon: "fas fa-broadcast-tower", description: "DDoS attacks on critical infrastructure" },
+            { city: "Madrid", country: "Spain", lat: 40.4168, lng: -3.7038, type: "data-breach", severity: "High", targets: "Retail", icon: "fas fa-database", description: "Customer data breach at major retailer" },
+            
+            // Северна Америка
+            { city: "New York", country: "United States", lat: 40.7128, lng: -74.0060, type: "botnet", severity: "Critical", targets: "Enterprise", icon: "fas fa-network-wired", description: "Large-scale botnet operation detected" },
+            { city: "Washington DC", country: "United States", lat: 38.9072, lng: -77.0369, type: "malware", severity: "Critical", targets: "Government", icon: "fas fa-virus", description: "State-sponsored malware targeting government agencies" },
+            { city: "Toronto", country: "Canada", lat: 43.6532, lng: -79.3832, type: "phishing", severity: "Medium", targets: "Banking", icon: "fas fa-fish", description: "Phishing attacks on online banking platforms" },
+            { city: "Mexico City", country: "Mexico", lat: 19.4326, lng: -99.1332, type: "ransomware", severity: "High", targets: "Education", icon: "fas fa-lock", description: "Ransomware targeting educational institutions" },
+            
+            // Азия
+            { city: "Tokyo", country: "Japan", lat: 35.6762, lng: 139.6503, type: "ddos", severity: "Medium", targets: "Gaming", icon: "fas fa-broadcast-tower", description: "DDoS attacks on gaming platforms" },
+            { city: "Beijing", country: "China", lat: 39.9042, lng: 116.4074, type: "malware", severity: "High", targets: "Technology", icon: "fas fa-virus", description: "Supply chain malware in tech products" },
+            { city: "Seoul", country: "South Korea", lat: 37.5665, lng: 126.9780, type: "data-breach", severity: "Critical", targets: "Telecom", icon: "fas fa-database", description: "Massive telecom data breach affecting millions" },
+            { city: "Mumbai", country: "India", lat: 19.0760, lng: 72.8777, type: "phishing", severity: "Medium", targets: "Finance", icon: "fas fa-fish", description: "Mobile banking phishing campaign" },
+            { city: "Singapore", country: "Singapore", lat: 1.3521, lng: 103.8198, type: "botnet", severity: "High", targets: "Maritime", icon: "fas fa-network-wired", description: "IoT botnet targeting port systems" },
+            
+            // Африка
+            { city: "Cairo", country: "Egypt", lat: 30.0444, lng: 31.2357, type: "ransomware", severity: "Medium", targets: "Energy", icon: "fas fa-lock", description: "Ransomware targeting energy sector" },
+            { city: "Lagos", country: "Nigeria", lat: 6.5244, lng: 3.3792, type: "phishing", severity: "High", targets: "Banking", icon: "fas fa-fish", description: "Business email compromise attacks" },
+            { city: "Johannesburg", country: "South Africa", lat: -26.2041, lng: 28.0473, type: "malware", severity: "Medium", targets: "Mining", icon: "fas fa-virus", description: "Industrial malware targeting mining operations" },
+            
+            // Австралия и Океания
+            { city: "Sydney", country: "Australia", lat: -33.8688, lng: 151.2093, type: "data-breach", severity: "High", targets: "Government", icon: "fas fa-database", description: "Government database breach" },
+            
+            // Южна Америка
+            { city: "São Paulo", country: "Brazil", lat: -23.5505, lng: -46.6333, type: "botnet", severity: "Medium", targets: "Banking", icon: "fas fa-network-wired", description: "Banking trojan botnet activity" },
+            { city: "Buenos Aires", country: "Argentina", lat: -34.6118, lng: -58.3960, type: "ransomware", severity: "High", targets: "Healthcare", icon: "fas fa-lock", description: "Healthcare ransomware attack" }
+        ];
+
+        // Конвертиране на координати в процентни стойности за картата
+        function latLngToPercent(lat, lng) {
+            // Подобрена проекция за по-точно позициониране
+            const x = ((lng + 180) / 360) * 100;
+            const y = ((90 - lat) / 180) * 100;
+            return { x: Math.max(5, Math.min(95, x)), y: Math.max(10, Math.min(90, y)) };
+        }
+
+        // Показване на tooltip
+        function showTooltip(event, threat) {
+            const tooltip = document.getElementById('tooltip');
+            const iconClass = threat.icon;
+            
+            tooltip.querySelector('.tooltip-icon').className = `tooltip-icon ${iconClass}`;
+            tooltip.querySelector('.tooltip-city').textContent = threat.city;
+            tooltip.querySelector('.tooltip-country').textContent = threat.country;
+            tooltip.querySelector('.tooltip-attack-type').textContent = threat.type.toUpperCase();
+            tooltip.querySelector('.tooltip-description').textContent = threat.description;
+            tooltip.querySelector('.severity').textContent = threat.severity;
+            tooltip.querySelector('.targets').textContent = threat.targets;
+            tooltip.querySelector('.status').textContent = translations[currentLanguage]['active'];
+            tooltip.querySelector('.time').textContent = new Date().toLocaleTimeString();
+            
+            // Позициониране на tooltip
+            const rect = event.target.getBoundingClientRect();
+            tooltip.style.left = Math.min(rect.left + 25, window.innerWidth - 280) + 'px';
+            tooltip.style.top = Math.max(rect.top - 150, 10) + 'px';
+            
+            tooltip.classList.add('show');
+        }
+
+        // Скриване на tooltip
+        function hideTooltip() {
+            document.getElementById('tooltip').classList.remove('show');
+        }
+
+        // Създаване на точки за атаки
+        function createAttackPoints() {
+            const worldMap = document.getElementById('worldMap');
+            
+            threatData.forEach((threat, index) => {
+                const coords = latLngToPercent(threat.lat, threat.lng);
+                
+                const attackPoint = document.createElement('div');
+                attackPoint.className = 'attack-point';
+                attackPoint.style.left = coords.x + '%';
+                attackPoint.style.top = coords.y + '%';
+                
+                const pulse = document.createElement('div');
+                pulse.className = `attack-pulse ${threat.type}`;
+                
+                attackPoint.appendChild(pulse);
+                
+                // Event listeners
+                attackPoint.addEventListener('mouseenter', (e) => showTooltip(e, threat));
+                attackPoint.addEventListener('mouseleave', hideTooltip);
+                
+                // Различни забавяния за анимациите
+                pulse.style.animationDelay = (index * 0.3) + 's';
+                
+                worldMap.appendChild(attackPoint);
+            });
+        }
+
+        // Актуализиране на статистиките
+        function updateStats() {
+            const activeThreatCount = threatData.length;
+            const countriesCount = new Set(threatData.map(t => t.country)).size;
+            const highSeverityCount = threatData.filter(t => t.severity === 'Critical' || t.severity === 'High').length;
+            
+            document.getElementById('activeThreatCount').textContent = activeThreatCount;
+            document.getElementById('countriesCount').textContent = countriesCount;
+            document.getElementById('highSeverityCount').textContent = highSeverityCount;
+            document.getElementById('lastUpdate').textContent = new Date().toLocaleTimeString();
+        }
+
+        // Инициализация
+        document.addEventListener('DOMContentLoaded', () => {
+            createAttackPoints();
+            updateStats();
+            changeLanguage('en'); // Задай английски по подразбиране
+            
+            // Актуализиране на времето всяка минута
+            setInterval(() => {
+                document.getElementById('lastUpdate').textContent = new Date().toLocaleTimeString();
+            }, 60000);
+        });
+
+        // Затваряне на tooltip при клик извън него
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.attack-point') && !e.target.closest('.tooltip')) {
+                hideTooltip();
+            }
+        });
+    </script>
+
+    <!-- Унифициран JS скрипт -->
+    <script src="animated-background.js"></script>
 </body>
 </html>
