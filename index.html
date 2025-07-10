@@ -521,6 +521,7 @@
             }
         }
     </style>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 </head>
 <body>
     <div id="loading-screen" class="loading-screen">
@@ -684,38 +685,48 @@
                 <div class="contact-item">
                     <i class="contact-icon fas fa-envelope"></i>
                     <div class="contact-text">
-                        <a href="mailto:stella@cybersec.com" class="contact-link">stella@cybersec.com</a>
+                        <a href="mailto:stiliana.stoyanova@orange.fr" class="contact-link">stiliana.stoyanova@orange.fr</a>
                     </div>
                 </div>
                 <div class="contact-item">
                     <i class="contact-icon fab fa-linkedin"></i>
                     <div class="contact-text">
-                        <a href="#" class="contact-link">LinkedIn Profile</a>
+                        <a href="https://www.linkedin.com/in/stella-s-95ba5683/" target="_blank" class="contact-link">LinkedIn Profile</a>
                     </div>
                 </div>
                 <div class="contact-item">
                     <i class="contact-icon fab fa-github"></i>
                     <div class="contact-text">
-                        <a href="#" class="contact-link">GitHub Portfolio</a>
+                        <a href="https://github.com/stellababy2004" target="_blank" class="contact-link">GitHub Portfolio</a>
                     </div>
                 </div>
             </div>
+            <!-- Заменете съществуващата контактна форма с тази -->
             <div class="contact-form">
-                <form>
+                <form action="https://formspree.io/f/mqazgbla" method="POST" id="contact-form">
                     <div class="form-group">
                         <label data-translate="form-name">Name</label>
-                        <input type="text" required>
+                        <input type="text" name="name" required>
                     </div>
                     <div class="form-group">
                         <label data-translate="form-email">Email</label>
-                        <input type="email" required>
+                        <input type="email" name="_replyto" required>
                     </div>
                     <div class="form-group">
                         <label data-translate="form-message">Message</label>
-                        <textarea rows="5" required></textarea>
+                        <textarea rows="5" name="message" required></textarea>
                     </div>
+                    
+                    <!-- Скрити полета за спам защита -->
+                    <input type="hidden" name="_subject" value="New contact form submission">
+                    <input type="hidden" name="_next" value="thank-you.html">
+                    <input type="text" name="_gotcha" style="display:none">
+                    
                     <button type="submit" class="submit-btn" data-translate="form-submit">Send Message</button>
                 </form>
+                
+                <!-- Съобщение за статус -->
+                <div id="form-status" style="display: none; margin-top: 20px; padding: 15px; border-radius: 10px; text-align: center;"></div>
             </div>
         </div>
     </section>
@@ -805,7 +816,7 @@
                 'skill3-title': 'Analyse SIEM',
                 'skill3-desc': 'Analyse et corrélation avancées de logs utilisant Splunk',
                 'skill4-title': 'Analyse de Malware',
-                'skill4-desc': 'Analyse statique et dynamique de logiciels malveillants',
+                'skill4-desc': 'Статичен и динамичен анализ на злонамерен софтуер',
                 'contact-title': 'Contactez-moi',
                 'form-name': 'Nom',
                 'form-email': 'Email',
@@ -887,6 +898,19 @@
                     behavior: 'smooth'
                 });
             });
+        });
+
+        // Обработка на формата
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            const submitBtn = this.querySelector('.submit-btn');
+            const formStatus = document.getElementById('form-status');
+            
+            // Покажи loading състояние
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
+            
+            // Formspree ще обработи формата автоматично
+            // Няма нужда от допълнителен JavaScript код
         });
     </script>
     
